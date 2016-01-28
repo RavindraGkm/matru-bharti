@@ -1,145 +1,342 @@
-
 <!DOCTYPE html>
-<!--[if IE 9 ]><html class="ie9"><![endif]-->
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Matru Bharti</title>
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
+
+    <title>Spotlight - App Landing Template</title>
+
+    <!-- CSS Plugins -->
     <?php
-        echo link_tag('assets/css/animate.css');
-        echo link_tag('assets/css/material-design-iconic-font.min.css');
-        echo link_tag('assets/css/app.min.1.css');
-        echo link_tag('assets/css/app.min.2.css');
-        echo link_tag('assets/css/login_custom.css');
+    echo link_tag('assets/css/jquery.fullpage.min.css');
+    echo link_tag('assets/css/animate.min.css');
+    echo link_tag('assets/css/font-awesome.min.css');
+    echo link_tag('assets/css/styles.css');
+    echo link_tag('assets/css/setup.css');
     ?>
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800,400italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
 
 </head>
 
-<body class="login-content">
-<div class="container">
-    <div class="row" id="text"><!-- start of row text -->
-        <div class="col-md-12">
-            <h1 class="login-h2">Matru Bharti</h1>
-            <p>This website is just a plateform where two families can meet each other and know each other. So lets register and login to view all profiles.</p>
+<body>
+
+<!-- MAIN CONTENT
+================================================== -->
+
+<!-- Background Image -->
+<div class="bg-image"></div>
+
+
+<!-- Background Colors -->
+<div class="bg-colors hidden" data-colors="#568CD3,#D3744C,#389E86,#9356D3,#D35D56,#587EA0,#518E7E"></div>
+
+
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#section_welcome">Manthan</a>
         </div>
-    </div><!-- end of row text -->
 
-    <div class="row countdown">
-        <div class="col-md-12">
-            <!--Login -->
-            <div class="lc-block toggled" id="l-login">
-                <h4 class="login-title">Login into your account</h4>
-                <div class="input-group m-b-20">
-                    <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
-                    <div class="fg-line">
-                        <input type="text" class="form-control" name="txt_email" id="txt_email" placeholder="Email">
-                    </div>
-                </div>
+        <div id="navbar" class="collapse navbar-collapse">
 
-                <div class="input-group m-b-20">
-                    <span class="input-group-addon"><i class="zmdi zmdi-key"></i></span>
-                    <div class="fg-line">
-                        <input type="password" class="form-control" name="txt_password" id="txt_password" placeholder="Password">
-                    </div>
-                </div>
-                <a id="btn-login" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></a>
-                <ul class="login-navigation">
-                    <li data-block="#l-register" class="bgm-red">Register</li>
-                    <li data-block="#l-forget-password" class="bgm-orange">Forgot Password?</li>
-                </ul>
-            </div>
-            <!--Register-->
-            <div class="lc-block" id="l-register">
-                <h4 class="register-title">Register new user</h4>
-                <div class="input-group m-b-20">
-                    <span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
-                    <div class="fg-line">
-                        <input type="text" id="txt_reg_email" name="txt_reg_email" class="form-control" placeholder="Email Address">
-                    </div>
-                </div>
-                <div class="input-group m-b-20">
-                    <span class="input-group-addon"><i class="zmdi zmdi-key"></i></span>
-                    <div class="fg-line">
-                        <input type="password" id="txt_reg_pass" name="txt_reg_pass" class="form-control" placeholder="Password">
-                    </div>
-                </div>
-                <div class="input-group m-b-20">
-                    <span class="input-group-addon"><i class="zmdi zmdi-phone"></i></span>
-                    <div class="fg-line">
-                        <input type="text" id="txt_mobile" name="txt_mobile" class="form-control" placeholder="Mobile Number">
-                    </div>
-                </div>
-                <div class="clearfix"></div>
+            <a href="#section_download" class="btn btn-lg navbar-right navbar-btn">
+                <i class="fa fa-cloud-download"></i> Download
+            </a>
+            <ul class="nav navbar-nav navbar-right menu">
+                <li data-menuanchor="section_welcome">
+                    <a href="#section_welcome">Home</a>
+                </li>
+                <li data-menuanchor="section_features">
+                    <a href="#section_features">Login</a>
+                </li>
+                <li data-menuanchor="section_text-block">
+                    <a href="#section_text-block">Register</a>
+                </li>
+                <li data-menuanchor="section_contact-us">
+                    <a href="#section_contact-us">Contact Us</a>
+                </li>
+            </ul>
 
-                <a id="btn-register" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></a>
+        </div><!-- /.navbar-collapse -->
 
-                <ul class="login-navigation">
-                    <li data-block="#l-login" class="bgm-green">Login</li>
-                    <li data-block="#l-forget-password" class="bgm-orange">Forgot Password?</li>
-                </ul>
-            </div>
-            <!-- Forgot Password -->
-            <div class="lc-block" id="l-forget-password">
-                <p class="text-left forgot-password-text">If you forgot your password don't panic. Its very easy to get you password back. Just type your mail id and we will send your password on your mail id. If you forgot your mail id then plz contact on 8739870004.</p>
+    </div><!-- /.container -->
+</nav>
 
-                <div class="input-group m-b-20">
-                    <span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
-                    <div class="fg-line">
-                        <input type="text" class="form-control" placeholder="Email Address">
-                    </div>
-                </div>
 
-                <a href="" class="btn btn-forgot-pass btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></a>
-
-                <ul class="login-navigation">
-                    <li data-block="#l-login" class="bgm-green">Login</li>
-                    <li data-block="#l-register" class="bgm-red">Register</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+<!-- Side menu -->
+<div class="side-menu hidden-xs hidden-sm">
+    <ul class="menu">
+        <li data-menuanchor="section_welcome">
+            <a href="#section_welcome"></a>
+        </li>
+        <li data-menuanchor="section_features">
+            <a href="#section_features"></a>
+        </li>
+        <li data-menuanchor="section_text-block">
+            <a href="#section_text-block"></a>
+        </li>
+        <li data-menuanchor="section_contact-us">
+            <a href="#section_contact-us"></a>
+        </li>
+    </ul>
 </div>
 
-<!-- Older IE warning message -->
-<!--[if lt IE 9]>
-<div class="ie-warning">
-    <h1 class="c-white">Warning!!</h1>
-    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
-    <div class="iew-container">
-        <ul class="iew-download">
-            <li>
-                <a href="http://www.google.com/chrome/">
-                    <img src="img/browsers/chrome.png" alt="">
-                    <div>Chrome</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.mozilla.org/en-US/firefox/new/">
-                    <img src="img/browsers/firefox.png" alt="">
-                    <div>Firefox</div>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <p>Sorry for the inconvenience!</p>
+
+<!-- Social links -->
+<div class="social-links hidden-xs hidden-sm">
+    <ul>
+        <li>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+        </li>
+        <li>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+        </li>
+        <li>
+            <a href="#"><i class="fa fa-pinterest-p"></i></a>
+        </li>
+        <li>
+            <a href="#"><i class="fa fa-dribbble"></i></a>
+        </li>
+    </ul>
 </div>
-<![endif]-->
+
+
+<!-- Devices -->
+<div class="device__container hidden-xs">
+
+    <!-- iPhone -->
+    <div class="iphone__container black">
+
+        <!-- Slides -->
+        <div class="iphone__screen">
+            <div class="device__slides">
+
+                <img src="assets/img/app-screenshots/quest_1.png" alt="...">
+                <img src="assets/img/app-screenshots/quest_2.png" alt="...">
+                <img src="assets/img/app-screenshots/quest_3.png" alt="...">
+                <img src="assets/img/app-screenshots/quest_4.png" alt="...">
+                <img src="assets/img/app-screenshots/quest_5.png" alt="...">
+                <img src="assets/img/app-screenshots/quest_2.png" alt="...">
+                <img src="assets/img/app-screenshots/quest_1.png" alt="...">
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Samsung -->
+    <div class="samsung__container black hidden">
+
+        <!-- Slides -->
+        <div class="samsung__screen">
+            <div class="device__slides">
+
+                <img src="assets/img/app-screenshots/quest_1.png" alt="...">
+                <img src="assets/img/app-screenshots/quest_2.png" alt="...">
+                <img src="assets/img/app-screenshots/quest_3.png" alt="...">
+                <img src="assets/img/app-screenshots/quest_4.png" alt="...">
+                <img src="assets/img/app-screenshots/quest_5.png" alt="...">
+                <img src="assets/img/app-screenshots/quest_2.png" alt="...">
+                <img src="assets/img/app-screenshots/quest_1.png" alt="...">
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Macbook -->
+    <div class="macbook__container hidden">
+
+        <!-- Slides -->
+        <div class="macbook__screen">
+            <div class="device__slides">
+
+                <img src="assets/img/site-screenshots/screen_1.jpg" alt="...">
+                <img src="assets/img/site-screenshots/screen_2.jpg" alt="...">
+                <img src="assets/img/site-screenshots/screen_3.jpg" alt="...">
+                <img src="assets/img/site-screenshots/screen_4.jpg" alt="...">
+                <img src="assets/img/site-screenshots/screen_5.jpg" alt="...">
+                <img src="assets/img/site-screenshots/screen_6.jpg" alt="...">
+                <img src="assets/img/site-screenshots/screen_7.jpg" alt="...">
+
+            </div>
+        </div>
+
+    </div>
+
+</div> <!-- / .device__container -->
+
+
+<!-- Sections -->
+<div id="fullpage">
+
+    <!-- Welcome -->
+    <section data-anchor="section_welcome">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-6 col-md-5 col-md-offset-6">
+
+                    <h1 class="heading" data-animate-in="animateUpDown">
+                        Spotlight your app <br />
+                        in a beautiful way
+                    </h1>
+
+                    <p class="delay_1" data-animate-in="animateUpDown">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente doloribus ratione fugiat, itaque fuga minus tenetur, quae officia doloremque a expedita maxime magnam.
+                    </p>
+                    <a href="#" class="btn btn-lg btn-primary delay_2" data-animate-in="animateUpDown">
+                        <i class="fa fa-apple"></i> App Store
+                    </a>
+                    <a href="#" class="btn btn-lg btn-primary delay_2" data-animate-in="animateUpDown">
+                        <i class="fa fa-android"></i> Play Store
+                    </a>
+
+                </div>
+            </div> <!-- / .row -->
+        </div><!-- / .container -->
+    </section>
+
+    <!-- Features -->
+    <section data-anchor="section_features">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-6 col-md-5 col-md-offset-6">
+
+                    <h1 class="heading" data-animate-in="animateUp">
+                        Showcase your <br />
+                        advantages with style
+                    </h1>
+
+                    <p class="delay_1" data-animate-in="animateUp">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente doloribus ratione fugiat, itaque fuga minus tenetur, quae officia doloremque a expedita maxime magnam.
+                    </p>
+
+                    <ul class="list-ticked">
+                        <li class="delay_2" data-animate-in="animateUp">
+                            <i class="fa fa-check"></i> Lorem ipsum dolor sit amet
+                        </li>
+                        <li class="delay_2_1" data-animate-in="animateUp">
+                            <i class="fa fa-check"></i> Consectetur adipisicing elit
+                        </li>
+                        <li class="delay_2_2" data-animate-in="animateUp">
+                            <i class="fa fa-check"></i> Mollitia magnam aliquam eveniet
+                        </li>
+                    </ul>
+
+                </div>
+            </div> <!-- / .row -->
+        </div><!-- / .container -->
+    </section>
+
+    <!-- Text block -->
+    <section data-anchor="section_text-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-6 col-md-5 col-md-offset-6">
+
+                    <h2 class="heading" data-animate-in="animateUp">
+                        Great way to<br />
+                        present your product
+                    </h2>
+
+                    <p class="delay_1" data-animate-in="animateUp">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo vero culpa, nisi veniam modi quam voluptatum. Ipsa voluptatum quasi nulla, asperiores autem!
+                    </p>
+                    <p class="delay_2" data-animate-in="animateUp">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente doloribus ratione fugiat, itaque fuga.
+                    </p>
+
+
+                </div>
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </section>
+
+    <!-- Contact -->
+    <section data-anchor="section_contact-us">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-6 col-md-5 col-md-offset-6">
+
+                    <h2 class="heading" data-animate-in="animateUp">
+                        Contact us <br />
+                        for more information
+                    </h2>
+
+                    <!-- Alert message -->
+                    <div class="alert" id="form_message" role="alert"></div>
+
+                    <!-- Please carefully read the README.txt file in order to setup the PHP contact form properly -->
+
+                    <form id="form_sendemail" class="delay_1" data-animate-in="animateUp">
+
+                        <div class="form-group">
+                            <label class="sr-only" for="email">Email address</label>
+                            <input type="email" name="email" class="form-control" id="email" placeholder="E-mail" data-original-title="" title="">
+
+                            <span class="help-block"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="sr-only" for="name">Name</label>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Full Name" data-original-title="" title="">
+
+                            <span class="help-block"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="sr-only" for="message">Message</label>
+                            <textarea name="message" class="form-control" rows="3" id="message" placeholder="Message"></textarea>
+
+                            <span class="help-block"></span>
+                        </div>
+
+                        <!-- reCAPTCHA -->
+                        <div class="form-group" id="form-captcha">
+
+                            <div class="g-recaptcha" data-sitekey="6LcU9QETAAAAABOKm4BoKrhzTvdIsrzXTsl4sgpY"></div>
+
+                            <span class="help-block"></span>
+                        </div>
+                        <!-- /reCAPTCHA -->
+
+                        <button type="submit" class="btn btn-primary">
+                            Send Message
+                        </button>
+
+                    </form>
+
+                </div>
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </section>
+
+</div> <!-- / #fullpage -->
+
+
+<!-- RESOURCES
+================================================== -->
+
+<!-- JS Global -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <?php
-    echo script_tag('assets/js/jquery.min.js');
-    echo script_tag('assets/js/bootstrap.min.js');
-    echo script_tag('assets/js/waves.min.js');
-    echo script_tag('assets/js/jquery.placeholder.min.js');
-    echo script_tag('assets/js/register/registration.js');
-    echo script_tag('assets/js/login/login.js');
+echo script_tag('assets/js/jquery.fullpage.min.js');
+echo script_tag('assets/js/bootstrap.min.js');
+echo script_tag('https://www.google.com/recaptcha/api.js');
+echo script_tag('assets/js/contact.js');
+echo script_tag('assets/js/custom.js');
+//echo script_tag('assets/js/setup.js');
 ?>
-
-
 </body>
-<script type="text/javascript">
-    $(document).ready(function(){
-        new MBJS.Login("<?php echo base_url(); ?>");
-    });
-</script>
 </html>

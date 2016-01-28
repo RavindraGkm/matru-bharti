@@ -1,95 +1,195 @@
-/*------------------------------
- * Copyright 2014 Pixelized
- * http://www.pixelized.cz
- *
- * Sitename theme v1.0
-------------------------------*/
+/*------------------------------------------------------------------
+Project:        Spotlight
+Author:         Simpleqode.com
+URL:            http://simpleqode.com/
+                https://twitter.com/YevSim
+                https://www.facebook.com/simpleqode
+Version:        1.0.1
+Created:        11/12/2015
+Last change:    21/12/2015
+-------------------------------------------------------------------*/
 
 
+/**
+ * Fullpage plugin
+ */
 
-$(document).ready(function() {	
-	
+$(document).ready(function() {
 
+    // Initial background image positon
+    var bgTranslateY = 0;
 
-<!--Vegas background start -->
-	$.vegas({
-	  src:'http://localhost/dilipshaadi/assets/img/headers/home/background.jpg'
-	});
-	
-	$.vegas('overlay', {
-	  src:'http://localhost/dilipshaadi/assets/img/headers/home/05.png'
-	});	
-<!--Vegas background end -->
+    // Fullpage init
+    $('#fullpage').fullpage({
 
-<!-- Time circle countdown start -->	
-//	$("#DateCountdown").TimeCircles({
-//    "animation": "ticks",
-//    "bg_width": 0.2,
-//    "fg_width": 0.016666666666666666,
-//    "circle_bg_color": "#F5F5F5",
-//    "time": {
-//        "Days": {
-//            "text": "Days",
-//            "color": "#FFF",
-//            "show": true
-//        },
-//        "Hours": {
-//            "text": "Hours",
-//            "color": "#FFF",
-//            "show": true
-//        },
-//        "Minutes": {
-//            "text": "Minutes",
-//            "color": "#FFF",
-//            "show": true
-//        },
-//        "Seconds": {
-//            "text": "Seconds",
-//            "color": "#FFF",
-//            "show": true
-//        }
-//    }
-//});
+      // Navigation
+      menu: ".menu",
 
-<!-- Time circle countdown end -->
+      // Scrolling
+      scrollingSpeed: 700,
+      easingcss3: "cubic-bezier(0.39, 0.575, 0.565, 1)", // easeOutSine
 
+      //Custom selectors
+      sectionSelector: 'section',
+      slideSelector: 'slide_custom',
 
+      // Design
+      paddingTop: "130px",
+      paddingBottom: "50px",
+      responsiveWidth: 768,
 
-<!-- GOOGLE map initialization star-->
-	//var myLatlng = new google.maps.LatLng(43.651071, -79.378764);
-	//var mapOptions = {
-	//  zoom: 17,
-	//  center: myLatlng,
-	//  navigationControl: false,
-	//  mapTypeControl: false,
-	//  scaleControl: false,
-	//  draggable: true,
-	//  scrollwheel: false
-	//}
+      // Events
+      afterLoad: function(anchorLink, index) {
 
-	//var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+        // Background color switcher
+        backgroundColor(index - 1);
 
-	//var marker = new google.maps.Marker({
-	//	position: myLatlng,
-	//	map: map,
-	//	title:"Your Marker!"
-	//});
+        // Animate elements
+        animateElements(index - 1, true);
 
-		
-<!-- GOOGLE map initialization end-->
+        // Enable/disable carousel
+        if (anchorLink == "section_carousel") {
+          $(".carousel").carousel("cycle");
+        } else {
+          $(".carousel").carousel("pause");
+        }
 
-<!-- GOOGLE map modal fix start-->
-	
-	$("#contact").on("shown.bs.modal", function () {
-		google.maps.event.trigger(map, "resize");
-		map.setCenter(myLatlng);
-	});
-<!-- GOOGLE map modal fix end-->
-	
+      },
+      onLeave: function(index, nextIndex, direction) {
+
+        // Background color switcher
+        backgroundColor(nextIndex - 1);
+
+        // Remove animation classes from elements on the current section
+        setTimeout(function() {
+          animateElements(index - 1, false);
+        }, 700);
+
+        // Fade out/in old/new sections
+        $(this).css("opacity", "0");
+        $("section").eq(nextIndex - 1).css("opacity", "1");
+
+        // Translate background image
+        bgTranslateY -= (nextIndex - index) * 30;
+
+        $(".bg-image").css({
+          "-webkit-transform": "translateY(" + bgTranslateY + "px)",
+              "-ms-transform": "translateY(" + bgTranslateY + "px)",
+                  "transform": "translateY(" + bgTranslateY + "px)"
+        });
+
+        // Device slideshow
+        deviceSlideshow(nextIndex - 1);
+
+      }
+
+    });
 });
 
-//$(window).resize(function() {
-//	$("#DateCountdown").TimeCircles().rebuild();
-//});
+
+/**
+ * Animate elements
+ */
+
+function animateElements(section, animate) {
+  $("section").eq(section).find("[data-animate-in]").each(function() {
+    var animateClass = $(this).data("animate-in");
+
+    // Add classes if animate == true, remove if false
+    if (animate) {
+      $(this).addClass("animated " + animateClass);
+    } else {
+      $(this).removeClass("animated " + animateClass);
+    }
+  });
+};
 
 
+/**
+ * Background image size calc
+ */
+
+$(function() {
+
+  var bg = $(".bg-image");
+  var sections = $("section").length;
+  var bottomOffset = 30 * sections;
+
+  bg.css("bottom", -bottomOffset + "px");
+
+});
+
+
+/**
+ * Change navbar background on collapse (mobile)
+ */
+
+$(function() {
+  $(".navbar").on({
+    "show.bs.collapse": function() {
+      $(this).addClass("navbar-mobile");
+    },
+    "hide.bs.collapse": function() {
+      $(this).removeClass("navbar-mobile");
+    }
+  });
+});
+
+
+/**
+ * Collapse navbar on click
+ */
+
+$(function() {
+  $(".navbar-collapse li > a").click(function() {
+    if ($(".navbar-collapse").attr("aria-expanded") && !$(this).hasClass("dropdown-toggle")) {
+      $(".navbar-collapse").collapse("hide");
+    }
+  });
+});
+
+
+/**
+ * Background colors switcher
+ */
+
+function backgroundColor(index) {
+  var colors = $(".bg-colors").data("colors");
+  colors = colors.split(",");
+
+  $(".bg-colors").css("background-color", colors[index]);
+};
+
+
+/**
+ * Initialize popovers & tooltips
+ */
+
+$(function () {
+  $('[data-toggle="popover"]').popover();
+});
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});
+
+
+/**
+ * Device slideshow
+ */
+
+function deviceSlideshow(index) {
+
+  $(".device__slides").each(function() {
+    var fullHeight = $(this).height(),
+        totalSlides = $(this).children("img").length,
+        singleSlideHeight = fullHeight / totalSlides,
+        shiftScreensBy = -(index * singleSlideHeight);
+
+    $(this).css({
+      "-webkit-transform": "translateY(" + shiftScreensBy + "px)",
+          "-ms-transform": "translateY(" + shiftScreensBy + "px)",
+              "transform": "translateY(" + shiftScreensBy + "px)"
+    });  
+  });
+};
