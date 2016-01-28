@@ -59,7 +59,11 @@ MBJS.Index.prototype = {
                     beforeSend: function() {
                         register_button.html('Registering... &nbsp;<i class="zmdi zmdi-arrow-forward"></i>');
                     },
+                    error:function(data){
+                        console.log(data);
+                    },
                     success: function (data, textStatus, jqXHR) {
+                        console.log(data);
                         if(data.status=='ok') {
                             $.growl({ title: "Success", message: "Message has been sent !" });
                         }
@@ -107,7 +111,7 @@ MBJS.Index.prototype = {
                 var login_password = $('#login_password').val();
                 var login_button = $('#login_button');
                 $.ajax({
-                    url: self.base_url+"register",
+                    url: self.base_url+"login",
                     type: "POST",
                     dataType: "JSON",
                     data:{
