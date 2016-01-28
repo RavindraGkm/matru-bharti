@@ -11,7 +11,6 @@ class Authors extends REST_Controller {
 		$mobile=$this->post('mobile');
 		$password=$this->post('password');
 		$data = array();
-
 		if($email===NULL) {
 			$data[] = "Email not provided";
 		}
@@ -21,14 +20,12 @@ class Authors extends REST_Controller {
 		if($password===NULL) {
 			$data[] = "Password not provided";
 		}
-
 		if($email=="") {
 			$data[] = "Email can not be blank";
 		}
 		if($mobile=="") {
 			$data[] = "Password can not be blank";
 		}
-
 		if($password=="") {
 			$data[] = "Password can not be blank";
 		}
@@ -36,13 +33,17 @@ class Authors extends REST_Controller {
 			$error['error'] = $data;
 			$this->response($error,REST_Controller::HTTP_UNPROCESSABLE_ENTITY);
 		}
-		else
-		{
-			$this->response("Hello",REST_Controller::HTTP_OK);
-//			$this->load->database();
-//			$this->load->model('register/Profile_model');
-//			$response = $this->Profile_model->update($name,$email,$mobile,$address,$city,$dob,$about_yourself,$id);
-
+		else {
+			$params = $this->post();
+			$this->load->database();
+			$this->load->model('authors/Authors_model');
+			$response = $this->Authors_model->register_new_author($params);
+			if($response['status']=='success') {
+				$this->response($response,REST_Controller::HTTP_OK);
+			}
+			else {
+				$this->response($response,REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
+			}
 		}
 
 	}
