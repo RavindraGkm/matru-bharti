@@ -562,3 +562,8 @@
 .sweet-alert button::-moz-focus-inner {
   border: 0;
 }
+
+.sweet-alert h2 {
+  font-size: 22px;
+  color:#ff0000;
+}

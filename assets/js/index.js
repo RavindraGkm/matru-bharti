@@ -19,10 +19,10 @@ MBJS.Index.prototype = {
         var self=this;
         $("#form_register").validate({
             rules: {
-                author_email: {
-                    required: true,
-                    email : true
-                },
+                //author_email: {
+                //    required: true,
+                //    email : true
+                //},
                 author_password: {
                     required : true
                 },
@@ -31,10 +31,10 @@ MBJS.Index.prototype = {
                 }
             },
             messages : {
-                author_email: {
-                    required : 'Enter your email',
-                    email : 'Enter valid email'
-                },
+                //author_email: {
+                //    required : 'Enter your email',
+                //    email : 'Enter valid email'
+                //},
                 author_password: {
                     required: 'Enter your password'
                 },
@@ -62,6 +62,16 @@ MBJS.Index.prototype = {
                     },
                     error:function(data){
                         console.log(data);
+                        if(data.status==422)
+                        {
+                            swal({
+                                title: "Error!",
+                                text: "Email can not be blanked.",
+                                timer: 10000000,
+                                showConfirmButton: false,
+                                showCancelButton: false
+                            })
+                        }
                     },
                     success: function (data, textStatus, jqXHR) {
                         console.log(data);

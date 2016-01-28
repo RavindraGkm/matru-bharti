@@ -16,6 +16,7 @@
     echo link_tag('assets/css/waves.min.css');
     echo link_tag('assets/css/material-design-iconic-font.min.css');
     echo link_tag('assets/css/setup.css');
+    echo link_tag('assets/css/sweet-alert.css');
     ?>
     <!-- Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800,400italic' rel='stylesheet' type='text/css'>
@@ -221,19 +222,19 @@
 
                         <div class="form-group">
                             <label class="sr-only" for="author_email">Email address</label>
-                            <input type="email" name="author_email" class="form-control" id="author_email" placeholder="E-mail" data-original-title="" title="">
+                            <input type="email" autocomplete="off" name="author_email" class="form-control" id="author_email" placeholder="E-mail" data-original-title="" title="">
                             <span class="help-block"></span>
                         </div>
 
                         <div class="form-group">
                             <label class="sr-only" for="author_password">Password</label>
-                            <input type="password" name="author_password" class="form-control" id="author_password" placeholder="Password" data-original-title="" title="">
+                            <input type="password" autocomplete="off" name="author_password" class="form-control" id="author_password" placeholder="Password" data-original-title="" title="">
                             <span class="help-block"></span>
                         </div>
 
                         <div class="form-group">
                             <label class="sr-only" for="author_mobile">Mobile</label>
-                            <input type="text" name="author_mobile" class="form-control" id="author_mobile" placeholder="Mobile" data-original-title="" title="">
+                            <input type="text" name="author_mobile" autocomplete="off" class="form-control" id="author_mobile" placeholder="Mobile" data-original-title="" title="">
                             <span class="help-block"></span>
                         </div>
 
@@ -322,6 +323,7 @@ echo script_tag('assets/js/contact.js');
 echo script_tag('assets/js/waves.min.js');
 echo script_tag('assets/js/custom.js');
 echo script_tag('assets/js/jquery.validate.min.js');
+echo script_tag('assets/js/sweet-alert.min.js');
 echo script_tag('assets/js/index.js');
 ?>
 </body>
