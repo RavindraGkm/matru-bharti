@@ -13,16 +13,15 @@ MBJS.Index.prototype = {
     basicSetup: function() {
         Waves.attach('.waves', 'waves-light');
         Waves.init();
-        console.log('hello');
     },
     registerUser:function() {
         var self=this;
         $("#form_register").validate({
             rules: {
-                //author_email: {
-                //    required: true,
-                //    email : true
-                //},
+                author_email: {
+                    required: true,
+                    email : true
+                },
                 author_password: {
                     required : true
                 },
@@ -31,10 +30,10 @@ MBJS.Index.prototype = {
                 }
             },
             messages : {
-                //author_email: {
-                //    required : 'Enter your email',
-                //    email : 'Enter valid email'
-                //},
+                author_email: {
+                    required : 'Enter your email',
+                    email : 'Enter valid email'
+                },
                 author_password: {
                     required: 'Enter your password'
                 },
@@ -60,30 +59,30 @@ MBJS.Index.prototype = {
                     beforeSend: function() {
                         register_button.html('Registering... &nbsp;<i class="zmdi zmdi-arrow-forward"></i>');
                     },
-                    error:function(data){
-                        console.log(data);
-                        if(data.status==422)
-                        {
+                    error:function(data) {
+                        var obj = jQuery.parseJSON(data.responseText);
+                        if(data.status==422) {
                             swal({
                                 title: "Error!",
-                                text: "Email can not be blanked.",
-                                timer: 10000000,
+                                text: obj.error[0],
+                                timer: 2000,
                                 showConfirmButton: false,
                                 showCancelButton: false
-                            })
+                            });
+                        }
+                        else if(data.status==500) {
+                            swal({
+                                title: "Opps!",
+                                text: 'Something went wrong on server !',
+                                timer: 2000,
+                                showConfirmButton: false,
+                                showCancelButton: false
+                            });
+                            register_button.html('Register &nbsp;<i class="zmdi zmdi-arrow-forward"></i>');
                         }
                     },
                     success: function (data, textStatus, jqXHR) {
                         console.log(data);
-                        //if(data.status=='ok') {
-                        //    $.growl({ title: "Success", message: "Message has been sent !" });
-                        //}
-                        //else {
-                        //    $.growl.error({ message: "Some error occured" });
-                        //}
-                    },
-                    complete: function (jqXHR, textStatus) {
-
                     }
                 });
             },
