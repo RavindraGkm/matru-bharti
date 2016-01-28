@@ -13,6 +13,7 @@ MBJS.Index.prototype = {
     basicSetup: function() {
         Waves.attach('.waves', 'waves-light');
         Waves.init();
+        console.log('hello');
     },
     registerUser:function() {
         var self=this;
