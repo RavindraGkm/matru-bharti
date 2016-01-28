@@ -11,6 +11,7 @@ MBJS.RegisterUser.prototype={
     profileUpdate:function(){
         var self=this;
         $('#btn-update-profile').click(function(){
+            alert("hello");
             $.ajax({
                 url: self.base_url+"profile",
                 type: "PUT",
