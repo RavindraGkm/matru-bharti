@@ -48,13 +48,14 @@ MBJS.Index.prototype = {
                 var author_mobile = $('#author_mobile').val();
                 var register_button = $('#register_button');
                 $.ajax({
-                    url: self.base_url+"register",
+                    //url: self.base_url+"register",
+                    url: "http://192.168.1.101/matru-bharti/authors",
                     type: "POST",
                     dataType: "JSON",
                     data:{
-                        author_email: author_email,
-                        author_password: author_password,
-                        author_mobile: author_mobile
+                        email: author_email,
+                        password: author_password,
+                        mobile: author_mobile
                     },
                     beforeSend: function() {
                         register_button.html('Registering... &nbsp;<i class="zmdi zmdi-arrow-forward"></i>');
@@ -64,12 +65,12 @@ MBJS.Index.prototype = {
                     },
                     success: function (data, textStatus, jqXHR) {
                         console.log(data);
-                        if(data.status=='ok') {
-                            $.growl({ title: "Success", message: "Message has been sent !" });
-                        }
-                        else {
-                            $.growl.error({ message: "Some error occured" });
-                        }
+                        //if(data.status=='ok') {
+                        //    $.growl({ title: "Success", message: "Message has been sent !" });
+                        //}
+                        //else {
+                        //    $.growl.error({ message: "Some error occured" });
+                        //}
                     },
                     complete: function (jqXHR, textStatus) {
 
