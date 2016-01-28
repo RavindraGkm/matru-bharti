@@ -45,7 +45,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#section_welcome">Manthan</a>
+            <a class="navbar-brand" href="#section_home">Manthan</a>
         </div>
 
         <div id="navbar" class="collapse navbar-collapse">
@@ -54,17 +54,17 @@
                 <i class="fa fa-cloud-download"></i> Download
             </a>
             <ul class="nav navbar-nav navbar-right menu">
-                <li data-menuanchor="section_welcome">
-                    <a href="#section_welcome">Home</a>
+                <li data-menuanchor="section_home">
+                    <a href="#section_home">Home</a>
                 </li>
-                <li data-menuanchor="section_features">
-                    <a href="#section_features">Login</a>
+                <li data-menuanchor="section_login">
+                    <a href="#section_login">Login</a>
                 </li>
-                <li data-menuanchor="section_text-block">
-                    <a href="#section_text-block">Register</a>
+                <li data-menuanchor="section_register">
+                    <a href="#section_register">Register</a>
                 </li>
-                <li data-menuanchor="section_contact-us">
-                    <a href="#section_contact-us">Contact Us</a>
+                <li data-menuanchor="section_contact_us">
+                    <a href="#section_contact_us">Contact Us</a>
                 </li>
             </ul>
 
@@ -77,17 +77,17 @@
 <!-- Side menu -->
 <div class="side-menu hidden-xs hidden-sm">
     <ul class="menu">
-        <li data-menuanchor="section_welcome">
-            <a href="#section_welcome"></a>
+        <li data-menuanchor="section_home">
+            <a href="#section_home"></a>
         </li>
-        <li data-menuanchor="section_features">
-            <a href="#section_features"></a>
+        <li data-menuanchor="section_login">
+            <a href="#section_login"></a>
         </li>
-        <li data-menuanchor="section_text-block">
-            <a href="#section_text-block"></a>
+        <li data-menuanchor="section_register">
+            <a href="#section_register"></a>
         </li>
-        <li data-menuanchor="section_contact-us">
-            <a href="#section_contact-us"></a>
+        <li data-menuanchor="section_contact_us">
+            <a href="#section_contact_us"></a>
         </li>
     </ul>
 </div>
@@ -102,12 +102,6 @@
         <li>
             <a href="#"><i class="fa fa-facebook"></i></a>
         </li>
-        <li>
-            <a href="#"><i class="fa fa-pinterest-p"></i></a>
-        </li>
-        <li>
-            <a href="#"><i class="fa fa-dribbble"></i></a>
-        </li>
     </ul>
 </div>
 
@@ -121,55 +115,7 @@
         <!-- Slides -->
         <div class="iphone__screen">
             <div class="device__slides">
-
-                <img src="assets/img/app-screenshots/quest_1.png" alt="...">
-                <img src="assets/img/app-screenshots/quest_2.png" alt="...">
-                <img src="assets/img/app-screenshots/quest_3.png" alt="...">
-                <img src="assets/img/app-screenshots/quest_4.png" alt="...">
-                <img src="assets/img/app-screenshots/quest_5.png" alt="...">
-                <img src="assets/img/app-screenshots/quest_2.png" alt="...">
-                <img src="assets/img/app-screenshots/quest_1.png" alt="...">
-
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Samsung -->
-    <div class="samsung__container black hidden">
-
-        <!-- Slides -->
-        <div class="samsung__screen">
-            <div class="device__slides">
-
-                <img src="assets/img/app-screenshots/quest_1.png" alt="...">
-                <img src="assets/img/app-screenshots/quest_2.png" alt="...">
-                <img src="assets/img/app-screenshots/quest_3.png" alt="...">
-                <img src="assets/img/app-screenshots/quest_4.png" alt="...">
-                <img src="assets/img/app-screenshots/quest_5.png" alt="...">
-                <img src="assets/img/app-screenshots/quest_2.png" alt="...">
-                <img src="assets/img/app-screenshots/quest_1.png" alt="...">
-
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Macbook -->
-    <div class="macbook__container hidden">
-
-        <!-- Slides -->
-        <div class="macbook__screen">
-            <div class="device__slides">
-
-                <img src="assets/img/site-screenshots/screen_1.jpg" alt="...">
-                <img src="assets/img/site-screenshots/screen_2.jpg" alt="...">
-                <img src="assets/img/site-screenshots/screen_3.jpg" alt="...">
-                <img src="assets/img/site-screenshots/screen_4.jpg" alt="...">
-                <img src="assets/img/site-screenshots/screen_5.jpg" alt="...">
-                <img src="assets/img/site-screenshots/screen_6.jpg" alt="...">
-                <img src="assets/img/site-screenshots/screen_7.jpg" alt="...">
-
+                <img src="<?php echo base_url('assets/img/android.png'); ?>" alt="...">
             </div>
         </div>
 
@@ -182,24 +128,24 @@
 <div id="fullpage">
 
     <!-- Welcome -->
-    <section data-anchor="section_welcome">
+    <section data-anchor="section_home">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-6 col-md-5 col-md-offset-6">
 
                     <h1 class="heading" data-animate-in="animateUpDown">
-                        Spotlight your app <br />
-                        in a beautiful way
+                        Welcome to manthan <br />
+                        a place for Authors
                     </h1>
 
                     <p class="delay_1" data-animate-in="animateUpDown">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente doloribus ratione fugiat, itaque fuga minus tenetur, quae officia doloremque a expedita maxime magnam.
+                        Matter to be placed given by nitin ji.
                     </p>
                     <a href="#" class="btn btn-lg btn-primary delay_2" data-animate-in="animateUpDown">
-                        <i class="fa fa-apple"></i> App Store
+                        <i class="fa fa-key"></i> Login
                     </a>
                     <a href="#" class="btn btn-lg btn-primary delay_2" data-animate-in="animateUpDown">
-                        <i class="fa fa-android"></i> Play Store
+                        <i class="fa fa-user-plus"></i> Register
                     </a>
 
                 </div>
@@ -208,7 +154,7 @@
     </section>
 
     <!-- Features -->
-    <section data-anchor="section_features">
+    <section data-anchor="section_login">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-6 col-md-5 col-md-offset-6">
@@ -240,7 +186,7 @@
     </section>
 
     <!-- Text block -->
-    <section data-anchor="section_text-block">
+    <section data-anchor="section_register">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-6 col-md-5 col-md-offset-6">
@@ -264,7 +210,7 @@
     </section>
 
     <!-- Contact -->
-    <section data-anchor="section_contact-us">
+    <section data-anchor="section_contact_us">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-6 col-md-5 col-md-offset-6">
@@ -336,7 +282,6 @@ echo script_tag('assets/js/bootstrap.min.js');
 echo script_tag('https://www.google.com/recaptcha/api.js');
 echo script_tag('assets/js/contact.js');
 echo script_tag('assets/js/custom.js');
-//echo script_tag('assets/js/setup.js');
 ?>
 </body>
 </html>

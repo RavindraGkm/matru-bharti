@@ -79,7 +79,7 @@ $(document).ready(function() {
         });
 
         // Device slideshow
-        deviceSlideshow(nextIndex - 1);
+        //deviceSlideshow(nextIndex - 1);
 
       }
 

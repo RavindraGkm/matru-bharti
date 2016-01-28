@@ -7305,7 +7305,7 @@ section {
   width: 237px;
   height: 420px;
   overflow: hidden;
-  background-color: green;
+  background-color: transparent;
 }
 /* Samsung */
 .samsung__container {
