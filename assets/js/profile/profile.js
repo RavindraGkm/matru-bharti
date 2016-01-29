@@ -6,7 +6,26 @@ MBJS.UserProfile=function(base_url){
 
 MBJS.UserProfile.prototype={
     initialize:function(){
+        this.viewProfile();
         this.profileUpdate();
+    },
+    viewProfile:function () {
+        var self=this;
+        var txt_token_no = $('#txt_token_no').val();
+        $ajax({
+            url: self.base_url+"profile",
+            type: 'GET',
+            dataType: 'JSON',
+            data:{
+                token_number: txt_token_no
+            },
+            success:function(data){
+                if(data.count==1){
+                    $("#txt_email").val(data.email);
+                    $("#txt_mobile").val(data.mobile);
+                }
+            }
+        });
     },
     profileUpdate:function() {
         var self=this;
@@ -70,6 +89,9 @@ MBJS.UserProfile.prototype={
                 var txt_city = $('#txt_city').val();
                 var txt_dob = $('#txt_dob').val();
                 var txt_about_yourself = $('#txt_about_yourself').val();
+                var profile_data={
+                    name: txt_name,email: txt_email,mobile: txt_mobile,address: txt_address,city: txt_city,dob: txt_dob,about_yourself: txt_about_yourself
+                }
                 var txt_token_no = $('#txt_token_no').val();
                 var update_button = $('#btn-update-profile');
                 $.ajax({
@@ -77,15 +99,9 @@ MBJS.UserProfile.prototype={
                     type: "PUT",
                     dataType: "JSON",
                     data:{
-                        name: txt_name,
-                        email: txt_email,
-                        mobile: txt_mobile,
-                        address: txt_address,
-                        city: txt_city,
-                        dob: txt_dob,
-                        about_yourself: txt_about_yourself,
-                        token_number: txt_token_no
+                        profile:profile_data
                     },
+                    headres:{Authorization : txt_token_no},
                     beforeSend: function() {
                         update_button.html('Updating... &nbsp;<i class="zmdi zmdi-edit"></i>');
                     },
