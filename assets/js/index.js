@@ -83,7 +83,7 @@ MBJS.Index.prototype = {
                     },
                     success: function (data, textStatus, jqXHR) {
                         console.log(data);
-                        window.location = self.base_url+"profile?rt="+data.token;
+                        window.location = self.base_url+"profile/?rt="+data.token; // sending token value on another page by url
                     }
                 });
             },
