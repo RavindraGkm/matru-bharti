@@ -26,7 +26,11 @@ MBJS.Index.prototype = {
                     required : true
                 },
                 author_mobile: {
-                    required: true
+                        required : true,
+                        number:true,
+                        minlength:10,
+                        maxlength:10
+
                 }
             },
             messages : {

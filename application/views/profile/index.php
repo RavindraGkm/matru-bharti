@@ -171,7 +171,7 @@
                                         <dt class="p-t-10">Name*</dt>
                                         <dd>
                                             <div class="fg-line">
-                                                <input type="hidden" value="<?php echo $_GET['rt'];?>" class="form-control" name="txt_token_no" id="txt_token_no" placeholder="eg. Mallinda Hollaway">
+                                                <input type="hidden" value="<?php echo $_GET['rt'];?>" class="form-control" name="txt_token_no" id="txt_token_no">
                                                 <input type="text" value="<?php echo $_GET['rt'];?>" class="form-control" name="txt_name" id="txt_name" placeholder="eg. Mallinda Hollaway">
                                             </div>
 
@@ -227,7 +227,7 @@
                                     </dl>
 
                                     <div class="m-t-30">
-                                        <button class="btn btn-primary btn-sm" name="btn-update-profile" id="btn-update-profile">Save</button>
+                                        <button class="btn btn-primary btn-sm" type="submit" name="btn-update-profile" id="btn-update-profile">Save</button>
                                         <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
                                     </div>
                                 </div>

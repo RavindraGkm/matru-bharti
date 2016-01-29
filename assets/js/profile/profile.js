@@ -39,37 +39,57 @@ MBJS.UserProfile.prototype={
                 }
             },
             messages : {
-                author_email: {
+                txt_name: {
+                    required : 'Enter your name',
+                },
+                txt_email: {
                     required : 'Enter your email',
                     email : 'Enter valid email'
                 },
-                author_password: {
-                    required: 'Enter your password'
+                txt_mobile: {
+                    required: 'Enter your mobile number',
+                    number: 'Enter Digits only',
+                    minlength: 'Enter 10 digits mobile number',
+                    maxlength: 'Enter 10 digits mobile number'
                 },
-                author_mobile: {
-                    required: 'Enter mobile number'
+                txt_address: {
+                    required : 'Enter your Address'
+                },
+                txt_dob: {
+                    required : 'Enter your Date of birth'
+                },
+                txt_about_yourself: {
+                    required: 'Enter about your self'
                 }
             },
             submitHandler: function(form) {
-                var author_email = $('#author_email').val();
-                var author_password = $('#author_password').val();
-                var author_mobile = $('#author_mobile').val();
-                var register_button = $('#register_button');
+                var txt_name = $('#txt_name').val();
+                var txt_email = $('#txt_email').val();
+                var txt_mobile = $('#txt_mobile').val();
+                var txt_address = $('#txt_address').val();
+                var txt_city = $('#txt_city').val();
+                var txt_dob = $('#txt_dob').val();
+                var txt_about_yourself = $('#txt_about_yourself').val();
+                var update_button = $('#btn-update-profile');
                 $.ajax({
                     url: self.base_url+"authors",
                     //url: "http://192.168.1.101/matru-bharti/authors",
-                    type: "POST",
+                    type: "PUT",
                     dataType: "JSON",
                     data:{
-                        email: author_email,
-                        password: author_password,
-                        mobile: author_mobile
+                        name: txt_name,
+                        email: txt_email,
+                        mobile: txt_mobile,
+                        address: txt_address,
+                        city: txt_city,
+                        dob: txt_dob,
+                        about_yourself: txt_about_yourself
                     },
                     beforeSend: function() {
-                        register_button.html('Registering... &nbsp;<i class="zmdi zmdi-arrow-forward"></i>');
+                        update_button.html('Updating... &nbsp;<i class="zmdi zmdi-edit"></i>');
                     },
                     error:function(data) {
-                        var obj = jQuery.parseJSON(data.responseText);
+                        var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
                         if(data.status==422) {
                             swal({
                                 title: "Error!",
@@ -87,7 +107,7 @@ MBJS.UserProfile.prototype={
                                 showConfirmButton: false,
                                 showCancelButton: false
                             });
-                            register_button.html('Register &nbsp;<i class="zmdi zmdi-arrow-forward"></i>');
+                            update_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
                         }
                     },
                     success: function (data, textStatus, jqXHR) {
