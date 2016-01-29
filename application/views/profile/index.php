@@ -288,13 +288,13 @@ echo script_tag('assets/js/bootstrap-datetimepicker.min.js');
 echo script_tag('assets/js/functions.js');
 echo script_tag('assets/js/demo.js');
 echo script_tag('assets/js/lightGallery.min.js');
-echo script_tag('assets/js/register/registration.js');
+echo script_tag('assets/js/profile/profile.js');
 ?>
 <!--<![endif]-->-->
 </body>
 <script type="text/javascript">
     $(document).ready(function(){
-        new MBJS.RegisterUser("<?php echo base_url(); ?>");
+        new MBJS.UserProfile("<?php echo base_url(); ?>");
     })
 </script>
 </html>

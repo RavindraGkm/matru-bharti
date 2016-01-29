@@ -8,7 +8,7 @@ MBJS.UserProfile.prototype={
     initialize:function(){
         this.profileUpdate();
     },
-    registerUser:function() {
+    profileUpdate:function() {
         var self=this;
         $("#form_profile_update").validate({
             rules: {
@@ -70,10 +70,10 @@ MBJS.UserProfile.prototype={
                 var txt_city = $('#txt_city').val();
                 var txt_dob = $('#txt_dob').val();
                 var txt_about_yourself = $('#txt_about_yourself').val();
+                var txt_token_no = $('#txt_token_no').val();
                 var update_button = $('#btn-update-profile');
                 $.ajax({
-                    url: self.base_url+"authors",
-                    //url: "http://192.168.1.101/matru-bharti/authors",
+                    url: self.base_url+"profile",
                     type: "PUT",
                     dataType: "JSON",
                     data:{
@@ -83,7 +83,8 @@ MBJS.UserProfile.prototype={
                         address: txt_address,
                         city: txt_city,
                         dob: txt_dob,
-                        about_yourself: txt_about_yourself
+                        about_yourself: txt_about_yourself,
+                        token_number: txt_token_no
                     },
                     beforeSend: function() {
                         update_button.html('Updating... &nbsp;<i class="zmdi zmdi-edit"></i>');
@@ -112,7 +113,15 @@ MBJS.UserProfile.prototype={
                     },
                     success: function (data, textStatus, jqXHR) {
                         console.log(data);
-                        window.location = self.base_url+"profile/?rt="+data.token; // sending token value on another page by url
+                        if(data.status==200) {
+                            swal({
+                                title: "Success",
+                                text: "Profile updated successfully",
+                                timer: 2000,
+                                showConfirmButton: false,
+                                showCancelButton: false
+                            });
+                        }
                     }
                 });
             },
@@ -123,48 +132,6 @@ MBJS.UserProfile.prototype={
                 $(element).removeClass('error');
                 $(element).closest('li').find('.error-span').css('opacity',0);
             }
-        });
-    },
-    profileUpdate:function(){
-        var self=this;
-        $('#btn-update-profile').click(function(){
-            alert("hello");
-            $.ajax({
-                url: self.base_url+"profile",
-                type: "PUT",
-                dataType: 'JSON',
-                data:{
-                    name:$('#txt_name'),
-                    email:$('#txt_email').val(),
-                    mobile: $('#txt_mobile').val(),
-                    address: $('#txt_address').val(),
-                    city: $('#txt_city').val(),
-                    dob:$('#txt_dob'),
-                    about_yourself: $('#txt_about_yourself').val(),
-                    token:$('#txt_token_no')
-                },
-                before:function (data){
-                  $('#btn-update-profile').html('Updating...');
-                },
-                error: function (data) {
-                    console.log(data.status);
-                },
-                success: function (data) {
-                    console.log(data);
-                    if(data.status == 200) {
-
-                        alert(data.status);
-                    }
-                    else {
-                        console.log(data);
-                        alert("Updation Failed...");
-                    }
-                },
-                complete: function() {
-
-                }
-            });
-
         });
     }
 }
