@@ -47,8 +47,8 @@ MBJS.Index.prototype = {
                 var author_mobile = $('#author_mobile').val();
                 var register_button = $('#register_button');
                 $.ajax({
-                    //url: self.base_url+"register",
-                    url: "http://192.168.1.101/matru-bharti/authors",
+                    url: self.base_url+"authors",
+                    //url: "http://192.168.1.101/matru-bharti/authors",
                     type: "POST",
                     dataType: "JSON",
                     data:{
@@ -83,6 +83,7 @@ MBJS.Index.prototype = {
                     },
                     success: function (data, textStatus, jqXHR) {
                         console.log(data);
+                        window.location = self.base_url+"profile?rt="+data.token;
                     }
                 });
             },
