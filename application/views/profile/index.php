@@ -111,6 +111,13 @@
                         <div class="pmo-stat">
 
                         </div>
+                        <div class="pmo-block pmo-contact hidden-xs">
+                            <ul>
+                                <li><i class="zmdi zmdi-email"></i> malinda-h@gmail.com</li>
+                                <li><i class="zmdi zmdi-phone"></i> 00971 12345678 9</li>
+                            </ul>
+                        </div>
+
                     </div>
                 </div>
                 <!--========================================================================================================================================-->
@@ -171,7 +178,7 @@
                                         <dt class="p-t-10">Name*</dt>
                                         <dd>
                                             <div class="fg-line">
-                                                <input type="hidden" value="<?php echo $remember_token; ?>" class="form-control" name="txt_token_no" id="txt_token_no">
+                                                <input type="hidden" value="<?php echo $remember_token; ?>" class="form-control" name="remember_token" id="remember_token">
                                                 <input type="text" value="<?php echo $remember_token; ?>" autocomplete="off" class="form-control" name="txt_name" id="txt_name" placeholder="eg. Mallinda Hollaway">
                                             </div>
 

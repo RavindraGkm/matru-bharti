@@ -11,7 +11,7 @@ MBJS.UserProfile.prototype={
     },
     viewProfileInfo:function () {
         var self=this;
-        var auth_token = $('#txt_token_no').val();
+        var auth_token = $('#remember_token').val();
         $.ajax({
             url: self.base_url+"profile",
             type: 'GET',
@@ -90,7 +90,7 @@ MBJS.UserProfile.prototype={
                 //var profile_data={
                 //    name: txt_name,email: txt_email,mobile: txt_mobile,address: txt_address,city: txt_city,dob: txt_dob,about_yourself: txt_about_yourself
                 //}
-                var txt_token_no = $('#txt_token_no').val();
+                var remember_token = $('#remember_token').val();
                 var update_button = $('#btn-update-profile');
                 $.ajax({
                     url: self.base_url+"authors/4",
@@ -101,7 +101,7 @@ MBJS.UserProfile.prototype={
                         address: txt_address,city: txt_city,dob: txt_dob,
                         about_yourself: txt_about_yourself
                     },
-                    headers:{Authorization : txt_token_no},
+                    headers:{Authorization : remember_token},
                     beforeSend: function() {
                         update_button.html('Updating... &nbsp;<i class="zmdi zmdi-edit"></i>');
                     },
