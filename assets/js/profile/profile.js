@@ -12,16 +12,14 @@ MBJS.UserProfile.prototype={
     viewProfileInfo:function () {
         var self=this;
         var auth_token = $('#remember_token').val();
+        var author_id = $('#author_id').val();
         $.ajax({
-            url: self.base_url+"profile",
+            url: self.base_url+"authors/"+author_id,
             type: 'GET',
             dataType: 'JSON',
             headers:{Authorization : auth_token},
             success:function(data){
-                if(data.count==1){
-                    $("#txt_email").val(data.email);
-                    $("#txt_mobile").val(data.mobile);
-                }
+                console.log(data);
             }
         });
     },
@@ -85,9 +83,6 @@ MBJS.UserProfile.prototype={
                 var txt_city = $('#txt_city').val();
                 var txt_dob = $('#txt_dob').val().split('-').reverse().join('-');
                 var about = $('#txt_about_yourself').val();
-                //var profile_data={
-                //    name: txt_name,email: txt_email,mobile: txt_mobile,address: txt_address,city: txt_city,dob: txt_dob,about_yourself: txt_about_yourself
-                //}
                 var remember_token = $('#remember_token').val();
                 var update_button = $('#btn-update-profile');
                 var author_id=$('#author_id').val();

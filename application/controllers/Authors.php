@@ -3,7 +3,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require(APPPATH.'libraries/REST_Controller.php');
 
 class Authors extends REST_Controller {
+	public function index_get ($id=0) {
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Methods: GET");
 
+		$headers = $this->input->request_headers();
+		if (!isset($headers['Authorization']) || empty($headers['Authorization'])) {
+			$this->response(array('error' => 'No authorization header supplied'), REST_Controller::HTTP_UNAUTHORIZED);
+		}
+		else {
+			if($id!=0 && $id>-1) {
+				$this->load->database();
+				$this->load->model('authors/Authors_model');
+				$response = $this->Authors_model->get_author($headers['Authorization'],$id);
+				$this->db->close();
+				if ($response['status']=='success') {
+					$this->response($response, REST_Controller::HTTP_OK);
+				} else {
+					if($response['msg']=='Server Error') {
+						$response = array('errors' => array($response['msg']));
+						$this->response($response, REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
+					}
+					else {
+						$this->response($response, REST_Controller::HTTP_UNAUTHORIZED);
+					}
+				}
+			}
+		}
+	}
 	public function index_post () {
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Methods: POST");
@@ -47,7 +74,6 @@ class Authors extends REST_Controller {
 		}
 
 	}
-
 	public function index_put ($id=0) {
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Methods: PUT");
@@ -101,17 +127,24 @@ class Authors extends REST_Controller {
 				$this->response(array('error'=>'Unauthorized Access'),REST_Controller::HTTP_UNAUTHORIZED);
 			}
 			else {
-				$params = $this->put();
-				$this->load->database();
-				$this->load->model('profile/Profile_model');
-				$response = $this->Profile_model->update_author($name,$address,$city,$dob,$about,$id);
-				if($response['status']=='success') {
-					$this->response($response,REST_Controller::HTTP_OK);
+				if($id!=0 && $id>-1) {
+					$params = $this->put();
+					$this->load->database();
+					$this->load->model('authors/Authors_model');
+					$response = $this->Authors_model->update_author($params,$id,$headers['Authorization']);
+					if($response['status']=='success') {
+						$this->response($response,REST_Controller::HTTP_OK);
+					}
+					else {
+						if($response['msg']=='Server Error') {
+							$response = array('errors' => array($response['msg']));
+							$this->response($response, REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
+						}
+						else {
+							$this->response($response, REST_Controller::HTTP_UNAUTHORIZED);
+						}
+					}
 				}
-				else {
-					$this->response($response,REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
-				}
-				$this->response($params,REST_Controller::HTTP_OK);
 			}
 		}
 	}

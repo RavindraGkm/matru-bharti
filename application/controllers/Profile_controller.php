@@ -22,9 +22,4 @@ class Profile_controller extends CI_Controller {
         $this->session->set_userdata($session_data);
         echo json_encode(array('status'=>'success'));
     }
-    public function profile_session_access() {
-        $this->load->library('session');
-        $this->session->set_userdata('some_name', 'some_value');
-        echo json_encode(array('status'=>'success'));
-    }
 }
