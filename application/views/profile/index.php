@@ -216,11 +216,17 @@
                                             </div>
                                         </dd>
                                     </dl>
-
-                                    <div class="m-t-30">
-                                        <button class="btn btn-primary btn-sm" type="submit" name="btn-update-profile" id="btn-update-profile">Save</button>
-                                        <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
-                                    </div>
+                                    <dl class="dl-horizontal">
+                                        <dt class="p-t-10"></dt>
+                                        <dd>
+                                            <div class="fg-line">
+                                                <button class="btn btn-primary btn-sm " type="submit" name="btn-update-profile" id="btn-update-profile">Save &nbsp;<i class="fa fa-save"></i></button>
+                                            </div>
+                                        </dd>
+                                    </dl>
+<!--                                    <div class="m-t-30">-->
+<!--                                        <button class="btn btn-primary btn-sm" type="submit" name="btn-update-profile" id="btn-update-profile">Save</button>-->
+<!--                                    </div>-->
                                 </div>
                             </form>
                         </div>
