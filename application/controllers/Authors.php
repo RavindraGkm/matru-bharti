@@ -52,8 +52,6 @@ class Authors extends REST_Controller {
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Methods: PUT");
 		$name = $this->put('name');
-		$email = $this->put('email');
-		$mobile = $this->put('mobile');
 		$address = $this->put('address');
 		$city=$this->put('city');
 		$dob=$this->put('dob');
@@ -61,12 +59,6 @@ class Authors extends REST_Controller {
 		$data = array();
 		if($name===NULL) {
 			$data[] = "Name not provided";
-		}
-		if($email===NULL) {
-			$data[] = "Email not provided";
-		}
-		if($mobile===NULL) {
-			$data[] = "Mobile number not provided";
 		}
 		if($address===NULL) {
 			$data[] = "Address not provided";
@@ -82,12 +74,6 @@ class Authors extends REST_Controller {
 		}
 		if($name=="") {
 			$data[] = "Name can not be blank";
-		}
-		if($email=="") {
-			$data[] = "Email can not be blank";
-		}
-		if($mobile=="") {
-			$data[] = "Mobile can not be blank";
 		}
 		if($address=="") {
 			$data[] = "Address can not be blank";
@@ -116,15 +102,15 @@ class Authors extends REST_Controller {
 			}
 			else {
 				$params = $this->put();
-//				$this->load->database();
-//				$this->load->model('profile/Profile_model');
-//				$response = $this->Profile_model->update_author($name,$email,$mobile,$address,$city,$dob,$about_yourself,$id);
-//				if($response['status']=='success') {
-//					$this->response($response,REST_Controller::HTTP_OK);
-//				}
-//				else {
-//					$this->response($response,REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
-//				}
+				$this->load->database();
+				$this->load->model('profile/Profile_model');
+				$response = $this->Profile_model->update_author($name,$address,$city,$dob,$about_yourself,$id);
+				if($response['status']=='success') {
+					$this->response($response,REST_Controller::HTTP_OK);
+				}
+				else {
+					$this->response($response,REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
+				}
 				$this->response($params,REST_Controller::HTTP_OK);
 			}
 		}

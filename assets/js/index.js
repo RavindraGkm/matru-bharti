@@ -90,11 +90,12 @@ MBJS.Index.prototype = {
                             type: "POST",
                             dataType: "JSON",
                             data:{
-                                token: "121212",
-                                id: 1
+                                token: data.token,
+                                id: data.id
                             },
                             success: function (data) {
                                 console.log(data);
+                                window.location= self.base_url+"profile"
                             },
                             error: function(data) {
                                 console.log(data);

@@ -81,8 +81,6 @@ MBJS.UserProfile.prototype={
             },
             submitHandler: function(form) {
                 var txt_name = $('#txt_name').val();
-                var txt_email = $('#txt_email').val();
-                var txt_mobile = $('#txt_mobile').val();
                 var txt_address = $('#txt_address').val();
                 var txt_city = $('#txt_city').val();
                 var txt_dob = $('#txt_dob').val().split('-').reverse().join('-');
@@ -92,14 +90,15 @@ MBJS.UserProfile.prototype={
                 //}
                 var remember_token = $('#remember_token').val();
                 var update_button = $('#btn-update-profile');
+                var author_id=$('#author_id').val();
                 $.ajax({
-                    url: self.base_url+"authors/4",
+                    url: self.base_url+"authors/"+author_id,
                     type: "PUT",
                     dataType: "JSON",
                     data:{
-                        name: txt_name,email: txt_email,mobile: txt_mobile,
-                        address: txt_address,city: txt_city,dob: txt_dob,
-                        about_yourself: txt_about_yourself
+                        name: txt_name,address: txt_address,
+                        city: txt_city,dob: txt_dob,
+                        about: txt_about_yourself
                     },
                     headers:{Authorization : remember_token},
                     beforeSend: function() {

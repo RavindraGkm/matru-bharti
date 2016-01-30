@@ -80,7 +80,7 @@
         <div class="container">
 
             <div class="block-header">
-                <h2>Malinda Hollaway <small></small></h2>
+
             </div>
 
             <div class="card" id="profile-main">
@@ -105,7 +105,6 @@
 
                             <a href="" class="pmop-edit">
                                 <i class="zmdi zmdi-camera"></i> <span class="hidden-xs">Add Profile Picture</span>
-                                <input type="file" class="from-control">
                             </a>
                         </div>
                         <div class="pmo-stat">
@@ -178,26 +177,11 @@
                                         <dt class="p-t-10">Name*</dt>
                                         <dd>
                                             <div class="fg-line">
-                                                <input type="hidden" value="<?php echo $remember_token; ?>" class="form-control" name="remember_token" id="remember_token">
-                                                <input type="text" value="<?php echo $remember_token; ?>" autocomplete="off" class="form-control" name="txt_name" id="txt_name" placeholder="eg. Mallinda Hollaway">
+                                                <input type="hidden" value="<?php echo $remember_token; ?>" name="remember_token" id="remember_token">
+                                                <input type="hidden" value="<?php echo $author_id; ?>" name="author_id" id="author_id">
+                                                <input type="text" value="" autocomplete="off" class="form-control" name="txt_name" id="txt_name" placeholder="eg. Mallinda Hollaway">
                                             </div>
 
-                                        </dd>
-                                    </dl>
-                                    <dl class="dl-horizontal">
-                                        <dt class="p-t-10">Email*</dt>
-                                        <dd>
-                                            <div class="fg-line">
-                                                <input type="text" class="form-control" autocomplete="off" name="txt_email" id="txt_email" placeholder="eg. abc@gmail.com">
-                                            </div>
-                                        </dd>
-                                    </dl>
-                                    <dl class="dl-horizontal">
-                                        <dt class="p-t-10">Mobile*</dt>
-                                        <dd>
-                                            <div class="fg-line">
-                                                <input type="text" class="form-control" autocomplete="off" name="txt_mobile" id="txt_mobile" placeholder="988 455 3009">
-                                            </div>
                                         </dd>
                                     </dl>
                                     <dl class="dl-horizontal">
@@ -228,7 +212,7 @@
                                         <dt class="p-t-10">About yourself</dt>
                                         <dd>
                                             <div class="fg-line">
-                                                <textarea class="form-control" rows="5" name="txt_about_yourself" id="txt_about_yourself" placeholder="About your self"></textarea>
+                                                <textarea class="form-control" rows="10" name="txt_about_yourself" id="txt_about_yourself" placeholder="About your self"></textarea>
                                             </div>
                                         </dd>
                                     </dl>

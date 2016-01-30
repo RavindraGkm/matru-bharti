@@ -4,11 +4,12 @@ class Authors_model extends CI_Model {
     public  function  register_new_author ($params) {
 
         $params['token'] = md5($params['email'].time());
-        $sql = $this->db->insert('users', $params);
+        $sql = $this->db->insert('authors', $params);
         $response = array();
         if($sql) {
             $response['status'] = 'success';
             $response['token'] = $params['token'];
+            $response['id'] = $this->db->insert_id();
         }
         else {
             $response['status'] = 'error';
