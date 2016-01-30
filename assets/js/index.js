@@ -26,11 +26,10 @@ MBJS.Index.prototype = {
                     required : true
                 },
                 author_mobile: {
-                        required : true,
-                        number:true,
-                        minlength:10,
-                        maxlength:10
-
+                    required : true,
+                    number:true,
+                    minlength:10,
+                    maxlength:10
                 }
             },
             messages : {
@@ -52,7 +51,6 @@ MBJS.Index.prototype = {
                 var register_button = $('#register_button');
                 $.ajax({
                     url: self.base_url+"authors",
-                    //url: "http://192.168.1.101/matru-bharti/authors",
                     type: "POST",
                     dataType: "JSON",
                     data:{
@@ -85,9 +83,25 @@ MBJS.Index.prototype = {
                             register_button.html('Register &nbsp;<i class="zmdi zmdi-arrow-forward"></i>');
                         }
                     },
-                    success: function (data, textStatus, jqXHR) {
+                    success: function (data) {
                         console.log(data);
-                        window.location = self.base_url+"profile/?rt="+data.token; // sending token value on another page by url
+                        $.ajax({
+                            url: self.base_url+"profile_info",
+                            type: "POST",
+                            dataType: "JSON",
+                            data:{
+                                token: "121212",
+                                id: 1
+                            },
+                            success: function (data) {
+                                console.log(data);
+                            },
+                            error: function(data) {
+                                console.log(data);
+                            }
+                        });
+
+                        //window.location = self.base_url+"profile/?rt="+data.token; // sending token value on another page by url
                     }
                 });
             },
