@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require(APPPATH.'libraries/REST_Controller.php');
 
 class Profile extends REST_Controller {
+
     public function index_get ($f_param=0,$s_param=0) {
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: GET");

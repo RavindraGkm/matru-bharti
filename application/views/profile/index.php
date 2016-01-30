@@ -171,8 +171,8 @@
                                         <dt class="p-t-10">Name*</dt>
                                         <dd>
                                             <div class="fg-line">
-                                                <input type="hidden" value="<?php echo $_GET['rt'];?>" class="form-control" name="txt_token_no" id="txt_token_no">
-                                                <input type="text" value="<?php echo $_GET['rt'];?>" class="form-control" name="txt_name" id="txt_name" placeholder="eg. Mallinda Hollaway">
+                                                <input type="hidden" value="<?php echo $remember_token; ?>" class="form-control" name="txt_token_no" id="txt_token_no">
+                                                <input type="text" value="<?php echo $remember_token; ?>" autocomplete="off" class="form-control" name="txt_name" id="txt_name" placeholder="eg. Mallinda Hollaway">
                                             </div>
 
                                         </dd>
@@ -181,7 +181,7 @@
                                         <dt class="p-t-10">Email*</dt>
                                         <dd>
                                             <div class="fg-line">
-                                                <input type="text" class="form-control" name="txt_email" id="txt_email" placeholder="eg. abc@gmail.com">
+                                                <input type="text" class="form-control" autocomplete="off" name="txt_email" id="txt_email" placeholder="eg. abc@gmail.com">
                                             </div>
                                         </dd>
                                     </dl>
@@ -189,7 +189,7 @@
                                         <dt class="p-t-10">Mobile*</dt>
                                         <dd>
                                             <div class="fg-line">
-                                                <input type="text" class="form-control" name="txt_mobile" id="txt_mobile" placeholder="988 455 3009">
+                                                <input type="text" class="form-control" autocomplete="off" name="txt_mobile" id="txt_mobile" placeholder="988 455 3009">
                                             </div>
                                         </dd>
                                     </dl>
@@ -287,7 +287,7 @@ echo script_tag('assets/js/moment.min.js');
 echo script_tag('assets/js/bootstrap-datetimepicker.min.js');
 echo script_tag('assets/js/functions.js');
 echo script_tag('assets/js/demo.js');
-echo script_tag('assets/js/lightGallery.min.js');
+echo script_tag('assets/js/jquery.validate.min.js');
 echo script_tag('assets/js/profile/profile.js');
 ?>
 <!--<![endif]-->-->
