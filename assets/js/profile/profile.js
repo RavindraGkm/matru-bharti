@@ -20,10 +20,15 @@ MBJS.UserProfile.prototype={
             headers:{Authorization : auth_token},
             success:function(data){
                 console.log(data);
+                $('#author_email').html(data.result.email);
+                $('#author_mobile').html(data.result.mobile);
             }
         });
     },
     profileUpdate:function() {
+        $('#txt_name').keyup(function(){
+            $('#h2_name').html($('#txt_name').val());
+        });
         var self=this;
         $("#form_profile_update").validate({
             rules: {
@@ -101,38 +106,36 @@ MBJS.UserProfile.prototype={
                     },
                     error:function(data) {
                         console.log(data);
-                        //var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
-                        //if(data.status==422) {
-                        //    swal({
-                        //        title: "Error!",
-                        //        text: obj.error[0],
-                        //        timer: 2000,
-                        //        showConfirmButton: false,
-                        //        showCancelButton: false
-                        //    });
-                        //}
-                        //else if(data.status==500) {
-                        //    swal({
-                        //        title: "Opps!",
-                        //        text: 'Something went wrong on server !',
-                        //        timer: 2000,
-                        //        showConfirmButton: false,
-                        //        showCancelButton: false
-                        //    });
-                        //    update_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
-                        //}
-                    },
-                    success: function (data, textStatus, jqXHR) {
-                        console.log(data);
-                        if(data.status==200) {
+                        var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
+                        if(data.status==422) {
                             swal({
-                                title: "Success",
-                                text: "Profile updated successfully",
+                                title: "Error!",
+                                text: obj.error[0],
                                 timer: 2000,
                                 showConfirmButton: false,
                                 showCancelButton: false
                             });
                         }
+                        else if(data.status==500) {
+                            swal({
+                                title: "Opps!",
+                                text: 'Something went wrong on server !',
+                                timer: 2000,
+                                showConfirmButton: false,
+                                showCancelButton: false
+                            });
+                            update_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
+                        }
+                    },
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data);
+                        swal({
+                            title: "Success",
+                            text: "Profile updated successfully",
+                            timer: 2000,
+                            showConfirmButton: false,
+                            showCancelButton: false
+                        });
                     }
                 });
             },

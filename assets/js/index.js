@@ -145,20 +145,31 @@ MBJS.Index.prototype = {
                     type: "POST",
                     dataType: "JSON",
                     data:{
-                        author_email: author_email,
-                        author_password: author_password,
-                        author_mobile: author_mobile
+                        email: login_email,
+                        password: login_password
                     },
-                    beforeSend: function() {
-                        register_button.html('Registering... &nbsp;<i class="zmdi zmdi-arrow-forward"></i>');
+                    beforeSend: function(data) {
+                        console.log(data)
+                        login_button.html('Processing... &nbsp;<i class="zmdi zmdi-arrow-forward"></i>');
                     },
-                    success: function (data, textStatus, jqXHR) {
-                        if(data.status=='ok') {
-                            $.growl({ title: "Success", message: "Message has been sent !" });
-                        }
-                        else {
-                            $.growl.error({ message: "Some error occured" });
-                        }
+                    success: function (data) {
+                        $.ajax({
+                            url: self.base_url+"profile_info",
+                            type: "POST",
+                            dataType: "JSON",
+                            data:{
+                                token: data.token,
+                                id: data.id
+                            },
+                            success: function (data) {
+                                console.log(data);
+
+                                //window.location= self.base_url+"profile"
+                            },
+                            error: function(data) {
+                                console.log(data);
+                            }
+                        });
                     },
                     complete: function (jqXHR, textStatus) {
 
