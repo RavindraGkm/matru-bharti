@@ -148,11 +148,14 @@ MBJS.Index.prototype = {
                         email: login_email,
                         password: login_password
                     },
-                    beforeSend: function(data) {
-                        console.log(data)
+                    beforeSend: function() {
                         login_button.html('Processing... &nbsp;<i class="zmdi zmdi-arrow-forward"></i>');
                     },
+                    error: function(data) {
+                        console.log(data);
+                    },
                     success: function (data) {
+                        console.log(data);
                         $.ajax({
                             url: self.base_url+"profile_info",
                             type: "POST",
@@ -163,8 +166,7 @@ MBJS.Index.prototype = {
                             },
                             success: function (data) {
                                 console.log(data);
-
-                                //window.location= self.base_url+"profile"
+                                window.location= self.base_url+"profile"
                             },
                             error: function(data) {
                                 console.log(data);

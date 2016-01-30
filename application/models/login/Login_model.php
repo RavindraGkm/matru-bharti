@@ -7,15 +7,13 @@ class Login_model extends CI_Model {
         $response=array();
         if($result->num_rows()>0) {
             $row = $result->row();
-            $response['login']='success';
             $token = md5($params['email'].time());
-            $response['remember_token']=$token;
+            $response['token']=$token;
             $this->db->set('token', $token, TRUE);
             $this->db->where('id', $row->id);
-
             if($this->db->update('authors')) {
                 $response['status']='success';
-                $result_val[]=$result;
+                $response['id']=$row->id;
             }
             else {
                 $response['status']='error';

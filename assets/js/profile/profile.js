@@ -22,6 +22,12 @@ MBJS.UserProfile.prototype={
                 console.log(data);
                 $('#author_email').html(data.result.email);
                 $('#author_mobile').html(data.result.mobile);
+                if(data.result.name=="") {
+                    console.log("Registration");
+                }
+                else {
+                    console.log("Login");
+                }
             }
         });
     },
