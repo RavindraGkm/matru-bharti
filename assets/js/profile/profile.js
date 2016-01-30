@@ -84,7 +84,7 @@ MBJS.UserProfile.prototype={
                 var txt_address = $('#txt_address').val();
                 var txt_city = $('#txt_city').val();
                 var txt_dob = $('#txt_dob').val().split('-').reverse().join('-');
-                var txt_about_yourself = $('#txt_about_yourself').val();
+                var about = $('#txt_about_yourself').val();
                 //var profile_data={
                 //    name: txt_name,email: txt_email,mobile: txt_mobile,address: txt_address,city: txt_city,dob: txt_dob,about_yourself: txt_about_yourself
                 //}
@@ -98,7 +98,7 @@ MBJS.UserProfile.prototype={
                     data:{
                         name: txt_name,address: txt_address,
                         city: txt_city,dob: txt_dob,
-                        about: txt_about_yourself
+                        about: about
                     },
                     headers:{Authorization : remember_token},
                     beforeSend: function() {

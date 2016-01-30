@@ -55,7 +55,7 @@ class Authors extends REST_Controller {
 		$address = $this->put('address');
 		$city=$this->put('city');
 		$dob=$this->put('dob');
-		$about_yourself=$this->put('about_yourself');
+		$about=$this->put('about');
 		$data = array();
 		if($name===NULL) {
 			$data[] = "Name not provided";
@@ -69,7 +69,7 @@ class Authors extends REST_Controller {
 		if($dob===NULL) {
 			$data[] = "Date of birth not provided";
 		}
-		if($about_yourself===NULL) {
+		if($about===NULL) {
 			$data[] = "About your self not provided";
 		}
 		if($name=="") {
@@ -84,7 +84,7 @@ class Authors extends REST_Controller {
 		if($dob=="") {
 			$data[] = "Date of birth can not be blank";
 		}
-		if($about_yourself=="") {
+		if($about=="") {
 			$data[] = "About your self can not be blank";
 		}
 		if($id==0) {
@@ -104,7 +104,7 @@ class Authors extends REST_Controller {
 				$params = $this->put();
 				$this->load->database();
 				$this->load->model('profile/Profile_model');
-				$response = $this->Profile_model->update_author($name,$address,$city,$dob,$about_yourself,$id);
+				$response = $this->Profile_model->update_author($name,$address,$city,$dob,$about,$id);
 				if($response['status']=='success') {
 					$this->response($response,REST_Controller::HTTP_OK);
 				}
