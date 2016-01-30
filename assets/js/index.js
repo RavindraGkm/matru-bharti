@@ -26,7 +26,11 @@ MBJS.Index.prototype = {
                     required : true
                 },
                 author_mobile: {
-                    required: true
+                        required : true,
+                        number:true,
+                        minlength:10,
+                        maxlength:10
+
                 }
             },
             messages : {
@@ -82,7 +86,7 @@ MBJS.Index.prototype = {
                     },
                     success: function (data, textStatus, jqXHR) {
                         console.log(data);
-                        window.location = self.base_url+"profile?rt="+data.token;
+                        window.location = self.base_url+"profile/?rt="+data.token; // sending token value on another page by url
                     }
                 });
             },
