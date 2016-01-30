@@ -52,4 +52,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'Index_controller';
 $route['404_override'] = '';
 $route['profile'] = "Profile_controller";
+$route['authors/([0-9]+)'] = "authors/index/$1";
 $route['translate_uri_dashes'] = FALSE;
