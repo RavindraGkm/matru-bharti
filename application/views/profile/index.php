@@ -80,7 +80,7 @@
         <div class="container">
 
             <div class="block-header">
-
+                <h2 id="h2_name"></h2>
             </div>
 
             <div class="card" id="profile-main">
@@ -112,8 +112,8 @@
                         </div>
                         <div class="pmo-block pmo-contact hidden-xs">
                             <ul>
-                                <li><i class="zmdi zmdi-email"></i> malinda-h@gmail.com</li>
-                                <li><i class="zmdi zmdi-phone"></i> 00971 12345678 9</li>
+                                <li><i class="zmdi zmdi-email"></i><span id="author_email"></span></li>
+                                <li><i class="zmdi zmdi-phone"></i><span id="author_mobile"></span></li>
                             </ul>
                         </div>
 
@@ -140,7 +140,7 @@
                             </ul>
                         </div>
                         <div class="pmbb-body p-l-30">
-                            <div class="pmbb-edit">
+                            <div class="pmbb-edit" id="profile_view">
                                 <dl class="dl-horizontal">
                                     <dt>Name*</dt>
                                     <dd>Mallinda Hollaway</dd>
@@ -172,7 +172,7 @@
                             </div>
 
                             <form id="form_profile_update">
-                                <div class="pmbb-view">
+                                <div class="pmbb-view" id="profile_editable">
                                     <dl class="dl-horizontal">
                                         <dt class="p-t-10">Name*</dt>
                                         <dd>
@@ -216,11 +216,14 @@
                                             </div>
                                         </dd>
                                     </dl>
-
-                                    <div class="m-t-30">
-                                        <button class="btn btn-primary btn-sm" type="submit" name="btn-update-profile" id="btn-update-profile">Save</button>
-                                        <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
-                                    </div>
+                                    <dl class="dl-horizontal">
+                                        <dt class="p-t-10"></dt>
+                                        <dd>
+                                            <div class="fg-line">
+                                                <button class="btn btn-primary btn-sm " type="submit" name="btn-update-profile" id="btn-update-profile">Save &nbsp;<i class="fa fa-save"></i></button>
+                                            </div>
+                                        </dd>
+                                    </dl>
                                 </div>
                             </form>
                         </div>
