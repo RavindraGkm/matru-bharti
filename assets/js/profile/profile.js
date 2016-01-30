@@ -24,9 +24,17 @@ MBJS.UserProfile.prototype={
                 $('#author_mobile').html(data.result.mobile);
                 if(data.result.name=="") {
                     console.log("Registration");
+                    $('#profile_view').removeClass('pmbb-view');
+                    $('#profile_view').addClass('pmbb-edit');
+                    $('#profile_editable').removeClass('pmbb-edit');
+                    $('#profile_editable').addClass('pmbb-view');
                 }
                 else {
                     console.log("Login");
+                    $('#profile_view').removeClass('pmbb-edit');
+                    $('#profile_view').addClass('pmbb-view');
+                    $('#profile_editable').removeClass('pmbb-view');
+                    $('#profile_editable').addClass('pmbb-edit');
                 }
             }
         });

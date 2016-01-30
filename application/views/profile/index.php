@@ -97,9 +97,6 @@
                                 </a>
 
                                 <div class="dropdown-menu">
-<!--                                    <textarea placeholder="Write something..."></textarea>-->
-
-<!--                                    <button class="btn bgm-green btn-float"><i class="zmdi zmdi-mail-send"></i></button>-->
                                 </div>
                             </div>
 
@@ -146,16 +143,8 @@
                                     <dd>Mallinda Hollaway</dd>
                                 </dl>
                                 <dl class="dl-horizontal">
-                                    <dt>Email</dt>
-                                    <dd>abc@gmail.com</dd>
-                                </dl>
-                                <dl class="dl-horizontal">
-                                    <dt>Mobile</dt>
-                                    <dd>988 232 1990</dd>
-                                </dl>
-                                <dl class="dl-horizontal">
                                     <dt>Address</dt>
-                                    <dd>134 Shivaji Nagar <br><br> Near Udaipole Bus Stand <br><br> Udaipur (Rajasthan)</dd>
+                                    <dd>134 Shivaji Nagar </dd>
                                 </dl>
                                 <dl class="dl-horizontal">
                                     <dt>City</dt>
