@@ -26,6 +26,7 @@
     </style>
 </head>
 <body>
+<div id="output"></div>
 <header id="header" class="clearfix" data-current-skin="blue">
     <ul class="header-inner">
         <li id="menu-trigger" data-trigger="#sidebar">
@@ -106,16 +107,10 @@
                             </a>
                         </div>
                         <div class="pmo-stat">
-                            <div>
-                                <div style="float:left;"><input type="file" id="homework" name="homework"></div>
-                                <div id="pr" style="float:left;border:1px solid #CCC;width:100px;">
-                                    <div id="pr_bar" style="width:0px;background-color:#FF0000;position:absolute;">&nbsp;</div>
-                                    <div id="pr_text" align="center" style="position:relative;">% 0</div>
-                                </div>
-                            </div>
-                            <div style="float:left;margin-left:15px;" align="center">
-                                <input type="button" value="Upload" onclick="PLX.InitializeUpload('homework')">
-                            </div>
+                            <form action="<?php echo base_url('profile-image'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="MyUploadForm">
+                                <input type="file" name="ImageFile" id="imageInput" />
+                                <input type="submit" value="Upload"/>
+                            </form>
                         </div>
                         <div class="pmo-block pmo-contact hidden-xs">
                             <ul>
@@ -267,8 +262,6 @@
 </div>
 <![endif]-->
 
-
-<!-- Javascript Libraries -->
 <?php
 echo script_tag('assets/js/jquery.js');
 echo script_tag('assets/js/jquery.min.js');
@@ -281,34 +274,14 @@ echo script_tag('assets/js/moment.min.js');
 echo script_tag('assets/js/bootstrap-datetimepicker.min.js');
 echo script_tag('assets/js/functions.js');
 echo script_tag('assets/js/demo.js');
+echo script_tag('assets/js/jquery.form.min.js');
 echo script_tag('assets/js/jquery.validate.min.js');
 echo script_tag('assets/js/profile/profile.js');
 ?>
-<!--<![endif]-->-->
 </body>
 <script type="text/javascript">
     $(document).ready(function(){
         new MBJS.UserProfile("<?php echo base_url(); ?>");
-    })
-    PLX.AjaxifyUpload("homework", {
-        cgi_path: "cgi-bin/upload.cgi",
-        tmp_dir: "tmp",
-//        allowed_types: ["txt", "rtf", "doc", "odt", "pdf", "xls"],
-        allowed_types: ["jpg", "jpeg", "png"],
-        insensitivity: 0.20, // Slower, more visual
-        interval: 1500,
-        click_el: true, // ATTENTION
-        onProgress: function(progress){
-            var pr_bar = document.getElementById("pr_bar");
-            pr_bar.style.width = progress.percent + "px";
-            document.getElementById("pr_text").innerHTML = "% " + progress.percent;
-            if(progress.completed)
-                upload(progress.file_tmp_name, progress.file_name, {});
-        },
-        onError: function(error){
-            if(error == PLX.TYPE_ERROR)
-                alert("File type is not allowed!");
-        }
     });
 </script>
 </html>
