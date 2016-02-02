@@ -1834,6 +1834,12 @@ dl {
   margin-bottom: 18px;
 }
 
+.dl-horizontals{
+  margin-bottom: 30px !important;
+  padding-bottom: 10px;
+  border-bottom: dashed 1px rgba(188,188,188,0.6) !important;
+}
+
 dt,
 dd {
   line-height: 1.42857143;
@@ -4039,7 +4045,8 @@ fieldset[disabled] .btn-default:active {
 
 .btn-primary {
   color: #ffffff;
-  background-color: #2196f3;
+  /*background-color: #2196f3;*/
+  background-color: #009688;
   border-color: #0d8aee;
 }
 

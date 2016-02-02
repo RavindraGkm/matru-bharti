@@ -19,6 +19,7 @@
     echo link_tag('assets/css/font-awesome.min.css');
     ?>
     <style type="text/css">
+
         @font-face {
             font-family: 'Lato', sans-serif;
         }
@@ -57,7 +58,7 @@
                     <img src="<?php echo base_url('assets/img/profile-pics/1.jpg');?>" alt="">
                 </div>
                 <div class="profile-info">
-                    Malinda Hollaway
+                    <span class="span-auth-name"></span>
                     <i class="zmdi zmdi-caret-down"></i>
                 </div>
             </a>
@@ -66,7 +67,7 @@
                     <a href="<?php echo base_url('view-profiles');?>"><i class="zmdi zmdi-account"></i> View Profile</a>
                 </li>
                 <li>
-                    <a href=""><i class="zmdi zmdi-time-restore"></i> Logout</a>
+                    <a href="<?php echo base_url();?>"><i class="zmdi zmdi-time-restore"></i> Logout</a>
                 </li>
             </ul>
         </div>
@@ -105,7 +106,16 @@
                             </a>
                         </div>
                         <div class="pmo-stat">
-
+                            <div>
+                                <div style="float:left;"><input type="file" id="homework" name="homework"></div>
+                                <div id="pr" style="float:left;border:1px solid #CCC;width:100px;">
+                                    <div id="pr_bar" style="width:0px;background-color:#FF0000;position:absolute;">&nbsp;</div>
+                                    <div id="pr_text" align="center" style="position:relative;">% 0</div>
+                                </div>
+                            </div>
+                            <div style="float:left;margin-left:15px;" align="center">
+                                <input type="button" value="Upload" onclick="PLX.InitializeUpload('homework')">
+                            </div>
                         </div>
                         <div class="pmo-block pmo-contact hidden-xs">
                             <ul>
@@ -130,7 +140,7 @@
 
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li>
-                                            <a data-pmb-action="edit" href="">Edit</a>
+                                            <a data-pmb-action="edit" id="edit-auth-profile" href="">Edit</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -138,25 +148,25 @@
                         </div>
                         <div class="pmbb-body p-l-30">
                             <div class="pmbb-edit" id="profile_view">
-                                <dl class="dl-horizontal">
+                                <dl class="dl-horizontal dl-horizontals">
                                     <dt>Name*</dt>
-                                    <dd>Mallinda Hollaway</dd>
+                                    <dd><span class="span-auth-name"></span></dd>
                                 </dl>
-                                <dl class="dl-horizontal">
+                                <dl class="dl-horizontal dl-horizontals">
                                     <dt>Address</dt>
-                                    <dd>134 Shivaji Nagar </dd>
+                                    <dd><span id="span-auth-address"></span></dd>
                                 </dl>
-                                <dl class="dl-horizontal">
+                                <dl class="dl-horizontal dl-horizontals">
                                     <dt>City</dt>
-                                    <dd>Udaipur (Raj.)</dd>
+                                    <dd><span id="span-auth-city"></span></dd>
                                 </dl>
-                                <dl class="dl-horizontal">
+                                <dl class="dl-horizontal dl-horizontals">
                                     <dt>Date of Birth</dt>
-                                    <dd>26/01/1986</dd>
+                                    <dd><span id="span-auth-dob"></span></dd>
                                 </dl>
-                                <dl class="dl-horizontal">
+                                <dl class="dl-horizontal dl-horizontals">
                                     <dt>About yourself</dt>
-                                    <dd>Non manglik AsHAS <br><br> SDGC s sd  isd dsn </dd>
+                                    <dd><span id="span-auth-about"></span></dd>
                                 </dl>
                             </div>
 
@@ -210,6 +220,7 @@
                                         <dd>
                                             <div class="fg-line">
                                                 <button class="btn btn-primary btn-sm " type="submit" name="btn-update-profile" id="btn-update-profile">Save &nbsp;<i class="fa fa-save"></i></button>
+                                                <button data-pmb-action="reset" class="btn btn-link btn-sm" id="btn-cancel-edit-pro">Cancel</button>
                                             </div>
                                         </dd>
                                     </dl>
@@ -279,5 +290,25 @@ echo script_tag('assets/js/profile/profile.js');
     $(document).ready(function(){
         new MBJS.UserProfile("<?php echo base_url(); ?>");
     })
+    PLX.AjaxifyUpload("homework", {
+        cgi_path: "cgi-bin/upload.cgi",
+        tmp_dir: "tmp",
+//        allowed_types: ["txt", "rtf", "doc", "odt", "pdf", "xls"],
+        allowed_types: ["jpg", "jpeg", "png"],
+        insensitivity: 0.20, // Slower, more visual
+        interval: 1500,
+        click_el: true, // ATTENTION
+        onProgress: function(progress){
+            var pr_bar = document.getElementById("pr_bar");
+            pr_bar.style.width = progress.percent + "px";
+            document.getElementById("pr_text").innerHTML = "% " + progress.percent;
+            if(progress.completed)
+                upload(progress.file_tmp_name, progress.file_name, {});
+        },
+        onError: function(error){
+            if(error == PLX.TYPE_ERROR)
+                alert("File type is not allowed!");
+        }
+    });
 </script>
 </html>

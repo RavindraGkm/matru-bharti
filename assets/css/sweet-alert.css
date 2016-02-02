@@ -569,6 +569,10 @@
   margin-top: 0;
 }
 
+.h2_success{
+  color: #009688 !important;
+}
+
 .sweet-alert p.text-muted {
   font-size: 14px;
   color: #fff;

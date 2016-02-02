@@ -22,6 +22,14 @@ MBJS.UserProfile.prototype={
                 console.log(data);
                 $('#author_email').html(data.result.email);
                 $('#author_mobile').html(data.result.mobile);
+                $('.span-auth-name').html(data.result.name);
+                $('#h2_name').html(data.result.name);
+                $('#span-auth-address').html(data.result.address);
+                $('#span-auth-city').html(data.result.city);
+                $('#span-auth-dob').html(data.result.dob.split('-').reverse().join('-'));
+                $('#span-auth-about').html(data.result.about);
+                console.log(data.result.dob);
+
                 if(data.result.name=="") {
                     console.log("Registration");
                     $('#profile_view').removeClass('pmbb-view');
@@ -36,6 +44,18 @@ MBJS.UserProfile.prototype={
                     $('#profile_editable').removeClass('pmbb-view');
                     $('#profile_editable').addClass('pmbb-edit');
                 }
+
+                $('#edit-auth-profile').click(function(){
+                    $('#txt_name').val(data.result.name);
+                    $('#txt_address').val(data.result.address);
+                    $('#txt_city').val(data.result.city);
+                    $('#txt_dob').val(data.result.dob.split('-').reverse().join('-'));
+                    $('#txt_about_yourself').val(data.result.about);
+                    $('.pmbb-body div.pmbb-header ul.actions ').hide();
+                });
+                $('#btn-cancel-edit-pro').click(function(){
+                    $('.pmbb-body div.pmbb-header ul.actions ').show();
+                });
             }
         });
     },
@@ -148,8 +168,10 @@ MBJS.UserProfile.prototype={
                             text: "Profile updated successfully",
                             timer: 2000,
                             showConfirmButton: false,
-                            showCancelButton: false
+                            showCancelButton: false,
                         });
+                        $('.sweet-alert h2').addClass('h2_success');
+                        update_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
                     }
                 });
             },
