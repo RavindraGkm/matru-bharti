@@ -16,10 +16,10 @@
     echo link_tag('assets/css/app.min.2.css');
     echo link_tag('assets/css/lightGallery.css');
     echo link_tag('assets/css/font-awesome.css');
-    echo link_tag('assets/css/font-awesome.min.css');
+    echo link_tag('assets/css/circle.css');
+    echo link_tag('assets/css/profile.css');
     ?>
     <style type="text/css">
-
         @font-face {
             font-family: 'Lato', sans-serif;
         }
@@ -92,25 +92,28 @@
                             <a href="">
                                 <img class="img-responsive" src="<?php echo base_url('assets/img/profile-pics/profile-pic-2.jpg');?>" alt="">
                             </a>
-
                             <div class="dropdown pmop-message">
                                 <a data-toggle="dropdown" href="" class="btn bgm-white btn-float z-depth-1">
                                     <i class="zmdi zmdi-comment-text-alt"></i>
                                 </a>
-
-                                <div class="dropdown-menu">
-                                </div>
                             </div>
-
                             <a href="" class="pmop-edit">
                                 <i class="zmdi zmdi-camera"></i> <span class="hidden-xs">Add Profile Picture</span>
+                                <form class="form-image-upload" action="<?php echo base_url('profile-image'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="MyUploadForm">
+                                    <input style="opacity: 0;" type="file" name="ImageFile" id="imageInput" />
+                                </form>
                             </a>
+                            <div class="uploading-progress-div">
+                                <div class="c100 p30 small orange">
+                                    <span>12%</span>
+                                    <div class="slice">
+                                        <div class="bar"></div>
+                                        <div class="fill"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="pmo-stat">
-                            <form action="<?php echo base_url('profile-image'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="MyUploadForm">
-                                <input type="file" name="ImageFile" id="imageInput" />
-                                <input type="submit" value="Upload"/>
-                            </form>
                         </div>
                         <div class="pmo-block pmo-contact hidden-xs">
                             <ul>

@@ -13,8 +13,13 @@ MBJS.UserProfile.prototype={
 
 
     profileImageUpload: function() {
-        var self = this;
 
+        $("#imageInput").change(function() {
+            $('#MyUploadForm').submit();
+            return false;
+        });
+
+        var self = this;
         var progressbox     = $('#progressbox');
         var progressbar     = $('#progressbar');
         var statustxt       = $('#statustxt');
@@ -39,8 +44,7 @@ MBJS.UserProfile.prototype={
             //Progress bar
             progressbar.width(percentComplete + '%') //update progressbar percent complete
             statustxt.html(percentComplete + '%'); //update status text
-            if(percentComplete>50)
-            {
+            if(percentComplete>50) {
                 statustxt.css('color','#fff'); //change status text to white after 50%
             }
             console.log(percentComplete);
