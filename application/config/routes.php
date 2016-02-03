@@ -56,4 +56,6 @@ $route['profile_info'] = "Profile_controller/profile_session";
 $route['profile_session_access'] = "Profile_controller/profile_session_access";
 $route['authors/([0-9]+)'] = "authors/index/$1";
 $route['profile-image'] = "Profile_controller/profile_image";
+$route['profile-image-2'] = "Image_controller";
+$route['image/upload'] = "Image_controller/image";
 $route['translate_uri_dashes'] = FALSE;

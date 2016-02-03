@@ -2,7 +2,8 @@ var MBJS = MBJS ||{};
 MBJS.UserProfile=function(base_url){
     this.base_url=base_url;
     this.initialize();
-}
+    this.last_class = "p0";
+};
 
 MBJS.UserProfile.prototype={
     initialize:function(){
@@ -20,17 +21,22 @@ MBJS.UserProfile.prototype={
         });
 
         var self = this;
-        var progressbox     = $('#progressbox');
-        var progressbar     = $('.custom-progress');
-        var statustxt       = $('.custom-progress span');
-        var completed       = '0%';
+        var remember_token = $('#remember_token').val();
+        var progressbox = $('#progressbox');
+        var progressbar = $('.custom-progress');
+        var statustxt = $('.custom-progress span');
+        var completed = '0%';
+        var uploadingprogressdiv = $('.uploading-progress-div');
+        var author_id=$('#author_id').val();
 
         var options = {
-            target:   '#output',   // target element(s) to be updated with server response
-            beforeSubmit:  beforeSubmit,  // pre-submit callback
-            uploadProgress: OnProgress,
-            success:       afterSuccess,  // post-submit callback
-            resetForm: true        // reset the form after successful submit
+            target:'#output',
+            beforeSubmit:beforeSubmit,
+            uploadProgress:OnProgress,
+            success:afterSuccess,
+            resetForm: true,
+            data: {author_id : author_id},
+            headers:{Authorization : remember_token}
         };
 
 
@@ -39,23 +45,21 @@ MBJS.UserProfile.prototype={
             return false;
         });
 
-        var last_class = "p0";
-
         function OnProgress(event, position, total, percentComplete) {
-            progressbar.removeClass(last_class).addClass("p"+percentComplete); //update progressbar percent complete
-            var last_class = "p"+percentComplete;
-            statustxt.html(percentComplete + '%'); //update status text
+            progressbar.removeClass(self.last_class).addClass("p"+percentComplete);
+            self.last_class = "p"+percentComplete;
+            statustxt.html(percentComplete + '%');
         }
 
-//after succesful upload
         function afterSuccess() {
-            $('#submit-btn').show(); //hide submit button
-            $('#loading-img').hide(); //hide submit button
+            setTimeout(function() {
+                uploadingprogressdiv.addClass('hidden');
+            },2000);
         }
 
 //function to check file size before uploading.
         function beforeSubmit() {
-            //check whether browser fully supports all File API
+            uploadingprogressdiv.removeClass('hidden');
             if (window.File && window.FileReader && window.FileList && window.Blob) {
                 if( !$('#imageInput').val()) {
                     $("#output").html("Are you kidding me?");
@@ -183,7 +187,7 @@ MBJS.UserProfile.prototype={
             },
             messages : {
                 txt_name: {
-                    required : 'Enter your name',
+                    required : 'Enter your name'
                 },
                 txt_email: {
                     required : 'Enter your email',
@@ -273,4 +277,4 @@ MBJS.UserProfile.prototype={
             }
         });
     }
-}
+};

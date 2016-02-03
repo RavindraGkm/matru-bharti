@@ -99,11 +99,11 @@
                             </div>
                             <a href="" class="pmop-edit">
                                 <i class="zmdi zmdi-camera"></i> <span class="hidden-xs">Add Profile Picture</span>
-                                <form class="form-image-upload" action="<?php echo base_url('profile-image'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="MyUploadForm">
+                                <form class="form-image-upload" action="<?php echo base_url('profile-image-2'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="MyUploadForm">
                                     <input style="opacity: 0;" type="file" name="ImageFile" id="imageInput" />
                                 </form>
                             </a>
-                            <div class="uploading-progress-div">
+                            <div class="uploading-progress-div hidden">
                                 <div class="uploading-div-wrapper">
                                     <div class="dis-mid">
                                         <div class="c100 p0 small orange custom-progress">
