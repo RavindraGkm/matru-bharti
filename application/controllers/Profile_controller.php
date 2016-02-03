@@ -24,6 +24,9 @@ class Profile_controller extends CI_Controller {
     }
     public function profile_image() {
         $this->load->helper('url');
+        $this->load->library('session');
+        $author_id =$this->session->userdata('author_id');
+
         if (isset($_POST)) {
             ############ Edit settings ##############
             $ThumbSquareSize = 100; //Thumbnail will be 200x200

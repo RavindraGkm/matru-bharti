@@ -21,8 +21,8 @@ MBJS.UserProfile.prototype={
 
         var self = this;
         var progressbox     = $('#progressbox');
-        var progressbar     = $('#progressbar');
-        var statustxt       = $('#statustxt');
+        var progressbar     = $('.custom-progress');
+        var statustxt       = $('.custom-progress span');
         var completed       = '0%';
 
         var options = {
@@ -39,45 +39,33 @@ MBJS.UserProfile.prototype={
             return false;
         });
 
-        //when upload progresses
+        var last_class = "p0";
+
         function OnProgress(event, position, total, percentComplete) {
-            //Progress bar
-            progressbar.width(percentComplete + '%') //update progressbar percent complete
+            progressbar.removeClass(last_class).addClass("p"+percentComplete); //update progressbar percent complete
+            var last_class = "p"+percentComplete;
             statustxt.html(percentComplete + '%'); //update status text
-            if(percentComplete>50) {
-                statustxt.css('color','#fff'); //change status text to white after 50%
-            }
-            console.log(percentComplete);
         }
 
 //after succesful upload
         function afterSuccess() {
-
             $('#submit-btn').show(); //hide submit button
             $('#loading-img').hide(); //hide submit button
         }
 
 //function to check file size before uploading.
         function beforeSubmit() {
-            console.log('Before submit');
             //check whether browser fully supports all File API
-            if (window.File && window.FileReader && window.FileList && window.Blob)
-            {
-
-                if( !$('#imageInput').val()) //check empty input filed
-                {
+            if (window.File && window.FileReader && window.FileList && window.Blob) {
+                if( !$('#imageInput').val()) {
                     $("#output").html("Are you kidding me?");
                     return false
                 }
-
                 var fsize = $('#imageInput')[0].files[0].size; //get file size
+                console.log(fsize);
                 var ftype = $('#imageInput')[0].files[0].type; // get file type
-
-                console.log(ftype);
-
                 //allow only valid image file types
-                switch(ftype)
-                {
+                switch(ftype) {
                     case 'image/png': case 'image/gif': case 'image/jpeg': case 'image/pjpeg':
                     break;
                     default:
@@ -93,7 +81,6 @@ MBJS.UserProfile.prototype={
 
                 //Progress bar
                 progressbox.show(); //show progressbar
-                progressbar.width(completed); //initial value 0% of progressbar
                 statustxt.html(completed); //set status text
                 statustxt.css('color','#000'); //initial color of status text
 
