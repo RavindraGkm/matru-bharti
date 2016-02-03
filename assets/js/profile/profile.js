@@ -52,9 +52,7 @@ MBJS.UserProfile.prototype={
         }
 
         function afterSuccess() {
-            setTimeout(function() {
-                uploadingprogressdiv.addClass('hidden');
-            },2000);
+            uploadingprogressdiv.addClass('hidden');
         }
 
 //function to check file size before uploading.

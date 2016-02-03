@@ -19,13 +19,21 @@ class Image_controller extends CI_Controller {
         echo json_encode(array('author_id',$this->input->post('author_id')));
     }
 
-    public function image() {
-        $DestinationDirectory = 'assets/uploads/authors-images/';
-        list($originalWidth, $originalHeight) = getimagesize($DestinationDirectory.'author-3.jpg');
-        $ratio = $originalWidth / $originalHeight;
-        $newWidth = 400;
-        $newHeight = ($originalHeight  / $originalWidth) * $newWidth;
-        WideImage::load($DestinationDirectory.'author-3.jpg')->resize($newWidth, $newHeight)->output('jpg',90);
+    public function image($one,$two=-1) {
+        if($two==-1) {
+            $DestinationDirectory = 'assets/uploads/authors-images/';
+            $image_name = $DestinationDirectory.'author-'.$one.'.jpg';
+            WideImage::load($image_name)->output('jpg',90);
+        }
+        else {
+            $array = explode("_",$one);
+            $DestinationDirectory = 'assets/uploads/authors-images/';
+            $image_name = $DestinationDirectory.'author-'.$two.'.jpg';
+            list($originalWidth, $originalHeight) = getimagesize($image_name);
+            $newWidth = $array[1];
+            $newHeight = ($originalHeight  / $originalWidth) * $newWidth;
+            WideImage::load($image_name)->resize($newWidth, $newHeight)->output('jpg',90);
+        }
     }
 
 }
