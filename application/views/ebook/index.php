@@ -406,20 +406,20 @@
 </div>
 
 <?php
-//echo script_tag('assets/js/jquery.js');
-//echo script_tag('assets/js/jquery.min.js');
-//echo script_tag('assets/js/bootstrap.min.js');
-//echo script_tag('assets/js/jquery.mCustomScrollbar.concat.min.js');
-//echo script_tag('assets/js/waves.min.js');
-//echo script_tag('assets/js/bootstrap-growl.min.js');
-//echo script_tag('assets/js/sweet-alert.min.js');
-//echo script_tag('assets/js/moment.min.js');
-//echo script_tag('assets/js/bootstrap-datetimepicker.min.js');
-//echo script_tag('assets/js/functions.js');
-//echo script_tag('assets/js/jquery.validate.min.js');
-//echo script_tag('assets/js/demo.js');
-//echo script_tag('assets/js/ebook/book-upload.js');
-//echo script_tag('assets/js/jquery.bootgrid.updated.min.js');
+echo script_tag('assets/js/jquery.js');
+echo script_tag('assets/js/jquery.min.js');
+echo script_tag('assets/js/bootstrap.min.js');
+echo script_tag('assets/js/jquery.mCustomScrollbar.concat.min.js');
+echo script_tag('assets/js/waves.min.js');
+echo script_tag('assets/js/bootstrap-growl.min.js');
+echo script_tag('assets/js/sweet-alert.min.js');
+echo script_tag('assets/js/moment.min.js');
+echo script_tag('assets/js/bootstrap-datetimepicker.min.js');
+echo script_tag('assets/js/functions.js');
+echo script_tag('assets/js/jquery.validate.min.js');
+echo script_tag('assets/js/demo.js');
+echo script_tag('assets/js/ebook/book-upload.js');
+echo script_tag('assets/js/jquery.bootgrid.updated.min.js');
 ?>
 </body>
 </html>

@@ -51,7 +51,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'Index_controller';
 $route['404_override'] = '';
-//$route['ebook'] = "Index_controller/ebook";
 $route['ebook'] = "Ebook_controller";
 $route['profile'] = "Profile_controller";
 $route['profile_info'] = "Profile_controller/profile_session";

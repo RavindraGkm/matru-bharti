@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+
 class Ebook_controller extends CI_Controller {
+
     public function index() {
         $this->load->library('session');
         $data['remember_token']=$this->session->userdata('remember_token');
@@ -9,5 +11,6 @@ class Ebook_controller extends CI_Controller {
         $this->load->helper('url');
         $this->load->view('ebook/index',$data);
     }
+
 }
 ?>
