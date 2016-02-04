@@ -37,7 +37,7 @@
             </div>
         </li>
         <li class="logo hidden-xs">
-            <a href="<?php echo base_url('ebook'); ?>">
+            <a href="<?php echo base_url(''); ?>">
                 Martu Bharti
             </a>
         </li>
@@ -221,7 +221,7 @@
                                         <dt class="p-t-10"></dt>
                                         <dd>
                                             <div class="fg-line">
-                                                <button class="btn btn-primary btn-sm " type="submit" name="btn-update-profile" id="btn-update-profile">Save &nbsp;<i class="fa fa-save"></i></button>
+                                                <button class="btn btn-primary btn-sm " type="submit" name="btn_update_profile" id="btn_update_profile">Save &nbsp;<i class="fa fa-save"></i></button>
                                                 <button data-pmb-action="reset" class="btn btn-link btn-sm" id="btn-cancel-edit-pro">Cancel</button>
                                             </div>
                                         </dd>
