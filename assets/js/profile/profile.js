@@ -15,7 +15,7 @@ MBJS.UserProfile.prototype={
 
     profileImageUpload: function() {
 
-        $("#imageInput").change(function() {
+        $("#profileImage").change(function() {
             $('#MyUploadForm').submit();
             return false;
         });
@@ -59,13 +59,13 @@ MBJS.UserProfile.prototype={
         function beforeSubmit() {
             uploadingprogressdiv.removeClass('hidden');
             if (window.File && window.FileReader && window.FileList && window.Blob) {
-                if( !$('#imageInput').val()) {
+                if( !$('#profileImage').val()) {
                     $("#output").html("Are you kidding me?");
                     return false
                 }
-                var fsize = $('#imageInput')[0].files[0].size; //get file size
+                var fsize = $('#profileImage')[0].files[0].size; //get file size
                 console.log(fsize);
-                var ftype = $('#imageInput')[0].files[0].type; // get file type
+                var ftype = $('#profileImage')[0].files[0].type; // get file type
                 //allow only valid image file types
                 switch(ftype) {
                     case 'image/png': case 'image/gif': case 'image/jpeg': case 'image/pjpeg':

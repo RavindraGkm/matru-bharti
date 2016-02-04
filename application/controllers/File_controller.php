@@ -1,21 +1,20 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Image_controller extends CI_Controller {
+class File_controller extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->library('WideImageLib');
     }
     public function index() {
         $DestinationDirectory = 'assets/uploads/authors-images/';
-        if (!isset($_FILES['profileImage']) || !is_uploaded_file($_FILES['profileImage']['tmp_name'])) {
+        if (!isset($_FILES['ebook_file']) || !is_uploaded_file($_FILES['ebook_file']['tmp_name'])) {
             die('Something wrong with uploaded file, something missing!');
         }
-        $ImageName = str_replace(' ', '-', strtolower($_FILES['profileImage']['name']));
-        $TempSrc = $_FILES['profileImage']['tmp_name'];
+        $TempSrc = $_FILES['ebook_file']['tmp_name'];
         list($originalWidth, $originalHeight) = getimagesize($TempSrc);
         $author_id = $this->input->post('author_id');
-        WideImage::load($TempSrc)->resize($originalWidth, $originalHeight)->saveToFile($DestinationDirectory.'author-'.$author_id.'.jpg');
+        WideImage::load($TempSrc)->resize($originalWidth, $originalHeight)->saveToFile($DestinationDirectory.'author-'.$author_id.'.docx');
         echo json_encode(array('author_id',$this->input->post('author_id')));
     }
 

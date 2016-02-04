@@ -42,8 +42,7 @@
         <li class="pull-right pull-right-margine">
             <ul class="top-menu">
                 <li class="">
-                    <i class="tm-icon zmdi zmdi-account"></i>
-                    Welcome Dilip Lohar
+                    <span>Welcome&nbsp;:&nbsp;</span>&nbsp;<span class="span-auth-name welcome-name"></span>
                 </li>
             </ul>
         </li>
@@ -54,7 +53,7 @@
         <div class="profile-menu">
             <a href="">
                 <div class="profile-pic">
-                    <img src="<?php echo base_url('assets/img/profile-pics/1.jpg');?>" alt="">
+                    <img src="<?php echo base_url('image/upload/w_400/'.$author_id);?>" alt="">
                 </div>
                 <div class="profile-info">
                     <span class="span-auth-name"></span>
@@ -72,8 +71,10 @@
         </div>
 
         <ul class="main-menu">
-            <li><a href="<?php echo base_url('ebook'); ?>"><i class="fa fa-book"></i> E-Book Management</a></li>
-            <li><a href="<?php echo base_url('register'); ?>"><i class="zmdi zmdi-account-add"></i> Register</a></li>
+            <li><a href="<?php echo base_url('ebook-mng?tab=ebook'); ?>"><i class="fa fa-book"></i> E-Book Management</a></li>
+            <li><a href="<?php echo base_url('ebook-mng?tab=composition'); ?>"><i class="fa fa-file-word-o"></i> Composition</a></li>
+            <li><a href="<?php echo base_url('ebook-mng?tab=ebook_list'); ?>"><i class="fa fa-list"></i> List of Uploaded Books</a></li>
+            <li><a href="<?php echo base_url('ebook-mng?tab=composition_list'); ?>"><i class="fa fa-list"></i> List of Uploaded Composition</a></li>
         </ul>
     </aside>
     <section id="content">
@@ -84,21 +85,21 @@
             </div>
 
             <div class="card col col-md-offset-1 col-lg-10 col-md-10 col-sm-12 col-xs-12" id="profile-main">
+                <input type="hidden" value="<?php echo $active_tab; ?>" id="active_tab_val" />
                 <ul class="tab-nav" role="tablist">
-                    <li class="active   " role="presentation" class="active"><a href="#ebook" aria-controls="ebook" role="tab" data-toggle="tab">e-book Upload</a></li>
-                    <li class="" role="presentation"><a href="#composition" aria-controls="composition" role="tab" data-toggle="tab">composition / Creation upload</a></li>
-                    <li class="" role="presentation"><a href="#upload-file-list" aria-controls="upload-file-list" role="tab" data-toggle="tab">List of Upload Files</a></li>
+                    <li role="presentation" id="tab_ebook"><a href="#ebook" aria-controls="ebook" role="tab" data-toggle="tab">e-book Upload</a></li>
+                    <li role="presentation" id="tab_composition"><a href="#composition" aria-controls="composition" role="tab" data-toggle="tab">composition / Creation upload</a></li>
+                    <li role="presentation" id="tab_ebook_list"><a href="#ebook_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">List of Upload Files</a></li>
+                    <li role="presentation" id="tab_composition_list"><a href="#composition_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">List of Upload Files</a></li>
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active pmb-block" id="ebook">
+                    <div role="tabpanel" class="tab-pane pmb-block" id="ebook">
                         <div class="pmbb-body p-1-30 pmb-block">
-                            <div class="pmbb-header">
-                                <h2><i class="zmdi zmdi-info m-r-5"></i> NOTE : We accept minimum 1000 words of content. If content is shorter than this, we might reject the content</h2>
-
-                            </div>
                             <div class="pmbb-body p-l-30">
+                                <input type="hidden" value="<?php echo $remember_token; ?>" name="remember_token" id="remember_token">
+                                <input type="hidden" value="<?php echo $author_id; ?>" name="author_id" id="author_id">
                                 <form id="form_ebook_upload">
                                     <div class="pmbb-view">
                                         <dl class="dl-horizontal">
@@ -106,7 +107,7 @@
                                             <dd>
                                                 <div class="fg-line">
                                                     <select class="form-control" name="book_language" id="book_language">
-                                                        <option>Select Language...</option>
+                                                        <option value="">Select Language...</option>
                                                         <option value="Hindi">Hindi</option>
                                                         <option value="English">English</option>
                                                     </select>
@@ -118,7 +119,7 @@
                                             <dd>
                                                 <div class="fg-line">
                                                     <select class="form-control" name="book_category" id="book_category">
-                                                        <option>Select Category...</option>
+                                                        <option value="">Select Category...</option>
                                                         <option value="Stories">Stories</option>
                                                         <option value="Articles">Articles</option>
                                                         <option value="Spritual">Spritual</option>
@@ -158,14 +159,6 @@
                                             </dd>
                                         </dl>
                                         <dl class="dl-horizontal">
-                                            <dt class="p-t-10">About this book*</dt>
-                                            <dd>
-                                                <div class="fg-line">
-                                                    <textarea class="form-control" name="about_book" id="about_book" rows="8" placeholder=""></textarea>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                        <dl class="dl-horizontal">
                                             <dt class="p-t-10">Tags</dt>
                                             <dd>
                                                 <div class="dtp-container dropdown fg-line">
@@ -177,7 +170,9 @@
                                             <dt class="p-t-10">File (Only doc/docx)*</dt>
                                             <dd>
                                                 <div class="fg-line">
-                                                    <input type="file" class="form-control" name="ebook_file" id="ebook_file" >
+                                                    <form class="form-image-upload" action="<?php echo base_url('profile-image-2'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="MyUploadForm">
+                                                        <input type="file" class="form-control" name="ebook_file" id="ebook_file" >
+                                                    </form>
                                                 </div>
                                             </dd>
                                         </dl>
@@ -189,10 +184,23 @@
                                                 </div>
                                             </dd>
                                         </dl>
-                                        <div class="m-t-30">
-                                            <button class="btn btn-primary btn-sm" type="submit" name="btn-save-book-info" id="btn-save-book-info">Add</button>
-                                            <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
-                                        </div>
+                                        <dl class="dl-horizontal">
+                                            <dt class="p-t-10">About this book*</dt>
+                                            <dd>
+                                                <div class="fg-line">
+                                                    <textarea class="form-control" name="about_book" id="about_book" rows="8" placeholder=""></textarea>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                        <dl class="dl-horizontal">
+                                            <dt class="p-t-10"></dt>
+                                            <dd>
+                                                <div class="fg-line m-t-30">
+                                                    <button class="btn btn-primary btn-sm" type="submit" name="btn-save-book-info" id="btn-save-book-info">Add</button>
+                                                    <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
+                                                </div>
+                                            </dd>
+                                        </dl>
                                     </div>
                                 </form>
                             </div>
@@ -200,99 +208,164 @@
                     </div>
                     <div role="tabpanel" class="tab-pane pmb-block" id="composition">
                         <div class="pmbb-body p-1-30 pmb-block">
-                            <div class="pmbb-header">
-                                <h2><i class="zmdi zmdi-info m-r-5"></i> NOTE : We accept minimum 1000 words of content. If content is shorter than this, we might reject the content</h2>
-
-                            </div>
                             <div class="pmbb-body p-l-30">
-                                <div class="pmbb-view">
-                                    <dl class="dl-horizontal">
-                                        <dt class="p-t-10">Language*</dt>
-                                        <dd>
-                                            <div class="fg-line">
-                                                <select class="form-control">
-                                                    <option>Select Language...</option>
-                                                    <option value="Hindi">Hindi</option>
-                                                    <option value="English">English</option>
-                                                </select>
-                                            </div>
-                                        </dd>
-                                    </dl>
-                                    <dl class="dl-horizontal">
-                                        <dt class="p-t-10">Category*</dt>
-                                        <dd>
-                                            <div class="fg-line">
-                                                <select class="form-control">
-                                                    <option>Select Category...</option>
-                                                    <option>Stories</option>
-                                                    <option>Articles</option>
-                                                    <option>Spritual</option>
-                                                    <option>Religious</option>
-                                                    <option>Novels</option>
-                                                    <option>Motivational</option>
-                                                    <option>Classic</option>
-                                                    <option>Children</option>
-                                                    <option>Cooking</option>
-                                                    <option>Humor</option>
-                                                    <option>Magazine</option>
-                                                    <option>Poems</option>
-                                                    <option>Travel</option>
-                                                    <option>Women</option>
-                                                    <option>Drama</option>
-                                                    <option>Love Stories</option>
-                                                    <option>Adventure</option>
-                                                    <option>Fiction</option>
-                                                    <option>Adventure,Fiction</option>
-                                                    <option>Human Science</option>
-                                                    <option>Philosophy</option>
-                                                    <option>Health</option>
-                                                    <option>Education</option>
-                                                    <option>Biography</option>
-                                                    <option>Management</option>
-                                                    <option>Food</option>
-                                                </select>
-                                            </div>
-                                        </dd>
-                                    </dl>
-                                    <dl class="dl-horizontal">
-                                        <dt class="p-t-10">File Title*</dt>
-                                        <dd>
-                                            <div class="fg-line">
-                                                <input type="text" class="form-control" placeholder="Title of book">
-                                            </div>
-                                        </dd>
-                                    </dl>
-                                    <dl class="dl-horizontal">
-                                        <dt class="p-t-10">About this book*</dt>
-                                        <dd>
-                                            <div class="fg-line">
-                                                <textarea class="form-control" rows="8" placeholder=""></textarea>
-                                            </div>
-                                        </dd>
-                                    </dl>
-                                    <dl class="dl-horizontal">
-                                        <dt class="p-t-10">Tags</dt>
-                                        <dd>
-                                            <div class="dtp-container dropdown fg-line">
-                                                <input type='text' class="form-control" placeholder="Add a tag">
-                                            </div>
-                                        </dd>
-                                    </dl>
-                                    <div class="m-t-30">
-                                        <button class="btn btn-primary btn-sm">Add</button>
-                                        <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
+                                <form id="form_composition_upload">
+                                    <div class="pmbb-view">
+                                        <dl class="dl-horizontal">
+                                            <dt class="p-t-10">Language*</dt>
+                                            <dd>
+                                                <div class="fg-line">
+                                                    <select class="form-control" name="composition_language" id="composition_language">
+                                                        <option value="">Select Language...</option>
+                                                        <option value="Hindi">Hindi</option>
+                                                        <option value="English">English</option>
+                                                    </select>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                        <dl class="dl-horizontal">
+                                            <dt class="p-t-10">Category*</dt>
+                                            <dd>
+                                                <div class="fg-line">
+                                                    <select class="form-control" name="composition_category" id="composition_category">
+                                                        <option value="">Select Category...</option>
+                                                        <option value="Stories">Stories</option>
+                                                        <option value="Articles">Articles</option>
+                                                        <option value="Spritual">Spritual</option>
+                                                        <option value="Religious">Religious</option>
+                                                        <option value="Novels">Novels</option>
+                                                        <option value="Motivational">Motivational</option>
+                                                    </select>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                        <dl class="dl-horizontal">
+                                            <dt class="p-t-10">Composition Title*</dt>
+                                            <dd>
+                                                <div class="fg-line">
+                                                    <input type="text" class="form-control" name="composition_title" id="composition_title" placeholder="Title of book">
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                        <dl class="dl-horizontal">
+                                            <dt class="p-t-10">About this composition/ <br> creation*</dt>
+                                            <dd>
+                                                <div class="fg-line">
+                                                    <textarea class="form-control" name="about_composition" id="about_composition" rows="8" placeholder=""></textarea>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                        <dl class="dl-horizontal">
+                                            <dt class="p-t-10"></dt>
+                                            <dd>
+                                                <div class="fg-line m-t-30">
+                                                    <button class="btn btn-primary btn-sm" type="submit" name="btn-save-composition-info" id="btn-save-book-info">Add</button>
+                                                    <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
+                                                </div>
+                                            </dd>
+                                        </dl>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <div role="tabpanel" class="tab-pane pmb-block" id="upload-file-list">
+                    <div role="tabpanel" class="tab-pane pmb-block" id="ebook_list">
                         <div class="pmb-block">
                             <div class="pmbb-body p-l-30">
                                 <div class="pmbb-view">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h2>Basic Example <small>It's just that simple. Turn your simple table into a sophisticated data table and offer your users a nice experience and great features without any effort.</small></h2>
+                                            <h2>Book Example <small>It's just that simple. Turn your simple table into a sophisticated data table and offer your users a nice experience and great features without any effort.</small></h2>
+                                        </div>
+
+                                        <div class="table-responsive">
+                                            <table id="data-table-basic" class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th data-column-id="sender">File Title</th>
+                                                    <th data-column-id="id" data-type="numeric">Status</th>
+                                                    <th data-column-id="received" data-order="desc">Expected Publish Date</th>
+                                                    <th data-column-id="" data-order="desc">View</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>ABCD</td>
+                                                    <td>Submit</td>
+                                                    <td>23.10.2013</td>
+                                                    <td>View</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>10247</td>
+                                                    <td>robert@bingo.com</td>
+                                                    <td>23.10.2013</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>10247</td>
+                                                    <td>robert@bingo.com</td>
+                                                    <td>23.10.2013</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>10252</td>
+                                                    <td>robert@bingo.com</td>
+                                                    <td>28.10.2013</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>10236</td>
+                                                    <td>simon@yahoo.com</td>
+                                                    <td>12.10.2013</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>10241</td>
+                                                    <td>simon@yahoo.com</td>
+                                                    <td>17.10.2013</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>10246</td>
+                                                    <td>simon@yahoo.com</td>
+                                                    <td>22.10.2013</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>10251</td>
+                                                    <td>simon@yahoo.com</td>
+                                                    <td>27.10.2013</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>10235</td>
+                                                    <td>tim@microsoft.com</td>
+                                                    <td>11.10.2013</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>10240</td>
+                                                    <td>tim@microsoft.com</td>
+                                                    <td>16.10.2013</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>10245</td>
+                                                    <td>tim@microsoft.com</td>
+                                                    <td>21.10.2013</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>10250</td>
+                                                    <td>tim@microsoft.com</td>
+                                                    <td>26.10.2013</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane pmb-block" id="composition_list">
+                        <div class="pmb-block">
+                            <div class="pmbb-body p-l-30">
+                                <div class="pmbb-view">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h2>Composition Example <small>It's just that simple. Turn your simple table into a sophisticated data table and offer your users a nice experience and great features without any effort.</small></h2>
                                         </div>
 
                                         <div class="table-responsive">
@@ -406,67 +479,65 @@
 </div>
 
 <?php
-//echo script_tag('assets/js/jquery.js');
-//echo script_tag('assets/js/jquery.min.js');
-//echo script_tag('assets/js/bootstrap.min.js');
-//echo script_tag('assets/js/jquery.mCustomScrollbar.concat.min.js');
-//echo script_tag('assets/js/waves.min.js');
-//echo script_tag('assets/js/bootstrap-growl.min.js');
-//echo script_tag('assets/js/sweet-alert.min.js');
-//echo script_tag('assets/js/moment.min.js');
-//echo script_tag('assets/js/bootstrap-datetimepicker.min.js');
-//echo script_tag('assets/js/functions.js');
-//echo script_tag('assets/js/jquery.validate.min.js');
-//echo script_tag('assets/js/demo.js');
-//echo script_tag('assets/js/ebook/book-upload.js');
-//echo script_tag('assets/js/jquery.bootgrid.updated.min.js');
+echo script_tag('assets/js/jquery.js');
+echo script_tag('assets/js/bootstrap.min.js');
+echo script_tag('assets/js/jquery.mCustomScrollbar.concat.min.js');
+echo script_tag('assets/js/waves.min.js');
+echo script_tag('assets/js/bootstrap-growl.min.js');
+echo script_tag('assets/js/sweet-alert.min.js');
+echo script_tag('assets/js/moment.min.js');
+echo script_tag('assets/js/functions.js');
+echo script_tag('assets/js/jquery.validate.min.js');
+echo script_tag('assets/js/demo.js');
+echo script_tag('assets/js/ebook/book-upload.js');
+echo script_tag('assets/js/jquery.bootgrid.updated.min.js');
 ?>
 </body>
 </html>
-<!--<script type="text/javascript">
-    $(document).ready(function(){
-//        new MBJS.AuthorBook("<?php //echo base_url(); ?>//");
+<script type="text/javascript">
+   $(document).ready(function(){
+        new MBJS.AuthorBook("<?php echo base_url(); ?>");
         //Basic Example
-//        $("#data-table-basic").bootgrid({
-//            css: {
-//                icon: 'zmdi icon',
-//                iconColumns: 'zmdi-view-module',
-//                iconDown: 'zmdi-expand-more',
-//                iconRefresh: 'zmdi-refresh',
-//                iconUp: 'zmdi-expand-less'
-//            }
-//        });
-
-        //Selection
-//        $("#data-table-selection").bootgrid({
-//            css: {
-//                icon: 'zmdi icon',
-//                iconColumns: 'zmdi-view-module',
-//                iconDown: 'zmdi-expand-more',
-//                iconRefresh: 'zmdi-refresh',
-//                iconUp: 'zmdi-expand-less'
-//            },
-//            selection: true,
-//            multiSelect: true,
-//            rowSelect: true,
-//            keepSelection: true
-//        });
-
-        //Command Buttons
-//        $("#data-table-command").bootgrid({
-//            css: {
-//                icon: 'zmdi icon',
-//                iconColumns: 'zmdi-view-module',
-//                iconDown: 'zmdi-expand-more',
-//                iconRefresh: 'zmdi-refresh',
-//                iconUp: 'zmdi-expand-less'
-//            },
-//            formatters: {
-//                "commands": function(column, row) {
-//                    return "<button type=\"button\" class=\"btn btn-icon command-edit waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-edit\"></span></button> " +
-//                        "<button type=\"button\" class=\"btn btn-icon command-delete waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
-//                }
-//            }
-//        });
+        $("#data-table-basic").bootgrid({
+            css: {
+                icon: 'zmdi icon',
+                iconColumns: 'zmdi-view-module',
+                iconDown: 'zmdi-expand-more',
+                iconRefresh: 'zmdi-refresh',
+                iconUp: 'zmdi-expand-less'
+            }
+        });
+<!---->
+       //Selection
+        $("#data-table-selection").bootgrid({
+            css: {
+                icon: 'zmdi icon',
+                iconColumns: 'zmdi-view-module',
+                iconDown: 'zmdi-expand-more',
+                iconRefresh: 'zmdi-refresh',
+                iconUp: 'zmdi-expand-less'
+            },
+            selection: true,
+            multiSelect: true,
+            rowSelect: true,
+            keepSelection: true
+        });
+<!---->
+       //Command Buttons
+        $("#data-table-command").bootgrid({
+            css: {
+              icon: 'zmdi icon',
+                iconColumns: 'zmdi-view-module',
+                iconDown: 'zmdi-expand-more',
+                iconRefresh: 'zmdi-refresh',
+                iconUp: 'zmdi-expand-less'
+            },
+            formatters: {
+                "commands": function(column, row) {
+                    return "<button type=\"button\" class=\"btn btn-icon command-edit waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-edit\"></span></button> " +
+                        "<button type=\"button\" class=\"btn btn-icon command-delete waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
+                }
+            }
+        });
     });
-<!--</script>-->
+</script>

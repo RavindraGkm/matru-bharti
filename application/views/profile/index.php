@@ -20,6 +20,13 @@
     echo link_tag('assets/css/profile.css');
     ?>
     <style type="text/css">
+        span.welcome-name{
+            display: inline-block;
+            margin: 0 1px;
+            vertical-align: top;
+            min-width: 50px;
+            color: #fff;
+        }
         @font-face {
             font-family: 'Lato', sans-serif;
         }
@@ -41,11 +48,10 @@
                 Martu Bharti
             </a>
         </li>
-        <li class="pull-right pull-right-margine">
-            <ul class="top-menu">
+        <li class="logo pull-right pull-right-margine">
+            <ul class="top-menu top-menu-logo">
                 <li class="">
-                    <i class="tm-icon zmdi zmdi-account"></i>
-                    Welcome Dilip Lohar
+                    <span>Welcome&nbsp;:&nbsp;</span>&nbsp;<span class="span-auth-name welcome-name"></span>
                 </li>
             </ul>
         </li>
@@ -56,7 +62,7 @@
         <div class="profile-menu">
             <a href="">
                 <div class="profile-pic">
-                    <img src="<?php echo base_url('assets/img/profile-pics/1.jpg');?>" alt="">
+                    <img src="<?php echo base_url('image/upload/w_400/'.$author_id);?>" alt="">
                 </div>
                 <div class="profile-info">
                     <span class="span-auth-name"></span>
@@ -74,15 +80,16 @@
         </div>
 
         <ul class="main-menu">
-            <li><a href="<?php echo base_url('ebook'); ?>"><i class="fa fa-book"></i> E-Book Management</a></li>
-            <li><a href="<?php echo base_url('register'); ?>"><i class="zmdi zmdi-account-add"></i> Register</a></li>
+            <li><a href="<?php echo base_url('ebook-mng?tab=ebook'); ?>"><i class="fa fa-book"></i> E-Book Management</a></li>
+            <li><a href="<?php echo base_url('ebook-mng?tab=composition'); ?>"><i class="fa fa-file-word-o"></i> Composition</a></li>
+            <li><a href="<?php echo base_url('ebook-mng?tab=ebook_list'); ?>"><i class="fa fa-list"></i> List of Uploaded Books</a></li>
+            <li><a href="<?php echo base_url('ebook-mng?tab=composition_list'); ?>"><i class="fa fa-list"></i> List of Uploaded Composition</a></li>
         </ul>
     </aside>
     <section id="content">
         <div class="container">
 
             <div class="block-header">
-                <h2 id="h2_name"></h2>
             </div>
 
             <div class="card" id="profile-main">
@@ -90,7 +97,7 @@
                     <div class="pmo-pic">
                         <div class="p-relative">
                             <a href="">
-                                <img class="img-responsive" src="<?php echo base_url('assets/img/profile-pics/profile-pic-2.jpg');?>" alt="">
+                                <img class="img-responsive" src="<?php echo base_url('image/upload/w_400/'.$author_id);?>" alt="">
                             </a>
                             <div class="dropdown pmop-message">
                                 <a data-toggle="dropdown" href="" class="btn bgm-white btn-float z-depth-1">
@@ -100,7 +107,7 @@
                             <a href="" class="pmop-edit">
                                 <i class="zmdi zmdi-camera"></i> <span class="hidden-xs">Add Profile Picture</span>
                                 <form class="form-image-upload" action="<?php echo base_url('profile-image-2'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="MyUploadForm">
-                                    <input style="opacity: 0;" type="file" name="ImageFile" id="imageInput" />
+                                    <input style="opacity: 0;" type="file" name="profileImage" id="profileImage" />
                                 </form>
                             </a>
                             <div class="uploading-progress-div hidden">
