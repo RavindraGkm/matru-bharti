@@ -44,7 +44,7 @@ MBJS.AuthorBook.prototype = {
         $('#ebook_upload_form').submit(function() {
             console.log('This is calling');
             $(this).ajaxSubmit(options);
-            return false;   
+            return false;
         });
 
 
