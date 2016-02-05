@@ -11,6 +11,8 @@ MBJS.AuthorBook.prototype = {
         this.viewProfileInfo();
         this.ebookUpload();
         this.compositionUpload();
+        this.viewEbookList();
+        this.viewCompositionList();
     },
 
     basicSetups : function () {
@@ -108,6 +110,7 @@ MBJS.AuthorBook.prototype = {
 
     },
     //this function for retriving user data from any page just like "user name"
+
     viewProfileInfo:function () {
         var self=this;
         var auth_token = $('#remember_token').val();
@@ -123,6 +126,7 @@ MBJS.AuthorBook.prototype = {
             }
         });
     },
+
     ebookUpload: function () {
         var self = this;
         $("#form_ebook_upload").validate({
@@ -244,6 +248,7 @@ MBJS.AuthorBook.prototype = {
             }
         });
     },
+
     compositionUpload: function () {
         var self = this;
         $("#form_composition_upload").validate({
@@ -339,6 +344,43 @@ MBJS.AuthorBook.prototype = {
             unhighlight: function (element, errorClass, validClass) {
                 $(element).removeClass('error');
                 $(element).closest('li').find('.error-span').css('opacity', 0);
+            }
+        });
+    },
+
+    viewEbookList : function() {
+        var self=this;
+        var auth_token = $('#remember_token').val();
+        var author_id = $('#author_id').val();
+        $.ajax({
+            url: self.base_url+"ebook/"+author_id,
+            type: 'GET',
+            dataType: 'JSON',
+            headers:{Authorization : auth_token},
+            success:function(data){
+                console.log(data);
+                $('#ebook_title').html(data.result.title)
+                for(var i=0;i<data.result.length;i++){
+                      var row="<tr><td>"+data.result.title+"</td></tr>";
+                }
+                $("#ebook_list_info").append(row);
+                console.log(data.result.length);
+                    //console.log($('#ebook_list_info').html("<tr><td>"+data.result.title+"</td></tr>>"));
+            }
+        });
+    },
+
+    viewCompositionList : function() {
+        var self=this;
+        var auth_token = $('#remember_token').val();
+        var author_id = $('#author_id').val();
+        $.ajax({
+            url: self.base_url+"composition/"+author_id,
+            type: 'GET',
+            dataType: 'JSON',
+            headers:{Authorization : auth_token},
+            success:function(data){
+                console.log(data);
             }
         });
     }

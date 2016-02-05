@@ -288,68 +288,8 @@
                                                     <th data-column-id="" data-order="desc">View</th>
                                                 </tr>
                                                 </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>ABCD</td>
-                                                    <td>Submit</td>
-                                                    <td>23.10.2013</td>
-                                                    <td>View</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10247</td>
-                                                    <td>robert@bingo.com</td>
-                                                    <td>23.10.2013</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10247</td>
-                                                    <td>robert@bingo.com</td>
-                                                    <td>23.10.2013</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10252</td>
-                                                    <td>robert@bingo.com</td>
-                                                    <td>28.10.2013</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10236</td>
-                                                    <td>simon@yahoo.com</td>
-                                                    <td>12.10.2013</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10241</td>
-                                                    <td>simon@yahoo.com</td>
-                                                    <td>17.10.2013</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10246</td>
-                                                    <td>simon@yahoo.com</td>
-                                                    <td>22.10.2013</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10251</td>
-                                                    <td>simon@yahoo.com</td>
-                                                    <td>27.10.2013</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10235</td>
-                                                    <td>tim@microsoft.com</td>
-                                                    <td>11.10.2013</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10240</td>
-                                                    <td>tim@microsoft.com</td>
-                                                    <td>16.10.2013</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10245</td>
-                                                    <td>tim@microsoft.com</td>
-                                                    <td>21.10.2013</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10250</td>
-                                                    <td>tim@microsoft.com</td>
-                                                    <td>26.10.2013</td>
-                                                </tr>
+                                                <tbody id="ebook_list_info">
+                                                    <label id="ebook_title"></label>
                                                 </tbody>
                                             </table>
                                         </div>
