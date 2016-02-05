@@ -20,5 +20,26 @@ class Ebook_model extends CI_Model {
         }
         return $response;
     }
+
+    public function get_ebook_list($auth_token,$author_id) {
+        $query = $this->db->get_where('authors', array('token' => $auth_token));
+        $response = array();
+        if($query->num_rows()>0) {
+            $query = $this->db->get_where('ebooks', array('id' => $author_id));
+            if($query->num_rows()>0) {
+                $response['status'] = 'success';
+                $response['result'] = $query->result_array();
+            }
+            else {
+                $response['status'] = 'error';
+                $response['msg'] = 'Server Error';
+            }
+        }
+        else {
+            $response['status'] = 'error';
+            $response['msg'] = 'Anauthorized';
+        }
+        return $response;
+    }
 }
 ?>
