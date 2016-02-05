@@ -10192,6 +10192,7 @@ h6 small,
 .top-menu {
   list-style: none;
   padding: 0;
+  padding-top: 6px;
 }
 
 .top-menu > li {
@@ -10199,6 +10200,14 @@ h6 small,
   margin: 0 1px;
   vertical-align: top;
   min-width: 50px;
+}
+
+.top-menu > li span{
+  display: inline-block;
+  margin: 0 1px;
+  vertical-align: top;
+  min-width: 50px;
+  font-size: 16px;
 }
 
 @media (max-width: 767px) {
@@ -10250,11 +10259,17 @@ h6 small,
 
   .top-menu > li:not(#toggle-width):hover:before,
   .top-menu > li:not(#toggle-width).open:before {
-    -webkit-transform: scale3d(1, 1, 1);
-    -moz-transform: scale3d(1, 1, 1);
-    -ms-transform: scale3d(1, 1, 1);
-    -o-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
+    /*-webkit-transform: scale3d(1, 1, 1);*/
+    /*-moz-transform: scale3d(1, 1, 1);*/
+    /*-ms-transform: scale3d(1, 1, 1);*/
+    /*-o-transform: scale3d(1, 1, 1);*/
+    /*transform: scale3d(1, 1, 1);*/
+    opacity: 1;
+    filter: alpha(opacity=100);
+  }
+
+  .top-menu-logo > li:not(#toggle-width):hover:before,
+  .top-menu-logo > li:not(#toggle-width).open:before {
     opacity: 1;
     filter: alpha(opacity=100);
   }
