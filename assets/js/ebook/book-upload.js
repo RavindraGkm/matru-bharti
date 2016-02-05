@@ -139,7 +139,7 @@ MBJS.AuthorBook.prototype = {
                 },
                 book_tag: {
                     required: true
-                },
+                }
                 //ebook_file: {
                 //    required: true
                 //},
@@ -163,7 +163,7 @@ MBJS.AuthorBook.prototype = {
                 },
                 book_tag: {
                     required: 'Enter Tag'
-                },
+                }
                 //ebook_file: {
                 //    required: 'Select file'
                 //},
