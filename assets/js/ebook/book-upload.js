@@ -14,9 +14,98 @@ MBJS.AuthorBook.prototype = {
     },
 
     basicSetups : function () {
+        // Active tabs
         var active_tab = $("#active_tab_val").val();
         $('#tab_'+active_tab).addClass('active');
         $('#'+active_tab).addClass('active');
+
+        // Uploading setups
+
+
+        var author_id=$('#author_id').val();
+        var remember_token = $('#remember_token').val();
+
+        var options = {
+            target:'#output',
+            beforeSubmit:beforeSubmit,
+            uploadProgress:OnProgress,
+            success:afterSuccess,
+            resetForm: true,
+            data: {author_id : author_id},
+            headers:{Authorization : remember_token}
+        };
+
+
+        $("#ebook_file").change(function() {
+            $('#ebook_upload_form').submit();
+            return false;
+        });
+
+        $('#ebook_upload_form').submit(function() {
+            console.log('This is calling');
+            $(this).ajaxSubmit(options);
+            return false;   
+        });
+
+
+        function OnProgress(event, position, total, percentComplete) {
+            //progressbar.removeClass(self.last_class).addClass("p"+percentComplete);
+            //self.last_class = "p"+percentComplete;
+            //statustxt.html(percentComplete + '%');
+            console.log(percentComplete);
+        }
+
+        function afterSuccess() {
+            //uploadingprogressdiv.addClass('hidden');
+            console.log('completed');
+        }
+
+//function to check file size before uploading.
+        function beforeSubmit() {
+            uploadingprogressdiv.removeClass('hidden');
+            if (window.File && window.FileReader && window.FileList && window.Blob) {
+                if( !$('#ebook_file').val()) {
+                    $("#output").html("Are you kidding me?");
+                    return false
+                }
+                var fsize = $('#ebook_file')[0].files[0].size; //get file size
+                console.log(fsize);
+                var ftype = $('#ebook_file')[0].files[0].type; // get file type
+
+                console.log(ftype);
+
+                //allow only valid image file types
+                switch(ftype) {
+                    case 'image/png': case 'image/gif': case 'image/jpeg': case 'image/pjpeg':
+                    break;
+                    default:
+                        $("#output").html("<b>"+ftype+"</b> Unsupported file type!");
+                        return false
+                }
+
+                //Allowed file size is less than 1 MB (1048576)
+                if(fsize>1048576) {
+                    $("#output").html("<b>"+bytesToSize(fsize) +"</b> Too big Image file! <br />Please reduce the size of your photo using an image editor.");
+                    return false
+                }
+
+                //Progress bar
+                progressbox.show(); //show progressbar
+                statustxt.html(completed); //set status text
+                statustxt.css('color','#000'); //initial color of status text
+
+                $('#submit-btn').hide(); //hide submit button
+                $('#loading-img').show(); //hide submit button
+                $("#output").html("");
+            }
+            else
+            {
+                //Output error to older unsupported browsers that doesn't support HTML5 File API
+                $("#output").html("Please upgrade your browser, because your current browser lacks some new features we need!");
+                return false;
+            }
+        }
+
     },
     //this function for retriving user data from any page just like "user name"
     viewProfileInfo:function () {

@@ -12,7 +12,6 @@ MBJS.UserProfile.prototype={
         this.profileImageUpload();
     },
 
-
     profileImageUpload: function() {
 
         $("#profileImage").change(function() {

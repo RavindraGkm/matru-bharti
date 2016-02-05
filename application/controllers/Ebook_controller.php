@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+
 class Ebook_controller extends CI_Controller {
+
     public function index() {
         $data['active_tab'] = $_GET['tab'];
         $this->load->library('session');
@@ -10,5 +12,6 @@ class Ebook_controller extends CI_Controller {
         $this->load->helper('url');
         $this->load->view('ebook/index',$data);
     }
+
 }
 ?>

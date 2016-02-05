@@ -53,6 +53,7 @@ $route['default_controller'] = 'Index_controller';
 $route['404_override'] = '';
 $route['ebook-mng'] = "Ebook_controller";
 $route['profile'] = "Profile_controller";
+$route['upload/ebook-file'] = "File_controller/ebook_file";
 $route['profile_info'] = "Profile_controller/profile_session";
 $route['authors/([0-9]+)'] = "authors/index/$1";
 $route['profile-image'] = "Profile_controller/profile_image";
