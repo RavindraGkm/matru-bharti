@@ -7,16 +7,16 @@
     <title>Matru Bharti</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
     <?php
-        echo link_tag('assets/css/bootstrap.min.css');
-        echo link_tag('assets/css/bootstrap-datetimepicker.min.css');
-        echo link_tag('assets/css/animate.min.css');
-        echo link_tag('assets/css/sweet-alert.css');
-        echo link_tag('assets/css/material-design-iconic-font.min.css');
-        echo link_tag('assets/css/jquery.mCustomScrollbar.min.css ');
-        echo link_tag('assets/css/app.min.1.css');
-        echo link_tag('assets/css/app.min.2.css');
-        echo link_tag('assets/css/font-awesome.min.css');
-        echo link_tag('assets/css/jquery.bootgrid.min.css');
+    echo link_tag('assets/css/bootstrap.min.css');
+    echo link_tag('assets/css/bootstrap-datetimepicker.min.css');
+    echo link_tag('assets/css/animate.min.css');
+    echo link_tag('assets/css/sweet-alert.css');
+    echo link_tag('assets/css/material-design-iconic-font.min.css');
+    echo link_tag('assets/css/jquery.mCustomScrollbar.min.css');
+    echo link_tag('assets/css/app.min.1.css');
+    echo link_tag('assets/css/app.min.2.css');
+    echo link_tag('assets/css/font-awesome.min.css');
+    echo link_tag('assets/css/jquery.bootgrid.min.css');
     ?>
     <style type="text/css">
         @font-face {
@@ -170,8 +170,8 @@
                                             <dt class="p-t-10">File (Only doc/docx)*</dt>
                                             <dd>
                                                 <div class="fg-line">
-                                                    <form class="form-image-upload" action="<?php echo base_url('profile-image-2'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="MyUploadForm">
-                                                        <input type="file" class="form-control" name="ebook_file" id="ebook_file" >
+                                                    <form class="form-image-upload" action="<?php echo base_url('upload/ebook-file'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_upload_form">
+                                                        <input type="file" class="form-control" name="ebook_file" id="ebook_file" />
                                                     </form>
                                                 </div>
                                             </dd>
@@ -467,7 +467,7 @@
     </ul>
 </footer>
 
- Page Loader
+Page Loader
 <div class="page-loader">
     <div class="preloader pls-blue">
         <svg class="pl-circular" viewBox="25 25 50 50">
@@ -494,9 +494,8 @@ echo script_tag('assets/js/jquery.bootgrid.updated.min.js');
 </body>
 </html>
 <script type="text/javascript">
-   $(document).ready(function(){
+    $(document).ready(function(){
         new MBJS.AuthorBook("<?php echo base_url(); ?>");
-        //Basic Example
         $("#data-table-basic").bootgrid({
             css: {
                 icon: 'zmdi icon',
@@ -506,8 +505,8 @@ echo script_tag('assets/js/jquery.bootgrid.updated.min.js');
                 iconUp: 'zmdi-expand-less'
             }
         });
-<!---->
-       //Selection
+        <!---->
+        //Selection
         $("#data-table-selection").bootgrid({
             css: {
                 icon: 'zmdi icon',
@@ -521,11 +520,11 @@ echo script_tag('assets/js/jquery.bootgrid.updated.min.js');
             rowSelect: true,
             keepSelection: true
         });
-<!---->
-       //Command Buttons
+        <!---->
+        //Command Buttons
         $("#data-table-command").bootgrid({
             css: {
-              icon: 'zmdi icon',
+                icon: 'zmdi icon',
                 iconColumns: 'zmdi-view-module',
                 iconDown: 'zmdi-expand-more',
                 iconRefresh: 'zmdi-refresh',
@@ -540,4 +539,3 @@ echo script_tag('assets/js/jquery.bootgrid.updated.min.js');
         });
     });
 </script>
-echo script_tag('assets/js/moment.min.js');
