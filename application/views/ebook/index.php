@@ -277,19 +277,18 @@
                                         <div class="card-header">
                                             <h2>Book Example <small>It's just that simple. Turn your simple table into a sophisticated data table and offer your users a nice experience and great features without any effort.</small></h2>
                                         </div>
-
                                         <div class="table-responsive">
                                             <table id="data-table-basic" class="table table-striped">
                                                 <thead>
                                                 <tr>
-                                                    <th data-column-id="sender">File Title</th>
-                                                    <th data-column-id="id" data-type="numeric">Status</th>
-                                                    <th data-column-id="received" data-order="desc">Expected Publish Date</th>
-                                                    <th data-column-id="" data-order="desc">View</th>
+                                                    <th data-column-id="file-title">File Title</th>
+                                                    <th data-column-id="file-published-status">File Published Status</th>
+                                                    <th data-column-id="publish-date">Publish Date</th>
+                                                    <th data-column-id="file-attachment">File Attachment</th>
+                                                    <th data-column-id="action" data-type="text">Actions</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody id="ebook_list_info">
-                                                    <label id="ebook_title"></label>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -436,46 +435,5 @@ echo script_tag('assets/js/jquery.bootgrid.updated.min.js');
 <script type="text/javascript">
     $(document).ready(function(){
         new MBJS.AuthorBook("<?php echo base_url(); ?>");
-        $("#data-table-basic").bootgrid({
-            css: {
-                icon: 'zmdi icon',
-                iconColumns: 'zmdi-view-module',
-                iconDown: 'zmdi-expand-more',
-                iconRefresh: 'zmdi-refresh',
-                iconUp: 'zmdi-expand-less'
-            }
-        });
-        <!---->
-        //Selection
-        $("#data-table-selection").bootgrid({
-            css: {
-                icon: 'zmdi icon',
-                iconColumns: 'zmdi-view-module',
-                iconDown: 'zmdi-expand-more',
-                iconRefresh: 'zmdi-refresh',
-                iconUp: 'zmdi-expand-less'
-            },
-            selection: true,
-            multiSelect: true,
-            rowSelect: true,
-            keepSelection: true
-        });
-        <!---->
-        //Command Buttons
-        $("#data-table-command").bootgrid({
-            css: {
-                icon: 'zmdi icon',
-                iconColumns: 'zmdi-view-module',
-                iconDown: 'zmdi-expand-more',
-                iconRefresh: 'zmdi-refresh',
-                iconUp: 'zmdi-expand-less'
-            },
-            formatters: {
-                "commands": function(column, row) {
-                    return "<button type=\"button\" class=\"btn btn-icon command-edit waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-edit\"></span></button> " +
-                        "<button type=\"button\" class=\"btn btn-icon command-delete waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
-                }
-            }
-        });
     });
 </script>
