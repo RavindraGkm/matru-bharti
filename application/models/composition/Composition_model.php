@@ -25,10 +25,10 @@ class Composition_model extends CI_Model {
         $query = $this->db->get_where('authors', array('token' => $auth_token));
         $response = array();
         if($query->num_rows()>0) {
-            $query = $this->db->get_where('compositions', array('id' => $author_id));
+            $query = $this->db->get_where('compositions', array('author_id' => $author_id));
             if($query->num_rows()>0) {
                 $response['status'] = 'success';
-                $response['result'] = $query->row_array();
+                $response['result'] = $query->result_array();
             }
             else {
                 $response['status'] = 'error';
@@ -41,5 +41,7 @@ class Composition_model extends CI_Model {
         }
         return $response;
     }
+
+
 }
 ?>

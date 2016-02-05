@@ -7,10 +7,5 @@ class Index_controller extends CI_Controller
         $this->load->helper('url');
         $this->load->view('index/index');
     }
-    public function ebook() {
-        $this->load->helper('html');
-        $this->load->helper('url');
-        $this->load->view('ebook/index');
-    }
 }
 ?>
