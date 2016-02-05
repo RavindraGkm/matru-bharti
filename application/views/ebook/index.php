@@ -87,10 +87,10 @@
             <div class="card col col-md-offset-1 col-lg-10 col-md-10 col-sm-12 col-xs-12" id="profile-main">
                 <input type="hidden" value="<?php echo $active_tab; ?>" id="active_tab_val" />
                 <ul class="tab-nav" role="tablist">
-                    <li role="presentation" id="tab_ebook"><a href="#ebook" aria-controls="ebook" role="tab" data-toggle="tab"><i class="fa fa-book"></i>&nbsp;e-book Upload</a></li>
-                    <li role="presentation" id="tab_composition"><a href="#composition" aria-controls="composition" role="tab" data-toggle="tab"><i class="fa fa-file-word-o"></i>&nbsp;composition / Creation upload</a></li>
-                    <li role="presentation" id="tab_ebook_list"><a href="#ebook_list" aria-controls="upload-file-list" role="tab" data-toggle="tab"><i class="fa fa-list"></i>&nbsp;List of E-book Files</a></li>
-                    <li role="presentation" id="tab_composition_list"><a href="#composition_list" aria-controls="upload-file-list" role="tab" data-toggle="tab"><i class="fa fa-list"></i>&nbsp;List of Composition Files</a></li>
+                    <li role="presentation" id="tab_ebook"><a href="#ebook" aria-controls="ebook" role="tab" data-toggle="tab"><i class="fa fa-book"></i>&nbsp;&nbsp;e-book Upload</a></li>
+                    <li role="presentation" id="tab_composition"><a href="#composition" aria-controls="composition" role="tab" data-toggle="tab"><i class="fa fa-file-word-o"></i>&nbsp;&nbsp;composition / Creation upload</a></li>
+                    <li role="presentation" id="tab_ebook_list"><a href="#ebook_list" aria-controls="upload-file-list" role="tab" data-toggle="tab"><i class="fa fa-list"></i>&nbsp;&nbsp;List of E-book Files</a></li>
+                    <li role="presentation" id="tab_composition_list"><a href="#composition_list" aria-controls="upload-file-list" role="tab" data-toggle="tab"><i class="fa fa-list"></i>&nbsp;&nbsp;List of Composition Files</a></li>
                 </ul>
 
                 <!-- Tab panes -->
@@ -298,88 +298,23 @@
                             </div>
                         </div>
                     </div>
-                    <div role="tabpanel" class="tab-pane pmb-block" id="composition_list">
-                        <div class="pmb-block">
-                            <div class="pmbb-body p-l-30">
+                    <div role="tabpanel" class="tab-pane pmb-block " id="composition_list">
+                        <div class="pmb-block ">
+                            <div class="pmbb-body pmbb-view p-l-30">
                                 <div class="pmbb-view">
                                     <div class="card">
-                                        <div class="card-header">
-                                            <h2>Composition Example <small>It's just that simple. Turn your simple table into a sophisticated data table and offer your users a nice experience and great features without any effort.</small></h2>
-                                        </div>
-
                                         <div class="table-responsive">
-                                            <table id="data-table-basic" class="table table-striped">
+                                            <table id="data-table-composition" class="table table-striped">
                                                 <thead>
                                                 <tr>
-                                                    <th data-column-id="sender">File Title</th>
-                                                    <th data-column-id="id" data-type="numeric">Status</th>
-                                                    <th data-column-id="received" data-order="desc">Expected Publish Date</th>
-                                                    <th data-column-id="" data-order="desc">View</th>
+                                                    <th data-column-id="file-title">File Title</th>
+                                                    <th data-column-id="file-published-status">File Published Status</th>
+                                                    <th data-column-id="publish-date">Publish Date</th>
+                                                    <th data-column-id="file-attachment">File Attachment</th>
+                                                    <th data-column-id="action" data-type="text">Actions</th>
                                                 </tr>
                                                 </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>ABCD</td>
-                                                    <td>Submit</td>
-                                                    <td>23.10.2013</td>
-                                                    <td>View</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10247</td>
-                                                    <td>robert@bingo.com</td>
-                                                    <td>23.10.2013</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10247</td>
-                                                    <td>robert@bingo.com</td>
-                                                    <td>23.10.2013</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10252</td>
-                                                    <td>robert@bingo.com</td>
-                                                    <td>28.10.2013</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10236</td>
-                                                    <td>simon@yahoo.com</td>
-                                                    <td>12.10.2013</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10241</td>
-                                                    <td>simon@yahoo.com</td>
-                                                    <td>17.10.2013</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10246</td>
-                                                    <td>simon@yahoo.com</td>
-                                                    <td>22.10.2013</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10251</td>
-                                                    <td>simon@yahoo.com</td>
-                                                    <td>27.10.2013</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10235</td>
-                                                    <td>tim@microsoft.com</td>
-                                                    <td>11.10.2013</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10240</td>
-                                                    <td>tim@microsoft.com</td>
-                                                    <td>16.10.2013</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10245</td>
-                                                    <td>tim@microsoft.com</td>
-                                                    <td>21.10.2013</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10250</td>
-                                                    <td>tim@microsoft.com</td>
-                                                    <td>26.10.2013</td>
-                                                </tr>
-                                                </tbody>
+                                                <tbody id="composition_list_info"></tbody>
                                             </table>
                                         </div>
                                     </div>

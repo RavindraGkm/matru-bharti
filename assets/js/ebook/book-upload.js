@@ -339,7 +339,7 @@ MBJS.AuthorBook.prototype = {
         });
     },
 
-<<<<<<< HEAD
+
     //viewEbookList : function() {
     //    var self=this;
     //    var auth_token = $('#remember_token').val();
@@ -361,7 +361,7 @@ MBJS.AuthorBook.prototype = {
     //        }
     //    });
     //},
-=======
+
     viewEbookList : function() {
         var self=this;
         var auth_token = $('#remember_token').val();
@@ -391,8 +391,6 @@ MBJS.AuthorBook.prototype = {
             }
         });
     },
->>>>>>> c1b52d99f72311d5d8f4d0167e8642252248ade8
-
     viewCompositionList : function() {
         var self=this;
         var auth_token = $('#remember_token').val();
@@ -403,11 +401,22 @@ MBJS.AuthorBook.prototype = {
             dataType: 'JSON',
             headers:{Authorization : auth_token},
             success:function(data){
-<<<<<<< HEAD
-                console.log(data.result);
-=======
->>>>>>> c1b52d99f72311d5d8f4d0167e8642252248ade8
-
+                console.log(data);
+                var results= data.result;
+                var row;
+                for(var i=0;i<results.length;i++){
+                    row="<tr><td>"+results[i].title+"</td><td>asaksj</td><td>aksjas</td><td>"+results[i].title+"</td><td><a href='http://www.google.co.in/'>Edit</a></td></tr>";
+                    $("#composition_list_info").append(row);
+                }
+                $("#data-table-composition").bootgrid({
+                    css: {
+                        icon: 'zmdi icon',
+                        iconColumns: 'zmdi-view-module',
+                        iconDown: 'zmdi-expand-more',
+                        iconRefresh: 'zmdi-refresh',
+                        iconUp: 'zmdi-expand-less'
+                    }
+                });
             }
         });
     }
