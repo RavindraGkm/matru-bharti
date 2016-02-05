@@ -13,10 +13,11 @@
     echo link_tag('assets/css/sweet-alert.css');
     echo link_tag('assets/css/material-design-iconic-font.min.css');
     echo link_tag('assets/css/jquery.mCustomScrollbar.min.css');
+    echo link_tag('assets/css/jquery.bootgrid.min.css');
     echo link_tag('assets/css/app.min.1.css');
     echo link_tag('assets/css/app.min.2.css');
     echo link_tag('assets/css/font-awesome.min.css');
-    echo link_tag('assets/css/jquery.bootgrid.min.css');
+    echo link_tag('assets/css/ebook.css');
     ?>
     <style type="text/css">
         @font-face {
@@ -270,31 +271,21 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane pmb-block" id="ebook_list">
-                        <div class="pmb-block">
-                            <div class="pmbb-body p-l-30">
-                                <div class="pmbb-view">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h2>Book Example <small>It's just that simple. Turn your simple table into a sophisticated data table and offer your users a nice experience and great features without any effort.</small></h2>
-                                        </div>
-                                        <div class="table-responsive">
-                                            <table id="data-table-basic" class="table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th data-column-id="file-title">File Title</th>
-                                                    <th data-column-id="file-published-status">File Published Status</th>
-                                                    <th data-column-id="publish-date">Publish Date</th>
-                                                    <th data-column-id="file-attachment">File Attachment</th>
-                                                    <th data-column-id="action" data-type="text">Actions</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody id="ebook_list_info">
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-                                </div>
+                        <div class="card no-shadow">
+                            <div class="table-responsive">
+                                <table id="data-table-basic" class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th data-column-id="file_title">File Title</th>
+                                        <th data-column-id="file-published-status">File Published Status</th>
+                                        <th data-column-id="publish-date">Publish Date</th>
+                                        <th data-column-id="file-attachment">File Attachment</th>
+                                        <th data-column-id="action" data-formatter="links">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="ebook_list_info">
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

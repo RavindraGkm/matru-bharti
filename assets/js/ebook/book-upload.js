@@ -353,7 +353,7 @@ MBJS.AuthorBook.prototype = {
                 var results = data.result;
                 var row;
                 for(var i=0;i<results.length;i++) {
-                    row="<tr><td>"+results[i].title+"</td><td>asaksj</td><td>aksjas</td><td>"+results[i].title+"</td><td><a href='http://www.google.co.in/'>Edit</a></td></tr>";
+                    row="<tr><td>"+results[i].title+"</td><td>asaksj</td><td>aksjas</td><td>"+results[i].title+"</td><td>asjhj</td></tr>";
                     $("#ebook_list_info").append(row);
                 }
                 $("#data-table-basic").bootgrid({
@@ -363,6 +363,11 @@ MBJS.AuthorBook.prototype = {
                         iconDown: 'zmdi-expand-more',
                         iconRefresh: 'zmdi-refresh',
                         iconUp: 'zmdi-expand-less'
+                    },
+                    formatters: {
+                        "links": function(column, row) {
+                            return "<button type=\"button\" class=\"btn btn-icon command-delete waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
+                        }
                     }
                 });
             }
