@@ -348,27 +348,27 @@ MBJS.AuthorBook.prototype = {
         });
     },
 
-    viewEbookList : function() {
-        var self=this;
-        var auth_token = $('#remember_token').val();
-        var author_id = $('#author_id').val();
-        $.ajax({
-            url: self.base_url+"ebook/"+author_id,
-            type: 'GET',
-            dataType: 'JSON',
-            headers:{Authorization : auth_token},
-            success:function(data){
-                console.log(data);
-                $('#ebook_title').html(data.result.title)
-                for(var i=0;i<data.result.length;i++){
-                      var row="<tr><td>"+data.result.title+"</td></tr>";
-                }
-                $("#ebook_list_info").append(row);
-                console.log(data.result.length);
-                    //console.log($('#ebook_list_info').html("<tr><td>"+data.result.title+"</td></tr>>"));
-            }
-        });
-    },
+    //viewEbookList : function() {
+    //    var self=this;
+    //    var auth_token = $('#remember_token').val();
+    //    var author_id = $('#author_id').val();
+    //    $.ajax({
+    //        url: self.base_url+"ebook/"+author_id,
+    //        type: 'GET',
+    //        dataType: 'JSON',
+    //        headers:{Authorization : auth_token},
+    //        success:function(data){
+    //            console.log(data);
+    //            $('#ebook_title').html(data.result.title)
+    //            for(var i=0;i<data.result.length;i++){
+    //                  var row="<tr><td>"+data[i].result.title+"</td></tr>";
+    //            }
+    //            $("#ebook_list_info").append(row);
+    //            console.log(data.result.length);
+    //                //console.log($('#ebook_list_info').html("<tr><td>"+data.result.title+"</td></tr>>"));
+    //        }
+    //    });
+    //},
 
     viewCompositionList : function() {
         var self=this;
@@ -380,7 +380,8 @@ MBJS.AuthorBook.prototype = {
             dataType: 'JSON',
             headers:{Authorization : auth_token},
             success:function(data){
-                console.log(data);
+                console.log(data.result);
+
             }
         });
     }
