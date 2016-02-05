@@ -44,9 +44,8 @@ MBJS.AuthorBook.prototype = {
         });
 
         $('#ebook_upload_form').submit(function() {
-            console.log('This is calling');
             $(this).ajaxSubmit(options);
-            return false;   
+            return false;
         });
 
 
@@ -54,12 +53,10 @@ MBJS.AuthorBook.prototype = {
             //progressbar.removeClass(self.last_class).addClass("p"+percentComplete);
             //self.last_class = "p"+percentComplete;
             //statustxt.html(percentComplete + '%');
-            console.log(percentComplete);
         }
 
         function afterSuccess() {
             //uploadingprogressdiv.addClass('hidden');
-            console.log('completed');
         }
 
 //function to check file size before uploading.
@@ -71,10 +68,8 @@ MBJS.AuthorBook.prototype = {
                     return false
                 }
                 var fsize = $('#ebook_file')[0].files[0].size; //get file size
-                console.log(fsize);
                 var ftype = $('#ebook_file')[0].files[0].type; // get file type
 
-                console.log(ftype);
 
                 //allow only valid image file types
                 switch(ftype) {
@@ -121,7 +116,6 @@ MBJS.AuthorBook.prototype = {
             dataType: 'JSON',
             headers:{Authorization : auth_token},
             success:function(data){
-                console.log(data);
                 $('.span-auth-name').html(data.result.name);
             }
         });
@@ -203,7 +197,6 @@ MBJS.AuthorBook.prototype = {
                         book_save_button.html('Uploading... &nbsp;<i class="zmdi zmdi-edit"></i>');
                     },
                     error: function (data) {
-                        console.log(data);
                         var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
                         if (data.status == 422) {
                             swal({
@@ -226,7 +219,6 @@ MBJS.AuthorBook.prototype = {
                         }
                     },
                     success: function (data, textStatus, jqXHR) {
-                        console.log(data);
                         swal({
                             title: "Success",
                             text: "Book info saved successfully",
@@ -325,7 +317,6 @@ MBJS.AuthorBook.prototype = {
                         }
                     },
                     success: function (data, textStatus, jqXHR) {
-                        console.log(data);
                         swal({
                             title: "Success",
                             text: "Composition info saved successfully",
@@ -348,6 +339,7 @@ MBJS.AuthorBook.prototype = {
         });
     },
 
+<<<<<<< HEAD
     //viewEbookList : function() {
     //    var self=this;
     //    var auth_token = $('#remember_token').val();
@@ -369,6 +361,37 @@ MBJS.AuthorBook.prototype = {
     //        }
     //    });
     //},
+=======
+    viewEbookList : function() {
+        var self=this;
+        var auth_token = $('#remember_token').val();
+        var author_id = $('#author_id').val();
+        $.ajax({
+            url: self.base_url+"ebook/"+author_id,
+            type: 'GET',
+            dataType: 'JSON',
+            headers:{Authorization : auth_token},
+            success:function(data) {
+                console.log(data);
+                var results = data.result;
+                var row;
+                for(var i=0;i<results.length;i++) {
+                    row="<tr><td>"+results[i].title+"</td><td>asaksj</td><td>aksjas</td><td>"+results[i].title+"</td><td><a href='http://www.google.co.in/'>Edit</a></td></tr>";
+                    $("#ebook_list_info").append(row);
+                }
+                $("#data-table-basic").bootgrid({
+                    css: {
+                        icon: 'zmdi icon',
+                        iconColumns: 'zmdi-view-module',
+                        iconDown: 'zmdi-expand-more',
+                        iconRefresh: 'zmdi-refresh',
+                        iconUp: 'zmdi-expand-less'
+                    }
+                });
+            }
+        });
+    },
+>>>>>>> c1b52d99f72311d5d8f4d0167e8642252248ade8
 
     viewCompositionList : function() {
         var self=this;
@@ -380,7 +403,10 @@ MBJS.AuthorBook.prototype = {
             dataType: 'JSON',
             headers:{Authorization : auth_token},
             success:function(data){
+<<<<<<< HEAD
                 console.log(data.result);
+=======
+>>>>>>> c1b52d99f72311d5d8f4d0167e8642252248ade8
 
             }
         });
