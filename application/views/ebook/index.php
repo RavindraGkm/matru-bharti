@@ -97,115 +97,153 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane pmb-block" id="ebook">
-                        <div class="pmbb-body p-1-30 pmb-block">
-                            <div class="pmbb-body p-l-30">
-                                <input type="hidden" value="<?php echo $remember_token; ?>" name="remember_token" id="remember_token">
-                                <input type="hidden" value="<?php echo $author_id; ?>" name="author_id" id="author_id">
-                                <form id="form_ebook_upload">
-                                    <div class="pmbb-view">
-                                        <dl class="dl-horizontal">
-                                            <dt class="p-t-10">Language*</dt>
-                                            <dd>
-                                                <div class="fg-line">
-                                                    <select class="form-control" name="book_language" id="book_language">
-                                                        <option value="">Select Language...</option>
-                                                        <option value="Hindi">Hindi</option>
-                                                        <option value="English">English</option>
-                                                    </select>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                        <dl class="dl-horizontal">
-                                            <dt class="p-t-10">Category*</dt>
-                                            <dd>
-                                                <div class="fg-line">
-                                                    <select class="form-control" name="book_category" id="book_category">
-                                                        <option value="">Select Category...</option>
-                                                        <option value="Stories">Stories</option>
-                                                        <option value="Articles">Articles</option>
-                                                        <option value="Spritual">Spritual</option>
-                                                        <option value="Religious">Religious</option>
-                                                        <option value="Novels">Novels</option>
-                                                        <option value="Motivational">Motivational</option>
-                                                        <option value="Classic">Classic</option>
-                                                        <option value="Children">Children</option>
-                                                        <option value="Cooking">Cooking</option>
-                                                        <option value="Humor">Humor</option>
-                                                        <option value="Magazine">Magazine</option>
-                                                        <option value="Poems">Poems</option>
-                                                        <option value="Travel">Travel</option>
-                                                        <option value="Women">Women</option>
-                                                        <option value="Drama">Drama</option>
-                                                        <option value="Love Stories">Love Stories</option>
-                                                        <option value="Adventure">Adventure</option>
-                                                        <option value="Fiction">Fiction</option>
-                                                        <option value="Adventure,Fiction">Adventure,Fiction</option>
-                                                        <option value="Human Science">Human Science</option>
-                                                        <option value="Philosophy">Philosophy</option>
-                                                        <option value="Health">Health</option>
-                                                        <option value="Education">Education</option>
-                                                        <option value="Biography">Biography</option>
-                                                        <option value="Management">Management</option>
-                                                        <option value="Food">Food</option>
-                                                    </select>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                        <dl class="dl-horizontal">
-                                            <dt class="p-t-10">File Title*</dt>
-                                            <dd>
-                                                <div class="fg-line">
-                                                    <input type="text" class="form-control" name="file_title" id="file_title" placeholder="Title of book">
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                        <dl class="dl-horizontal">
-                                            <dt class="p-t-10">Tags</dt>
-                                            <dd>
-                                                <div class="dtp-container dropdown fg-line">
-                                                    <input type='text' class="form-control" name="book_tag" id="book_tag" placeholder="Add a tag">
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                        <dl class="dl-horizontal">
-                                            <dt class="p-t-10">File (Only doc/docx)*</dt>
-                                            <dd>
-                                                <div class="fg-line">
-                                                    <form class="form-image-upload" action="<?php echo base_url('upload/ebook-file'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_upload_form">
-                                                        <input type="file" class="form-control" name="ebook_file" id="ebook_file" />
-                                                    </form>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                        <dl class="dl-horizontal">
-                                            <dt class="p-t-10">Cover Page (Image Only<br> jpeg/jpg/png/gif)*</dt>
-                                            <dd>
-                                                <div class="fg-line">
-                                                    <input type="file" class="form-control" name="ebook_cover" id="ebook_cover">
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                        <dl class="dl-horizontal">
-                                            <dt class="p-t-10">About this book*</dt>
-                                            <dd>
-                                                <div class="fg-line">
-                                                    <textarea class="form-control" name="about_book" id="about_book" rows="8" placeholder=""></textarea>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                        <dl class="dl-horizontal">
-                                            <dt class="p-t-10"></dt>
-                                            <dd>
-                                                <div class="fg-line m-t-30">
-                                                    <button class="btn btn-primary btn-sm" type="submit" name="btn-save-book-info" id="btn-save-book-info">Add</button>
-                                                    <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                    </div>
-                                </form>
+                        <input type="hidden" value="<?php echo $remember_token; ?>" name="remember_token" id="remember_token">
+                        <input type="hidden" value="<?php echo $author_id; ?>" name="author_id" id="author_id">
+                        <form class="form-horizontal" id="form_ebook_upload">
+                            <div class="card-header">
+                                <h2>Horizontal Form <small>Use Bootstrap's predefined grid classes to align labels and groups of form controls in a horizontal layout by adding '.form-horizontal' to the form. Doing so changes '.form-groups' to behave as grid rows, so no need for '.row'.</small></h2>
                             </div>
-                        </div>
+                            <div class="card-body card-padding">
+                                <div class="form-group">
+                                    <label for="book_language" class="col-sm-3 control-label">Select Language *</label>
+                                    <div class="col-sm-9">
+                                        <div class="fg-line">
+                                            <select class="form-control" name="book_language" id="book_language">
+                                                <option value="">Select Language...</option>
+                                                <option value="Hindi">Hindi</option>
+                                                <option value="English">English</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="book_category" class="col-sm-2 control-label">Select Category *</label>
+                                    <div class="col-sm-10">
+                                        <div class="fg-line">
+                                            <select class="form-control" name="book_category" id="book_category">-->
+                                                <option value="">Select Category...</option>
+                                                <option value="Stories">Stories</option>
+                                                <option value="Articles">Articles</option>
+                                                <option value="Spritual">Spritual</option>
+                                                <option value="Religious">Religious</option>
+                                                <option value="Novels">Novels</option>
+                                                <option value="Motivational">Motivational</option>
+                                                <option value="Classic">Classic</option>
+                                                <option value="Children">Children</option>
+                                                <option value="Cooking">Cooking</option>
+                                                <option value="Humor">Humor</option>
+                                                <option value="Magazine">Magazine</option>
+                                                <option value="Poems">Poems</option>
+                                                <option value="Travel">Travel</option>
+                                                <option value="Women">Women</option>
+                                                <option value="Drama">Drama</option>
+                                                <option value="Love Stories">Love Stories</option>
+                                                <option value="Adventure">Adventure</option>
+                                                <option value="Fiction">Fiction</option>
+                                                <option value="Adventure,Fiction">Adventure,Fiction</option>
+                                                <option value="Human Science">Human Science</option>
+                                                <option value="Philosophy">Philosophy</option>
+                                                <option value="Health">Health</option>
+                                                <option value="Education">Education</option>
+                                                <option value="Biography">Biography</option>
+                                                <option value="Management">Management</option>
+                                                <option value="Food">Food</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+<!--                            <div class="form-group">-->
+<!--                                <label for="book_category">Select Category</label>-->
+<!--                                <select class="form-control" name="book_category" id="book_category">-->
+<!--                                    <option value="">Select Category...</option>-->
+<!--                                    <option value="Stories">Stories</option>-->
+<!--                                    <option value="Articles">Articles</option>-->
+<!--                                    <option value="Spritual">Spritual</option>-->
+<!--                                    <option value="Religious">Religious</option>-->
+<!--                                    <option value="Novels">Novels</option>-->
+<!--                                    <option value="Motivational">Motivational</option>-->
+<!--                                    <option value="Classic">Classic</option>-->
+<!--                                    <option value="Children">Children</option>-->
+<!--                                    <option value="Cooking">Cooking</option>-->
+<!--                                    <option value="Humor">Humor</option>-->
+<!--                                    <option value="Magazine">Magazine</option>-->
+<!--                                    <option value="Poems">Poems</option>-->
+<!--                                    <option value="Travel">Travel</option>-->
+<!--                                    <option value="Women">Women</option>-->
+<!--                                    <option value="Drama">Drama</option>-->
+<!--                                    <option value="Love Stories">Love Stories</option>-->
+<!--                                    <option value="Adventure">Adventure</option>-->
+<!--                                    <option value="Fiction">Fiction</option>-->
+<!--                                    <option value="Adventure,Fiction">Adventure,Fiction</option>-->
+<!--                                    <option value="Human Science">Human Science</option>-->
+<!--                                    <option value="Philosophy">Philosophy</option>-->
+<!--                                    <option value="Health">Health</option>-->
+<!--                                    <option value="Education">Education</option>-->
+<!--                                    <option value="Biography">Biography</option>-->
+<!--                                    <option value="Management">Management</option>-->
+<!--                                    <option value="Food">Food</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--                                <label for="file_title">File Title *</label>-->
+<!--                                <input type="text" class="form-control" name="file_title" id="file_title" placeholder="Title of book">-->
+<!--                            </div>-->
+<!--                            <div class="pmbb-view">-->
+<!--                                <dl class="dl-horizontal">-->
+<!--                                    <dt class="p-t-10">File Title*</dt>-->
+<!--                                    <dd>-->
+<!--                                        <div class="fg-line">-->
+<!--                                            <input type="text" class="form-control" name="file_title" id="file_title" placeholder="Title of book">-->
+<!--                                        </div>-->
+<!--                                    </dd>-->
+<!--                                </dl>-->
+<!--                                <dl class="dl-horizontal">-->
+<!--                                    <dt class="p-t-10">Tags</dt>-->
+<!--                                    <dd>-->
+<!--                                        <div class="dtp-container dropdown fg-line">-->
+<!--                                            <input type='text' class="form-control" name="book_tag" id="book_tag" placeholder="Add a tag">-->
+<!--                                        </div>-->
+<!--                                    </dd>-->
+<!--                                </dl>-->
+<!--                                <dl class="dl-horizontal">-->
+<!--                                    <dt class="p-t-10">File (Only doc/docx)*</dt>-->
+<!--                                    <dd>-->
+<!--                                        <div class="fg-line">-->
+<!--                                            <form class="form-image-upload" action="--><?php //echo base_url('upload/ebook-file'); ?><!--" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_upload_form">-->
+<!--                                                <input type="file" class="form-control" name="ebook_file" id="ebook_file" />-->
+<!--                                            </form>-->
+<!--                                        </div>-->
+<!--                                    </dd>-->
+<!--                                </dl>-->
+<!--                                <dl class="dl-horizontal">-->
+<!--                                    <dt class="p-t-10">Cover Page (Image Only<br> jpeg/jpg/png/gif)*</dt>-->
+<!--                                    <dd>-->
+<!--                                        <div class="fg-line">-->
+<!--                                            <input type="file" class="form-control" name="ebook_cover" id="ebook_cover">-->
+<!--                                        </div>-->
+<!--                                    </dd>-->
+<!--                                </dl>-->
+<!--                                <dl class="dl-horizontal">-->
+<!--                                    <dt class="p-t-10">About this book*</dt>-->
+<!--                                    <dd>-->
+<!--                                        <div class="fg-line">-->
+<!--                                            <textarea class="form-control" name="about_book" id="about_book" rows="8" placeholder=""></textarea>-->
+<!--                                        </div>-->
+<!--                                    </dd>-->
+<!--                                </dl>-->
+<!--                                <dl class="dl-horizontal">-->
+<!--                                    <dt class="p-t-10"></dt>-->
+<!--                                    <dd>-->
+<!--                                        <div class="fg-line m-t-30">-->
+<!--                                            <button class="btn btn-primary btn-sm" type="submit" name="btn-save-book-info" id="btn-save-book-info">Add</button>-->
+<!--                                            <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>-->
+<!--                                        </div>-->
+<!--                                    </dd>-->
+<!--                                </dl>-->
+<!--                            </div>-->
+                        </form>
                     </div>
                     <div role="tabpanel" class="tab-pane pmb-block" id="composition">
                         <div class="pmbb-body p-1-30 pmb-block">
