@@ -13,6 +13,7 @@ MBJS.AuthorBook.prototype = {
         this.compositionUpload();
         this.viewEbookList();
         this.viewCompositionList();
+        this.deleteBookInfo();
     },
 
     basicSetups : function () {
@@ -353,7 +354,8 @@ MBJS.AuthorBook.prototype = {
                 var results = data.result;
                 var row;
                 for(var i=0;i<results.length;i++) {
-                    row="<tr><td>"+results[i].title+"</td><td>asaksj</td><td>aksjas</td><td>"+results[i].title+"</td><td>asjhj</td></tr>";
+                    var published_date = results[i].published_at.split('-').reverse().join('-');
+                    row="<tr><td> <input class='ebook_id' type='text' value='"+results[i].id+"' />"+results[i].title+"</td><td>"+results[i].status+"</td><td>"+published_date+"</td><td><a href="+results[i].file+"></a></td><td>Download</td></tr>";
                     $("#ebook_list_info").append(row);
                 }
                 $("#data-table-basic").bootgrid({
@@ -399,6 +401,22 @@ MBJS.AuthorBook.prototype = {
                         iconUp: 'zmdi-expand-less'
                     }
                 });
+            }
+        });
+    },
+
+    deleteBookInfo : function() {
+        var self=this;
+        var auth_token = $('#remember_token').val();
+        var author_id = $('#author_id').val();
+
+        $.ajax({
+            url: self.base_url+"authors/"+author_id,
+            type: 'GET',
+            dataType: 'JSON',
+            headers:{Authorization : auth_token},
+            success:function(data){
+                $('.span-auth-name').html(data.result.name);
             }
         });
     }

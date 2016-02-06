@@ -309,7 +309,7 @@
                                                 <input type="text" class="form-control" name="composition_title" id="composition_title" placeholder="Title of book">
                                             </div>
                                         </div>
-                                    </div
+                                    </div>
                                     <div class="form-group">
                                         <label for="book_language" class="col-sm-3 control-label">About this composition/ <br> creation*</label>
                                         <div class="col-sm-9">
@@ -372,6 +372,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -379,7 +380,7 @@
 </section>
 
 <footer id="footer">
-    Copyright &copy; 2015 Rawna Rajput Matrimonial
+    Copyright &copy; 2016 Matru Bharti
 
     <ul class="f-menu">
         <li><a href="">Home</a></li>
