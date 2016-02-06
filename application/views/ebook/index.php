@@ -63,7 +63,7 @@
             </a>
             <ul class="main-menu">
                 <li>
-                    <a href="<?php echo base_url('view-profiles');?>"><i class="zmdi zmdi-account"></i> View Profile</a>
+                    <a href="<?php echo base_url('profile');?>"><i class="zmdi zmdi-account"></i> View Profile</a>
                 </li>
                 <li>
                     <a href=""><i class="zmdi zmdi-time-restore"></i> Logout</a>
