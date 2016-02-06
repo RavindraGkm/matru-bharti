@@ -246,22 +246,10 @@ MBJS.UserProfile.prototype = {
                         console.log(data);
                         var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
                         if(data.status==422) {
-                            swal({
-                                title: "Error!",
-                                text: obj.error[0],
-                                timer: 2000,
-                                showConfirmButton: false,
-                                showCancelButton: false
-                            });
+                            self.notify(obj.error[0],'danger');
                         }
                         else if(data.status==500) {
-                            swal({
-                                title: "Opps!",
-                                text: 'Something went wrong on server !',
-                                timer: 2000,
-                                showConfirmButton: false,
-                                showCancelButton: false
-                            });
+                            self.notify("Something went wrong on server",'danger');
                             update_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
                         }
                     },
@@ -269,6 +257,11 @@ MBJS.UserProfile.prototype = {
                         console.log(data);
                         self.notify("Profile Updated successfully",'inverse');
                         update_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
+                        $('.span-auth-name').html(txt_name);
+                        $('#span-auth-address').html(txt_address);
+                        $('#span-auth-city').html(txt_city);
+                        $('#span-auth-dob').html(txt_dob);
+                        $('#span-auth-about').html(about);
                     }
                 });
             },
