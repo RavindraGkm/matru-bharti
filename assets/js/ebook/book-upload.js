@@ -15,6 +15,30 @@ MBJS.AuthorBook.prototype = {
         this.viewCompositionList();
     },
 
+    notify: function(message,type) {
+        $.growl({
+            message: message
+        },{
+            type: type,
+            allow_dismiss: false,
+            label: 'Cancel',
+            className: 'btn-xs btn-inverse',
+            placement: {
+                from: 'top',
+                align: 'right'
+            },
+            timer:4000,
+            animate: {
+                enter: 'animated fadeIn',
+                exit: 'animated fadeOut'
+            },
+            offset: {
+                x: 20,
+                y: 85
+            }
+        });
+    },
+
     basicSetups : function () {
         // Active tabs
         var active_tab = $("#active_tab_val").val();
@@ -349,11 +373,10 @@ MBJS.AuthorBook.prototype = {
             dataType: 'JSON',
             headers:{Authorization : auth_token},
             success:function(data) {
-                console.log(data);
                 var results = data.result;
                 var row;
                 for(var i=0;i<results.length;i++) {
-                    row="<tr><td>"+results[i].title+"</td><td>asaksj</td><td>aksjas</td><td>"+results[i].title+"</td><td>asjhj</td></tr>";
+                    row="<tr><td>"+results[i].title+"</td><td>asaksj</td><td>aksjas</td><td>"+results[i].title+"</td><td>"+results[i].id+"</td></tr>";
                     $("#ebook_list_info").append(row);
                 }
                 $("#data-table-basic").bootgrid({
@@ -366,12 +389,29 @@ MBJS.AuthorBook.prototype = {
                     },
                     formatters: {
                         "links": function(column, row) {
-                            return "<button type=\"button\" class=\"btn btn-icon command-delete waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
+                            return "<button type=\"button\" class=\"btn btn-icon command-delete delete-ebook waves-effect waves-circle\" data-row-id=\"" + row.action + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
                         }
                     }
                 });
             }
         });
+
+        $('#ebook_list_info').on('click','.delete-ebook',function() {
+            var ebook_table_id = $(this).attr('data-row-id');
+            $.ajax({
+                url: self.base_url+"ebook/"+ebook_table_id,
+                type: 'DELETE',
+                dataType: 'JSON',
+                headers:{Authorization : auth_token},
+                data: {
+                    author_id : 1
+                },
+                success:function(data) {
+                    self.notify('Successfully deleted','inverse');
+                }
+            });
+        });
+
     },
     viewCompositionList : function() {
         var self=this;

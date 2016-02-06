@@ -101,22 +101,25 @@
             <div class="card col col-md-offset-1 col-lg-10 col-md-10 col-sm-12 col-xs-12" id="profile-main">
                 <input type="hidden" value="<?php echo $active_tab; ?>" id="active_tab_val"/>
                 <ul class="tab-nav" role="tablist">
-                    <li role="presentation" id="tab_ebook"><a href="#ebook" aria-controls="ebook" role="tab"
-                                                              data-toggle="tab">
-                            <i class="fa fa-book fa-lg"></i>&nbsp;&nbsp;E-Book Upload</a>
+                    <li role="presentation" id="tab_ebook">
+                        <a href="#ebook" aria-controls="ebook" role="tab" data-toggle="tab">
+                            <i class="fa fa-book fa-lg"></i>&nbsp;&nbsp;E-Book Upload
+                        </a>
                     </li>
-                    <li role="presentation" id="tab_composition"><a href="#composition" aria-controls="composition"
-                                                                    role="tab" data-toggle="tab">
-                            <i class="fa fa-file-word-o fa-lg"></i>&nbsp;&nbsp;Composition / Creation upload</a>
+                    <li role="presentation" id="tab_composition">
+                        <a href="#composition" aria-controls="composition" role="tab" data-toggle="tab">
+                            <i class="fa fa-file-word-o fa-lg"></i>&nbsp;&nbsp;Composition / Creation upload
+                        </a>
                     </li>
-                    <li role="presentation" id="tab_ebook_list"><a href="#ebook_list" aria-controls="upload-file-list"
-                                                                   role="tab" data-toggle="tab">
-                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of E-Book Files</a>
+                    <li role="presentation" id="tab_ebook_list">
+                        <a href="#ebook_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">
+                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of E-Book Files
+                        </a>
                     </li>
-                    <li role="presentation" id="tab_composition_list"><a href="#composition_list"
-                                                                         aria-controls="upload-file-list" role="tab"
-                                                                         data-toggle="tab">
-                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of Composition Files</a>
+                    <li role="presentation" id="tab_composition_list">
+                        <a href="#composition_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">
+                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of Composition Files
+                        </a>
                     </li>
                 </ul>
 
@@ -139,7 +142,7 @@
                                 </div>
                                 <div class="card-body card-padding">
                                     <div class="form-group">
-                                        <label for="book_language" class="col-sm-3 control-label">Select Language
+                                        <label for="composition_category" class="col-sm-3 control-label">Select Language
                                             *</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
@@ -152,11 +155,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="book_category" class="col-sm-3 control-label">Select Category
-                                            *</label>
+                                        <label for="book_category" class="col-sm-3 control-label">Select Category*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <select class="form-control" name="book_category" id="book_category">-->
+                                                <select class="form-control" name="book_category" id="book_category">
                                                     <option value="">Select Category...</option>
                                                     <option value="Stories">Stories</option>
                                                     <option value="Articles">Articles</option>
@@ -192,8 +194,7 @@
                                         <label for="book_language" class="col-sm-3 control-label">File Title*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <input type="text" class="form-control" name="file_title"
-                                                       id="file_title" placeholder="Title of book">
+                                                <input type="text" class="form-control" name="file_title" id="file_title" placeholder="Title of book">
                                             </div>
                                         </div>
                                     </div>
@@ -201,22 +202,16 @@
                                         <label for="book_language" class="col-sm-3 control-label">Tags</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <input type='text' class="form-control" name="book_tag" id="book_tag"
-                                                       placeholder="Add a tag">
+                                                <input type='text' class="form-control" name="book_tag" id="book_tag" placeholder="Add a tag">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="book_language" class="col-sm-3 control-label">File (Only
-                                            doc/docx)*</label>
+                                        <label for="book_language" class="col-sm-3 control-label">File (Only doc/docx)*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <form class="form-image-upload"
-                                                      action="<?php echo base_url('upload/ebook-file'); ?>"
-                                                      onSubmit="return false" method="post"
-                                                      enctype="multipart/form-data" id="ebook_upload_form">
-                                                    <input type="file" class="form-control" name="ebook_file"
-                                                           id="ebook_file"/>
+                                                <form class="form-image-upload" action="<?php echo base_url('upload/ebook-file'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_upload_form">
+                                                    <input type="file" class="form-control" name="ebook_file" id="ebook_file"/>
                                                 </form>
                                             </div>
                                         </div>
@@ -226,21 +221,17 @@
                                             jpeg/jpg/png/gif)*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <!--                                                <form class="form-image-upload" action="-->
-                                                <?php //echo base_url('upload/ebook-file'); ?><!--" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_upload_form">-->
-                                                <input type="file" class="form-control" name="ebook_cover"
-                                                       id="ebook_cover">
-                                                <!--                                                </form>-->
+                                                <form class="form-image-upload" action="<?php echo base_url('upload/ebook-file'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_upload_form">
+                                                <input type="file" class="form-control" name="ebook_cover" id="ebook_cover">
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="book_language" class="col-sm-3 control-label">About this
-                                            book*</label>
+                                        <label for="book_language" class="col-sm-3 control-label">About this book*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <textarea class="form-control" name="about_book" id="about_book"
-                                                          rows="8" placeholder=""></textarea>
+                                                <textarea class="form-control" name="about_book" id="about_book" rows="8" placeholder=""></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -248,11 +239,9 @@
                                         <label for="book_language" class="col-sm-3 control-label"></label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <button class="btn btn-primary btn-sm" type="submit"
-                                                        name="btn-save-book-info" id="btn-save-book-info">Save Book Info
+                                                <button class="btn btn-primary btn-sm" type="submit" name="btn-save-book-info" id="btn-save-book-info">Save Book Info
                                                 </button>
-                                                <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel
-                                                </button>
+                                                <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
                                             </div>
                                         </div>
                                     </div>
@@ -274,7 +263,7 @@
                                 </div>
                                 <div class="card-body card-padding">
                                     <div class="form-group">
-                                        <label for="book_language" class="col-sm-3 control-label">Language*</label>
+                                        <label for="composition_language" class="col-sm-3 control-label">Language*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
                                                 <select class="form-control" name="composition_language" id="composition_language">
@@ -303,13 +292,13 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="book_language" class="col-sm-3 control-label">Composition Title*</label>
+                                        <label for="book_language" class="col-sm-3 control-label">Composition Title *</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <input type="text" class="form-control" name="composition_title" id="composition_title" placeholder="Title of book">
+                                                <input type="text" class="form-control" name="composition_title" id="composition_title" placeholder="Title of book" />
                                             </div>
                                         </div>
-                                    </div
+                                    </div>
                                     <div class="form-group">
                                         <label for="book_language" class="col-sm-3 control-label">About this composition/ <br> creation*</label>
                                         <div class="col-sm-9">
@@ -319,14 +308,13 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="book_language" class="col-sm-3 control-label">About this composition/ <br> creation*</label>
+                                        <label for="book_language" class="col-sm-3 control-label"></label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
                                                 <button class="btn btn-primary btn-sm" type="submit" name="btn-save-composition-info" id="btn-save-book-info">
                                                     Save Composition Info
                                                 </button>
-                                                <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel
-                                                </button>
+                                                <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
                                             </div>
                                         </div>
                                     </div>
