@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Martu Bharti</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+<!--    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
     <?php
     echo link_tag('assets/css/bootstrap-datetimepicker.min.css');
     echo link_tag('assets/css/animate.min.css');
@@ -42,8 +43,8 @@
             </div>
         </li>
         <li class="logo hidden-xs">
-            <a href="<?php echo base_url(''); ?>">
-                Martu Bharti
+            <a href="<?php echo base_url('profile'); ?>">
+                Matru Bharti
             </a>
         </li>
         <li class="logo pull-right pull-right-margine">
@@ -226,7 +227,7 @@
                                         <dt class="p-t-10"></dt>
                                         <dd>
                                             <div class="fg-line">
-                                                <button class="btn btn-primary btn-sm " type="submit" name="btn_update_profile" id="btn_update_profile">Save &nbsp;<i class="fa fa-save"></i></button>
+                                                <button class="btn btn-primary btn-sm " type="submit" name="btn_update_profile" id="btn_update_profile">Save Info &nbsp;<i class="fa fa-save"></i></button>
                                                 <button data-pmb-action="reset" class="btn btn-link btn-sm" id="btn-cancel-edit-pro">Cancel</button>
                                             </div>
                                         </dd>

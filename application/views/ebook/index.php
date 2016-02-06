@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<!--[if IE 9 ]><html class="ie9"><![endif]-->
+<!--[if IE 9 ]>
+<html class="ie9"><![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -36,8 +37,8 @@
             </div>
         </li>
         <li class="logo hidden-xs">
-            <a href="<?php echo base_url(''); ?>">
-                Martu Bharti
+            <a href="<?php echo base_url('profile'); ?>">
+                Matru Bharti
             </a>
         </li>
         <li class="pull-right pull-right-margine">
@@ -54,7 +55,7 @@
         <div class="profile-menu">
             <a href="">
                 <div class="profile-pic">
-                    <img src="<?php echo base_url('image/upload/w_400/'.$author_id);?>" alt="">
+                    <img src="<?php echo base_url('image/upload/w_400/' . $author_id); ?>" alt="">
                 </div>
                 <div class="profile-info">
                     <span class="span-auth-name"></span>
@@ -63,7 +64,7 @@
             </a>
             <ul class="main-menu">
                 <li>
-                    <a href="<?php echo base_url('profile');?>"><i class="zmdi zmdi-account"></i> View Profile</a>
+                    <a href="<?php echo base_url('profile'); ?>"><i class="zmdi zmdi-account"></i> View Profile</a>
                 </li>
                 <li>
                     <a href=""><i class="zmdi zmdi-time-restore"></i> Logout</a>
@@ -72,13 +73,25 @@
         </div>
 
         <ul class="main-menu">
-            <li><a href="<?php echo base_url('ebook-mng?tab=ebook'); ?>"><i class="fa fa-book"></i> E-Book Management</a></li>
-            <li><a href="<?php echo base_url('ebook-mng?tab=composition'); ?>"><i class="fa fa-file-word-o"></i> Composition</a></li>
-            <li><a href="<?php echo base_url('ebook-mng?tab=ebook_list'); ?>"><i class="fa fa-list"></i> List of Uploaded Books</a></li>
-            <li><a href="<?php echo base_url('ebook-mng?tab=composition_list'); ?>"><i class="fa fa-list"></i> List of Uploaded Composition</a></li>
+            <li>
+                <a href="<?php echo base_url('ebook-mng?tab=ebook'); ?>"><i class="fa fa-book"></i> E-Book
+                    Management</a>
+            </li>
+            <li>
+                <a href="<?php echo base_url('ebook-mng?tab=composition'); ?>"> <i class="fa fa-file-word-o"></i>
+                    Composition</a>
+            </li>
+            <li>
+                <a href="<?php echo base_url('ebook-mng?tab=ebook_list'); ?>"> <i class="fa fa-list"></i> List of
+                    Uploaded Books</a>
+            </li>
+            <li>
+                <a href="<?php echo base_url('ebook-mng?tab=composition_list'); ?>"> <i class="fa fa-list"></i> List of
+                    Uploaded Composition</a>
+            </li>
         </ul>
     </aside>
-    <section id="content">
+    <div id="content">
         <div class="container">
 
             <div class="block-header col-md-offset-1 col-lg-10 col-md-10 col-sm-12 col-xs-12">
@@ -86,27 +99,48 @@
             </div>
 
             <div class="card col col-md-offset-1 col-lg-10 col-md-10 col-sm-12 col-xs-12" id="profile-main">
-                <input type="hidden" value="<?php echo $active_tab; ?>" id="active_tab_val" />
+                <input type="hidden" value="<?php echo $active_tab; ?>" id="active_tab_val"/>
                 <ul class="tab-nav" role="tablist">
-                    <li role="presentation" id="tab_ebook"><a href="#ebook" aria-controls="ebook" role="tab" data-toggle="tab"><i class="fa fa-book"></i>&nbsp;&nbsp;e-book Upload</a></li>
-                    <li role="presentation" id="tab_composition"><a href="#composition" aria-controls="composition" role="tab" data-toggle="tab"><i class="fa fa-file-word-o"></i>&nbsp;&nbsp;composition / Creation upload</a></li>
-                    <li role="presentation" id="tab_ebook_list"><a href="#ebook_list" aria-controls="upload-file-list" role="tab" data-toggle="tab"><i class="fa fa-list"></i>&nbsp;&nbsp;List of E-book Files</a></li>
-                    <li role="presentation" id="tab_composition_list"><a href="#composition_list" aria-controls="upload-file-list" role="tab" data-toggle="tab"><i class="fa fa-list"></i>&nbsp;&nbsp;List of Composition Files</a></li>
+                    <li role="presentation" id="tab_ebook"><a href="#ebook" aria-controls="ebook" role="tab"
+                                                              data-toggle="tab">
+                            <i class="fa fa-book fa-lg"></i>&nbsp;&nbsp;E-Book Upload</a>
+                    </li>
+                    <li role="presentation" id="tab_composition"><a href="#composition" aria-controls="composition"
+                                                                    role="tab" data-toggle="tab">
+                            <i class="fa fa-file-word-o fa-lg"></i>&nbsp;&nbsp;Composition / Creation upload</a>
+                    </li>
+                    <li role="presentation" id="tab_ebook_list"><a href="#ebook_list" aria-controls="upload-file-list"
+                                                                   role="tab" data-toggle="tab">
+                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of E-Book Files</a>
+                    </li>
+                    <li role="presentation" id="tab_composition_list"><a href="#composition_list"
+                                                                         aria-controls="upload-file-list" role="tab"
+                                                                         data-toggle="tab">
+                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of Composition Files</a>
+                    </li>
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane pmb-block" id="ebook">
-                        <div class="card">
-                            <input type="hidden" value="<?php echo $remember_token; ?>" name="remember_token" id="remember_token">
+                        <div class="card no-shadow">
+                            <input type="hidden" value="<?php echo $remember_token; ?>" name="remember_token"
+                                   id="remember_token">
                             <input type="hidden" value="<?php echo $author_id; ?>" name="author_id" id="author_id">
                             <form id="form_ebook_upload" class="form-horizontal">
                                 <div class="card-header">
-                                    <h2>E-Book Information <small>Use Bootstrap's predefined grid classes to align labels and groups of form controls in a horizontal layout by adding '.form-horizontal' to the form. Doing so changes '.form-groups' to behave as grid rows, so no need for '.row'.</small></h2>
+                                    <h2>E-Book Information
+                                        <small>Use Bootstrap's predefined grid classes to align labels and groups of
+                                            form controls in a horizontal layout by adding '.form-horizontal' to the
+                                            form. Doing so changes '.form-groups' to behave as grid rows, so no need for
+                                            '.row'.
+                                        </small>
+                                    </h2>
                                 </div>
                                 <div class="card-body card-padding">
                                     <div class="form-group">
-                                        <label for="book_language" class="col-sm-3 control-label">Select Language *</label>
+                                        <label for="book_language" class="col-sm-3 control-label">Select Language
+                                            *</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
                                                 <select class="form-control" name="book_language" id="book_language">
@@ -118,7 +152,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="book_category" class="col-sm-3 control-label">Select Category *</label>
+                                        <label for="book_category" class="col-sm-3 control-label">Select Category
+                                            *</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
                                                 <select class="form-control" name="book_category" id="book_category">-->
@@ -157,7 +192,8 @@
                                         <label for="book_language" class="col-sm-3 control-label">File Title*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <input type="text" class="form-control" name="file_title" id="file_title" placeholder="Title of book">
+                                                <input type="text" class="form-control" name="file_title"
+                                                       id="file_title" placeholder="Title of book">
                                             </div>
                                         </div>
                                     </div>
@@ -165,35 +201,46 @@
                                         <label for="book_language" class="col-sm-3 control-label">Tags</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <input type='text' class="form-control" name="book_tag" id="book_tag" placeholder="Add a tag">
+                                                <input type='text' class="form-control" name="book_tag" id="book_tag"
+                                                       placeholder="Add a tag">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="book_language" class="col-sm-3 control-label">File (Only doc/docx)*</label>
+                                        <label for="book_language" class="col-sm-3 control-label">File (Only
+                                            doc/docx)*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <form class="form-image-upload" action="<?php echo base_url('upload/ebook-file'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_upload_form">
-                                                    <input type="file" class="form-control" name="ebook_file" id="ebook_file" />
+                                                <form class="form-image-upload"
+                                                      action="<?php echo base_url('upload/ebook-file'); ?>"
+                                                      onSubmit="return false" method="post"
+                                                      enctype="multipart/form-data" id="ebook_upload_form">
+                                                    <input type="file" class="form-control" name="ebook_file"
+                                                           id="ebook_file"/>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="book_language" class="col-sm-3 control-label">Cover Page (Image Only<br> jpeg/jpg/png/gif)*</label>
+                                        <label for="book_language" class="col-sm-3 control-label">Cover Page (Image Only<br>
+                                            jpeg/jpg/png/gif)*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-<!--                                                <form class="form-image-upload" action="--><?php //echo base_url('upload/ebook-file'); ?><!--" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_upload_form">-->
-                                                    <input type="file" class="form-control" name="ebook_cover" id="ebook_cover">
-<!--                                                </form>-->
+                                                <!--                                                <form class="form-image-upload" action="-->
+                                                <?php //echo base_url('upload/ebook-file'); ?><!--" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_upload_form">-->
+                                                <input type="file" class="form-control" name="ebook_cover"
+                                                       id="ebook_cover">
+                                                <!--                                                </form>-->
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="book_language" class="col-sm-3 control-label">About this book*</label>
+                                        <label for="book_language" class="col-sm-3 control-label">About this
+                                            book*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <textarea class="form-control" name="about_book" id="about_book" rows="8" placeholder=""></textarea>
+                                                <textarea class="form-control" name="about_book" id="about_book"
+                                                          rows="8" placeholder=""></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -201,8 +248,11 @@
                                         <label for="book_language" class="col-sm-3 control-label"></label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <button class="btn btn-primary btn-sm" type="submit" name="btn-save-book-info" id="btn-save-book-info">Add</button>
-                                                <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
+                                                <button class="btn btn-primary btn-sm" type="submit"
+                                                        name="btn-save-book-info" id="btn-save-book-info">Save Book Info
+                                                </button>
+                                                <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -211,66 +261,77 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane pmb-block" id="composition">
-                        <div class="pmbb-body p-1-30 pmb-block">
-                            <div class="pmbb-body p-l-30">
-                                <form id="form_composition_upload">
-                                    <div class="pmbb-view">
-                                        <dl class="dl-horizontal">
-                                            <dt class="p-t-10">Language*</dt>
-                                            <dd>
-                                                <div class="fg-line">
-                                                    <select class="form-control" name="composition_language" id="composition_language">
-                                                        <option value="">Select Language...</option>
-                                                        <option value="Hindi">Hindi</option>
-                                                        <option value="English">English</option>
-                                                    </select>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                        <dl class="dl-horizontal">
-                                            <dt class="p-t-10">Category*</dt>
-                                            <dd>
-                                                <div class="fg-line">
-                                                    <select class="form-control" name="composition_category" id="composition_category">
-                                                        <option value="">Select Category...</option>
-                                                        <option value="Stories">Stories</option>
-                                                        <option value="Articles">Articles</option>
-                                                        <option value="Spritual">Spritual</option>
-                                                        <option value="Religious">Religious</option>
-                                                        <option value="Novels">Novels</option>
-                                                        <option value="Motivational">Motivational</option>
-                                                    </select>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                        <dl class="dl-horizontal">
-                                            <dt class="p-t-10">Composition Title*</dt>
-                                            <dd>
-                                                <div class="fg-line">
-                                                    <input type="text" class="form-control" name="composition_title" id="composition_title" placeholder="Title of book">
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                        <dl class="dl-horizontal">
-                                            <dt class="p-t-10">About this composition/ <br> creation*</dt>
-                                            <dd>
-                                                <div class="fg-line">
-                                                    <textarea class="form-control" name="about_composition" id="about_composition" rows="8" placeholder=""></textarea>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                        <dl class="dl-horizontal">
-                                            <dt class="p-t-10"></dt>
-                                            <dd>
-                                                <div class="fg-line m-t-30">
-                                                    <button class="btn btn-primary btn-sm" type="submit" name="btn-save-composition-info" id="btn-save-book-info">Add</button>
-                                                    <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
-                                                </div>
-                                            </dd>
-                                        </dl>
+                        <div class="card no-shadow">
+                            <form id="form_composition_upload" class="form-horizontal">
+                                <div class="card-header">
+                                    <h2>Composition Information
+                                        <small>Use Bootstrap's predefined grid classes to align labels and groups of
+                                            form controls in a horizontal layout by adding '.form-horizontal' to the
+                                            form. Doing so changes '.form-groups' to behave as grid rows, so no need for
+                                            '.row'.
+                                        </small>
+                                    </h2>
+                                </div>
+                                <div class="card-body card-padding">
+                                    <div class="form-group">
+                                        <label for="book_language" class="col-sm-3 control-label">Language*</label>
+                                        <div class="col-sm-9">
+                                            <div class="fg-line">
+                                                <select class="form-control" name="composition_language" id="composition_language">
+                                                    <option value="">Select Language...</option>
+                                                    <option value="Hindi">Hindi</option>
+                                                    <option value="English">English</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                </form>
-                            </div>
+                                    <div class="form-group">
+                                        <label for="book_language" class="col-sm-3 control-label">Category*</label>
+                                        <div class="col-sm-9">
+                                            <div class="fg-line">
+                                                <select class="form-control" name="composition_category"
+                                                        id="composition_category">
+                                                    <option value="">Select Category...</option>
+                                                    <option value="Stories">Stories</option>
+                                                    <option value="Articles">Articles</option>
+                                                    <option value="Spritual">Spritual</option>
+                                                    <option value="Religious">Religious</option>
+                                                    <option value="Novels">Novels</option>
+                                                    <option value="Motivational">Motivational</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="book_language" class="col-sm-3 control-label">Composition Title*</label>
+                                        <div class="col-sm-9">
+                                            <div class="fg-line">
+                                                <input type="text" class="form-control" name="composition_title" id="composition_title" placeholder="Title of book">
+                                            </div>
+                                        </div>
+                                    </div
+                                    <div class="form-group">
+                                        <label for="book_language" class="col-sm-3 control-label">About this composition/ <br> creation*</label>
+                                        <div class="col-sm-9">
+                                            <div class="fg-line">
+                                                <textarea class="form-control" name="about_composition" id="about_composition" rows="8" placeholder=""></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="book_language" class="col-sm-3 control-label">About this composition/ <br> creation*</label>
+                                        <div class="col-sm-9">
+                                            <div class="fg-line">
+                                                <button class="btn btn-primary btn-sm" type="submit" name="btn-save-composition-info" id="btn-save-book-info">
+                                                    Save Composition Info
+                                                </button>
+                                                <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane pmb-block" id="ebook_list">
@@ -292,35 +353,29 @@
                             </div>
                         </div>
                     </div>
-                    <div role="tabpanel" class="tab-pane pmb-block " id="composition_list">
-                        <div class="pmb-block ">
-                            <div class="pmbb-body pmbb-view p-l-30">
-                                <div class="pmbb-view">
-                                    <div class="card">
-                                        <div class="table-responsive">
-                                            <table id="data-table-composition" class="table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th data-column-id="file-title">File Title</th>
-                                                    <th data-column-id="file-published-status">File Published Status</th>
-                                                    <th data-column-id="publish-date">Publish Date</th>
-                                                    <th data-column-id="file-attachment">File Attachment</th>
-                                                    <th data-column-id="action" data-type="text">Actions</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody id="composition_list_info"></tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-                                </div>
+                    <div role="tabpanel" class="tab-pane pmb-block" id="composition_list">
+                        <div class="card no-shadow">
+                            <div class="table-responsive">
+                                <table id="data-table-composition" class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th data-column-id="file-title">File Title</th>
+                                        <th data-column-id="file-published-status">File Published Status
+                                        </th>
+                                        <th data-column-id="publish-date">Publish Date</th>
+                                        <th data-column-id="file-attachment">File Attachment</th>
+                                        <th data-column-id="action" data-type="text">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="composition_list_info"></tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </section>
 
 <footer id="footer">
@@ -339,7 +394,7 @@ Page Loader
 <div class="page-loader">
     <div class="preloader pls-blue">
         <svg class="pl-circular" viewBox="25 25 50 50">
-            <circle class="plc-path" cx="50" cy="50" r="20" />
+            <circle class="plc-path" cx="50" cy="50" r="20"/>
         </svg>
 
         <p>Please wait...</p>
@@ -355,14 +410,13 @@ echo script_tag('assets/js/bootstrap-growl.min.js');
 echo script_tag('assets/js/sweet-alert.min.js');
 echo script_tag('assets/js/functions.js');
 echo script_tag('assets/js/jquery.validate.min.js');
-echo script_tag('assets/js/demo.js');
 echo script_tag('assets/js/ebook/book-upload.js');
 echo script_tag('assets/js/jquery.bootgrid.updated.min.js');
 ?>
 </body>
 </html>
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function () {
         new MBJS.AuthorBook("<?php echo base_url(); ?>");
     });
 </script>
