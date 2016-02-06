@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Martu Bharti</title>
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
     <?php
     echo link_tag('assets/css/bootstrap-datetimepicker.min.css');
     echo link_tag('assets/css/animate.min.css');
@@ -26,9 +27,6 @@
             vertical-align: top;
             min-width: 50px;
             color: #fff;
-        }
-        @font-face {
-            font-family: 'Lato', sans-serif;
         }
     </style>
 </head>
@@ -97,7 +95,7 @@
                     <div class="pmo-pic">
                         <div class="p-relative">
                             <a href="">
-                                <img class="img-responsive" src="<?php echo base_url('image/upload/w_400/'.$author_id);?>" alt="">
+                                <img id="profile_image" class="img-responsive" src="<?php echo base_url('image/upload/w_400/'.$author_id);?>" alt="" />
                             </a>
                             <div class="dropdown pmop-message">
                                 <a data-toggle="dropdown" href="" class="btn bgm-white btn-float z-depth-1">
@@ -107,7 +105,7 @@
                             <a href="" class="pmop-edit">
                                 <i class="zmdi zmdi-camera"></i> <span class="hidden-xs">Add Profile Picture</span>
                                 <form class="form-image-upload" action="<?php echo base_url('profile-image-2'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="MyUploadForm">
-                                    <input style="opacity: 0;" type="file" name="profileImage" id="profileImage" />
+                                    <input style="opacity: 0; width: 100%; " type="file" name="profileImage" id="profileImage" />
                                 </form>
                             </a>
                             <div class="uploading-progress-div hidden">
@@ -139,7 +137,7 @@
                 <div class="pm-body clearfix" role="tabpanel">
                     <div class="pmbb-body p-1-30 pmb-block">
                         <div class="pmbb-header">
-                            <h2><i class="zmdi zmdi-account m-r-5"></i> Edit Information</h2>
+                            <h2><i class="zmdi zmdi-account m-r-5"></i> Profile Information</h2>
 
                             <ul class="actions">
                                 <li class="dropdown">
@@ -287,7 +285,6 @@ echo script_tag('assets/js/sweet-alert.min.js');
 echo script_tag('assets/js/moment.min.js');
 echo script_tag('assets/js/bootstrap-datetimepicker.min.js');
 echo script_tag('assets/js/functions.js');
-echo script_tag('assets/js/demo.js');
 echo script_tag('assets/js/jquery.form.min.js');
 echo script_tag('assets/js/jquery.validate.min.js');
 echo script_tag('assets/js/profile/profile.js');

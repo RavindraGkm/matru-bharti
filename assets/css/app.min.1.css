@@ -14,13 +14,13 @@
 }
 
 html {
-  font-family: sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
+  font-family: 'Open Sans', sans-serif;
 }
 
 article,
@@ -1405,7 +1405,6 @@ html {
 }
 
 body {
-  font-family: Lato;
   font-size: 13px;
   line-height: 1.42857143;
   color: #5e5e5e;
@@ -6687,7 +6686,7 @@ a.thumbnail.active {
 }
 
 .alert-danger {
-  background-color: rgba(244, 67, 54, 0.7);
+  background-color: rgba(244, 67, 54, 1);
   border-color: transparent;
   color: #ffffff;
 }
@@ -15419,10 +15418,11 @@ body.login-content:before {
   position: absolute;
   top: 0;
   left: 0;
+  height: 30px;
+  line-height: 30px;
   color: #fff;
   background: rgba(0, 0, 0, 0.38);
   text-align: center;
-  padding: 10px 10px 11px;
   -webkit-transition: opacity;
   -o-transition: opacity;
   transition: opacity;

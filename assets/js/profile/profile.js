@@ -5,11 +5,36 @@ MBJS.UserProfile=function(base_url){
     this.last_class = "p0";
 };
 
-MBJS.UserProfile.prototype={
-    initialize:function(){
+MBJS.UserProfile.prototype = {
+
+    initialize:function() {
         this.viewProfileInfo();
         this.profileUpdate();
         this.profileImageUpload();
+    },
+
+    notify: function(message,type) {
+        $.growl({
+            message: message
+        },{
+            type: type,
+            allow_dismiss: false,
+            label: 'Cancel',
+            className: 'btn-xs btn-inverse',
+            placement: {
+                from: 'top',
+                align: 'right'
+            },
+            timer:4000,
+            animate: {
+                enter: 'animated fadeIn',
+                exit: 'animated fadeOut'
+            },
+            offset: {
+                x: 20,
+                y: 85
+            }
+        });
     },
 
     profileImageUpload: function() {
@@ -29,7 +54,6 @@ MBJS.UserProfile.prototype={
         var author_id=$('#author_id').val();
 
         var options = {
-            target:'#output',
             beforeSubmit:beforeSubmit,
             uploadProgress:OnProgress,
             success:afterSuccess,
@@ -52,14 +76,14 @@ MBJS.UserProfile.prototype={
 
         function afterSuccess() {
             uploadingprogressdiv.addClass('hidden');
+            var new_source = self.base_url+"image/upload/"+author_id + "?timestamp="  + new Date().getTime();
+            $('#profile_image').attr('src',new_source);
         }
 
-//function to check file size before uploading.
         function beforeSubmit() {
-            uploadingprogressdiv.removeClass('hidden');
             if (window.File && window.FileReader && window.FileList && window.Blob) {
                 if( !$('#profileImage').val()) {
-                    $("#output").html("Are you kidding me?");
+                    self.notify("No File selected",'danger');
                     return false
                 }
                 var fsize = $('#profileImage')[0].files[0].size; //get file size
@@ -70,29 +94,19 @@ MBJS.UserProfile.prototype={
                     case 'image/png': case 'image/gif': case 'image/jpeg': case 'image/pjpeg':
                     break;
                     default:
-                        $("#output").html("<b>"+ftype+"</b> Unsupported file type!");
+                        self.notify("Please select image file",'danger');
                         return false
                 }
-
                 //Allowed file size is less than 1 MB (1048576)
                 if(fsize>1048576) {
                     $("#output").html("<b>"+bytesToSize(fsize) +"</b> Too big Image file! <br />Please reduce the size of your photo using an image editor.");
                     return false
                 }
-
                 //Progress bar
-                progressbox.show(); //show progressbar
-                statustxt.html(completed); //set status text
-                statustxt.css('color','#000'); //initial color of status text
-
-                $('#submit-btn').hide(); //hide submit button
-                $('#loading-img').show(); //hide submit button
-                $("#output").html("");
+                uploadingprogressdiv.removeClass('hidden');
             }
-            else
-            {
-                //Output error to older unsupported browsers that doesn't support HTML5 File API
-                $("#output").html("Please upgrade your browser, because your current browser lacks some new features we need!");
+            else {
+                self.notify("Please upgrade your browser, because your current browser lacks some new features we need!",'danger');
                 return false;
             }
         }
@@ -253,14 +267,7 @@ MBJS.UserProfile.prototype={
                     },
                     success: function (data, textStatus, jqXHR) {
                         console.log(data);
-                        swal({
-                            title: "Success",
-                            text: "Profile updated successfully",
-                            timer: 2000,
-                            showConfirmButton: false,
-                            showCancelButton: false,
-                        });
-                        $('.sweet-alert h2').addClass('h2_success');
+                        self.notify("Profile Updated successfully",'inverse');
                         update_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
                     }
                 });
