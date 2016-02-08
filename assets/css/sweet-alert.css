@@ -341,15 +341,15 @@
   z-index: 1040;
 }
 .sweet-alert {
-  background-color: rgba(0,0,0,0.5);
-  width: 350px;
+  background-color: #ffffff;
+  width: 478px;
   padding: 17px;
   border-radius: 5px;
   text-align: center;
   position: fixed;
   left: 50%;
   top: 50%;
-  margin-left: -175px;
+  margin-left: -256px;
   margin-top: -200px;
   overflow: hidden;
   display: none;
@@ -562,24 +562,3 @@
 .sweet-alert button::-moz-focus-inner {
   border: 0;
 }
-
-.sweet-alert h2 {
-  font-size: 22px;
-  color:#ff0000;
-  margin-top: 0;
-}
-
-.h2_success{
-  color: #009688 !important;
-}
-
-.sweet-alert p.text-muted {
-  font-size: 14px;
-  color: #fff;
-  margin-bottom: 0;
-}
-
-.sweet-alert p {
-  margin: 0;
-}
-

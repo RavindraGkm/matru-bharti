@@ -231,9 +231,10 @@
                                         <div class="col-sm-9">
                                             <div class="fg-line">
                                                 <form class="form-image-upload" action="<?php echo base_url('upload/ebook-file'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_cover_upload_form">
-<!--                                                <input type="file" class="form-control" name="ebook_cover" id="ebook_cover">-->
                                                     <div class="fileinput fileinput-new file-prev-mng" data-provides="fileinput">
-                                                        <div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>
+                                                        <div class="fileinput-preview thumbnail" data-trigger="fileinput">
+                                                            <img src="<?php echo base_url('assets/img/headers/ebook-default/ebook_deft_img.jpg'); ?>" class="img-responsive"/>
+                                                        </div>
                                                         <div>
                                                             <span class="btn btn-primary btn-file" id="select_image">
                                                                 <span class="fileinput-new">Select image</span>
