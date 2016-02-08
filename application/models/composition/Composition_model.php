@@ -42,6 +42,25 @@ class Composition_model extends CI_Model {
         return $response;
     }
 
-
+    public function delete_composition($auth_token,$composition_id,$author_id) {
+        $query = $this->db->get_where('authors', array('token' => $auth_token));
+        $response = array();
+        if($query->num_rows()>0) {
+            $this->db->delete('compositions', array('author_id'=>$author_id,'id'=>$composition_id));
+            if($this->db->affected_rows()>0) {
+                $response['status'] = 'success';
+                $response['msg'] = 'Deleted Successfully';
+            }
+            else {
+                $response['status'] = 'error';
+                $response['msg'] = 'Server Error';
+            }
+        }
+        else {
+            $response['status'] = 'error';
+            $response['msg'] = 'Anauthorized';
+        }
+        return $response;
+    }
 }
 ?>

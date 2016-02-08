@@ -373,7 +373,7 @@
                                         <th data-column-id="file-published-status">File Published Status</th>
                                         <th data-column-id="publish-date">Publish Date</th>
                                         <th data-column-id="file-attachment">File Attachment</th>
-                                        <th data-column-id="action" data-type="text">Actions</th>
+                                        <th data-column-id="action" data-formatter="links">Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody id="composition_list_info"></tbody>

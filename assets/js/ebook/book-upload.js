@@ -510,7 +510,7 @@ MBJS.AuthorBook.prototype = {
                 var results= data.result;
                 var row;
                 for(var i=0;i<results.length;i++){
-                    row="<tr><td>"+results[i].title+"</td><td>asaksj</td><td>aksjas</td><td>"+results[i].title+"</td><td><a href='http://www.google.co.in/'>Edit</a></td></tr>";
+                    row="<tr><td>"+results[i].title+"</td><td>asaksj</td><td>aksjas</td><td>"+results[i].title+"</td><td>"+results[i].id+"</td></tr>";
                     $("#composition_list_info").append(row);
                 }
                 $("#data-table-composition").bootgrid({
@@ -520,9 +520,46 @@ MBJS.AuthorBook.prototype = {
                         iconDown: 'zmdi-expand-more',
                         iconRefresh: 'zmdi-refresh',
                         iconUp: 'zmdi-expand-less'
+                    },
+                    formatters: {
+                        "links": function(column, row) {
+                            return "<button type=\"button\" class=\"btn btn-icon command-delete delete-composition waves-effect waves-circle\" data-row-id=\"" + row.action + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
+                        }
                     }
                 });
             }
+        });
+        $('#composition_list_info').on('click','.delete-composition',function() {
+            var composition_table_id = $(this).attr('data-row-id');
+            console.log(composition_table_id);
+            var author_id = $('#author_id').val();
+            alert("table id".composition_table_id);
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to undo this action !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: true
+            }, function() {
+                $.ajax({
+                    url: self.base_url+"composition/"+composition_table_id,
+                    type: 'DELETE',
+                    dataType: 'JSON',
+                    headers:{Authorization : auth_token},
+                    data: {
+                        author_id : author_id
+                    },
+                    success:function(data) {
+                        console.log(data);
+                        self.notify('Successfully deleted','inverse');
+                    },
+                    error:function(data) {
+                        console.log(data);
+                    }
+                });
+            });
         });
     }
 }

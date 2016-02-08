@@ -97,5 +97,34 @@ class Composition extends REST_Controller {
             }
         }
     }
+
+    public function  index_delete ($composition_id=0) {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: DELETE");
+        $headers = $this->input->request_headers();
+        if (!isset($headers['Authorization']) || empty($headers['Authorization'])) {
+            $this->response(array('error' => 'No authorization header supplied'), REST_Controller::HTTP_UNAUTHORIZED);
+        }
+        else {
+            if($composition_id!=0 &&  $composition_id>1) {
+                $this->load->database();
+                $this->load->model('composition/Composition_model');
+                $author_id = $this->delete('author_id');
+                $response= $this->Composition_model->delete_composition($headers['Authorization'],$composition_id,$author_id);
+                $this->db->close();
+                if ($response['status']=='success') {
+                    $this->response($response, REST_Controller::HTTP_OK);
+                } else {
+                    if($response['msg']=='Server Error') {
+                        $response = array('errors' => array($response['msg']));
+                        $this->response($response, REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
+                    }
+                    else {
+                        $this->response("asasas", REST_Controller::HTTP_UNAUTHORIZED);
+                    }
+                }
+            }
+        }
+    }
 }
 ?>

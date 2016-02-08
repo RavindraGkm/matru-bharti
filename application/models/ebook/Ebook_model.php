@@ -20,6 +20,7 @@ class Ebook_model extends CI_Model {
         }
         return $response;
     }
+
     public function get_ebook_list($auth_token,$author_id) {
         $query = $this->db->get_where('authors', array('token' => $auth_token));
         $response = array();
