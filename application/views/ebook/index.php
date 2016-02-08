@@ -212,12 +212,12 @@
                                         <div class="col-sm-9">
                                             <div class="fg-line">
                                                 <form class="form-image-upload" action="<?php echo base_url('upload/ebook-file'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_upload_form">
-                                                    <input type="file" class="form-control hidden" name="" id="ebook_file"/>
+
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                                         <span class="btn btn-primary btn-file m-r-10">
                                                             <span class="fileinput-new">Select file</span>
                                                             <span class="fileinput-exists">Change</span>
-                                                            <input type="file" class="form-control" name="ebook_file" id="ebook_file"/>
+                                                            <input type="file" name="ebook_file" id="ebook_file"/>
                                                         </span>
                                                         <span class="fileinput-filename"></span>
                                                         <a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
