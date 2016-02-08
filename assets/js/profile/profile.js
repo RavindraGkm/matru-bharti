@@ -229,6 +229,8 @@ MBJS.UserProfile.prototype = {
                 var remember_token = $('#remember_token').val();
                 var update_button = $('#btn-update-profile');
                 var author_id=$('#author_id').val();
+                var profile_view = $('#profile_view');
+                var profile_editable=$('#profile_editable');
                 $.ajax({
                     url: self.base_url+"authors/"+author_id,
                     type: "PUT",
@@ -262,6 +264,13 @@ MBJS.UserProfile.prototype = {
                         $('#span-auth-city').html(txt_city);
                         $('#span-auth-dob').html(txt_dob);
                         $('#span-auth-about').html(about);
+                    },
+                    complete:function(data) {
+                        profile_view.removeClass('pmbb-view');
+                        profile_view.addClass('pmbb-edit');
+                        profile_editable.removeClass('pmbb-edit');
+                        profile_editable.addClass('pmbb-view');
+                        $('.pmbb-body div.pmbb-header ul.actions ').show();
                     }
                 });
             },

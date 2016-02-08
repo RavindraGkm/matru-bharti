@@ -55,7 +55,6 @@ MBJS.AuthorBook.prototype = {
         $('.fileinput-exists').click(function() {
             $('.fileinput-preview').hide();
         });
-
         // Uploading setups
         var author_id=$('#author_id').val();
         var remember_token = $('#remember_token').val();
@@ -156,19 +155,14 @@ MBJS.AuthorBook.prototype = {
     ebookFileUpload: function() {
 
         $("#ebook_file").change(function() {
-            $('#MyUploadForm').submit();
+            $('#ebook_upload_form').submit();
             return false;
         });
 
         var self = this;
         var remember_token = $('#remember_token').val();
-        var progressbox = $('#progressbox');
-        var progressbar = $('.custom-progress');
         var statustxt = $('.custom-progress span');
-        var completed = '0%';
-        var uploadingprogressdiv = $('.uploading-progress-div');
         var author_id=$('#author_id').val();
-
         var options = {
             beforeSubmit:beforeSubmit,
             uploadProgress:OnProgress,
@@ -187,9 +181,9 @@ MBJS.AuthorBook.prototype = {
 
 
         function afterSuccess() {
-            uploadingprogressdiv.addClass('hidden');
-            var new_source = self.base_url+"image/upload/"+author_id + "?timestamp="  + new Date().getTime();
-            $('#profile_image').attr('src',new_source);
+            //uploadingprogressdiv.addClass('hidden');
+            //var new_source = self.base_url+"image/upload/"+author_id + "?timestamp="  + new Date().getTime();
+            //$('#profile_image').attr('src',new_source);
         }
 
         function beforeSubmit() {
