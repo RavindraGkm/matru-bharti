@@ -217,7 +217,7 @@
                                                         <span class="btn btn-primary btn-file m-r-10">
                                                             <span class="fileinput-new">Select file</span>
                                                             <span class="fileinput-exists">Change</span>
-                                                            <input type="file" class="form-control" name="ebook_file" id="ebook_file"/>
+                                                            <input type="file" name="ebook_file" id="ebook_file"/>
                                                         </span>
                                                         <span class="fileinput-filename"></span>
                                                         <a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
@@ -239,7 +239,7 @@
                                                             <span class="btn btn-primary btn-file" id="select_image">
                                                                 <span class="fileinput-new">Select image</span>
                                                                 <span class="fileinput-exists">Change</span>
-                                                                <input type="file" name="...">
+                                                                <input type="file" id="book_cover">
                                                             </span>
                                                             <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
                                                         </div>

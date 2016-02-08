@@ -48,8 +48,12 @@ MBJS.AuthorBook.prototype = {
 
         //Image file preview Setup
         $('.fileinput-preview').hide();
-        $('.file-prev-mng').click(function(){
-                $('.fileinput-preview').show();
+
+        $('#book_cover').change(function(){
+            $('.fileinput-preview').show();
+        });
+        $('.fileinput-exists').click(function() {
+            $('.fileinput-preview').hide();
         });
 
         // Uploading setups
