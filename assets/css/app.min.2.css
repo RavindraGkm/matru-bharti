@@ -3014,18 +3014,11 @@ select.chosen {
 }
 
 .fileinput .fileinput-preview {
-  width: auto;
-  height: auto;
-  max-width: 120px;
-  max-height: 150px;
+  width: 200px;
+  height: 150px;
   position: relative;
+  background: url("../img/headers/ebook-default/ebook_deft_img.jpg");
 }
-
-/*.fileinput .fileinput-preview {*/
-  /*width: 200px;*/
-  /*height: 150px;*/
-  /*position: relative;*/
-/*}*/
 
 .fileinput .fileinput-preview img {
   display: inline-block;
