@@ -10,10 +10,34 @@ MBJS.AuthorBook.prototype = {
         this.basicSetups();
         this.viewProfileInfo();
         this.ebookUpload();
+        this.ebookFileUpload();
         this.compositionUpload();
         this.viewEbookList();
         this.viewCompositionList();
-        this.deleteBookInfo();
+    },
+
+    notify: function(message,type) {
+        $.growl({
+            message: message
+        },{
+            type: type,
+            allow_dismiss: false,
+            label: 'Cancel',
+            className: 'btn-xs btn-inverse',
+            placement: {
+                from: 'top',
+                align: 'right'
+            },
+            timer:4000,
+            animate: {
+                enter: 'animated fadeIn',
+                exit: 'animated fadeOut'
+            },
+            offset: {
+                x: 20,
+                y: 85
+            }
+        });
     },
 
     basicSetups : function () {
@@ -22,9 +46,13 @@ MBJS.AuthorBook.prototype = {
         $('#tab_'+active_tab).addClass('active');
         $('#'+active_tab).addClass('active');
 
+        //Image file preview Setup
+        $('.fileinput-preview').hide();
+        $('.file-prev-mng').click(function(){
+                $('.fileinput-preview').show();
+        });
+
         // Uploading setups
-
-
         var author_id=$('#author_id').val();
         var remember_token = $('#remember_token').val();
 
@@ -106,7 +134,6 @@ MBJS.AuthorBook.prototype = {
 
     },
     //this function for retriving user data from any page just like "user name"
-
     viewProfileInfo:function () {
         var self=this;
         var auth_token = $('#remember_token').val();
@@ -120,6 +147,77 @@ MBJS.AuthorBook.prototype = {
                 $('.span-auth-name').html(data.result.name);
             }
         });
+    },
+
+    ebookFileUpload: function() {
+
+        $("#ebook_file").change(function() {
+            $('#MyUploadForm').submit();
+            return false;
+        });
+
+        var self = this;
+        var remember_token = $('#remember_token').val();
+        var progressbox = $('#progressbox');
+        var progressbar = $('.custom-progress');
+        var statustxt = $('.custom-progress span');
+        var completed = '0%';
+        var uploadingprogressdiv = $('.uploading-progress-div');
+        var author_id=$('#author_id').val();
+
+        var options = {
+            beforeSubmit:beforeSubmit,
+            uploadProgress:OnProgress,
+            success:afterSuccess,
+            resetForm: true,
+            data: {author_id : author_id},
+            headers:{Authorization : remember_token}
+        };
+
+
+        $('#MyUploadForm').submit(function() {
+            $(this).ajaxSubmit(options);
+            return false;
+        });
+
+
+
+        function afterSuccess() {
+            uploadingprogressdiv.addClass('hidden');
+            var new_source = self.base_url+"image/upload/"+author_id + "?timestamp="  + new Date().getTime();
+            $('#profile_image').attr('src',new_source);
+        }
+
+        function beforeSubmit() {
+            if (window.File && window.FileReader && window.FileList && window.Blob) {
+                if( !$('#profileImage').val()) {
+                    self.notify("No File selected",'danger');
+                    return false
+                }
+                var fsize = $('#profileImage')[0].files[0].size; //get file size
+                console.log(fsize);
+                var ftype = $('#profileImage')[0].files[0].type; // get file type
+                //allow only valid image file types
+                switch(ftype) {
+                    case 'image/png': case 'image/gif': case 'image/jpeg': case 'image/pjpeg':
+                    break;
+                    default:
+                        self.notify("Please select image file",'danger');
+                        return false
+                }
+                //Allowed file size is less than 1 MB (1048576)
+                if(fsize>1048576) {
+                    $("#output").html("<b>"+bytesToSize(fsize) +"</b> Too big Image file! <br />Please reduce the size of your photo using an image editor.");
+                    return false
+                }
+                //Progress bar
+                uploadingprogressdiv.removeClass('hidden');
+            }
+            else {
+                self.notify("Please upgrade your browser, because your current browser lacks some new features we need!",'danger');
+                return false;
+            }
+        }
     },
 
     ebookUpload: function () {
@@ -350,12 +448,11 @@ MBJS.AuthorBook.prototype = {
             dataType: 'JSON',
             headers:{Authorization : auth_token},
             success:function(data) {
-                console.log(data);
                 var results = data.result;
                 var row;
                 for(var i=0;i<results.length;i++) {
                     var published_date = results[i].published_at.split('-').reverse().join('-');
-                    row="<tr><td> <input class='ebook_id' type='text' value='"+results[i].id+"' />"+results[i].title+"</td><td>"+results[i].status+"</td><td>"+published_date+"</td><td><a href="+results[i].file+"></a></td><td>Download</td></tr>";
+                    row="<tr><td>"+results[i].title+"</td><td>"+results[i].status+"</td><td>"+published_date+"</td><td><a href="+results[i].file+"></a></td><td>"+results[i].id+"</td></tr>";
                     $("#ebook_list_info").append(row);
                 }
                 $("#data-table-basic").bootgrid({
@@ -368,13 +465,37 @@ MBJS.AuthorBook.prototype = {
                     },
                     formatters: {
                         "links": function(column, row) {
-                            return "<button type=\"button\" class=\"btn btn-icon command-delete waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
+                            return "<button type=\"button\" class=\"btn btn-icon command-delete delete-ebook waves-effect waves-circle\" data-row-id=\"" + row.action + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
                         }
                     }
                 });
             }
         });
+
+        $('#ebook_list_info').on('click','.delete-ebook',function() {
+            var ebook_table_id = $(this).attr('data-row-id');
+            var author_id = $('#author_id').val();
+            $.ajax({
+                url: self.base_url+"ebook/"+ebook_table_id,
+                type: 'DELETE',
+                dataType: 'JSON',
+                headers:{Authorization : auth_token},
+                data: {
+                    author_id : author_id
+                },
+                success:function(data) {
+                    console.log(ebook_table_id);
+                    self.notify('Successfully deleted','inverse');
+                },
+                error:function(data) {
+                    console.log("error");
+                    console.log(author_id);
+                }
+            });
+        });
+
     },
+
     viewCompositionList : function() {
         var self=this;
         var auth_token = $('#remember_token').val();
@@ -401,22 +522,6 @@ MBJS.AuthorBook.prototype = {
                         iconUp: 'zmdi-expand-less'
                     }
                 });
-            }
-        });
-    },
-
-    deleteBookInfo : function() {
-        var self=this;
-        var auth_token = $('#remember_token').val();
-        var author_id = $('#author_id').val();
-
-        $.ajax({
-            url: self.base_url+"authors/"+author_id,
-            type: 'GET',
-            dataType: 'JSON',
-            headers:{Authorization : auth_token},
-            success:function(data){
-                $('.span-auth-name').html(data.result.name);
             }
         });
     }

@@ -3014,10 +3014,18 @@ select.chosen {
 }
 
 .fileinput .fileinput-preview {
-  width: 200px;
-  height: 150px;
+  width: auto;
+  height: auto;
+  max-width: 120px;
+  max-height: 150px;
   position: relative;
 }
+
+/*.fileinput .fileinput-preview {*/
+  /*width: 200px;*/
+  /*height: 150px;*/
+  /*position: relative;*/
+/*}*/
 
 .fileinput .fileinput-preview img {
   display: inline-block;

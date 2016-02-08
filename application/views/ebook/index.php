@@ -18,6 +18,7 @@
     echo link_tag('assets/css/app.min.1.css');
     echo link_tag('assets/css/app.min.2.css');
     echo link_tag('assets/css/font-awesome.min.css');
+    echo link_tag('assets/css/bootstrap-select.css');
     echo link_tag('assets/css/ebook.css');
     ?>
     <style type="text/css">
@@ -67,7 +68,7 @@
                     <a href="<?php echo base_url('profile'); ?>"><i class="zmdi zmdi-account"></i> View Profile</a>
                 </li>
                 <li>
-                    <a href=""><i class="zmdi zmdi-time-restore"></i> Logout</a>
+                    <a href="<?php echo base_url('logout');?>"><i class="zmdi zmdi-time-restore"></i> Logout</a>
                 </li>
             </ul>
         </div>
@@ -101,22 +102,25 @@
             <div class="card col col-md-offset-1 col-lg-10 col-md-10 col-sm-12 col-xs-12" id="profile-main">
                 <input type="hidden" value="<?php echo $active_tab; ?>" id="active_tab_val"/>
                 <ul class="tab-nav" role="tablist">
-                    <li role="presentation" id="tab_ebook"><a href="#ebook" aria-controls="ebook" role="tab"
-                                                              data-toggle="tab">
-                            <i class="fa fa-book fa-lg"></i>&nbsp;&nbsp;E-Book Upload</a>
+                    <li role="presentation" id="tab_ebook">
+                        <a href="#ebook" aria-controls="ebook" role="tab" data-toggle="tab">
+                            <i class="fa fa-book fa-lg"></i>&nbsp;&nbsp;E-Book Upload
+                        </a>
                     </li>
-                    <li role="presentation" id="tab_composition"><a href="#composition" aria-controls="composition"
-                                                                    role="tab" data-toggle="tab">
-                            <i class="fa fa-file-word-o fa-lg"></i>&nbsp;&nbsp;Composition / Creation upload</a>
+                    <li role="presentation" id="tab_composition">
+                        <a href="#composition" aria-controls="composition" role="tab" data-toggle="tab">
+                            <i class="fa fa-file-word-o fa-lg"></i>&nbsp;&nbsp;Composition / Creation upload
+                        </a>
                     </li>
-                    <li role="presentation" id="tab_ebook_list"><a href="#ebook_list" aria-controls="upload-file-list"
-                                                                   role="tab" data-toggle="tab">
-                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of E-Book Files</a>
+                    <li role="presentation" id="tab_ebook_list">
+                        <a href="#ebook_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">
+                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of E-Book Files
+                        </a>
                     </li>
-                    <li role="presentation" id="tab_composition_list"><a href="#composition_list"
-                                                                         aria-controls="upload-file-list" role="tab"
-                                                                         data-toggle="tab">
-                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of Composition Files</a>
+                    <li role="presentation" id="tab_composition_list">
+                        <a href="#composition_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">
+                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of Composition Files
+                        </a>
                     </li>
                 </ul>
 
@@ -139,7 +143,7 @@
                                 </div>
                                 <div class="card-body card-padding">
                                     <div class="form-group">
-                                        <label for="book_language" class="col-sm-3 control-label">Select Language
+                                        <label for="composition_category" class="col-sm-3 control-label">Select Language
                                             *</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
@@ -152,11 +156,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="book_category" class="col-sm-3 control-label">Select Category
-                                            *</label>
+                                        <label for="book_category" class="col-sm-3 control-label">Select Category*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <select class="form-control" name="book_category" id="book_category">-->
+                                                <select class="form-control" name="book_category" id="book_category">
                                                     <option value="">Select Category...</option>
                                                     <option value="Stories">Stories</option>
                                                     <option value="Articles">Articles</option>
@@ -192,8 +195,7 @@
                                         <label for="book_language" class="col-sm-3 control-label">File Title*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <input type="text" class="form-control" name="file_title"
-                                                       id="file_title" placeholder="Title of book">
+                                                <input type="text" class="form-control" name="file_title" id="file_title" placeholder="Title of book">
                                             </div>
                                         </div>
                                     </div>
@@ -201,22 +203,25 @@
                                         <label for="book_language" class="col-sm-3 control-label">Tags</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <input type='text' class="form-control" name="book_tag" id="book_tag"
-                                                       placeholder="Add a tag">
+                                                <input type='text' class="form-control" name="book_tag" id="book_tag" placeholder="Add a tag">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="book_language" class="col-sm-3 control-label">File (Only
-                                            doc/docx)*</label>
+                                        <label for="book_language" class="col-sm-3 control-label">File (Only doc/docx)*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <form class="form-image-upload"
-                                                      action="<?php echo base_url('upload/ebook-file'); ?>"
-                                                      onSubmit="return false" method="post"
-                                                      enctype="multipart/form-data" id="ebook_upload_form">
-                                                    <input type="file" class="form-control" name="ebook_file"
-                                                           id="ebook_file"/>
+                                                <form class="form-image-upload" action="<?php echo base_url('upload/ebook-file'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_upload_form">
+                                                    <input type="file" class="form-control hidden" name="" id="ebook_file"/>
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <span class="btn btn-primary btn-file m-r-10">
+                                                            <span class="fileinput-new">Select file</span>
+                                                            <span class="fileinput-exists">Change</span>
+                                                            <input type="file" class="form-control" name="ebook_file" id="ebook_file"/>
+                                                        </span>
+                                                        <span class="fileinput-filename"></span>
+                                                        <a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
+                                                    </div>
                                                 </form>
                                             </div>
                                         </div>
@@ -226,21 +231,29 @@
                                             jpeg/jpg/png/gif)*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <!--                                                <form class="form-image-upload" action="-->
-                                                <?php //echo base_url('upload/ebook-file'); ?><!--" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_upload_form">-->
-                                                <input type="file" class="form-control" name="ebook_cover"
-                                                       id="ebook_cover">
-                                                <!--                                                </form>-->
+                                                <form class="form-image-upload" action="<?php echo base_url('upload/ebook-file'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_upload_form">
+<!--                                                <input type="file" class="form-control" name="ebook_cover" id="ebook_cover">-->
+                                                    <div class="fileinput fileinput-new file-prev-mng" data-provides="fileinput">
+                                                        <div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>
+                                                        <div>
+                                                            <span class="btn btn-primary btn-file" id="select_image">
+                                                                <span class="fileinput-new">Select image</span>
+                                                                <span class="fileinput-exists">Change</span>
+                                                                <input type="file" name="...">
+                                                            </span>
+                                                            <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="book_language" class="col-sm-3 control-label">About this
-                                            book*</label>
+                                        <label for="book_language" class="col-sm-3 control-label">About this book*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <textarea class="form-control" name="about_book" id="about_book"
-                                                          rows="8" placeholder=""></textarea>
+                                                <textarea class="form-control" name="about_book" id="about_book" rows="8" placeholder=""></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -248,11 +261,9 @@
                                         <label for="book_language" class="col-sm-3 control-label"></label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <button class="btn btn-primary btn-sm" type="submit"
-                                                        name="btn-save-book-info" id="btn-save-book-info">Save Book Info
+                                                <button class="btn btn-primary btn-sm" type="submit" name="btn-save-book-info" id="btn-save-book-info">Save Book Info
                                                 </button>
-                                                <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel
-                                                </button>
+                                                <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
                                             </div>
                                         </div>
                                     </div>
@@ -274,7 +285,7 @@
                                 </div>
                                 <div class="card-body card-padding">
                                     <div class="form-group">
-                                        <label for="book_language" class="col-sm-3 control-label">Language*</label>
+                                        <label for="composition_language" class="col-sm-3 control-label">Language*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
                                                 <select class="form-control" name="composition_language" id="composition_language">
@@ -303,10 +314,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="book_language" class="col-sm-3 control-label">Composition Title*</label>
+                                        <label for="book_language" class="col-sm-3 control-label">Composition Title *</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <input type="text" class="form-control" name="composition_title" id="composition_title" placeholder="Title of book">
+                                                <input type="text" class="form-control" name="composition_title" id="composition_title" placeholder="Title of book" />
                                             </div>
                                         </div>
                                     </div>
@@ -319,14 +330,13 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="book_language" class="col-sm-3 control-label">About this composition/ <br> creation*</label>
+                                        <label for="book_language" class="col-sm-3 control-label"></label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
                                                 <button class="btn btn-primary btn-sm" type="submit" name="btn-save-composition-info" id="btn-save-book-info">
                                                     Save Composition Info
                                                 </button>
-                                                <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel
-                                                </button>
+                                                <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
                                             </div>
                                         </div>
                                     </div>
@@ -360,8 +370,7 @@
                                     <thead>
                                     <tr>
                                         <th data-column-id="file-title">File Title</th>
-                                        <th data-column-id="file-published-status">File Published Status
-                                        </th>
+                                        <th data-column-id="file-published-status">File Published Status</th>
                                         <th data-column-id="publish-date">Publish Date</th>
                                         <th data-column-id="file-attachment">File Attachment</th>
                                         <th data-column-id="action" data-type="text">Actions</th>
@@ -384,9 +393,6 @@
 
     <ul class="f-menu">
         <li><a href="">Home</a></li>
-        <li><a href="">Dashboard</a></li>
-        <li><a href="">Reports</a></li>
-        <li><a href="">Support</a></li>
         <li><a href="">Contact</a></li>
     </ul>
 </footer>
@@ -410,6 +416,8 @@ echo script_tag('assets/js/waves.min.js');
 echo script_tag('assets/js/bootstrap-growl.min.js');
 echo script_tag('assets/js/sweet-alert.min.js');
 echo script_tag('assets/js/functions.js');
+echo script_tag('assets/js/bootstrap-select.js');
+echo script_tag('assets/js/fileinput.min.js');
 echo script_tag('assets/js/jquery.validate.min.js');
 echo script_tag('assets/js/ebook/book-upload.js');
 echo script_tag('assets/js/jquery.bootgrid.updated.min.js');

@@ -15887,3 +15887,7 @@ body.login-content:before {
   overflow: hidden;
   white-space: nowrap;
 }
+
+div.fileinput a.btn-danger{
+  text-transform: none;
+}

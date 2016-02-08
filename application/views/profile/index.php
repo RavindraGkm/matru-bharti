@@ -73,7 +73,7 @@
                     <a href="<?php echo base_url('profile');?>"><i class="zmdi zmdi-account"></i> View Profile</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url();?>"><i class="zmdi zmdi-time-restore"></i> Logout</a>
+                    <a href="<?php echo base_url('logout');?>"><i class="zmdi zmdi-time-restore"></i> Logout</a>
                 </li>
             </ul>
         </div>
