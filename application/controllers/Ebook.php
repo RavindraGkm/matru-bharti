@@ -116,15 +116,17 @@ class Ebook extends REST_Controller {
             }
         }
     }
-
     public function  index_delete ($ebook_id=0) {
+
+
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: DELETE");
         $headers = $this->input->request_headers();
         if (!isset($headers['Authorization']) || empty($headers['Authorization'])) {
             $this->response(array('error' => 'No authorization header supplied'), REST_Controller::HTTP_UNAUTHORIZED);
-        }else{
-            if($ebook_id=0 && $ebook_id>1) {
+        }
+        else {
+            if($ebook_id!=0 &&  $ebook_id>1) {
                 $this->load->database();
                 $this->load->model('ebook/Ebook_model');
                 $author_id = $this->delete('author_id');
@@ -138,7 +140,7 @@ class Ebook extends REST_Controller {
                         $this->response($response, REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
                     }
                     else {
-                        $this->response($response, REST_Controller::HTTP_UNAUTHORIZED);
+                        $this->response("asasas", REST_Controller::HTTP_UNAUTHORIZED);
                     }
                 }
             }
