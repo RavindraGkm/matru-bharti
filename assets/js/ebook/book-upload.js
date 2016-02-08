@@ -10,7 +10,7 @@ MBJS.AuthorBook.prototype = {
         this.basicSetups();
         this.viewProfileInfo();
         this.ebookUpload();
-        this.ebookFileUpload();
+        //this.ebookFileUpload();
         this.compositionUpload();
         this.viewEbookList();
         this.viewCompositionList();
