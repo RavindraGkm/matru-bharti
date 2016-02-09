@@ -131,6 +131,9 @@
                             <input type="hidden" value="<?php echo $remember_token; ?>" name="remember_token"
                                    id="remember_token">
                             <input type="hidden" value="<?php echo $author_id; ?>" name="author_id" id="author_id">
+                            <?php
+                            $current_date= date('Y-m-d');
+                            ?>
                             <form id="form_ebook_upload" class="form-horizontal">
                                 <div class="card-header">
                                     <h2>E-Book Information
@@ -141,6 +144,8 @@
                                         </small>
                                     </h2>
                                 </div>
+
+                                <input type="hidden" id="ebook_creation_date" name="ebook_creation_date" value="<?php echo $current_date;?>">
                                 <div class="card-body card-padding">
                                     <div class="form-group">
                                         <label for="book_category" class="col-sm-3 control-label">Select Language
@@ -261,7 +266,7 @@
                                         <label for="book_language" class="col-sm-3 control-label"></label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <button class="btn btn-primary btn-sm" type="submit" name="btn-save-book-info" id="btn-save-book-info">Save Book Info
+                                                <button class="btn btn-primary btn-sm" type="button" name="btn-save-book-info" id="btn-save-book-info">Save Book Info
                                                 </button>
                                                 <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
                                             </div>
@@ -283,6 +288,7 @@
                                         </small>
                                     </h2>
                                 </div>
+                                <input type="hidden" id="composition_creation_date" name="composition_creation_date" value="<?php echo $current_date;?>">
                                 <div class="card-body card-padding">
                                     <div class="form-group">
                                         <label for="composition_language" class="col-sm-3 control-label">Language*</label>

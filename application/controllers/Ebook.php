@@ -15,6 +15,8 @@ class Ebook extends REST_Controller {
         $tag=$this->post('tag');
         $file=$this->post('file');
         $cover=$this->post('cover');
+        $status=$this->post('status');
+        $created_at=$this->post('created_at');
 
         $data = array();
         if($author_id===NULL) {
@@ -41,6 +43,10 @@ class Ebook extends REST_Controller {
         if($cover===NULL) {
             $data[] = "Cover page not provided";
         }
+        if($status===NULL) {
+            $data[] = "Book Status not provided";
+        }
+
 
         if($language=="") {
             $data[] = "Language can not be blank";
@@ -63,6 +69,10 @@ class Ebook extends REST_Controller {
         if($cover=="") {
             $data[] = "Cover page can not be blank";
         }
+        if($status=="") {
+            $data[] = "Book status can not be blank";
+        }
+
         if(count($data)>0){
             $error['error'] = $data;
             $this->response($error,REST_Controller::HTTP_UNPROCESSABLE_ENTITY);

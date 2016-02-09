@@ -1,3 +1,15 @@
 .no-shadow {
     box-shadow: none;
 }
+
+.td-status-blue{
+    color:#2196F3;
+}
+
+.td-status-green{
+    color:#65BB5C;
+}
+
+.td-status-red{
+    color:#D81E1E;
+}

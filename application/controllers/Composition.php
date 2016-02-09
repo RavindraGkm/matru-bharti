@@ -11,6 +11,7 @@ class Composition extends REST_Controller {
         $category=$this->post('category');
         $title=$this->post('title');
         $about=$this->post('about');
+//        $created_at=$this->post('created_at');
 
         $data = array();
         if($author_id===NULL) {
@@ -26,7 +27,7 @@ class Composition extends REST_Controller {
             $data[] = "Title not provided";
         }
         if($about===NULL) {
-            $data[] = "About this book not provided";
+            $data[] = "About this Composition not provided";
         }
 
         if($language=="") {
@@ -39,7 +40,7 @@ class Composition extends REST_Controller {
             $data[] = "Title can not be blank";
         }
         if($about=="") {
-            $data[] = "About this book can not be blank";
+            $data[] = "About this Composition can not be blank";
         }
 
         if(count($data)>0){

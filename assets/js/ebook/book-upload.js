@@ -211,125 +211,195 @@ MBJS.AuthorBook.prototype = {
     //        }
     //    }
     //},
+    //ebookUpload: function () {
+    //    var self = this;
+    //    $("#form_ebook_upload").validate({
+    //        rules: {
+    //            book_language: {
+    //                required: true
+    //            },
+    //            book_category: {
+    //                required: true
+    //            },
+    //            file_title: {
+    //                required: true
+    //            },
+    //            about_book: {
+    //                required: true
+    //            },
+    //            book_tag: {
+    //                required: true
+    //            }
+    //            //ebook_file: {
+    //            //    required: true
+    //            //},
+    //            //ebook_cover: {
+    //            //    required: true
+    //            //}
+    //        },
+    //        messages: {
+    //            book_language: {
+    //                required: 'Select language'
+    //            },
+    //            book_category: {
+    //                required: 'Select Category'
+    //            },
+    //            file_title: {
+    //                required: 'Enter file title'
+    //
+    //            },
+    //            about_book: {
+    //                required: 'Enter about this book'
+    //            },
+    //            book_tag: {
+    //                required: 'Enter Tag'
+    //            }
+    //            //ebook_file: {
+    //            //    required: 'Select file'
+    //            //},
+    //            //ebook_cover: {
+    //            //    required: 'Select cover page'
+    //            //}
+    //        },
+    //        submitHandler: function (form) {
+    //            var book_language = $('#book_language').val();
+    //            var book_category = $('#book_category').val();
+    //            var file_title = $('#file_title').val();
+    //            var about_book = $('#about_book').val();
+    //            var book_tag = $('#book_tag').val();
+    //            var ebook_file = "Abc_file";
+    //            var ebook_cover = "Abc_cover";
+    //            var book_save_button = $('#btn-save-book-info');
+    //            var author_id = $('#author_id').val();
+    //            var remember_token = $('#remember_token').val();
+    //            $.ajax({
+    //                url: self.base_url + "ebook",
+    //                type: "POST",
+    //                dataType: "JSON",
+    //                data: {
+    //                    language: book_language, category: book_category,
+    //                    title: file_title, about: about_book,
+    //                    tag: book_tag,author_id:author_id,
+    //                    file: ebook_file, cover: ebook_cover
+    //                },
+    //                headers: {Authorization: remember_token},
+    //                beforeSend: function () {
+    //                    book_save_button.html('Uploading... &nbsp;<i class="zmdi zmdi-edit"></i>');
+    //                },
+    //                error: function (data) {
+    //                    var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
+    //                    if (data.status == 422) {
+    //                        swal({
+    //                            title: "Error!",
+    //                            text: obj.error[0],
+    //                            timer: 2000,
+    //                            showConfirmButton: false,
+    //                            showCancelButton: false
+    //                        });
+    //                    }
+    //                    else if (data.status == 500) {
+    //                        swal({
+    //                            title: "Opps!",
+    //                            text: 'Something went wrong on server !',
+    //                            timer: 2000,
+    //                            showConfirmButton: false,
+    //                            showCancelButton: false
+    //                        });
+    //                        book_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
+    //                    }
+    //                },
+    //                success: function (data, textStatus, jqXHR) {
+    //                    swal({
+    //                        title: "Success",
+    //                        text: "Book info saved successfully",
+    //                        timer: 2000,
+    //                        showConfirmButton: false,
+    //                        showCancelButton: false,
+    //                    });
+    //                    $('.sweet-alert h2').addClass('h2_success');
+    //                    book_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
+    //                }
+    //            });
+    //        },
+    //        errorPlacement: function (error, element) {
+    //            $(element).closest("form").find("span[data-error-for='" + element.attr("id") + "']").html(error[0].innerHTML).css('opacity', 1);
+    //        },
+    //        unhighlight: function (element, errorClass, validClass) {
+    //            $(element).removeClass('error');
+    //            $(element).closest('li').find('.error-span').css('opacity', 0);
+    //        }
+    //    });
+    //},
+
     ebookUpload: function () {
         var self = this;
-        $("#form_ebook_upload").validate({
-            rules: {
-                book_language: {
-                    required: true
+        $("#btn-save-book-info").click(function(){
+            var book_language = $('#book_language').val();
+            var book_category = $('#book_category').val();
+            var file_title = $('#file_title').val();
+            var about_book = $('#about_book').val();
+            var book_tag = $('#book_tag').val();
+            var ebook_file = "Abc_file";
+            var ebook_cover = "Abc_cover";
+            var ebook_status="Panding";
+            var book_save_button = $('#btn-save-book-info');
+            var author_id = $('#author_id').val();
+            var remember_token = $('#remember_token').val();
+            var ebook_created_at=$('#ebook_creation_date').val();
+
+
+            $.ajax({
+                url: self.base_url + "ebook",
+                type: "POST",
+                dataType: "JSON",
+                data: {
+                    language: book_language, category: book_category,
+                    title: file_title, about: about_book,
+                    tag: book_tag,author_id:author_id,
+                    file: ebook_file, cover: ebook_cover,status:ebook_status,created_at:ebook_created_at
                 },
-                book_category: {
-                    required: true
-                },
-                file_title: {
-                    required: true
-                },
-                about_book: {
-                    required: true
-                },
-                book_tag: {
-                    required: true
-                }
-                //ebook_file: {
-                //    required: true
-                //},
-                //ebook_cover: {
-                //    required: true
-                //}
-            },
-            messages: {
-                book_language: {
-                    required: 'Select language'
-                },
-                book_category: {
-                    required: 'Select Category'
-                },
-                file_title: {
-                    required: 'Enter file title'
+                headers: {Authorization: remember_token},
+                beforeSend: function () {
+                    book_save_button.html('Uploading... &nbsp;<i class="zmdi zmdi-edit"></i>');
 
                 },
-                about_book: {
-                    required: 'Enter about this book'
-                },
-                book_tag: {
-                    required: 'Enter Tag'
-                }
-                //ebook_file: {
-                //    required: 'Select file'
-                //},
-                //ebook_cover: {
-                //    required: 'Select cover page'
-                //}
-            },
-            submitHandler: function (form) {
-                var book_language = $('#book_language').val();
-                var book_category = $('#book_category').val();
-                var file_title = $('#file_title').val();
-                var about_book = $('#about_book').val();
-                var book_tag = $('#book_tag').val();
-                var ebook_file = "Abc_file";
-                var ebook_cover = "Abc_cover";
-                var book_save_button = $('#btn-save-book-info');
-                var author_id = $('#author_id').val();
-                var remember_token = $('#remember_token').val();
-                $.ajax({
-                    url: self.base_url + "ebook",
-                    type: "POST",
-                    dataType: "JSON",
-                    data: {
-                        language: book_language, category: book_category,
-                        title: file_title, about: about_book,
-                        tag: book_tag,author_id:author_id,
-                        file: ebook_file, cover: ebook_cover
-                    },
-                    headers: {Authorization: remember_token},
-                    beforeSend: function () {
-                        book_save_button.html('Uploading... &nbsp;<i class="zmdi zmdi-edit"></i>');
-                    },
-                    error: function (data) {
-                        var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
-                        if (data.status == 422) {
-                            swal({
-                                title: "Error!",
-                                text: obj.error[0],
-                                timer: 2000,
-                                showConfirmButton: false,
-                                showCancelButton: false
-                            });
-                        }
-                        else if (data.status == 500) {
-                            swal({
-                                title: "Opps!",
-                                text: 'Something went wrong on server !',
-                                timer: 2000,
-                                showConfirmButton: false,
-                                showCancelButton: false
-                            });
-                            book_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
-                        }
-                    },
-                    success: function (data, textStatus, jqXHR) {
+                error: function (data) {
+                    var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
+                    if (data.status == 422) {
                         swal({
-                            title: "Success",
-                            text: "Book info saved successfully",
+                            title: "Error!",
+                            text: obj.error[0],
                             timer: 2000,
                             showConfirmButton: false,
-                            showCancelButton: false,
+                            showCancelButton: false
                         });
-                        $('.sweet-alert h2').addClass('h2_success');
+                    }
+                    else if (data.status == 500) {
+                        swal({
+                            title: "Opps!",
+                            text: 'Something went wrong on server !',
+                            timer: 2000,
+                            showConfirmButton: false,
+                            showCancelButton: false
+                        });
                         book_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
                     }
-                });
-            },
-            errorPlacement: function (error, element) {
-                $(element).closest("form").find("span[data-error-for='" + element.attr("id") + "']").html(error[0].innerHTML).css('opacity', 1);
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $(element).removeClass('error');
-                $(element).closest('li').find('.error-span').css('opacity', 0);
-            }
+                },
+                success: function (data, textStatus, jqXHR) {
+                    swal({
+                        title: "Success",
+                        text: "Book info saved successfully",
+                        timer: 2000,
+                        showConfirmButton: false,
+                        showCancelButton: false,
+                    });
+                    $('.sweet-alert h2').addClass('h2_success');
+                    book_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
+                }
+            });
         });
     },
+
     compositionUpload: function () {
         var self = this;
         $("#form_composition_upload").validate({
@@ -368,22 +438,26 @@ MBJS.AuthorBook.prototype = {
                 var composition_title = $('#composition_title').val();
                 var about_composition = $('#about_composition').val();
                 var composition_save_button = $('#btn-save-composition-info');
+                var composition_status="Panding";
                 var author_id = $('#author_id').val();
                 var remember_token = $('#remember_token').val();
+                var composition_created_at=$('#composition_creation_date').val();
                 $.ajax({
                     url: self.base_url + "composition",
                     type: "POST",
                     dataType: "JSON",
                     data: {
                         language: composition_language, category: composition_category,
-                        title: composition_title, about: about_composition,author_id:author_id
+                        title: composition_title, about: about_composition,author_id:author_id,
+                        status:composition_status,created_at:composition_created_at
                     },
                     headers: {Authorization: remember_token},
                     beforeSend: function () {
+                        alert(composition_created_at);
                         composition_save_button.html('Uploading... &nbsp;<i class="zmdi zmdi-edit"></i>');
                     },
                     error: function (data) {
-                        //console.log(data);
+                        console.log(data);
                         var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
                         if (data.status == 422) {
                             swal({
@@ -442,8 +516,22 @@ MBJS.AuthorBook.prototype = {
                 var row;
                 for(var i=0;i<results.length;i++) {
                     var published_date = results[i].published_at.split('-').reverse().join('-');
-                    row="<tr><td>"+results[i].title+"</td><td>"+results[i].status+"</td><td>"+published_date+"</td><td><a href="+results[i].file+"></a></td><td>"+results[i].id+"</td></tr>";
-                    $("#ebook_list_info").append(row);
+                    if(results[i].status=="Panding")
+                    {
+                        row="<tr><td>"+results[i].title+"</td><td class='td-status-blue'>"+results[i].status+"</td><td>"+published_date+"</td><td><a href="+results[i].file+"></a></td><td>"+results[i].id+"</td></tr>";
+                        $("#ebook_list_info").append(row);
+                    }
+                    else if(results[i].status=="Approved")
+                    {
+                        row="<tr><td>"+results[i].title+"</td><td class='td-status-green'>"+results[i].status+"</td><td>"+published_date+"</td><td><a href="+results[i].file+"></a></td><td>"+results[i].id+"</td></tr>";
+                        $("#ebook_list_info").append(row);
+                    }
+                    else
+                    {
+                        row="<tr><td>"+results[i].title+"</td><td class='td-status-red'>"+results[i].status+"</td><td>"+published_date+"</td><td><a href="+results[i].file+"></a></td><td>"+results[i].id+"</td></tr>";
+                        $("#ebook_list_info").append(row);
+                    }
+
                 }
                 $("#data-table-basic").bootgrid({
                     css: {
@@ -461,7 +549,7 @@ MBJS.AuthorBook.prototype = {
                 });
             }
         });
-
+        //<<<------<< Delete ebook functionality
         $('#ebook_list_info').on('click','.delete-ebook',function() {
             var ebook_table_id = $(this).attr('data-row-id');
             //console.log(ebook_table_id);
@@ -484,7 +572,7 @@ MBJS.AuthorBook.prototype = {
                         author_id : author_id
                     },
                     success:function(data) {
-                        //console.log(data);
+                        console.log(ebook_table_id);
                         self.notify('Successfully deleted','inverse');
                     },
                     error:function(data) {
@@ -506,12 +594,26 @@ MBJS.AuthorBook.prototype = {
             dataType: 'JSON',
             headers:{Authorization : auth_token},
             success:function(data){
-                console.log(data);
+                //console.log(data);
                 var results= data.result;
                 var row;
                 for(var i=0;i<results.length;i++){
-                    row="<tr><td>"+results[i].title+"</td><td>asaksj</td><td>aksjas</td><td>"+results[i].title+"</td><td>"+results[i].id+"</td></tr>";
-                    $("#composition_list_info").append(row);
+                    var published_date= results[i].published_at.split('-').reverse().join('-');
+                    if(results[i].status=="Panding")
+                    {
+                        row = "<tr><td>" + results[i].title + "</td><td class='td-status-blue'>" + results[i].status + "</td><td>" + published_date + "</td><td>" + results[i].title + "</td><td>" + results[i].id + "</td></tr>";
+                        $("#composition_list_info").append(row);
+                    }
+                    else if(results[i].status=="Approved")
+                    {
+                        row = "<tr><td>" + results[i].title + "</td><td class='td-status-green'>" + results[i].status + "</td><td>" + published_date + "</td><td>" + results[i].title + "</td><td>" + results[i].id + "</td></tr>";
+                        $("#composition_list_info").append(row);
+                    }
+                    else
+                    {
+                        row = "<tr><td>" + results[i].title + "</td><td class='td-status-red'>" + results[i].status + "</td><td>" + published_date + "</td><td>" + results[i].title + "</td><td>" + results[i].id + "</td></tr>";
+                        $("#composition_list_info").append(row);
+                    }
                 }
                 $("#data-table-composition").bootgrid({
                     css: {
