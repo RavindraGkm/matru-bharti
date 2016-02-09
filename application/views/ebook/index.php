@@ -143,7 +143,7 @@
                                 </div>
                                 <div class="card-body card-padding">
                                     <div class="form-group">
-                                        <label for="composition_category" class="col-sm-3 control-label">Select Language
+                                        <label for="book_category" class="col-sm-3 control-label">Select Language
                                             *</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">

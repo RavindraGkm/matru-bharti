@@ -383,7 +383,7 @@ MBJS.AuthorBook.prototype = {
                         composition_save_button.html('Uploading... &nbsp;<i class="zmdi zmdi-edit"></i>');
                     },
                     error: function (data) {
-                        console.log(data);
+                        //console.log(data);
                         var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
                         if (data.status == 422) {
                             swal({
@@ -464,7 +464,7 @@ MBJS.AuthorBook.prototype = {
 
         $('#ebook_list_info').on('click','.delete-ebook',function() {
             var ebook_table_id = $(this).attr('data-row-id');
-            console.log(ebook_table_id);
+            //console.log(ebook_table_id);
             var author_id = $('#author_id').val();
             swal({
                 title: "Are you sure?",
@@ -484,7 +484,7 @@ MBJS.AuthorBook.prototype = {
                         author_id : author_id
                     },
                     success:function(data) {
-                        console.log(data);
+                        //console.log(data);
                         self.notify('Successfully deleted','inverse');
                     },
                     error:function(data) {
@@ -531,9 +531,7 @@ MBJS.AuthorBook.prototype = {
         });
         $('#composition_list_info').on('click','.delete-composition',function() {
             var composition_table_id = $(this).attr('data-row-id');
-            console.log(composition_table_id);
             var author_id = $('#author_id').val();
-            alert("table id".composition_table_id);
             swal({
                 title: "Are you sure?",
                 text: "You will not be able to undo this action !",
@@ -552,8 +550,11 @@ MBJS.AuthorBook.prototype = {
                         author_id : author_id
                     },
                     success:function(data) {
-                        console.log(data);
                         self.notify('Successfully deleted','inverse');
+                        if(data.status=="success")
+                        {
+
+                        }
                     },
                     error:function(data) {
                         console.log(data);
