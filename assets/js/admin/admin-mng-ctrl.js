@@ -181,42 +181,49 @@ MBJS.AdminControlPanel.prototype = {
                     },
                     formatters: {
                         "links": function(column, row) {
-                            return "<input type=\"checkbox\" class=\"btn btn-icon command-delete delete-ebook waves-effect waves-circle\" data-row-id=\"" + row.action + "\"><span class=\"zmdi zmdi-delete\"></span></input>";
+                            return "<div class='checkbox'><label><input type=\"checkbox\" class=\"btn btn-icon command-delete approve-ebook waves-effect waves-circle\"  data-row-id=\"" + row.action + "\"><i class=\"input-helper\"></i></input></label></div>";
                         }
                     }
                 });
             }
         });
         //<<<------<< Delete ebook functionality
-        $('#ebook_list_info').on('click','.delete-ebook',function() {
+        $('#ebook_list_info').on('click','.approve-ebook',function() {
             var ebook_table_id = $(this).attr('data-row-id');
-            //console.log(ebook_table_id);
+            console.log(ebook_table_id);
             var author_id = $('#author_id').val();
+            if($(this).is('checked')==true){
+                console.log(ebook_table_id);
+            }
+
             swal({
                 title: "Are you sure?",
-                text: "You will not be able to undo this action !",
+                text: "You want to approve !",
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, delete it!",
+                confirmButtonColor: "#4caf50",
+                confirmButtonText: "Yes, Approved it!",
                 closeOnConfirm: true
             }, function() {
-                $.ajax({
-                    url: self.base_url+"ebook/"+ebook_table_id,
-                    type: 'DELETE',
-                    dataType: 'JSON',
-                    headers:{Authorization : auth_token},
-                    data: {
-                        author_id : author_id
-                    },
-                    success:function(data) {
-                        //console.log(ebook_table_id);
-                        self.notify('Successfully deleted','inverse');
-                    },
-                    error:function(data) {
-                        console.log(data);
-                    }
+                setTimeout(function(){
+                    $.ajax({
+                        url: self.base_url+"admin/"+ebook_table_id,
+                        type: 'PUT',
+                        dataType: 'JSON',
+                        headers:{Authorization : auth_token},
+                        data: {
+                            author_id : author_id,
+                            status: "Approved"
+                        },
+                        success:function(data) {
+                            self.notify('Successfully Approved','inverse');
+                        },
+                        error:function(data) {
+                            console.log(data);
+                        }
+                    })
                 });
+
             });
         });
 
@@ -262,7 +269,7 @@ MBJS.AdminControlPanel.prototype = {
                     },
                     formatters: {
                         "links": function(column, row) {
-                            return "<button type=\"button\" class=\"btn btn-icon command-delete delete-composition waves-effect waves-circle\" data-row-id=\"" + row.action + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
+                            return "<div class='checkbox'><label><input type=\"checkbox\" class=\"btn btn-icon command-delete approve-ebook waves-effect waves-circle\" data-row-id=\"" + row.action + "\"><i class=\"input-helper\"></i></input></label></div>";
                         }
                     }
                 });
