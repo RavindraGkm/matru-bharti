@@ -75,14 +75,6 @@
 
         <ul class="main-menu">
             <li>
-                <a href="<?php echo base_url('admin-book-mng?tab=ebook'); ?>"><i class="fa fa-book"></i> E-Book
-                    Management</a>
-            </li>
-            <li>
-                <a href="<?php echo base_url('admin-book-mng?tab=composition'); ?>"> <i class="fa fa-file-word-o"></i>
-                    Composition</a>
-            </li>
-            <li>
                 <a href="<?php echo base_url('admin-book-mng?tab=ebook_list'); ?>"> <i class="fa fa-list"></i> List of
                     Uploaded Books</a>
             </li>
@@ -128,7 +120,7 @@
                                         <th data-column-id="file-published-status">File Published Status</th>
                                         <th data-column-id="publish-date">Publish Date</th>
                                         <th data-column-id="file-attachment">File Attachment</th>
-                                        <th data-column-id="action"  data-formatter="links">Approved</th>
+                                        <th data-column-id="action"  data-formatter="links">Approvel</th>
                                     </tr>
                                     </thead>
                                     <tbody id="ebook_list_info">

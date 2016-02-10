@@ -1,12 +1,11 @@
 <?php
 class Admin_model extends CI_Model {
 
-    public  function  ebook_approvel($auth_token,$params,$author_id) {
+    public  function  ebook_approvel($auth_token,$params,$id) {
         $query = $this->db->get_where('authors', array('token' => $auth_token));
         $response = array();
         if($query->num_rows()>0) {
-            $query = $this->db->get_where('ebooks');
-            $where = "id = ".$author_id;
+            $where = "id = ".$id;
             $sql = $this->db->update_string('ebooks', $params, $where);
             $response = array();
             if($this->db->query($sql)) {
@@ -21,6 +20,29 @@ class Admin_model extends CI_Model {
         else {
             $response['status'] = 'error';
             $response['msg'] = 'Anauthorized';
+        }
+        return $response;
+    }
+
+    public function composition_approvel($auth_token,$params,$id) {
+        $query= $this->db->get_where('authors',array('token'=>$auth_token));
+        $response=array();
+        if($query->num_rows()>0) {
+            $where= "id=".$id;
+            $sql=$this->db->update_string('compositions',$params,$where);
+            $response=array();
+            if($this->db->query($sql)) {
+                $response['status']= 'success';
+                $response['msg']= 'Updated Successfully';
+            }
+            else {
+                $response['status']='error';
+                $response['msg']='Server Error';
+            }
+        }
+        else {
+            $response['status']='error';
+            $response['msg']='Anauthorized';
         }
         return $response;
     }
