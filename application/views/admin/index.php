@@ -110,17 +110,18 @@
                 <div class="tab-content">
                     <input type="hidden" value="<?php echo $remember_token; ?>" name="remember_token" id="remember_token">
                     <input type="hidden" value="<?php echo $author_id; ?>" name="author_id" id="author_id">
-                    <div role="tabpanel" class="tab-pane pmb-block active" id="ebook_list">
+                    <input type="hidden" value="" name="author_type" id="author_type">
+                    <div role="tabpanel" class="tab-pane pmb-block" id="ebook_list">
                         <div class="card no-shadow">
                             <div class="table-responsive">
                                 <table id="data-table-basic" class="table table-striped">
                                     <thead>
                                     <tr>
                                         <th data-column-id="file_title">File Title</th>
-                                        <th data-column-id="file-published-status">File Published Status</th>
+                                        <th data-column-id="file_published_status">File Published Status</th>
                                         <th data-column-id="publish-date">Publish Date</th>
                                         <th data-column-id="file-attachment">File Attachment</th>
-                                        <th data-column-id="action"  data-formatter="links">Approvel</th>
+                                        <th data-column-id="action"  data-formatter="links">Is Approve</th>
                                     </tr>
                                     </thead>
                                     <tbody id="ebook_list_info">
@@ -136,10 +137,10 @@
                                     <thead>
                                     <tr>
                                         <th data-column-id="file-title">File Title</th>
-                                        <th data-column-id="file-published-status">File Published Status</th>
+                                        <th data-column-id="file_published_status">File Published Status</th>
                                         <th data-column-id="publish-date">Publish Date</th>
                                         <th data-column-id="file-attachment">File Attachment</th>
-                                        <th data-column-id="action" data-formatter="links">Actions</th>
+                                        <th data-column-id="action" data-formatter="links">Is Approve</th>
                                     </tr>
                                     </thead>
                                     <tbody id="composition_list_info"></tbody>

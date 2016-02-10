@@ -137,6 +137,7 @@ MBJS.AdminControlPanel.prototype = {
             headers:{Authorization : auth_token},
             success:function(data){
                 $('.span-auth-name').html(data.result.name);
+                $('#author_type').val(data.result.type);
             }
         });
     },
@@ -144,12 +145,17 @@ MBJS.AdminControlPanel.prototype = {
     viewEbookList : function() {
         var self=this;
         var auth_token = $('#remember_token').val();
+        var author_type= $('#author_type').val();
         $.ajax({
-            url: self.base_url+"admin",
+            url: self.base_url+"ebook",
             type: 'GET',
             dataType: 'JSON',
             headers:{Authorization : auth_token},
+            error: function(data) {
+                console.log(data);
+            },
             success:function(data) {
+                console.log(data);
                 var results = data.result;
                 var row;
                 for(var i=0;i<results.length;i++) {
@@ -157,7 +163,7 @@ MBJS.AdminControlPanel.prototype = {
 
                     if(results[i].status=="Panding")
                     {
-                        row="<tr><td>"+results[i].title+"</td><td class='td-status-blue'>"+results[i].status+"&nbsp;Hello</td><td>"+published_date+"</td><td><a href="+results[i].file+"></a></td><td>"+results[i].id+"</td></tr>";
+                        row="<tr><td>"+results[i].title+"</td><td class='td-status-blue'>"+results[i].status+"</td><td>"+published_date+"</td><td><a href="+results[i].file+"></a></td><td>"+results[i].id+"</td></tr>";
                         $("#ebook_list_info").append(row);
                     }
                     else if(results[i].status=="Approved")
@@ -182,21 +188,20 @@ MBJS.AdminControlPanel.prototype = {
                     },
                     formatters: {
                         "links": function(column, row) {
-                            return "<div class='checkbox'><label><input type=\"checkbox\" class=\"btn btn-icon command-delete approve-ebook waves-effect waves-circle\"  data-row-id=\"" + row.action + "\"><i class=\"input-helper\"></i></input></label></div>";
+                            if(row.file_published_status==='Approved') {
+                                console.log();
+                                return "<div class='checkbox'><label><input type=\"checkbox\" checked class=\"btn btn-icon command-delete approve-ebook waves-effect waves-circle\"  data-row-id=\"" + row.action + "\"><i class=\"input-helper\"></i></input></label></div>";
+                            }
+                            else {
+                                return "<div class='checkbox'><label><input type=\"checkbox\" class=\"btn btn-icon command-delete approve-ebook waves-effect waves-circle\"  data-row-id=\"" + row.action + "\"><i class=\"input-helper\"></i></input></label></div>";
+                            }
                         }
                     }
                 });
-
-                for(var i=0;i<results.length;i++){
-                    if(results[i].status=="Approved"){
-                        console.log(results[i].status+"Hello What is this");
-                    }
-                }
-
             }
         });
         //<<<------<< ebook approvel functionality
-        $('#ebook_list_info').on('click','.approve-ebook',function() {
+        $('#ebook_list_info').on('change','.approve-ebook',function() {
             var ebook_table_id = $(this).attr('data-row-id');
             console.log(ebook_table_id);
             var author_id = $('#author_id').val();
@@ -229,8 +234,6 @@ MBJS.AdminControlPanel.prototype = {
 
             });
         });
-
-
     },
 
     viewCompositionList : function() {
@@ -273,16 +276,22 @@ MBJS.AdminControlPanel.prototype = {
                     },
                     formatters: {
                         "links": function(column, row) {
-                            return "<div class='checkbox'><label><input type=\"checkbox\" class=\"btn btn-icon command-delete approve-composition waves-effect waves-circle\" data-row-id=\"" + row.action + "\"><i class=\"input-helper\"></i></input></label></div>";
+                            if(row.file_published_status==='Approved') {
+                                console.log();
+                                return "<div class='checkbox'><label><input type=\"checkbox\" checked class=\"btn btn-icon command-delete approve-composition waves-effect waves-circle\"  data-row-id=\"" + row.action + "\"><i class=\"input-helper\"></i></input></label></div>";
+                            }
+                            else {
+                                return "<div class='checkbox'><label><input type=\"checkbox\" class=\"btn btn-icon command-delete aapprove-composition waves-effect waves-circle\"  data-row-id=\"" + row.action + "\"><i class=\"input-helper\"></i></input></label></div>";
+                            }
                         }
                     }
                 });
             }
         });
         //<<<------<< Composition approvel functionality
-        $('#composition_list_info').on('click','.approve-composition',function() {
+        $('#composition_list_info').on('change','.approve-composition',function() {
             var composition_table_id = $(this).attr('data-row-id');
-            console.log(composition_table_id);
+            //console.log(composition_table_id);
             var author_id = $('#author_id').val();
             swal({
                 title: "Are you sure?",

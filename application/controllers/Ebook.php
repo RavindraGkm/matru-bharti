@@ -123,11 +123,11 @@ class Ebook extends REST_Controller {
                         $this->response($response, REST_Controller::HTTP_UNAUTHORIZED);
                     }
                 }
+
             }
         }
     }
     public function  index_delete ($ebook_id=0) {
-
 
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: DELETE");

@@ -57,7 +57,6 @@ class Admin extends REST_Controller {
     public function index_get () {
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: GET");
-
         $headers = $this->input->request_headers();
         if (!isset($headers['Authorization']) || empty($headers['Authorization'])) {
             $this->response(array('error' => 'No authorization header supplied'), REST_Controller::HTTP_UNAUTHORIZED);

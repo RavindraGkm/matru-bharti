@@ -24,15 +24,22 @@ class Ebook_model extends CI_Model {
     public function get_ebook_list($auth_token,$author_id) {
         $query = $this->db->get_where('authors', array('token' => $auth_token));
         $response = array();
+
         if($query->num_rows()>0) {
-            $query = $this->db->get_where('ebooks', array('author_id' => $author_id));
-            if($query->num_rows()>0) {
-                $response['status'] = 'success';
-                $response['result'] = $query->result_array();
+            $row=$query->row_array();
+            if($row['type']=='admin') {
+                $query = $this->db->get('ebooks');
+                if($query->num_rows()>0) {
+                    $response['status'] = 'success';
+                    $response['result'] = $query->result_array();
+                }
             }
             else {
-                $response['status'] = 'error';
-                $response['msg'] = 'Server Error';
+                $query = $this->db->get_where('ebooks', array('author_id' => $author_id));
+                if($query->num_rows()>0) {
+                    $response['status'] = 'success';
+                    $response['result'] = $query->result_array();
+                }
             }
         }
         else {
@@ -40,6 +47,7 @@ class Ebook_model extends CI_Model {
             $response['msg'] = 'Anauthorized';
         }
         return $response;
+
     }
 
     public function delete_ebook($auth_token,$ebook_id,$author_id) {
