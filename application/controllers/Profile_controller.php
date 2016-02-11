@@ -7,6 +7,7 @@ class Profile_controller extends CI_Controller {
         $this->load->library('session');
         $data['remember_token']=$this->session->userdata('remember_token');
         $data['author_id']=$this->session->userdata('author_id');
+        $data['type']=$this->session->userdata('type');
         $this->load->helper('html');
         $this->load->helper('url');
         $this->load->view('profile/index',$data);

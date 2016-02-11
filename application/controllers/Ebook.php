@@ -15,9 +15,6 @@ class Ebook extends REST_Controller {
         $tag=$this->post('tag');
         $file=$this->post('file');
         $cover=$this->post('cover');
-        $status=$this->post('status');
-        $created_at=$this->post('created_at');
-
         $data = array();
         if($author_id===NULL) {
             $data[] = "Language not provided";
@@ -31,9 +28,6 @@ class Ebook extends REST_Controller {
         if($title===NULL) {
             $data[] = "Title not provided";
         }
-        if($about===NULL) {
-            $data[] = "About this book not provided";
-        }
         if($tag===NULL) {
             $data[] = "Tags not provided";
         }
@@ -43,8 +37,8 @@ class Ebook extends REST_Controller {
         if($cover===NULL) {
             $data[] = "Cover page not provided";
         }
-        if($status===NULL) {
-            $data[] = "Book Status not provided";
+        if($about===NULL) {
+            $data[] = "About this book not provided";
         }
 
 
@@ -57,9 +51,6 @@ class Ebook extends REST_Controller {
         if($title=="") {
             $data[] = "Title can not be blank";
         }
-        if($about=="") {
-            $data[] = "About this book can not be blank";
-        }
         if($tag=="") {
             $data[] = "Tags can not be blank";
         }
@@ -69,9 +60,10 @@ class Ebook extends REST_Controller {
         if($cover=="") {
             $data[] = "Cover page can not be blank";
         }
-        if($status=="") {
-            $data[] = "Book status can not be blank";
+        if($about=="") {
+            $data[] = "About this book can not be blank";
         }
+
 
         if(count($data)>0){
             $error['error'] = $data;
@@ -123,11 +115,11 @@ class Ebook extends REST_Controller {
                         $this->response($response, REST_Controller::HTTP_UNAUTHORIZED);
                     }
                 }
+
             }
         }
     }
     public function  index_delete ($ebook_id=0) {
-
 
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: DELETE");

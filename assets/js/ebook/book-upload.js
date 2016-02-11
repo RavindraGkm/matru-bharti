@@ -141,76 +141,153 @@ MBJS.AuthorBook.prototype = {
             }
         });
     },
-    //ebookFileUpload: function() {
-    //
-    //    $("#ebook_file").change(function() {
-    //        $('#ebook_upload_form').submit();
-    //        return false;
-    //    });
-    //
-    //    var self = this;
-    //    var remember_token = $('#remember_token').val();
-    //    var statustxt = $('.custom-progress span');
-    //    var author_id=$('#author_id').val();
-    //    var options = {
-    //        beforeSubmit:beforeSubmit,
-    //        uploadProgress:OnProgress,
-    //        success:afterSuccess,
-    //        resetForm: true,
-    //        data: {author_id : author_id},
-    //        headers:{Authorization : remember_token}
-    //    };
-    //
-    //
-    //    $('#MyUploadForm').submit(function() {
-    //        $(this).ajaxSubmit(options);
-    //        return false;
-    //    });
-    //
-    //
-    //    function OnProgress(event, position, total, percentComplete) {
-    //        //progressbar.removeClass(self.last_class).addClass("p"+percentComplete);
-    //        //self.last_class = "p"+percentComplete;
-    //        //statustxt.html(percentComplete + '%');
-    //    }
-    //
-    //    function afterSuccess() {
-    //        //uploadingprogressdiv.addClass('hidden');
-    //        //var new_source = self.base_url+"image/upload/"+author_id + "?timestamp="  + new Date().getTime();
-    //        //$('#profile_image').attr('src',new_source);
-    //    }
-    //
-    //    function beforeSubmit() {
-    //        if (window.File && window.FileReader && window.FileList && window.Blob) {
-    //            if( !$('#profileImage').val()) {
-    //                self.notify("No File selected",'danger');
-    //                return false
-    //            }
-    //            var fsize = $('#profileImage')[0].files[0].size; //get file size
-    //            console.log(fsize);
-    //            var ftype = $('#profileImage')[0].files[0].type; // get file type
-    //            //allow only valid image file types
-    //            switch(ftype) {
-    //                case 'image/png': case 'image/gif': case 'image/jpeg': case 'image/pjpeg':
-    //                break;
-    //                default:
-    //                    self.notify("Please select image file",'danger');
-    //                    return false
-    //            }
-    //            //Allowed file size is less than 1 MB (1048576)
-    //            if(fsize>1048576) {
-    //                $("#output").html("<b>"+bytesToSize(fsize) +"</b> Too big Image file! <br />Please reduce the size of your photo using an image editor.");
-    //                return false
-    //            }
-    //            //Progress bar
-    //            uploadingprogressdiv.removeClass('hidden');
-    //        }
-    //        else {
-    //            self.notify("Please upgrade your browser, because your current browser lacks some new features we need!",'danger');
-    //            return false;
-    //        }
-    //    }
-    //},
+
+    ebookFileUpload: function() {
+
+        $("#ebook_file").change(function() {
+            $('#ebook_upload_form').submit();
+            return false;
+        });
+
+        var self = this;
+        var remember_token = $('#remember_token').val();
+        var statustxt = $('.custom-progress span');
+        var author_id=$('#author_id').val();
+        var options = {
+            beforeSubmit:beforeSubmit,
+            uploadProgress:OnProgress,
+            success:afterSuccess,
+            resetForm: true,
+            data: {author_id : author_id},
+            headers:{Authorization : remember_token}
+        };
+
+
+        $('#ebook_cover_upload_form').submit(function() {
+            $(this).ajaxSubmit(options);
+            return false;
+        });
+
+
+        function OnProgress(event, position, total, percentComplete) {
+            //progressbar.removeClass(self.last_class).addClass("p"+percentComplete);
+            //self.last_class = "p"+percentComplete;
+            //statustxt.html(percentComplete + '%');
+        }
+
+        function afterSuccess() {
+            //uploadingprogressdiv.addClass('hidden');
+            //var new_source = self.base_url+"image/upload/"+author_id + "?timestamp="  + new Date().getTime();
+            //$('#profile_image').attr('src',new_source);
+        }
+
+        function beforeSubmit() {
+            if (window.File && window.FileReader && window.FileList && window.Blob) {
+                if( !$('#profileImage').val()) {
+                    self.notify("No File selected",'danger');
+                    return false
+                }
+                var fsize = $('#profileImage')[0].files[0].size; //get file size
+                console.log(fsize);
+                var ftype = $('#profileImage')[0].files[0].type; // get file type
+                //allow only valid image file types
+                switch(ftype) {
+                    case 'image/png': case 'image/gif': case 'image/jpeg': case 'image/pjpeg':
+                    break;
+                    default:
+                        self.notify("Please select image file",'danger');
+                        return false
+                }
+                //Allowed file size is less than 1 MB (1048576)
+                if(fsize>1048576) {
+                    $("#output").html("<b>"+bytesToSize(fsize) +"</b> Too big Image file! <br />Please reduce the size of your photo using an image editor.");
+                    return false
+                }
+                //Progress bar
+                uploadingprogressdiv.removeClass('hidden');
+            }
+            else {
+                self.notify("Please upgrade your browser, because your current browser lacks some new features we need!",'danger');
+                return false;
+            }
+        }
+    },
+
+    profileImageUpload: function() {
+
+        $("#ebook_cover").change(function() {
+            $('#ebook_cover_upload_form').submit();
+            return false;
+        });
+
+        var self = this;
+        var remember_token = $('#remember_token').val();
+        var progressbox = $('#progressbox');
+        var progressbar = $('.custom-progress');
+        var statustxt = $('.custom-progress span');
+        var completed = '0%';
+        var uploadingprogressdiv = $('.uploading-progress-div');
+        var author_id=$('#author_id').val();
+
+        var options = {
+            beforeSubmit:beforeSubmit,
+            uploadProgress:OnProgress,
+            success:afterSuccess,
+            resetForm: true,
+            data: {author_id : author_id},
+            headers:{Authorization : remember_token}
+        };
+
+
+        $('#ebook_cover_upload_form').submit(function() {
+            $(this).ajaxSubmit(options);
+            return false;
+        });
+
+        function OnProgress(event, position, total, percentComplete) {
+            progressbar.removeClass(self.last_class).addClass("p"+percentComplete);
+            self.last_class = "p"+percentComplete;
+            statustxt.html(percentComplete + '%');
+        }
+
+        function afterSuccess() {
+            uploadingprogressdiv.addClass('hidden');
+            var new_source = self.base_url+"image/upload/"+author_id + "?timestamp="  + new Date().getTime();
+            $('#profile_image').attr('src',new_source);
+        }
+
+        function beforeSubmit() {
+            if (window.File && window.FileReader && window.FileList && window.Blob) {
+                if( !$('#ebook_cover').val()) {
+                    self.notify("No File selected",'danger');
+                    return false
+                }
+                var fsize = $('#ebook_cover')[0].files[0].size; //get file size
+                console.log(fsize);
+                var ftype = $('#ebook_cover')[0].files[0].type; // get file type
+                //allow only valid image file types
+                switch(ftype) {
+                    case 'image/png': case 'image/gif': case 'image/jpeg': case 'image/pjpeg':
+                    break;
+                    default:
+                        self.notify("Please select image file",'danger');
+                        return false
+                }
+                //Allowed file size is less than 1 MB (1048576)
+                if(fsize>1048576) {
+                    $("#output").html("<b>"+bytesToSize(fsize) +"</b> Too big Image file! <br />Please reduce the size of your photo using an image editor.");
+                    return false
+                }
+                //Progress bar
+                uploadingprogressdiv.removeClass('hidden');
+            }
+            else {
+                self.notify("Please upgrade your browser, because your current browser lacks some new features we need!",'danger');
+                return false;
+            }
+        }
+    },
+
     //ebookUpload: function () {
     //    var self = this;
     //    $("#form_ebook_upload").validate({
@@ -333,6 +410,112 @@ MBJS.AuthorBook.prototype = {
 
     ebookUpload: function () {
         var self = this;
+        $('#form_ebook_upload').validate({
+            rules:{
+                book_language: {
+                    required:true
+                },
+                book_category: {
+                    required:true
+                },
+                file_title: {
+                    required:true
+                },
+                book_tag: {
+                    required:true
+                },
+                about_book: {
+                    required:true
+                }
+            },
+            message:{
+                book_language: {
+                    required: "Select Language"
+                },
+                book_category: {
+                    required: "Select Category"
+                },
+                file_title: {
+                    required: "Enter file title"
+                },
+                book_tag: {
+                    required: "Enter book tag"
+                },
+                about_book: {
+                    required: "Enter about book"
+                }
+            },
+            submitHandler: function(form) {
+                var book_language = $('#book_language').val();
+                var book_category = $('#book_category').val();
+                var file_title = $('#file_title').val();
+                var about_book = $('#about_book').val();
+                var book_tag = $('#book_tag').val();
+                var ebook_file = "Abc_file";
+                var ebook_cover = "Abc_cover";
+                var ebook_status="Panding";
+                var book_save_button = $('#btn-save-book-info');
+                var author_id = $('#author_id').val();
+                var remember_token = $('#remember_token').val();
+                var ebook_created_at=$('#ebook_creation_date').val();
+                $.ajax({
+                    url: self.base_url + "ebook",
+                    type: "POST",
+                    dataType: "JSON",
+                    data: {
+                        language: book_language, category: book_category,
+                        title: file_title, about: about_book,
+                        tag: book_tag,author_id:author_id,
+                        file: ebook_file, cover: ebook_cover,status:ebook_status,created_at:ebook_created_at
+                    },
+                    headers: {Authorization: remember_token},
+                    beforeSend: function () {
+                        book_save_button.html('Uploading... &nbsp;<i class="zmdi zmdi-edit"></i>');
+
+                    },
+                    error: function (data) {
+                        var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
+                        if (data.status == 422) {
+                            swal({
+                                title: "Error!",
+                                text: obj.error[0],
+                                timer: 2000,
+                                showConfirmButton: false,
+                                showCancelButton: false
+                            });
+                        }
+                        else if (data.status == 500) {
+                            swal({
+                                title: "Opps!",
+                                text: 'Something went wrong on server !',
+                                timer: 2000,
+                                showConfirmButton: false,
+                                showCancelButton: false
+                            });
+                            book_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
+                        }
+                    },
+                    success: function (data, textStatus, jqXHR) {
+                        swal({
+                            title: "Success",
+                            text: "Book info saved successfully",
+                            timer: 2000,
+                            showConfirmButton: false,
+                            showCancelButton: false,
+                        });
+                        $('.sweet-alert h2').addClass('h2_success');
+                        book_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
+                    }
+                });
+            },
+            errorPlacement: function (error, element) {
+                $(element).closest("form").find("span[data-error-for='" + element.attr("id") + "']").html(error[0].innerHTML).css('opacity', 1);
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('error');
+                $(element).closest('li').find('.error-span').css('opacity', 0);
+            }
+        });
         $("#btn-save-book-info").click(function(){
             var book_language = $('#book_language').val();
             var book_category = $('#book_category').val();
@@ -453,7 +636,6 @@ MBJS.AuthorBook.prototype = {
                     },
                     headers: {Authorization: remember_token},
                     beforeSend: function () {
-                        alert(composition_created_at);
                         composition_save_button.html('Uploading... &nbsp;<i class="zmdi zmdi-edit"></i>');
                     },
                     error: function (data) {
@@ -489,6 +671,7 @@ MBJS.AuthorBook.prototype = {
                         });
                         $('.sweet-alert h2').addClass('h2_success');
                         composition_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
+                        console.log(this.viewCompositionList());
                     }
                 });
             },

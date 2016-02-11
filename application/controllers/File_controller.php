@@ -22,6 +22,19 @@ class File_controller extends CI_Controller {
         }
     }
 
+    public function ebook_cover_page() {
+        $DestinationDirectory = 'assets/uploads/ebooks/ebook-cover-page';
+        if (!isset($_FILES['ebook_cover']) || !is_uploaded_file($_FILES['ebook_cover']['tmp_name'])) {
+            die('Something wrong with uploaded file, something missing!');
+        }
+        $ImageName = str_replace(' ', '-', strtolower($_FILES['ebook_cover']['name']));
+        $TempSrc = $_FILES['ebook_cover']['tmp_name'];
+        list($originalWidth, $originalHeight) = getimagesize($TempSrc);
+        $author_id = $this->input->post('author_id');
+        WideImage::load($TempSrc)->resize($originalWidth, $originalHeight)->saveToFile($DestinationDirectory.'author-'.$author_id.'.jpg');
+        echo json_encode(array('author_id',$this->input->post('author_id')));
+    }
+
 //    public function image($one,$two=-1) {
 //        if($two==-1) {
 //            $DestinationDirectory = 'assets/uploads/authors-images/';
