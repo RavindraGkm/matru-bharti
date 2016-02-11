@@ -266,11 +266,13 @@ MBJS.UserProfile.prototype = {
                         $('#span-auth-about').html(about);
                     },
                     complete:function(data) {
-                        profile_view.removeClass('pmbb-view');
-                        profile_view.addClass('pmbb-edit');
-                        profile_editable.removeClass('pmbb-edit');
-                        profile_editable.addClass('pmbb-view');
-                        $('.pmbb-body div.pmbb-header ul.actions ').show();
+                        if(data.status=="success"){
+                            profile_view.removeClass('pmbb-view');
+                            profile_view.addClass('pmbb-edit');
+                            profile_editable.removeClass('pmbb-edit');
+                            profile_editable.addClass('pmbb-view');
+                            $('.pmbb-body div.pmbb-header ul.actions ').show();
+                        }
                     }
                 });
             },
