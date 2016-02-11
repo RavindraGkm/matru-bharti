@@ -45,7 +45,7 @@
         <li class="pull-right pull-right-margine">
             <ul class="top-menu">
                 <li class="">
-                    <span>Welcome&nbsp;:&nbsp;</span>&nbsp;<span class="span-auth-name welcome-name"></span>
+                    <span>Welcome&nbsp;:&nbsp;</span>&nbsp;<span class="span-auth-name welcome-name">Admin</span>
                 </li>
             </ul>
         </li>

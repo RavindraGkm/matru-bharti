@@ -2,15 +2,13 @@ var MBJS = MBJS || {};
 MBJS.AdminControlPanel = function (base_url) {
     this.base_url = base_url;
     this.initialize();
-    this.last_class = "p0";
 };
 
 MBJS.AdminControlPanel.prototype = {
     initialize: function () {
         this.basicSetups();
-        this.viewProfileInfo();
         this.viewEbookList();
-        this.viewCompositionList();
+        //this.viewCompositionList();
     },
 
     notify: function(message,type) {
@@ -49,27 +47,11 @@ MBJS.AdminControlPanel.prototype = {
 
     },
 
-    //this function for retriving user data from any page just like "user name"
-    viewProfileInfo:function () {
-        var self=this;
-        var auth_token = $('#remember_token').val();
-        var author_id = $('#author_id').val();
-        $.ajax({
-            url: self.base_url+"authors/"+author_id,
-            type: 'GET',
-            dataType: 'JSON',
-            headers:{Authorization : auth_token},
-            success:function(data){
-                $('.span-auth-name').html(data.result.name);
-                $('#author_type').val(data.result.type);
-            }
-        });
-    },
-
     viewEbookList : function() {
         var self=this;
         var auth_token = $('#remember_token').val();
         var author_type= $('#author_type').val();
+        console.log(auth_token);
         $.ajax({
             url: self.base_url+"ebook",
             type: 'GET',

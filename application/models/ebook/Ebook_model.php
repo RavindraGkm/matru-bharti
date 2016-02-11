@@ -21,12 +21,12 @@ class Ebook_model extends CI_Model {
         return $response;
     }
 
-    public function get_ebook_list($auth_token,$author_id) {
+    public function get_ebook_list($auth_token,$ebook_id=0) {
+
         $query = $this->db->get_where('authors', array('token' => $auth_token));
         $response = array();
-
         if($query->num_rows()>0) {
-            $row=$query->row_array();
+            $row = $query->row_array();
             if($row['type']=='admin') {
                 $query = $this->db->get('ebooks');
                 if($query->num_rows()>0) {
@@ -35,6 +35,7 @@ class Ebook_model extends CI_Model {
                 }
             }
             else {
+                $author_id = $row['id'];
                 $query = $this->db->get_where('ebooks', array('author_id' => $author_id));
                 if($query->num_rows()>0) {
                     $response['status'] = 'success';

@@ -155,18 +155,20 @@ MBJS.Index.prototype = {
                         console.log(data);
                     },
                     success: function (data) {
-                        console.log(data);
+                        var type = data.results.type;
                         $.ajax({
                             url: self.base_url+"profile_info",
                             type: "POST",
                             dataType: "JSON",
                             data:{
-                                token: data.token,
-                                id: data.id
+                                token: data.results.token,
+                                id: data.results.id
                             },
                             success: function (data) {
-                                console.log(data);
-                                window.location= self.base_url+"profile"
+                                if(type=='admin')
+                                    window.location= self.base_url+"admin-book-mng?tab=ebook";
+                                else
+                                    window.location= self.base_url+"profile";
                             },
                             error: function(data) {
                                 console.log(data);

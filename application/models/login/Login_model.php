@@ -8,12 +8,12 @@ class Login_model extends CI_Model {
         if($result->num_rows()>0) {
             $row = $result->row();
             $token = md5($params['email'].time());
-            $response['token']=$token;
             $this->db->set('token', $token, TRUE);
             $this->db->where('id', $row->id);
             if($this->db->update('authors')) {
                 $response['status']='success';
-                $response['id']=$row->id;
+                $response['results']=$result->row_array();
+                $response['results']['token'] = $token;
             }
             else {
                 $response['status']='error';
