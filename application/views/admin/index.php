@@ -110,7 +110,11 @@
                 <div class="tab-content">
                     <input type="hidden" value="<?php echo $remember_token; ?>" name="remember_token" id="remember_token">
                     <input type="hidden" value="<?php echo $author_id; ?>" name="author_id" id="author_id">
-                    <input type="hidden" value="" name="author_type" id="author_type">
+                    <?php
+                        $current_date= date('Y-m-d');
+                    ?>
+                    <input type="hidden" value="<?php echo $current_date; ?>" name="publish_date" id="publish_date">
+
                     <div role="tabpanel" class="tab-pane pmb-block" id="ebook_list">
                         <div class="card no-shadow">
                             <div class="table-responsive">

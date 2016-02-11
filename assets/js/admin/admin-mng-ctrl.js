@@ -291,7 +291,8 @@ MBJS.AdminControlPanel.prototype = {
         //<<<------<< Composition approvel functionality
         $('#composition_list_info').on('change','.approve-composition',function() {
             var composition_table_id = $(this).attr('data-row-id');
-            //console.log(composition_table_id);
+
+            console.log(composition_table_id);
             var author_id = $('#author_id').val();
             swal({
                 title: "Are you sure?",
@@ -302,14 +303,17 @@ MBJS.AdminControlPanel.prototype = {
                 confirmButtonText: "Yes, Approved it!",
                 closeOnConfirm: true
             }, function() {
+
                 setTimeout(function(){
+                    var composition_publish_at= $("#publish_date");
                     $.ajax({
                         url: self.base_url+"admin/"+composition_table_id,
                         type: 'PUT',
                         dataType: 'JSON',
                         headers:{Authorization : auth_token},
                         data: {
-                            status: "Approved"
+                            status: "Approved",
+                            published_at:composition_publish_at
                         },
                         success:function(data) {
                             self.notify('Successfully Approved','inverse');

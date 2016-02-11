@@ -216,7 +216,8 @@
                                         <label for="book_language" class="col-sm-3 control-label">File (Only doc/docx)*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <form class="form-image-upload" action="<?php echo base_url('upload/ebook-file'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_upload_form">
+                                                <input type="hidden" name="ebook_file_path" id="ebook_file_path" value="">
+                                                <form class="ebook_upload_form" action="<?php echo base_url('upload/ebook-file'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_upload_form">
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                                         <span class="btn btn-primary btn-file m-r-10">
                                                             <span class="fileinput-new">Select file</span>
@@ -235,7 +236,7 @@
                                             jpeg/jpg/png/gif)*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <form class="form-image-upload" action="<?php echo base_url('upload/ebook-file'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_cover_upload_form">
+                                                <form class="form-image-upload" action="<?php echo base_url('ebook-cover-image-2'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_cover_upload_form">
                                                     <div class="fileinput fileinput-new file-prev-mng" data-provides="fileinput">
                                                         <div class="fileinput-preview thumbnail" data-trigger="fileinput">
                                                             <img src="<?php echo base_url('assets/img/headers/ebook-default/ebook_deft_img.jpg'); ?>" class="img-responsive"/>
@@ -249,8 +250,20 @@
                                                             <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
                                                         </div>
                                                     </div>
-
                                                 </form>
+                                            </div>
+                                            <div class="uploading-progress-div hidden">
+                                                <div class="uploading-div-wrapper">
+                                                    <div class="dis-mid">
+                                                        <div class="c100 p0 small orange custom-progress">
+                                                            <span>0%</span>
+                                                            <div class="slice">
+                                                                <div class="bar"></div>
+                                                                <div class="fill"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
