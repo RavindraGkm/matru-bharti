@@ -36,6 +36,7 @@ MBJS.AdminControlPanel.prototype = {
     },
 
     basicSetups : function () {
+
         // Active tabs
         var active_tab = $("#active_tab_val").val();
         $('#tab_'+active_tab).addClass('active');
@@ -169,10 +170,10 @@ MBJS.AdminControlPanel.prototype = {
             type: 'GET',
             dataType: 'JSON',
             headers:{Authorization : auth_token},
+
             error: function(data) {
-                var results = data.result;
-                var row;
-                console.log(data.result);
+                console.log(data);
+                console.log(auth_token);
             },
             success:function(data) {
                 console.log(data);
@@ -182,16 +183,16 @@ MBJS.AdminControlPanel.prototype = {
                     var published_date = results[i].published_at.split('-').reverse().join('-');
                     if(results[i].status=="Pending")
                     {
-                        row="<tr><td>"+results[i].title+"</td><td class='td-status-blue'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].about+"</td><td>"+results[i].id+"</td></tr>";
+                        row="<tr><td>"+results[i].title+"</td><td>"+results[i].about+"</td><td>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].id+"</td></tr>";
                         $("#composition_list_info").append(row);
                     }
                     else if(results[i].status=="Approved") {
-                        row="<tr><td>"+results[i].title+"</td><td class='td-status-green'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].about+"</td><td>"+results[i].id+"</td></tr>";
+                        row="<tr><td>"+results[i].title+"</td><td>"+results[i].about+"</td><td>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].id+"</td></tr>";
                         $("#composition_list_info").append(row);
                     }
                     else
                     {
-                        row="<tr><td>"+results[i].title+"</td><td class='td-status-red'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].about+"</td><td>"+results[i].id+"</td></tr>";
+                        row="<tr><td>"+results[i].title+"</td><td>"+results[i].about+"</td><td>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].id+"</td></tr>";
                         $("#composition_list_info").append(row);
                     }
                 }
@@ -206,7 +207,7 @@ MBJS.AdminControlPanel.prototype = {
                     },
                     formatters: {
                         "links": function(column, row) {
-                            return "<div class='btn-link'><label><a href=\""+row.about_composition+"\" class=\"btn btn-icon more-description approve-ebook \">more</a></label></div>";
+                            return "<div class='btn-link'><label>"+row.about_composition.substring(0,45)+"...&nbsp;&nbsp;<span data-desctiption=\""+row.about_composition+"\" data-content=\""+row.about_composition+"\" data-trigger=\"hover\" data-toggle=\"popover\" data-placement=\"bottom\" title data-original-title=\"Pop Title\" aria-describedby='popover288972' class=\"more-description dropdown open\" >more</span></label></div>";
                         },
                         "approvel": function(column, row) {
                             if(row.file_published_status==='Approved') {
@@ -220,6 +221,10 @@ MBJS.AdminControlPanel.prototype = {
                     }
                 });
             }
+        });
+        $('#composition_list_info').on('hover','.more-description',function(){
+            var composition_description=$(this).attr('data-content');
+            $('.composition_more_desctiption').html(composition_description);
         });
         //<<<------<< ebook approvel functionality
         $('#composition_list_info').on('change','.approve-ebook',function() {

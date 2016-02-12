@@ -79,7 +79,7 @@
                     Uploaded Books</a>
             </li>
             <li>
-                <a href="<?php echo base_url('admin-book-mng?tab=composition_list'); ?>"> <i class="fa fa-list"></i> List of
+                <a href="<?php echo base_url('admin-book-mng?tab=composition_list'); ?>" id="li_tab_url"> <i class="fa fa-list"></i> List of
                     Uploaded Composition</a>
             </li>
         </ul>
@@ -94,7 +94,7 @@
             <div class="card col col-md-offset-1 col-lg-10 col-md-10 col-sm-12 col-xs-12" id="profile-main">
                 <input type="hidden" value="<?php echo $active_tab; ?>" id="active_tab_val"/>
                 <ul class="tab-nav" role="tablist">
-                    <li role="presentation" id="tab_ebook_list" class="active">
+                    <li role="presentation" id="tab_ebook_list">
                         <a href="#ebook_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">
                             <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of E-Book Files
                         </a>
@@ -115,7 +115,7 @@
                     ?>
                     <input type="hidden" value="<?php echo $current_date; ?>" name="publish_date" id="publish_date">
 
-                    <div role="tabpanel" class="tab-pane pmb-block active" id="ebook_list">
+                    <div role="tabpanel" class="tab-pane pmb-block" id="ebook_list">
                         <div class="card no-shadow">
                             <div class="table-responsive">
                                 <table id="data-table-basic" class="table table-striped">
@@ -141,14 +141,17 @@
                                     <thead>
                                     <tr>
                                         <th data-column-id="file-title">File Title</th>
+                                        <th data-column-id="about_composition" data-formatter="links">Composition</th>
                                         <th data-column-id="file_published_status">File Published Status</th>
                                         <th data-column-id="publish-date">Publish Date</th>
-                                        <th data-column-id="about_composition" data-formatter="links">About</th>
                                         <th data-column-id="action" data-formatter="approvel">Is Approve</th>
                                     </tr>
                                     </thead>
                                     <tbody id="composition_list_info"></tbody>
                                 </table>
+                                <div class="popover fade bottom in composition_more_desctiption" id="popover288972" role="tooltip" style="top: 671px;left: 53.6406px; display: block;">
+
+                                </div>
                             </div>
                         </div>
                     </div>
