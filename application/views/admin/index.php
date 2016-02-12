@@ -143,8 +143,8 @@
                                         <th data-column-id="file-title">File Title</th>
                                         <th data-column-id="file_published_status">File Published Status</th>
                                         <th data-column-id="publish-date">Publish Date</th>
-                                        <th data-column-id="file-attachment">File Attachment</th>
-                                        <th data-column-id="action" data-formatter="links">Is Approve</th>
+                                        <th data-column-id="about_composition" data-formatter="links">About</th>
+                                        <th data-column-id="action" data-formatter="approvel">Is Approve</th>
                                     </tr>
                                     </thead>
                                     <tbody id="composition_list_info"></tbody>

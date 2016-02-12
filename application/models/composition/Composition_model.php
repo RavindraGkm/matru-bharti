@@ -21,18 +21,26 @@ class Composition_model extends CI_Model {
         return $response;
     }
 
-    public function get_composition_list($auth_token,$author_id) {
+    public function get_composition_list($auth_token,$composition_id=0) {
+
         $query = $this->db->get_where('authors', array('token' => $auth_token));
         $response = array();
         if($query->num_rows()>0) {
-            $query = $this->db->get_where('compositions', array('author_id' => $author_id));
-            if($query->num_rows()>0) {
-                $response['status'] = 'success';
-                $response['result'] = $query->result_array();
+            $row = $query->row_array();
+            if($row['type']=='admin') {
+                $query = $this->db->get('compositions');
+                if($query->num_rows()>0) {
+                    $response['status'] = 'success';
+                    $response['result'] = $query->result_array();
+                }
             }
             else {
-                $response['status'] = 'error';
-                $response['msg'] = 'Server Error';
+                $author_id = $row['id'];
+                $query = $this->db->get_where('compositions', array('author_id' => $author_id));
+                if($query->num_rows()>0) {
+                    $response['status'] = 'success';
+                    $response['result'] = $query->result_array();
+                }
             }
         }
         else {
@@ -41,6 +49,7 @@ class Composition_model extends CI_Model {
         }
         return $response;
     }
+
 
     public function delete_composition($auth_token,$composition_id,$author_id) {
         $query = $this->db->get_where('authors', array('token' => $auth_token));

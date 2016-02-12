@@ -162,7 +162,7 @@ MBJS.AdminControlPanel.prototype = {
         var self=this;
         var auth_token = $('#remember_token').val();
         var author_type= $('#author_type').val();
-        var composition_publish_date=$('#publish_date').val();
+        var composition_publish_date= $('#publish_date').val();
         console.log(auth_token);
         $.ajax({
             url: self.base_url+"composition",
@@ -170,30 +170,32 @@ MBJS.AdminControlPanel.prototype = {
             dataType: 'JSON',
             headers:{Authorization : auth_token},
             error: function(data) {
-               console.log(data);
-            },
-            success:function(data){
-                //console.log(data);
-                var results= data.result;
+                var results = data.result;
                 var row;
-                for(var i=0;i<results.length;i++){
-                    var published_date= results[i].published_at.split('-').reverse().join('-');
+                console.log(data.result);
+            },
+            success:function(data) {
+                console.log(data);
+                var results = data.result;
+                var row;
+                for(var i=0;i<results.length;i++) {
+                    var published_date = results[i].published_at.split('-').reverse().join('-');
                     if(results[i].status=="Pending")
                     {
-                        row = "<tr><td>" + results[i].title + "</td><td class='td-status-blue'>" + results[i].status + "</td><td>" + published_date + "</td><td>" + results[i].title + "</td><td>" + results[i].id + "</td></tr>";
+                        row="<tr><td>"+results[i].title+"</td><td class='td-status-blue'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].about+"</td><td>"+results[i].id+"</td></tr>";
                         $("#composition_list_info").append(row);
                     }
-                    else if(results[i].status=="Approved")
-                    {
-                        row = "<tr><td>" + results[i].title + "</td><td class='td-status-green'>" + results[i].status + "</td><td>" + published_date + "</td><td>" + results[i].title + "</td><td>" + results[i].id + "</td></tr>";
+                    else if(results[i].status=="Approved") {
+                        row="<tr><td>"+results[i].title+"</td><td class='td-status-green'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].about+"</td><td>"+results[i].id+"</td></tr>";
                         $("#composition_list_info").append(row);
                     }
                     else
                     {
-                        row = "<tr><td>" + results[i].title + "</td><td class='td-status-red'>" + results[i].status + "</td><td>" + published_date + "</td><td>" + results[i].title + "</td><td>" + results[i].id + "</td></tr>";
+                        row="<tr><td>"+results[i].title+"</td><td class='td-status-red'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].about+"</td><td>"+results[i].id+"</td></tr>";
                         $("#composition_list_info").append(row);
                     }
                 }
+
                 $("#data-table-composition").bootgrid({
                     css: {
                         icon: 'zmdi icon',
@@ -204,24 +206,28 @@ MBJS.AdminControlPanel.prototype = {
                     },
                     formatters: {
                         "links": function(column, row) {
+                            return "<div class='btn-link'><label><a href=\""+row.about_composition+"\" class=\"btn btn-icon more-description approve-ebook \">more</a></label></div>";
+                        },
+                        "approvel": function(column, row) {
                             if(row.file_published_status==='Approved') {
                                 console.log();
-                                return "<div class='checkbox'><label><input type=\"checkbox\" checked class=\"btn btn-icon command-delete approve-composition waves-effect waves-circle\"  data-row-id=\"" + row.action + "\"><i class=\"input-helper\"></i></input></label></div>";
+                                return "<div class='checkbox'><label><input type=\"checkbox\" checked class=\"btn btn-icon command-delete approve-ebook waves-effect waves-circle\"  data-row-id=\"" + row.action + "\"><i class=\"input-helper\"></i></input></label></div>";
                             }
                             else {
-                                return "<div class='checkbox'><label><input type=\"checkbox\" class=\"btn btn-icon command-delete aapprove-composition waves-effect waves-circle\"  data-row-id=\"" + row.action + "\"><i class=\"input-helper\"></i></input></label></div>";
+                                return "<div class='checkbox'><label><input type=\"checkbox\" class=\"btn btn-icon command-delete approve-ebook waves-effect waves-circle\"  data-row-id=\"" + row.action + "\"><i class=\"input-helper\"></i></input></label></div>";
                             }
                         }
                     }
                 });
             }
         });
-        //<<<------<< Composition approvel functionality
-        $('#composition_list_info').on('change','.approve-composition',function() {
+        //<<<------<< ebook approvel functionality
+        $('#composition_list_info').on('change','.approve-ebook',function() {
+            var checkbox=$(this);
             var composition_table_id = $(this).attr('data-row-id');
-
-            console.log(composition_table_id);
+            //console.log(composition_table_id);
             var author_id = $('#author_id').val();
+
             swal({
                 title: "Are you sure?",
                 text: "You want to approve !",
@@ -231,27 +237,29 @@ MBJS.AdminControlPanel.prototype = {
                 confirmButtonText: "Yes, Approved it!",
                 closeOnConfirm: true
             }, function() {
-
-                setTimeout(function(){
-                    var composition_publish_at= $("#publish_date");
-                    $.ajax({
-                        url: self.base_url+"admin/"+composition_table_id,
-                        type: 'PUT',
-                        dataType: 'JSON',
-                        headers:{Authorization : auth_token},
-                        data: {
-                            status: "Approved",
-                            published_at:composition_publish_at
-                        },
-                        success:function(data) {
-                            self.notify('Successfully Approved','inverse');
-                        },
-                        error:function(data) {
-                            console.log(data);
-                        }
-                    })
-                });
-
+                var status;
+                if(checkbox.is(':checked')) {
+                    status = 'Approved';
+                }
+                else {
+                    status = 'Pending';
+                }
+                $.ajax({
+                    url: self.base_url+"composition/"+composition_table_id,
+                    type: 'PUT',
+                    dataType: 'JSON',
+                    headers:{Authorization : auth_token},
+                    data: {
+                        status: status,
+                        published_at: composition_publish_date
+                    },
+                    success:function(data) {
+                        self.notify(data.msg,'inverse');
+                    },
+                    error:function(data) {
+                        console.log(data);
+                    }
+                })
             });
         });
     }

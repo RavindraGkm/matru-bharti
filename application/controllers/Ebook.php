@@ -108,20 +108,20 @@ class Ebook extends REST_Controller {
                 $response = $this->Ebook_model->get_ebook_list($headers['Authorization']);
             }
 
-            $this->response($response,REST_Controller::HTTP_OK);
-//            if ($response['status']=='success') {
-//                $this->response($response, REST_Controller::HTTP_OK);
-//            }
-//            else {
-//                if($response['msg']=='Server Error') {
-//                    $response = array('errors' => array($response['msg']));
-//                    $this->response($response, REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
-//                }
-//                else {
-//                    $this->response($response, REST_Controller::HTTP_UNAUTHORIZED);
-//                }
-//            }
-//            $this->db->close();
+//            $this->response($response,REST_Controller::HTTP_OK);
+            if ($response['status']=='success') {
+                $this->response($response, REST_Controller::HTTP_OK);
+            }
+            else {
+                if($response['msg']=='Server Error') {
+                    $response = array('errors' => array($response['msg']));
+                    $this->response($response, REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
+                }
+                else {
+                    $this->response($response, REST_Controller::HTTP_UNAUTHORIZED);
+                }
+            }
+            $this->db->close();
         }
     }
 
@@ -192,14 +192,14 @@ class Ebook extends REST_Controller {
                     $this->response($response,REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
                 }
 
-                $this->load->model('admin/Admin_model');
-                $response = $this->Admin_model->composition_approvel($headers['Authorization'],$params,$id);
-                if($response['status']=='success') {
-                    $this->response($response,REST_Controller::HTTP_OK);
-                }
-                else {
-                    $this->response($response,REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
-                }
+//                $this->load->model('admin/Admin_model');
+//                $response = $this->Admin_model->composition_approvel($headers['Authorization'],$params,$id);
+//                if($response['status']=='success') {
+//                    $this->response($response,REST_Controller::HTTP_OK);
+//                }
+//                else {
+//                    $this->response($response,REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
+//                }
             }
         }
 
