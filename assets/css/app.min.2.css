@@ -3203,14 +3203,14 @@ select.chosen {
 }
 
 .sweet-alert h2 {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 400;
   position: relative;
   z-index: 1;
 }
 
 .sweet-alert .lead {
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .sweet-alert .btn {

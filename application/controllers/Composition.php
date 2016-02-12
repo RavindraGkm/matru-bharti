@@ -167,15 +167,6 @@ class Composition extends REST_Controller {
                 else {
                     $this->response($response,REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
                 }
-
-//                $this->load->model('admin/Admin_model');
-//                $response = $this->Admin_model->composition_approvel($headers['Authorization'],$params,$id);
-//                if($response['status']=='success') {
-//                    $this->response($response,REST_Controller::HTTP_OK);
-//                }
-//                else {
-//                    $this->response($response,REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
-//                }
             }
         }
 

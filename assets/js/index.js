@@ -166,7 +166,7 @@ MBJS.Index.prototype = {
                             },
                             success: function (data) {
                                 if(type=='admin')
-                                    window.location= self.base_url+"admin-book-mng?tab=ebook";
+                                    window.location= self.base_url+"admin-book-mng?tab=ebook_list";
                                 else
                                     window.location= self.base_url+"profile";
                             },

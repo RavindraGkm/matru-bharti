@@ -4,13 +4,15 @@ class Admin_model extends CI_Model {
     public  function  ebook_approvel($auth_token,$params,$id) {
         $query = $this->db->get_where('authors', array('token' => $auth_token));
         $response = array();
+        $current_date=date('Y-m-d');
+        $params['published_at']=$current_date;
         if($query->num_rows()>0) {
             $where = "id = ".$id;
             $sql = $this->db->update_string('ebooks', $params, $where);
             $response = array();
             if($this->db->query($sql)) {
                 $response['status'] = 'success';
-                $response['msg'] = 'Updated Successfully';
+                $response['msg'] = $params['status'].' Updated Successfully';
             }
             else {
                 $response['status'] = 'error';
@@ -27,13 +29,15 @@ class Admin_model extends CI_Model {
     public function composition_approvel($auth_token,$params,$id) {
         $query= $this->db->get_where('authors',array('token'=>$auth_token));
         $response=array();
+        $current_date= date('Y-m-d');
+        $params['published_at']=$current_date;
         if($query->num_rows()>0) {
             $where= "id=".$id;
             $sql=$this->db->update_string('compositions',$params,$where);
             $response=array();
             if($this->db->query($sql)) {
                 $response['status']= 'success';
-                $response['msg']= 'Updated Successfully';
+                $response['msg']= $params['status'].' Updated Successfully';
             }
             else {
                 $response['status']='error';

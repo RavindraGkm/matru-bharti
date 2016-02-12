@@ -38,7 +38,7 @@
             </div>
         </li>
         <li class="logo hidden-xs">
-            <a href="<?php echo base_url('profile'); ?>">
+            <a href="<?php echo base_url('admin-book-mng?tab=ebook_list'); ?>">
                 Matru Bharti
             </a>
         </li>
@@ -64,9 +64,6 @@
                 </div>
             </a>
             <ul class="main-menu">
-                <li>
-                    <a href="<?php echo base_url('profile'); ?>"><i class="zmdi zmdi-account"></i> View Profile</a>
-                </li>
                 <li>
                     <a href="<?php echo base_url('logout');?>"><i class="zmdi zmdi-time-restore"></i> Logout</a>
                 </li>
@@ -169,18 +166,6 @@
         <li><a href="">Contact</a></li>
     </ul>
 </footer>
-
-Page Loader
-<div class="page-loader">
-    <div class="preloader pls-blue">
-        <svg class="pl-circular" viewBox="25 25 50 50">
-            <circle class="plc-path" cx="50" cy="50" r="20"/>
-        </svg>
-
-        <p>Please wait...</p>
-    </div>
-</div>
-
 <?php
 echo script_tag('assets/js/jquery.js');
 echo script_tag('assets/js/bootstrap.min.js');
@@ -200,5 +185,6 @@ echo script_tag('assets/js/jquery.bootgrid.updated.min.js');
 <script type="text/javascript">
     $(document).ready(function () {
         new MBJS.AdminControlPanel("<?php echo base_url(); ?>");
+
     });
 </script>

@@ -116,7 +116,13 @@ MBJS.AdminControlPanel.prototype = {
             var ebook_table_id = $(this).attr('data-row-id');
             //console.log(ebook_table_id);
             var author_id = $('#author_id').val();
-
+            var status;
+            if(checkbox.is(':checked')) {
+                status = 'Approved';
+            }
+            else {
+                status = 'Pending';
+            }
             //if($(this).is(':checked')) {
             //    console.log('Checked');
             //}
@@ -125,11 +131,11 @@ MBJS.AdminControlPanel.prototype = {
             //}
             swal({
                 title: "Are you sure?",
-                text: "You want to approve !",
+                text: "You want to "+status+" !",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#4caf50",
-                confirmButtonText: "Yes, Approved it!",
+                confirmButtonText: "Yes, "+status+" it!",
                 closeOnConfirm: true
             }, function() {
                 var status;
@@ -163,7 +169,6 @@ MBJS.AdminControlPanel.prototype = {
         var self=this;
         var auth_token = $('#remember_token').val();
         var author_type= $('#author_type').val();
-        var composition_publish_date= $('#publish_date').val();
         console.log(auth_token);
         $.ajax({
             url: self.base_url+"composition",
@@ -207,7 +212,7 @@ MBJS.AdminControlPanel.prototype = {
                     },
                     formatters: {
                         "links": function(column, row) {
-                            return "<div class='btn-link'><label>"+row.about_composition.substring(0,45)+"...&nbsp;&nbsp;<span data-desctiption=\""+row.about_composition+"\" data-content=\""+row.about_composition+"\" data-trigger=\"hover\" data-toggle=\"popover\" data-placement=\"bottom\" title data-original-title=\"Pop Title\" aria-describedby='popover288972' class=\"more-description dropdown open\" >more</span></label></div>";
+                            return "<div class='btn-link'><label>"+row.about_composition.substring(0,45)+"...&nbsp;&nbsp;<span data-desctiption=\""+row.about_composition+"\" data-content=\""+row.about_composition+"\" data-trigger=\"hover\" data-toggle=\"popover\" data-placement=\"bottom\"  aria-describedby='popover288972' class=\"more-description dropdown open\" >more</span></label></div>";
                         },
                         "approvel": function(column, row) {
                             if(row.file_published_status==='Approved') {
@@ -217,10 +222,17 @@ MBJS.AdminControlPanel.prototype = {
                             else {
                                 return "<div class='checkbox'><label><input type=\"checkbox\" class=\"btn btn-icon command-delete approve-ebook waves-effect waves-circle\"  data-row-id=\"" + row.action + "\"><i class=\"input-helper\"></i></input></label></div>";
                             }
+                            $('[data-toggle="popover"]').popover();
                         }
                     }
                 });
+            },
+            complete: function() {
+                setTimeout(function() {
+                    $('[data-toggle="popover"]').popover();
+                },1000);
             }
+
         });
         $('#composition_list_info').on('hover','.more-description',function(){
             var composition_description=$(this).attr('data-content');
@@ -232,31 +244,30 @@ MBJS.AdminControlPanel.prototype = {
             var composition_table_id = $(this).attr('data-row-id');
             //console.log(composition_table_id);
             var author_id = $('#author_id').val();
-
+            var status;
+            if(checkbox.is(':checked')) {
+                status = 'Approved';
+            }
+            else {
+                status = 'Pending';
+            }
             swal({
                 title: "Are you sure?",
-                text: "You want to approve !",
+                text: "You want to "+status+" !",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#4caf50",
-                confirmButtonText: "Yes, Approved it!",
+                confirmButtonText: "Yes, "+status+" it!",
                 closeOnConfirm: true
             }, function() {
-                var status;
-                if(checkbox.is(':checked')) {
-                    status = 'Approved';
-                }
-                else {
-                    status = 'Pending';
-                }
+
                 $.ajax({
                     url: self.base_url+"composition/"+composition_table_id,
                     type: 'PUT',
                     dataType: 'JSON',
                     headers:{Authorization : auth_token},
                     data: {
-                        status: status,
-                        published_at: composition_publish_date
+                        status: status
                     },
                     success:function(data) {
                         self.notify(data.msg,'inverse');
