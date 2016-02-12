@@ -79,6 +79,9 @@
                 <a href="<?php echo base_url('admin-book-mng?tab=composition_list'); ?>" id="li_tab_url"> <i class="fa fa-list"></i> List of
                     Uploaded Composition</a>
             </li>
+            <li>
+                <a href="<?php echo base_url('admin-book-mng?tab=authors_list'); ?>" id="li_tab_url"> <i class="fa fa-list"></i> List of Authors</a>
+            </li>
         </ul>
     </aside>
     <div id="content">
@@ -101,16 +104,17 @@
                             <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of Composition Files
                         </a>
                     </li>
+                    <li role="presentation" id="tab_authors_list">
+                        <a href="#authors_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">
+                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of Authors
+                        </a>
+                    </li>
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <input type="hidden" value="<?php echo $remember_token; ?>" name="remember_token" id="remember_token">
                     <input type="hidden" value="<?php echo $author_id; ?>" name="author_id" id="author_id">
-                    <?php
-                        $current_date= date('Y-m-d');
-                    ?>
-                    <input type="hidden" value="<?php echo $current_date; ?>" name="publish_date" id="publish_date">
 
                     <div role="tabpanel" class="tab-pane pmb-block" id="ebook_list">
                         <div class="card no-shadow">
@@ -152,6 +156,24 @@
                             </div>
                         </div>
                     </div>
+                    <div role="tabpanel" class="tab-pane pmb-block" id="authors_list">
+                        <div class="card no-shadow">
+                            <div class="table-responsive">
+                                <table id="data-table-authors" class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th data-column-id="author_name">Name</th>
+                                        <th data-column-id="author_address">Address</th>
+                                        <th data-column-id="author_city">City</th>
+                                        <th data-column-id="author_contact">Contact</th>
+                                        <th data-column-id="author_email">Email Address</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="authors_list_info"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -185,6 +207,5 @@ echo script_tag('assets/js/jquery.bootgrid.updated.min.js');
 <script type="text/javascript">
     $(document).ready(function () {
         new MBJS.AdminControlPanel("<?php echo base_url(); ?>");
-
     });
 </script>

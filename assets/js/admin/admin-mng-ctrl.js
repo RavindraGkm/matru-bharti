@@ -9,6 +9,7 @@ MBJS.AdminControlPanel.prototype = {
         this.basicSetups();
         this.viewEbookList();
         this.viewCompositionList();
+        this.viewAuthorsList();
     },
 
     notify: function(message,type) {
@@ -45,6 +46,7 @@ MBJS.AdminControlPanel.prototype = {
         // Uploading setups
         var author_id=$('#author_id').val();
         var remember_token = $('#remember_token').val();
+
 
     },
 
@@ -234,12 +236,12 @@ MBJS.AdminControlPanel.prototype = {
             }
 
         });
-        $('#composition_list_info').on('hover','.more-description',function(){
+        $('.composition_list_info').on('hover','.more-description',function(){
             var composition_description=$(this).attr('data-content');
             $('.composition_more_desctiption').html(composition_description);
         });
-        //<<<------<< ebook approvel functionality
-        $('#composition_list_info').on('change','.approve-ebook',function() {
+        //<<<------<< composition approvel functionality
+        $('.composition_list_info').on('change','.approve-ebook',function() {
             var checkbox=$(this);
             var composition_table_id = $(this).attr('data-row-id');
             //console.log(composition_table_id);
@@ -277,6 +279,33 @@ MBJS.AdminControlPanel.prototype = {
                     }
                 })
             });
+        });
+    },
+
+    viewAuthorsList : function() {
+        var self=this;
+        var auth_token = $('#remember_token').val();
+        var author_type= $('#author_type').val();
+        console.log(auth_token);
+        $.ajax({
+            url: self.base_url+"authors",
+            type: 'GET',
+            dataType: 'JSON',
+            headers:{Authorization : auth_token},
+
+            error: function(data) {
+                console.log(data);
+                console.log(auth_token);
+            },
+            success:function(data) {
+                console.log(data);
+                var results = data.result;
+                var row;
+                for(var i=0;i<results.length;i++) {
+                    row = "<tr><td>" + results[i].name + "</td><td>" + results[i].address + "</td><td>" + results[i].city + "</td><td>" + results[i].mobile + "</td><td>" + results[i].email + "</td></tr>";
+                    $("#authors_list_info").append(row);
+                }
+            }
         });
     }
 }
