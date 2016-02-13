@@ -9,7 +9,7 @@ MBJS.AdminControlPanel.prototype = {
         this.basicSetups();
         this.viewEbookList();
         this.viewCompositionList();
-        //this.viewAuthorsList();
+        this.viewAuthorsList();
     },
 
     notify: function(message,type) {
@@ -171,7 +171,6 @@ MBJS.AdminControlPanel.prototype = {
         var self=this;
         var auth_token = $('#remember_token').val();
         var author_type= $('#author_type').val();
-        console.log(auth_token);
         $.ajax({
             url: self.base_url+"composition",
             type: 'GET',
@@ -183,7 +182,6 @@ MBJS.AdminControlPanel.prototype = {
                 console.log(auth_token);
             },
             success:function(data) {
-                console.log(data);
                 var results = data.result;
                 var row;
                 for(var i=0;i<results.length;i++) {
@@ -280,32 +278,74 @@ MBJS.AdminControlPanel.prototype = {
                 })
             });
         });
-    }
+    },
 
-    //viewAuthorsList : function() {
-    //    var self=this;
-    //    var auth_token = $('#remember_token').val();
-    //    var author_type= $('#author_type').val();
-    //    console.log(auth_token);
-    //    $.ajax({
-    //        url: self.base_url+"authors",
-    //        type: 'GET',
-    //        dataType: 'JSON',
-    //        headers:{Authorization : auth_token},
-    //
-    //        error: function(data) {
-    //            console.log(data);
-    //            console.log(auth_token);
-    //        },
-    //        success:function(data) {
-    //            console.log(data);
-    //            var results = data.result;
-    //            var row;
-    //            for(var i=0;i<results.length;i++) {
-    //                row = "<tr><td>" + results[i].name + "</td><td>" + results[i].address + "</td><td>" + results[i].city + "</td><td>" + results[i].mobile + "</td><td>" + results[i].email + "</td></tr>";
-    //                $("#authors_list_info").append(row);
-    //            }
-    //        }
-    //    });
-    //}
+    viewAuthorsList:function () {
+        var self=this;
+        var auth_token = $('#remember_token').val();
+        var author_id = $('#author_id').val();
+        $.ajax({
+            url: self.base_url+"admin",
+            type: 'GET',
+            dataType: 'JSON',
+            headers:{Authorization : auth_token},
+            error: function(data) {
+                console.log(data);
+            },
+            success:function(data) {
+                console.log(auth_token);
+                var results = data.result;
+                var row;
+                for(var i=0;i<results.length;i++) {
+                    row="<tr><td>"+results[i].name+"</td><td>"+results[i].address+"</td><td>"+results[i].city+"</td><td>"+results[i].mobile+"</td><td>"+results[i].email+"</td><td>3</td><td>"+results[i].id+"</td><td>"+results[i].id+"</td></tr>";
+                    $("#authors_list_info").append(row);
+
+                }
+                $("#data-table-authors").bootgrid({
+                    css: {
+                        icon: 'zmdi icon',
+                        iconColumns: 'zmdi-view-module',
+                        iconDown: 'zmdi-expand-more',
+                        iconRefresh: 'zmdi-refresh',
+                        iconUp: 'zmdi-expand-less'
+                    },
+                    formatters: {
+                        "links": function(column, row) {
+                            return "<button type=\"button\" class=\"btn btn-icon command-delete delete-author waves-effect waves-circle\" data-row-id=\"" + row.action + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
+                        }
+                    }
+                });
+            }
+
+        });
+        //<<<------<< Delete author functionality
+        $('#authors_list_info').on('click','.delete-author',function() {
+            var author_id = $(this).attr('data-row-id');
+            console.log(author_id);
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to undo this action !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: true
+            }, function() {
+                $.ajax({
+                    url: self.base_url+"authors/"+author_id,
+                    type: 'DELETE',
+                    dataType: 'JSON',
+                    headers:{Authorization : auth_token},
+                    success:function(data) {
+                        //console.log(author_id);
+                        console.log(data.result);
+                        self.notify('Successfully deleted','inverse');
+                    },
+                    error:function(data) {
+                        console.log(data);
+                    }
+                });
+            });
+        });
+    },
 }

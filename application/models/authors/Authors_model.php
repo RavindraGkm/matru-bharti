@@ -58,5 +58,26 @@ class Authors_model extends CI_Model {
         }
         return $response;
     }
+
+    public function delete_author($auth_token,$author_id) {
+        $query = $this->db->get_where('authors', array('token' => $auth_token));
+        $response = array();
+        if($query->num_rows()>0) {
+            $this->db->delete('authors', array('id'=>$author_id));
+            if($this->db->affected_rows()>0) {
+                $response['status'] = 'success';
+                $response['msg'] = 'Deleted Successfully';
+            }
+            else {
+                $response['status'] = 'error';
+                $response['msg'] = 'Server Error';
+            }
+        }
+        else {
+            $response['status'] = 'error';
+            $response['msg'] = 'Anauthorized';
+        }
+        return $response;
+    }
 }
 ?>

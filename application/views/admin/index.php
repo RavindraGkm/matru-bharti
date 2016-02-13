@@ -87,11 +87,11 @@
     <div id="content">
         <div class="container">
 
-            <div class="block-header col-md-offset-1 col-lg-10 col-md-10 col-sm-12 col-xs-12">
+            <div class="block-header col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h2 id="h2_name"></h2>
             </div>
 
-            <div class="card col col-md-offset-1 col-lg-10 col-md-10 col-sm-12 col-xs-12" id="profile-main">
+            <div class="card col col-lg-12 col-md-12 col-sm-12 col-xs-12" id="profile-main">
                 <input type="hidden" value="<?php echo $active_tab; ?>" id="active_tab_val"/>
                 <ul class="tab-nav" role="tablist">
                     <li role="presentation" id="tab_ebook_list">
@@ -167,6 +167,9 @@
                                         <th data-column-id="author_city">City</th>
                                         <th data-column-id="author_contact">Contact</th>
                                         <th data-column-id="author_email">Email Address</th>
+                                        <th data-column-id="author_ebooks">Total E-Books</th>
+                                        <th data-column-id="authpor_compositions">Total Compositions</th>
+                                        <th data-column-id="action" data-formatter="links">Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody id="authors_list_info"></tbody>
