@@ -23,17 +23,24 @@ class Authors_model extends CI_Model {
     }
 
     public function register_new_author ($params) {
-
-        $params['token'] = md5($params['email'].time());
-        $sql = $this->db->insert('authors', $params);
-        $response = array();
-        if($sql) {
-            $response['status'] = 'success';
-            $response['token'] = $params['token'];
-            $response['id'] = $this->db->insert_id();
+        $reg_email=$params['email'];
+        $query= $this->db->get_where('authors',array('email'=>$reg_email));
+        if($query->num_rows()>0) {
+            $response['status'] = 'error';
+            $response['msg'] = 'User already exist !';
         }
         else {
-            $response['status'] = 'error';
+            $params['token'] = md5($params['email'].time());
+            $sql = $this->db->insert('authors', $params);
+            $response = array();
+            if($sql) {
+                $response['status'] = 'success';
+                $response['token'] = $params['token'];
+                $response['id'] = $this->db->insert_id();
+            }
+            else {
+                $response['status'] = 'error';
+            }
         }
         return $response;
     }
