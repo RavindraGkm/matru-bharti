@@ -54,7 +54,6 @@ MBJS.AdminControlPanel.prototype = {
         var auth_token = $('#remember_token').val();
         var author_type= $('#author_type').val();
         var ebook_publish_date= $('#publish_date').val();
-        //console.log(auth_token);
         $.ajax({
             url: self.base_url+"ebook",
             type: 'GET',
@@ -207,7 +206,7 @@ MBJS.AdminControlPanel.prototype = {
                     },
                     formatters: {
                         "links": function(column, row) {
-                            return "<div class='btn-link'><label>"+row.about_composition.substring(0,45)+"...&nbsp;&nbsp;<span data-desctiption=\""+row.about_composition+"\" data-content=\""+row.about_composition+"\" data-trigger=\"hover\" data-toggle=\"popover\" data-placement=\"bottom\" title data-original-title=\"Pop Title\" aria-describedby='popover288972' class=\"more-description dropdown open\" >more</span></label></div>";
+                            return "<div class='btn-link'><label>"+row.about_composition.substring(0,45)+"&nbsp;&nbsp;<a data-desctiption=\""+row.about_composition+"\" data-content=\""+row.about_composition+"\" data-trigger=\"click\" data-toggle=\"popover\" data-placement=\"bottom\" aria-describedby='popover288972' class=\"more-description dropdown open\" >more...</a></label></div>";
                         },
                         "approvel": function(column, row) {
                             if(row.file_published_status==='Approved') {
@@ -220,6 +219,11 @@ MBJS.AdminControlPanel.prototype = {
                         }
                     }
                 });
+            },
+            complete: function() {
+                setTimeout(function() {
+                    $('[data-toggle="popover"]').popover();
+                },1000);
             }
         });
         $('#composition_list_info').on('hover','.more-description',function(){
