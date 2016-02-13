@@ -147,5 +147,36 @@ class Authors extends REST_Controller {
 			}
 		}
 	}
+
+	public function  index_delete ($author_id=0) {
+
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Methods: DELETE");
+		$headers = $this->input->request_headers();
+		if (!isset($headers['Authorization']) || empty($headers['Authorization'])) {
+			$this->response(array('error' => 'No authorization header supplied'), REST_Controller::HTTP_UNAUTHORIZED);
+		}
+		else {
+			if($author_id!=0 &&  $author_id>1) {
+				$this->load->database();
+				$this->load->model('authors/Authors_model');
+				$author_id = $this->delete('id');
+				$response= $this->Authors_model->delete_author($headers['Authorization'],$author_id);
+				$this->db->close();
+				if ($response['status']=='success') {
+					$this->response($response, REST_Controller::HTTP_OK);
+				}
+				else {
+					if($response['msg']=='Server Error') {
+						$response = array('errors' => array($response['msg']));
+						$this->response($response, REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
+					}
+					else {
+						$this->response($response, REST_Controller::HTTP_UNAUTHORIZED);
+					}
+				}
+			}
+		}
+	}
 }
 ?>

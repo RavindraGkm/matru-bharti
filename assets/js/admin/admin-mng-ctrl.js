@@ -9,6 +9,7 @@ MBJS.AdminControlPanel.prototype = {
         this.basicSetups();
         this.viewEbookList();
         this.viewCompositionList();
+        this.viewAuthorsList();
     },
 
     notify: function(message,type) {
@@ -45,6 +46,7 @@ MBJS.AdminControlPanel.prototype = {
         // Uploading setups
         var author_id=$('#author_id').val();
         var remember_token = $('#remember_token').val();
+
 
     },
 
@@ -115,7 +117,13 @@ MBJS.AdminControlPanel.prototype = {
             var ebook_table_id = $(this).attr('data-row-id');
             //console.log(ebook_table_id);
             var author_id = $('#author_id').val();
-
+            var status;
+            if(checkbox.is(':checked')) {
+                status = 'Approved';
+            }
+            else {
+                status = 'Pending';
+            }
             //if($(this).is(':checked')) {
             //    console.log('Checked');
             //}
@@ -124,11 +132,11 @@ MBJS.AdminControlPanel.prototype = {
             //}
             swal({
                 title: "Are you sure?",
-                text: "You want to approve !",
+                text: "You want to "+status+" !",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#4caf50",
-                confirmButtonText: "Yes, Approved it!",
+                confirmButtonText: "Yes, "+status+" it!",
                 closeOnConfirm: true
             }, function() {
                 var status;
@@ -162,8 +170,6 @@ MBJS.AdminControlPanel.prototype = {
         var self=this;
         var auth_token = $('#remember_token').val();
         var author_type= $('#author_type').val();
-        var composition_publish_date= $('#publish_date').val();
-        console.log(auth_token);
         $.ajax({
             url: self.base_url+"composition",
             type: 'GET',
@@ -175,7 +181,6 @@ MBJS.AdminControlPanel.prototype = {
                 console.log(auth_token);
             },
             success:function(data) {
-                console.log(data);
                 var results = data.result;
                 var row;
                 for(var i=0;i<results.length;i++) {
@@ -206,7 +211,7 @@ MBJS.AdminControlPanel.prototype = {
                     },
                     formatters: {
                         "links": function(column, row) {
-                            return "<div class='btn-link'><label>"+row.about_composition.substring(0,45)+"&nbsp;&nbsp;<a data-desctiption=\""+row.about_composition+"\" data-content=\""+row.about_composition+"\" data-trigger=\"click\" data-toggle=\"popover\" data-placement=\"bottom\" aria-describedby='popover288972' class=\"more-description dropdown open\" >more...</a></label></div>";
+                            return "<div class='btn-link'><label>"+row.about_composition.substring(0,45)+"...&nbsp;&nbsp;<span data-desctiption=\""+row.about_composition+"\" data-content=\""+row.about_composition+"\" data-trigger=\"hover\" data-toggle=\"popover\" data-placement=\"bottom\"  aria-describedby='popover288972' class=\"more-description dropdown open\" >more</span></label></div>";
                         },
                         "approvel": function(column, row) {
                             if(row.file_published_status==='Approved') {
@@ -216,6 +221,7 @@ MBJS.AdminControlPanel.prototype = {
                             else {
                                 return "<div class='checkbox'><label><input type=\"checkbox\" class=\"btn btn-icon command-delete approve-ebook waves-effect waves-circle\"  data-row-id=\"" + row.action + "\"><i class=\"input-helper\"></i></input></label></div>";
                             }
+                            $('[data-toggle="popover"]').popover();
                         }
                     }
                 });
@@ -225,42 +231,42 @@ MBJS.AdminControlPanel.prototype = {
                     $('[data-toggle="popover"]').popover();
                 },1000);
             }
+
         });
         $('#composition_list_info').on('hover','.more-description',function(){
             var composition_description=$(this).attr('data-content');
             $('.composition_more_desctiption').html(composition_description);
         });
-        //<<<------<< ebook approvel functionality
+        //<<<------<< composition approvel functionality
         $('#composition_list_info').on('change','.approve-ebook',function() {
             var checkbox=$(this);
             var composition_table_id = $(this).attr('data-row-id');
             //console.log(composition_table_id);
             var author_id = $('#author_id').val();
-
+            var status;
+            if(checkbox.is(':checked')) {
+                status = 'Approved';
+            }
+            else {
+                status = 'Pending';
+            }
             swal({
                 title: "Are you sure?",
-                text: "You want to approve !",
+                text: "You want to "+status+" !",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#4caf50",
-                confirmButtonText: "Yes, Approved it!",
+                confirmButtonText: "Yes, "+status+" it!",
                 closeOnConfirm: true
             }, function() {
-                var status;
-                if(checkbox.is(':checked')) {
-                    status = 'Approved';
-                }
-                else {
-                    status = 'Pending';
-                }
+
                 $.ajax({
                     url: self.base_url+"composition/"+composition_table_id,
                     type: 'PUT',
                     dataType: 'JSON',
                     headers:{Authorization : auth_token},
                     data: {
-                        status: status,
-                        published_at: composition_publish_date
+                        status: status
                     },
                     success:function(data) {
                         self.notify(data.msg,'inverse');
@@ -271,5 +277,74 @@ MBJS.AdminControlPanel.prototype = {
                 })
             });
         });
-    }
+    },
+
+    viewAuthorsList:function () {
+        var self=this;
+        var auth_token = $('#remember_token').val();
+        var author_id = $('#author_id').val();
+        $.ajax({
+            url: self.base_url+"admin",
+            type: 'GET',
+            dataType: 'JSON',
+            headers:{Authorization : auth_token},
+            error: function(data) {
+                console.log(data);
+            },
+            success:function(data) {
+                console.log(auth_token);
+                var results = data.result;
+                var row;
+                for(var i=0;i<results.length;i++) {
+                    row="<tr><td>"+results[i].name+"</td><td>"+results[i].address+"</td><td>"+results[i].city+"</td><td>"+results[i].mobile+"</td><td>"+results[i].email+"</td><td>3</td><td>"+results[i].id+"</td><td>"+results[i].id+"</td></tr>";
+                    $("#authors_list_info").append(row);
+
+                }
+                $("#data-table-authors").bootgrid({
+                    css: {
+                        icon: 'zmdi icon',
+                        iconColumns: 'zmdi-view-module',
+                        iconDown: 'zmdi-expand-more',
+                        iconRefresh: 'zmdi-refresh',
+                        iconUp: 'zmdi-expand-less'
+                    },
+                    formatters: {
+                        "links": function(column, row) {
+                            return "<button type=\"button\" class=\"btn btn-icon command-delete delete-author waves-effect waves-circle\" data-row-id=\"" + row.action + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
+                        }
+                    }
+                });
+            }
+
+        });
+        //<<<------<< Delete author functionality
+        $('#authors_list_info').on('click','.delete-author',function() {
+            var author_id = $(this).attr('data-row-id');
+            console.log(author_id);
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to undo this action !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: true
+            }, function() {
+                $.ajax({
+                    url: self.base_url+"authors/"+author_id,
+                    type: 'DELETE',
+                    dataType: 'JSON',
+                    headers:{Authorization : auth_token},
+                    success:function(data) {
+                        //console.log(author_id);
+                        console.log(data.result);
+                        self.notify('Successfully deleted','inverse');
+                    },
+                    error:function(data) {
+                        console.log(data);
+                    }
+                });
+            });
+        });
+    },
 }

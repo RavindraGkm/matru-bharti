@@ -38,7 +38,7 @@
             </div>
         </li>
         <li class="logo hidden-xs">
-            <a href="<?php echo base_url('profile'); ?>">
+            <a href="<?php echo base_url('admin-book-mng?tab=ebook_list'); ?>">
                 Matru Bharti
             </a>
         </li>
@@ -65,9 +65,6 @@
             </a>
             <ul class="main-menu">
                 <li>
-                    <a href="<?php echo base_url('profile'); ?>"><i class="zmdi zmdi-account"></i> View Profile</a>
-                </li>
-                <li>
                     <a href="<?php echo base_url('logout');?>"><i class="zmdi zmdi-time-restore"></i> Logout</a>
                 </li>
             </ul>
@@ -82,16 +79,19 @@
                 <a href="<?php echo base_url('admin-book-mng?tab=composition_list'); ?>" id="li_tab_url"> <i class="fa fa-list"></i> List of
                     Uploaded Composition</a>
             </li>
+            <li>
+                <a href="<?php echo base_url('admin-book-mng?tab=authors_list'); ?>" id="li_tab_url"> <i class="fa fa-list"></i> List of Authors</a>
+            </li>
         </ul>
     </aside>
     <div id="content">
         <div class="container">
 
-            <div class="block-header col-md-offset-1 col-lg-10 col-md-10 col-sm-12 col-xs-12">
+            <div class="block-header col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h2 id="h2_name"></h2>
             </div>
 
-            <div class="card col col-md-offset-1 col-lg-10 col-md-10 col-sm-12 col-xs-12" id="profile-main">
+            <div class="card col col-lg-12 col-md-12 col-sm-12 col-xs-12" id="profile-main">
                 <input type="hidden" value="<?php echo $active_tab; ?>" id="active_tab_val"/>
                 <ul class="tab-nav" role="tablist">
                     <li role="presentation" id="tab_ebook_list">
@@ -104,16 +104,17 @@
                             <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of Composition Files
                         </a>
                     </li>
+                    <li role="presentation" id="tab_authors_list">
+                        <a href="#authors_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">
+                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of Authors
+                        </a>
+                    </li>
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <input type="hidden" value="<?php echo $remember_token; ?>" name="remember_token" id="remember_token">
                     <input type="hidden" value="<?php echo $author_id; ?>" name="author_id" id="author_id">
-                    <?php
-                        $current_date= date('Y-m-d');
-                    ?>
-                    <input type="hidden" value="<?php echo $current_date; ?>" name="publish_date" id="publish_date">
 
                     <div role="tabpanel" class="tab-pane pmb-block" id="ebook_list">
                         <div class="card no-shadow">
@@ -155,6 +156,27 @@
                             </div>
                         </div>
                     </div>
+                    <div role="tabpanel" class="tab-pane pmb-block" id="authors_list">
+                        <div class="card no-shadow">
+                            <div class="table-responsive">
+                                <table id="data-table-authors" class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th data-column-id="author_name">Name</th>
+                                        <th data-column-id="author_address">Address</th>
+                                        <th data-column-id="author_city">City</th>
+                                        <th data-column-id="author_contact">Contact</th>
+                                        <th data-column-id="author_email">Email Address</th>
+                                        <th data-column-id="author_ebooks">Total E-Books</th>
+                                        <th data-column-id="authpor_compositions">Total Compositions</th>
+                                        <th data-column-id="action" data-formatter="links">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="authors_list_info"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -169,18 +191,6 @@
         <li><a href="">Contact</a></li>
     </ul>
 </footer>
-
-Page Loader
-<div class="page-loader">
-    <div class="preloader pls-blue">
-        <svg class="pl-circular" viewBox="25 25 50 50">
-            <circle class="plc-path" cx="50" cy="50" r="20"/>
-        </svg>
-
-        <p>Please wait...</p>
-    </div>
-</div>
-
 <?php
 echo script_tag('assets/js/jquery.js');
 echo script_tag('assets/js/bootstrap.min.js');
