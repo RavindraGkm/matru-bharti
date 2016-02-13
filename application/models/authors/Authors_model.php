@@ -21,6 +21,7 @@ class Authors_model extends CI_Model {
         }
         return $response;
     }
+
     public function register_new_author ($params) {
 
         $params['token'] = md5($params['email'].time());
@@ -36,6 +37,7 @@ class Authors_model extends CI_Model {
         }
         return $response;
     }
+
     public function update_author ($params,$author_id,$auth_token) {
         $query = $this->db->get_where('authors', array('token' => $auth_token));
         $response = array();
@@ -65,12 +67,34 @@ class Authors_model extends CI_Model {
         if($query->num_rows()>0) {
             $this->db->delete('authors', array('id'=>$author_id));
             if($this->db->affected_rows()>0) {
+                $this->db->delete('ebooks', array('author_id'=>$author_id));
+                $this->db->delete('compositions', array('author_id'=>$author_id));
                 $response['status'] = 'success';
                 $response['msg'] = 'Deleted Successfully';
             }
             else {
                 $response['status'] = 'error';
-                $response['msg'] = 'Server Error';
+                $response['msg'] = 'Unprocessable Entity !';
+            }
+        }
+        else {
+            $response['status'] = 'error';
+            $response['msg'] = 'Anauthorized';
+        }
+        return $response;
+    }
+
+    public function get_authors_list($auth_token) {
+        $query = $this->db->get_where('authors', array('token' => $auth_token));
+        $response = array();
+        if($query->num_rows()>0) {
+            $row = $query->row_array();
+            if($row['type']=='admin') {
+                $query = $this->db->get_where('authors', array('type' => "public"));
+                if ($query->num_rows() > 0) {
+                    $response['status'] = 'success';
+                    $response['result'] = $query->result_array();
+                }
             }
         }
         else {

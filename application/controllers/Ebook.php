@@ -126,7 +126,6 @@ class Ebook extends REST_Controller {
     }
 
     public function  index_delete ($ebook_id=0) {
-
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: DELETE");
         $headers = $this->input->request_headers();
@@ -134,11 +133,11 @@ class Ebook extends REST_Controller {
             $this->response(array('error' => 'No authorization header supplied'), REST_Controller::HTTP_UNAUTHORIZED);
         }
         else {
+            $this->load->database();
+            $this->load->model('ebook/Ebook_model');
             if($ebook_id!=0 &&  $ebook_id>1) {
-                $this->load->database();
-                $this->load->model('ebook/Ebook_model');
                 $author_id = $this->delete('author_id');
-                $response= $this->Ebook_model->delete_ebook($headers['Authorization'],$ebook_id,$author_id);
+                $response= $this->Ebook_model->delete_ebook($headers['Authorization'],$ebook_id);
                 $this->db->close();
                 if ($response['status']=='success') {
                     $this->response($response, REST_Controller::HTTP_OK);

@@ -13,21 +13,25 @@ class Authors extends REST_Controller {
 			$this->response(array('error' => 'No authorization header supplied'), REST_Controller::HTTP_UNAUTHORIZED);
 		}
 		else {
-			if($id!=0 && $id>-1) {
-				$this->load->database();
-				$this->load->model('authors/Authors_model');
-				$response = $this->Authors_model->get_author($headers['Authorization'],$id);
-				$this->db->close();
-				if ($response['status']=='success') {
-					$this->response($response, REST_Controller::HTTP_OK);
-				} else {
-					if($response['msg']=='Server Error') {
-						$response = array('errors' => array($response['msg']));
-						$this->response($response, REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
-					}
-					else {
-						$this->response($response, REST_Controller::HTTP_UNAUTHORIZED);
-					}
+			$this->load->database();
+			$this->load->model('authors/Authors_model');
+			if ($id != 0 && $id > -1) {
+				$response = $this->Authors_model->get_author($headers['Authorization'], $id);
+			} else {
+				$response = $this->Authors_model->get_authors_list($headers['Authorization']);
+			}
+			$this->db->close();
+
+			if ($response['status'] == 'success') {
+				$this->response($response, REST_Controller::HTTP_OK);
+			}
+			else {
+				if ($response['msg'] == 'Server Error') {
+					$response = array('errors' => array($response['msg']));
+					$this->response($response, REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
+				}
+				else {
+					$this->response($response, REST_Controller::HTTP_UNAUTHORIZED);
 				}
 			}
 		}
@@ -160,7 +164,6 @@ class Authors extends REST_Controller {
 			if($author_id!=0 &&  $author_id>1) {
 				$this->load->database();
 				$this->load->model('authors/Authors_model');
-				$author_id = $this->delete('id');
 				$response= $this->Authors_model->delete_author($headers['Authorization'],$author_id);
 				$this->db->close();
 				if ($response['status']=='success') {
@@ -178,5 +181,36 @@ class Authors extends REST_Controller {
 			}
 		}
 	}
+
+
+
+//	public function index_get ($id=0) {
+//		header("Access-Control-Allow-Origin: *");
+//		header("Access-Control-Allow-Methods: GET");
+//
+//		$headers = $this->input->request_headers();
+//		if (!isset($headers['Authorization']) || empty($headers['Authorization'])) {
+//			$this->response(array('error' => 'No authorization header supplied'), REST_Controller::HTTP_UNAUTHORIZED);
+//		}
+//		else {
+//			if($id!=0 && $id>-1) {
+//				$this->load->database();
+//				$this->load->model('authors/Authors_model');
+//				$response = $this->Authors_model->get_author($headers['Authorization'],$id);
+//				$this->db->close();
+//				if ($response['status']=='success') {
+//					$this->response($response, REST_Controller::HTTP_OK);
+//				} else {
+//					if($response['msg']=='Server Error') {
+//						$response = array('errors' => array($response['msg']));
+//						$this->response($response, REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
+//					}
+//					else {
+//						$this->response($response, REST_Controller::HTTP_UNAUTHORIZED);
+//					}
+//				}
+//			}
+//		}
+//	}
 }
 ?>
