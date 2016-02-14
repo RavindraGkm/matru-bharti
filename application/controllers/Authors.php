@@ -150,6 +150,7 @@ class Authors extends REST_Controller {
 
 	public function  index_delete ($author_id=0) {
 
+
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Methods: DELETE");
 		$headers = $this->input->request_headers();
@@ -160,7 +161,6 @@ class Authors extends REST_Controller {
 			if($author_id!=0 &&  $author_id>1) {
 				$this->load->database();
 				$this->load->model('authors/Authors_model');
-				$author_id = $this->delete('id');
 				$response= $this->Authors_model->delete_author($headers['Authorization'],$author_id);
 				$this->db->close();
 				if ($response['status']=='success') {

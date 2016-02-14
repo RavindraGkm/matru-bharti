@@ -70,7 +70,7 @@ class Authors_model extends CI_Model {
             }
             else {
                 $response['status'] = 'error';
-                $response['msg'] = 'Server Error';
+                $response['msg'] = 'Unproccessable Entity';
             }
         }
         else {

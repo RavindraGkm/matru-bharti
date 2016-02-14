@@ -336,9 +336,9 @@ MBJS.AdminControlPanel.prototype = {
                     dataType: 'JSON',
                     headers:{Authorization : auth_token},
                     success:function(data) {
-                        //console.log(author_id);
-                        console.log(data.result);
-                        self.notify('Successfully deleted','inverse');
+                        console.log(data);
+                        // console.log(data.result);
+                        // self.notify('Successfully deleted','inverse');
                     },
                     error:function(data) {
                         console.log(data);
