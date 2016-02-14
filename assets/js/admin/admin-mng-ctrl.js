@@ -284,7 +284,7 @@ MBJS.AdminControlPanel.prototype = {
         var auth_token = $('#remember_token').val();
         var author_id = $('#author_id').val();
         $.ajax({
-            url: self.base_url+"admin",
+            url: self.base_url+"authors",
             type: 'GET',
             dataType: 'JSON',
             headers:{Authorization : auth_token},
@@ -336,9 +336,7 @@ MBJS.AdminControlPanel.prototype = {
                     dataType: 'JSON',
                     headers:{Authorization : auth_token},
                     success:function(data) {
-                        console.log(data);
-                        // console.log(data.result);
-                        // self.notify('Successfully deleted','inverse');
+                        self.notify('Successfully deleted','inverse');
                     },
                     error:function(data) {
                         console.log(data);

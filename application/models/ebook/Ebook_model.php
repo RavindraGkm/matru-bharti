@@ -51,10 +51,12 @@ class Ebook_model extends CI_Model {
 
     }
 
-    public function delete_ebook($auth_token,$ebook_id,$author_id) {
+    public function delete_ebook($auth_token,$ebook_id) {
         $query = $this->db->get_where('authors', array('token' => $auth_token));
         $response = array();
         if($query->num_rows()>0) {
+            $row = $query->row_array();
+            $author_id = $row['id'];
             $this->db->delete('ebooks', array('author_id'=>$author_id,'id'=>$ebook_id));
             if($this->db->affected_rows()>0) {
                 $response['status'] = 'success';
