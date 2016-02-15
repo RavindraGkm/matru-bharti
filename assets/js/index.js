@@ -154,7 +154,7 @@ MBJS.Index.prototype = {
                     error: function(data) {
                         console.log(data);
                         if(data.status==401) {
-                            alert("Enter valid email or password !");
+                            alert("Unauthorized access !");
                         }
                     },
                     success: function (data) {
