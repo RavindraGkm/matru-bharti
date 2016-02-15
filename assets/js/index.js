@@ -153,6 +153,9 @@ MBJS.Index.prototype = {
                     },
                     error: function(data) {
                         console.log(data);
+                        if(data.status==401) {
+                            alert("Enter valid email or password !");
+                        }
                     },
                     success: function (data) {
                         var type = data.results.type;
@@ -165,10 +168,12 @@ MBJS.Index.prototype = {
                                 id: data.results.id
                             },
                             success: function (data) {
-                                if(type=='admin')
+                                if(type=='admin') {
                                     window.location= self.base_url+"admin-book-mng?tab=ebook_list";
-                                else
+                                }
+                                else {
                                     window.location= self.base_url+"profile";
+                                }
                             },
                             error: function(data) {
                                 console.log(data);

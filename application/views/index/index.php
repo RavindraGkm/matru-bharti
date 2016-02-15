@@ -198,7 +198,7 @@
             </div> <!-- / .row -->
         </div> <!-- / .container -->
     </section>
-
+<span id="data-error-for" class="error-span"></span>
     <!-- Text block -->
     <section data-anchor="section_register">
         <div class="container">

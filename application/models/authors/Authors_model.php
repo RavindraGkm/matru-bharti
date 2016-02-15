@@ -24,6 +24,7 @@ class Authors_model extends CI_Model {
 
     public function register_new_author ($params) {
         $reg_email=$params['email'];
+        $sql = 'select * from authors where email=? and password=?';
         $query= $this->db->get_where('authors',array('email'=>$reg_email));
         if($query->num_rows()>0) {
             $response['status'] = 'error';
