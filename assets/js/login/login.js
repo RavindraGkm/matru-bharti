@@ -28,7 +28,7 @@ MBJS.Login.prototype={
                         console.log('unauth');
                     }
                     else if(data.status==422){
-                        console.log("Email or Password can not be blanked");
+                        alert("Email or Password can not be blanked");
                     }
                     console.log(data);
                 },
