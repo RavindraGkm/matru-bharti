@@ -139,3 +139,15 @@
     transform: translate(0, -50%);
   }
 }
+
+.pos-relative {
+  position: relative;
+}
+
+.pos-relative .error-span {
+  position: absolute;
+  right: 3%;
+  top: 23%;
+  opacity: 0;
+  color: rgb(211, 57, 57);
+}

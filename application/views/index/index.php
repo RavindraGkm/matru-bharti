@@ -177,15 +177,19 @@
                     <form id="form_login" class="delay_1" data-animate-in="animateUp">
 
                         <div class="form-group">
-                            <label class="sr-only" for="login_email">Email address</label>
-                            <input type="email" name="login_email" class="form-control" id="login_email" placeholder="E-mail" data-original-title="" title="">
-                            <span class="help-block"></span>
+                            <div class="pos-relative">
+                                <label class="sr-only" for="login_email">Email address</label>
+                                <input type="email" name="login_email" class="form-control" id="login_email" placeholder="E-mail" data-original-title="" title="">
+                                <span class="error-span" data-error-for="login_email"></span>
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="sr-only" for="login_password">Password</label>
-                            <input type="password" name="login_password" class="form-control" id="login_password" placeholder="Password" data-original-title="" title="">
-                            <span class="help-block"></span>
+                            <div class="pos-relative">
+                                <label class="sr-only" for="login_password">Password</label>
+                                <input type="password" name="login_password" class="form-control" id="login_password" placeholder="Password" data-original-title="" title="">
+                                <span class="error-span" data-error-for="login_password"></span>
+                            </div>
                         </div>
 
                         <button id="login_button" type="submit" class="btn btn-primary waves">
@@ -198,7 +202,6 @@
             </div> <!-- / .row -->
         </div> <!-- / .container -->
     </section>
-<span id="data-error-for" class="error-span"></span>
     <!-- Text block -->
     <section data-anchor="section_register">
         <div class="container">

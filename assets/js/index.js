@@ -190,7 +190,7 @@ MBJS.Index.prototype = {
             },
             unhighlight: function(element, errorClass, validClass) {
                 $(element).removeClass('error');
-                $(element).closest('li').find('.error-span').css('opacity',0);
+                $(element).closest('.pos-relative').find('.error-span').css('opacity',0);
             }
         });
     }
