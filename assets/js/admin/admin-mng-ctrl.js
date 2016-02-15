@@ -294,9 +294,10 @@ MBJS.AdminControlPanel.prototype = {
             success:function(data) {
                 console.log(auth_token);
                 var results = data.result;
+                console.log(data.result);
                 var row;
                 for(var i=0;i<results.length;i++) {
-                    row="<tr><td>"+results[i].name+"</td><td>"+results[i].address+"</td><td>"+results[i].city+"</td><td>"+results[i].mobile+"</td><td>"+results[i].email+"</td><td>3</td><td>"+results[i].id+"</td><td>"+results[i].id+"</td></tr>";
+                    row="<tr><td>"+results[i].name+"</td><td>"+results[i].address+"</td><td>"+results[i].city+"</td><td>"+results[i].mobile+"</td><td>"+results[i].email+"</td><td>"+results[i].no_ebooks+"</td><td>"+results[i].no_compositions+"</td><td>"+results[i].id+"</td></tr>";
                     $("#authors_list_info").append(row);
 
                 }

@@ -131,9 +131,9 @@
                             <input type="hidden" value="<?php echo $remember_token; ?>" name="remember_token"
                                    id="remember_token">
                             <input type="hidden" value="<?php echo $author_id; ?>" name="author_id" id="author_id">
-                            <?php
-                            $current_date= date('Y-m-d');
-                            ?>
+<!--                            --><?php
+//                            $current_date= date('Y-m-d');
+//                            ?>
                             <form id="form_ebook_upload" class="form-horizontal">
                                 <div class="card-header">
                                     <h2>E-Book Information
@@ -145,25 +145,26 @@
                                     </h2>
                                 </div>
 
-                                <input type="hidden" id="ebook_creation_date" name="ebook_creation_date" value="<?php echo $current_date;?>">
+<!--                                <input type="hidden" id="ebook_creation_date" name="ebook_creation_date" value="--><?php //echo $current_date;?><!--">-->
                                 <div class="card-body card-padding">
                                     <div class="form-group">
                                         <label for="book_category" class="col-sm-3 control-label">Select Language
                                             *</label>
                                         <div class="col-sm-9">
-                                            <div class="fg-line">
+                                            <div class="fg-line pos-relative">
                                                 <select class="form-control" name="book_language" id="book_language">
                                                     <option value="">Select Language...</option>
                                                     <option value="Hindi">Hindi</option>
                                                     <option value="English">English</option>
                                                 </select>
+                                                <span class="error-span" data-error-for="book_language"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="book_category" class="col-sm-3 control-label">Select Category*</label>
                                         <div class="col-sm-9">
-                                            <div class="fg-line">
+                                            <div class="fg-line pos-relative">
                                                 <select class="form-control" name="book_category" id="book_category">
                                                     <option value="">Select Category...</option>
                                                     <option value="Stories">Stories</option>
@@ -193,29 +194,32 @@
                                                     <option value="Management">Management</option>
                                                     <option value="Food">Food</option>
                                                 </select>
+                                                <span class="error-span" data-error-for="book_category"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="book_language" class="col-sm-3 control-label">File Title*</label>
                                         <div class="col-sm-9">
-                                            <div class="fg-line">
+                                            <div class="fg-line pos-relative">
                                                 <input type="text" class="form-control" name="file_title" id="file_title" placeholder="Title of book">
+                                                <span class="error-span" data-error-for="file_title"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="book_language" class="col-sm-3 control-label">Tags</label>
                                         <div class="col-sm-9">
-                                            <div class="fg-line">
+                                            <div class="fg-line pos-relative">
                                                 <input type='text' class="form-control" name="book_tag" id="book_tag" placeholder="Add a tag">
+                                                <span class="error-span" data-error-for="book_tag"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="book_language" class="col-sm-3 control-label">File (Only doc/docx)*</label>
                                         <div class="col-sm-9">
-                                            <div class="fg-line">
+                                            <div class="fg-line pos-relative">
                                                 <input type="hidden" name="ebook_file_path" id="ebook_file_path" value="">
                                                 <form class="ebook_upload_form" action="<?php echo base_url('upload/ebook-file'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_upload_form">
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -228,6 +232,7 @@
                                                         <a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
                                                     </div>
                                                 </form>
+                                                <span class="error-span" data-error-for="ebook_file_path"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -251,6 +256,7 @@
                                                         </div>
                                                     </div>
                                                 </form>
+                                                <span class="error-span" data-error-for=""></span>
                                             </div>
                                             <div class="uploading-progress-div hidden">
                                                 <div class="uploading-div-wrapper">
@@ -270,8 +276,9 @@
                                     <div class="form-group">
                                         <label for="book_language" class="col-sm-3 control-label">About this book*</label>
                                         <div class="col-sm-9">
-                                            <div class="fg-line">
+                                            <div class="fg-line pos-relative">
                                                 <textarea class="form-control" name="about_book" id="about_book" rows="8" placeholder=""></textarea>
+                                                <span class="error-span" data-error-for="about_book"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -301,26 +308,26 @@
                                         </small>
                                     </h2>
                                 </div>
-                                <input type="hidden" id="composition_creation_date" name="composition_creation_date" value="<?php echo $current_date;?>">
+<!--                                <input type="hidden" id="composition_creation_date" name="composition_creation_date" value="--><?php //echo $current_date;?><!--">-->
                                 <div class="card-body card-padding">
                                     <div class="form-group">
                                         <label for="composition_language" class="col-sm-3 control-label">Language*</label>
                                         <div class="col-sm-9">
-                                            <div class="fg-line">
-                                                <select class="form-control" name="composition_language" id="composition_language">
-                                                    <option value="">Select Language...</option>
-                                                    <option value="Hindi">Hindi</option>
-                                                    <option value="English">English</option>
-                                                </select>
+                                            <div class="fg-line pos-relative">
+                                                    <select class="form-control" name="composition_language" id="composition_language">
+                                                        <option value="">Select Language...</option>
+                                                        <option value="Hindi">Hindi</option>
+                                                        <option value="English">English</option>
+                                                    </select>
+                                                    <span class="error-span" data-error-for="composition_language"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="book_language" class="col-sm-3 control-label">Category*</label>
                                         <div class="col-sm-9">
-                                            <div class="fg-line">
-                                                <select class="form-control" name="composition_category"
-                                                        id="composition_category">
+                                            <div class="fg-line pos-relative">
+                                                <select class="form-control" name="composition_category" id="composition_category">
                                                     <option value="">Select Category...</option>
                                                     <option value="Stories">Stories</option>
                                                     <option value="Articles">Articles</option>
@@ -329,22 +336,25 @@
                                                     <option value="Novels">Novels</option>
                                                     <option value="Motivational">Motivational</option>
                                                 </select>
+                                                <span class="error-span" data-error-for="composition_category"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="book_language" class="col-sm-3 control-label">Composition Title *</label>
                                         <div class="col-sm-9">
-                                            <div class="fg-line">
+                                            <div class="fg-line pos-relative">
                                                 <input type="text" class="form-control" name="composition_title" id="composition_title" placeholder="Title of book" />
+                                                <span class="error-span" data-error-for="composition_title"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="book_language" class="col-sm-3 control-label">About this composition/ <br> creation*</label>
                                         <div class="col-sm-9">
-                                            <div class="fg-line">
+                                            <div class="fg-line pos-relative">
                                                 <textarea class="form-control" name="about_composition" id="about_composition" rows="8" placeholder=""></textarea>
+                                                <span class="error-span" data-error-for="about_composition"></span>
                                             </div>
                                         </div>
                                     </div>

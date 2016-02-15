@@ -1328,6 +1328,10 @@ mark,
 .text-capitalize {
   text-transform: capitalize;
 }
+
+div.showSweetAlert>h2.error {
+  color: #777;
+}
 .text-muted {
   color: #777;
 }

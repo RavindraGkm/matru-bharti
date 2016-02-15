@@ -87,7 +87,7 @@ MBJS.UserProfile.prototype = {
                     return false
                 }
                 var fsize = $('#profileImage')[0].files[0].size; //get file size
-                console.log(fsize);
+                //console.log(fsize);
                 var ftype = $('#profileImage')[0].files[0].type; // get file type
                 //allow only valid image file types
                 switch(ftype) {
@@ -122,7 +122,7 @@ MBJS.UserProfile.prototype = {
             dataType: 'JSON',
             headers:{Authorization : auth_token},
             success:function(data){
-                console.log(data);
+                //console.log(data);
                 $('#author_email').html(data.result.email);
                 $('#author_mobile').html(data.result.mobile);
                 $('.span-auth-name').html(data.result.name);
@@ -131,18 +131,18 @@ MBJS.UserProfile.prototype = {
                 $('#span-auth-city').html(data.result.city);
                 $('#span-auth-dob').html(data.result.dob.split('-').reverse().join('-'));
                 $('#span-auth-about').html(data.result.about);
-                console.log(data.result.dob);
+                //console.log(data.result.dob);
                 var profile_view = $('#profile_view');
                 var profile_editable=$('#profile_editable');
                 if(data.result.name=="") {
-                    console.log("Registration");
+                    //console.log("Registration");
                     profile_view.removeClass('pmbb-view');
                     profile_view.addClass('pmbb-edit');
                     profile_editable.removeClass('pmbb-edit');
                     profile_editable.addClass('pmbb-view');
                 }
                 else {
-                    console.log("Login");
+                    //console.log("Login");
                     profile_view.removeClass('pmbb-edit');
                     profile_view.addClass('pmbb-view');
                     profile_editable.removeClass('pmbb-view');
@@ -173,16 +173,6 @@ MBJS.UserProfile.prototype = {
                 txt_name: {
                     required: true
                 },
-                txt_email: {
-                    required: true,
-                    email : true
-                },
-                txt_mobile: {
-                    required : true,
-                    number:true,
-                    minlength:10,
-                    maxlength:10
-                },
                 txt_address: {
                     required: true
                 },
@@ -200,18 +190,11 @@ MBJS.UserProfile.prototype = {
                 txt_name: {
                     required : 'Enter your name'
                 },
-                txt_email: {
-                    required : 'Enter your email',
-                    email : 'Enter valid email'
-                },
-                txt_mobile: {
-                    required: 'Enter your mobile number',
-                    number: 'Enter Digits only',
-                    minlength: 'Enter 10 digits mobile number',
-                    maxlength: 'Enter 10 digits mobile number'
-                },
                 txt_address: {
                     required : 'Enter your Address'
+                },
+                txt_city: {
+                    required : 'Enter your city'
                 },
                 txt_dob: {
                     required : 'Enter your Date of birth'
@@ -264,6 +247,7 @@ MBJS.UserProfile.prototype = {
                         $('#span-auth-city').html(txt_city);
                         $('#span-auth-dob').html(txt_dob);
                         $('#span-auth-about').html(about);
+                        $('.pmbb-body div.pmbb-header ul.actions ').show();
                     },
                     complete:function(data) {
                         if(data.status=="success"){
@@ -281,7 +265,7 @@ MBJS.UserProfile.prototype = {
             },
             unhighlight: function(element, errorClass, validClass) {
                 $(element).removeClass('error');
-                $(element).closest('li').find('.error-span').css('opacity',0);
+                $(element).closest('.pos-relative').find('.error-span').css('opacity',0);
             }
         });
     }

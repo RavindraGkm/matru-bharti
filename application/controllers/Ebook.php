@@ -107,7 +107,6 @@ class Ebook extends REST_Controller {
             else {
                 $response = $this->Ebook_model->get_ebook_list($headers['Authorization']);
             }
-
 //            $this->response($response,REST_Controller::HTTP_OK);
             if ($response['status']=='success') {
                 $this->response($response, REST_Controller::HTTP_OK);

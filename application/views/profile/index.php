@@ -184,9 +184,12 @@
                                         <dt class="p-t-10">Name*</dt>
                                         <dd>
                                             <div class="fg-line">
-                                                <input type="hidden" value="<?php echo $remember_token; ?>" name="remember_token" id="remember_token">
-                                                <input type="hidden" value="<?php echo $author_id; ?>" name="author_id" id="author_id">
-                                                <input type="text" value="" autocomplete="off" class="form-control" name="txt_name" id="txt_name" placeholder="eg. Mallinda Hollaway">
+                                                <div class="pos-relative">
+                                                    <input type="hidden" value="<?php echo $remember_token; ?>" name="remember_token" id="remember_token">
+                                                    <input type="hidden" value="<?php echo $author_id; ?>" name="author_id" id="author_id">
+                                                    <input type="text" value="" autocomplete="off" class="form-control" name="txt_name" id="txt_name" placeholder="eg. Mallinda Hollaway">
+                                                    <span class="error-span" data-error-for="txt_name"></span>
+                                                </div>
                                             </div>
 
                                         </dd>
@@ -195,7 +198,10 @@
                                         <dt class="p-t-10">Address</dt>
                                         <dd>
                                             <div class="fg-line">
-                                                <textarea class="form-control" rows="2" name="txt_address" id="txt_address" placeholder="Address"></textarea>
+                                                <div class="pos-relative">
+                                                    <textarea class="form-control" rows="2" name="txt_address" id="txt_address" placeholder="Address"></textarea>
+                                                    <span class="error-span" data-error-for="txt_address"></span>
+                                                </div>
                                             </div>
                                         </dd>
                                     </dl>
@@ -203,15 +209,21 @@
                                         <dt class="p-t-10">City</dt>
                                         <dd>
                                             <div class="fg-line">
-                                                <input type="text" class="form-control" name="txt_city" id="txt_city" placeholder="eg. Udaipur">
+                                                <div class="pos-relative">
+                                                    <input type="text" class="form-control" name="txt_city" id="txt_city" placeholder="eg. Udaipur">
+                                                    <span class="error-span" data-error-for="txt_city"></span>
+                                                </div>
                                             </div>
                                         </dd>
                                     </dl>
                                     <dl class="dl-horizontal">
                                         <dt class="p-t-10">Date of Birth</dt>
                                         <dd>
-                                            <div class="dtp-container dropdown fg-line">
-                                                <input type='text' class="form-control date-picker" name="txt_dob" id="txt_dob" data-toggle="dropdown" placeholder="Click here...">
+                                            <div class="pos-relative">
+                                                <div class="dtp-container dropdown fg-line">
+                                                    <input type='text' class="form-control date-picker" name="txt_dob" id="txt_dob" data-toggle="dropdown" placeholder="Click here...">
+                                                </div>
+                                                <span class="error-span" data-error-for="txt_dob"></span>
                                             </div>
                                         </dd>
                                     </dl>
@@ -219,7 +231,10 @@
                                         <dt class="p-t-10">About yourself</dt>
                                         <dd>
                                             <div class="fg-line">
-                                                <textarea class="form-control" rows="10" name="txt_about_yourself" id="txt_about_yourself" placeholder="About your self"></textarea>
+                                                <div class="pos-relative">
+                                                    <textarea class="form-control" rows="10" name="txt_about_yourself" id="txt_about_yourself" placeholder="About your self"></textarea>
+                                                    <span class="error-span" data-error-for="txt_about_yourself"></span>
+                                                </div>
                                             </div>
                                         </dd>
                                     </dl>

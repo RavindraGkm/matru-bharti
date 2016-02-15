@@ -7,13 +7,66 @@ MBJS.Index=function(base_url){
 MBJS.Index.prototype = {
     initialize:function() {
         this.basicSetup();
+        //this.userDuplicacy();
         this.registerUser();
         this.loginUser();
+    },
+    notify: function(message,type) {
+        $.growl({
+            message: message
+        },{
+            type: type,
+            allow_dismiss: false,
+            label: 'Cancel',
+            className: 'btn-xs btn-inverse',
+            placement: {
+                from: 'top',
+                align: 'right'
+            },
+            timer:4000,
+            animate: {
+                enter: 'animated fadeIn',
+                exit: 'animated fadeOut'
+            },
+            offset: {
+                x: 20,
+                y: 85
+            }
+        });
     },
     basicSetup: function() {
         Waves.attach('.waves', 'waves-light');
         Waves.init();
     },
+
+    //userDuplicacy:function() {
+    //    var self=this;
+    //    $('#author_email').blur(function(){
+    //        var author_email = $('#author_email').val();
+    //        $.ajax({
+    //            url: self.base_url+"authors",
+    //            type: "POST",
+    //            dataType: "JSON",
+    //            data: {
+    //                email:author_email
+    //            },
+    //            error:function(data) {
+    //                console.log(data);
+    //                var obj = jQuery.parseJSON(data.responseText);
+    //                if(data.status==422) {
+    //                    swal({
+    //                        title: "Error!",
+    //                        text: obj.msg,
+    //                        timer: 200000,
+    //                        showConfirmButton: false,
+    //                        showCancelButton: false
+    //                    });
+    //                }
+    //            }
+    //        })
+    //    })
+    //},
+
     registerUser:function() {
         var self=this;
         $("#form_register").validate({
@@ -23,7 +76,13 @@ MBJS.Index.prototype = {
                     email : true
                 },
                 author_password: {
-                    required : true
+                    required : true,
+                    minlength:5
+                },
+                author_confirm_password: {
+                    required:true,
+                    minlength:5,
+                    equalTo : "#author_password"
                 },
                 author_mobile: {
                     required : true,
@@ -38,12 +97,23 @@ MBJS.Index.prototype = {
                     email : 'Enter valid email'
                 },
                 author_password: {
-                    required: 'Enter your password'
+                    required: 'Enter your password',
+                    minlength: "Your password must be at least 5 characters long"
+                },
+                author_confirm_password: {
+                    required: "Confirm your password",
+                    minlength: "Your password must be at least 5 characters long",
+                    equalTo: "Please enter the same password as above"
                 },
                 author_mobile: {
-                    required: 'Enter mobile number'
+                    required: 'Enter mobile number',
+                    number: "Characters not allowed",
+                    minlength: 'Enter 10 digits mobile number',
+                    maxlength: 'Enter 10 digits mobile number'
                 }
             },
+
+
             submitHandler: function(form) {
                 var author_email = $('#author_email').val();
                 var author_password = $('#author_password').val();
@@ -64,13 +134,7 @@ MBJS.Index.prototype = {
                     error:function(data) {
                         var obj = jQuery.parseJSON(data.responseText);
                         if(data.status==422) {
-                            swal({
-                                title: "Error!",
-                                text: obj.error[0],
-                                timer: 2000,
-                                showConfirmButton: false,
-                                showCancelButton: false
-                            });
+                            self.notify(obj.msg,'inverse');
                         }
                         else if(data.status==500) {
                             swal({
@@ -111,7 +175,7 @@ MBJS.Index.prototype = {
             },
             unhighlight: function(element, errorClass, validClass) {
                 $(element).removeClass('error');
-                $(element).closest('li').find('.error-span').css('opacity',0);
+                $(element).closest('.pos-relative').find('.error-span').css('opacity',0);
             }
         });
     },
@@ -154,7 +218,7 @@ MBJS.Index.prototype = {
                     error: function(data) {
                         console.log(data);
                         if(data.status==401) {
-                            alert("Unauthorized access !");
+                            self.notify('Unauthorized access !','inverse');
                         }
                     },
                     success: function (data) {

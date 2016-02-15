@@ -3,6 +3,8 @@ class Composition_model extends CI_Model {
     public function upload_new_composition ($params,$auth_token) {
         $query = $this->db->get_where('authors', array('token' => $auth_token));
         $response = array();
+        $current_date=date('Y-m-d');
+        $params['created_at']=$current_date;
         if($query->num_rows()>0) {
             $sql = $this->db->insert('compositions', $params);
             if($sql) {

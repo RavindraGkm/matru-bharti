@@ -9,6 +9,20 @@
  */
 
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+
+.pos-relative {
+  position: relative;
+}
+
+.pos-relative .error-span {
+  position: absolute;
+  right: 3%;
+  top: 23%;
+  opacity: 0;
+  color: rgb(211, 57, 57);
+  font-size: 13px;
+}
+
 .top-menu > li{
   color: #fff;
 }
@@ -13969,7 +13983,7 @@ html:not(.ie9) .select.fg-line:before {
 }
 
 .fg-line:not([class*=has-]):after {
-  background: #2196f3;
+  background: #009688;
 }
 
 .fg-line.readonly .form-control {

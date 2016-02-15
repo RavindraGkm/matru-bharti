@@ -75,6 +75,9 @@ class Authors extends REST_Controller {
 			if($response['status']=='success') {
 				$this->response($response,REST_Controller::HTTP_OK);
 			}
+			else if($response['status']=='error') {
+				$this->response($response,REST_Controller::HTTP_UNPROCESSABLE_ENTITY);
+			}
 			else {
 				$this->response($response,REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
 			}

@@ -24,13 +24,13 @@ class Authors_model extends CI_Model {
 
     public function register_new_author ($params) {
         $reg_email=$params['email'];
-        $sql = 'select * from authors where email=? and password=?';
         $query= $this->db->get_where('authors',array('email'=>$reg_email));
         if($query->num_rows()>0) {
             $response['status'] = 'error';
             $response['msg'] = 'User already exist !';
         }
         else {
+            $params['type']="user";
             $params['token'] = md5($params['email'].time());
             $sql = $this->db->insert('authors', $params);
             $response = array();
@@ -98,7 +98,10 @@ class Authors_model extends CI_Model {
         if($query->num_rows()>0) {
             $row = $query->row_array();
             if($row['type']=='admin') {
-                $query = $this->db->get_where('authors', array('type' => "public"));
+//                $type="user";
+//                $query = $this->db->get_where('authors', array('type' => $type));
+                $sql = "SELECT authors.*, (SELECT COUNT(*) FROM ebooks WHERE ebooks.author_id = authors.id) AS no_ebooks, (SELECT COUNT(*) FROM compositions WHERE compositions.author_id = authors.id) AS no_compositions FROM authors where authors.type<>'admin'";
+                $query = $this->db->query($sql);
                 if ($query->num_rows() > 0) {
                     $response['status'] = 'success';
                     $response['result'] = $query->result_array();
