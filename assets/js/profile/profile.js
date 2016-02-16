@@ -48,7 +48,7 @@ MBJS.UserProfile.prototype = {
         var remember_token = $('#remember_token').val();
         var progressbox = $('#progressbox');
         var progressbar = $('.custom-progress');
-        var statustxt = $('.custom-progress span');
+        var statusauthor = $('.custom-progress span');
         var completed = '0%';
         var uploadingprogressdiv = $('.uploading-progress-div');
         var author_id=$('#author_id').val();
@@ -71,7 +71,7 @@ MBJS.UserProfile.prototype = {
         function OnProgress(event, position, total, percentComplete) {
             progressbar.removeClass(self.last_class).addClass("p"+percentComplete);
             self.last_class = "p"+percentComplete;
-            statustxt.html(percentComplete + '%');
+            statusauthor.html(percentComplete + '%');
         }
 
         function afterSuccess() {
@@ -122,10 +122,11 @@ MBJS.UserProfile.prototype = {
             dataType: 'JSON',
             headers:{Authorization : auth_token},
             success:function(data){
-                //console.log(data);
+                console.log(data);
                 $('#author_email').html(data.result.email);
                 $('#author_mobile').html(data.result.mobile);
                 $('.span-auth-name').html(data.result.name);
+                $('.span-auth-hindi-name').html(data.result.hindi_name);
                 $('#h2_name').html(data.result.name);
                 $('#span-auth-address').html(data.result.address);
                 $('#span-auth-city').html(data.result.city);
@@ -150,11 +151,12 @@ MBJS.UserProfile.prototype = {
                 }
 
                 $('#edit-auth-profile').click(function(){
-                    $('#txt_name').val(data.result.name);
-                    $('#txt_address').val(data.result.address);
-                    $('#txt_city').val(data.result.city);
-                    $('#txt_dob').val(data.result.dob.split('-').reverse().join('-'));
-                    $('#txt_about_yourself').val(data.result.about);
+                    $('#author_name').val(data.result.name);
+                    $('#author_hindi_name').val(data.result.hindi_name);
+                    $('#author_address').val(data.result.address);
+                    $('#author_city').val(data.result.city);
+                    $('#author_dob').val(data.result.dob.split('-').reverse().join('-'));
+                    $('#author_about_yourself').val(data.result.about);
                     $('.pmbb-body div.pmbb-header ul.actions ').hide();
                 });
                 $('#btn-cancel-edit-pro').click(function(){
@@ -164,51 +166,58 @@ MBJS.UserProfile.prototype = {
         });
     },
     profileUpdate:function() {
-        $('#txt_name').keyup(function(){
-            $('#h2_name').html($('#txt_name').val());
+        $('#author_name').keyup(function(){
+            $('#h2_name').html($('#author_name').val());
         });
         var self=this;
         $("#form_profile_update").validate({
             rules: {
-                txt_name: {
+                author_name: {
                     required: true
                 },
-                txt_address: {
+                author_hindi_name: {
                     required: true
                 },
-                txt_city: {
+                author_address: {
                     required: true
                 },
-                txt_dob: {
+                author_city: {
                     required: true
                 },
-                txt_about_yourself: {
+                author_dob: {
+                    required: true
+                },
+                author_about_yourself: {
                     required: true
                 }
             },
             messages : {
-                txt_name: {
+                author_name: {
                     required : 'Enter your name'
                 },
-                txt_address: {
+                author_hindi_name: {
+                    required: 'Enter your name in hindi'
+                },
+                author_address: {
                     required : 'Enter your Address'
                 },
-                txt_city: {
+                author_city: {
                     required : 'Enter your city'
                 },
-                txt_dob: {
+                author_dob: {
                     required : 'Enter your Date of birth'
                 },
-                txt_about_yourself: {
+                author_about_yourself: {
                     required: 'Enter about your self'
                 }
             },
             submitHandler: function(form) {
-                var txt_name = $('#txt_name').val();
-                var txt_address = $('#txt_address').val();
-                var txt_city = $('#txt_city').val();
-                var txt_dob = $('#txt_dob').val().split('-').reverse().join('-');
-                var about = $('#txt_about_yourself').val();
+                var author_name = $('#author_name').val();
+                var author_hindi_name=$('#author_hindi_name').val();
+                var author_address = $('#author_address').val();
+                var author_city = $('#author_city').val();
+                var author_dob = $('#author_dob').val().split('-').reverse().join('-');
+                var about = $('#author_about_yourself').val();
                 var remember_token = $('#remember_token').val();
                 var update_button = $('#btn-update-profile');
                 var author_id=$('#author_id').val();
@@ -219,8 +228,8 @@ MBJS.UserProfile.prototype = {
                     type: "PUT",
                     dataType: "JSON",
                     data:{
-                        name: txt_name,address: txt_address,
-                        city: txt_city,dob: txt_dob,
+                        name: author_name,hindi_name:author_hindi_name,address: author_address,
+                        city: author_city,dob: author_dob,
                         about: about
                     },
                     headers:{Authorization : remember_token},
@@ -242,10 +251,10 @@ MBJS.UserProfile.prototype = {
                         console.log(data);
                         self.notify("Profile Updated successfully",'inverse');
                         update_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
-                        $('.span-auth-name').html(txt_name);
-                        $('#span-auth-address').html(txt_address);
-                        $('#span-auth-city').html(txt_city);
-                        $('#span-auth-dob').html(txt_dob);
+                        $('.span-auth-name').html(author_name);
+                        $('#span-auth-address').html(author_address);
+                        $('#span-auth-city').html(author_city);
+                        $('#span-auth-dob').html(author_dob);
                         $('#span-auth-about').html(about);
                         $('.pmbb-body div.pmbb-header ul.actions ').show();
                     },

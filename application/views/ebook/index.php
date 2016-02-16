@@ -90,6 +90,10 @@
                 <a href="<?php echo base_url('ebook-mng?tab=composition_list'); ?>"> <i class="fa fa-list"></i> List of
                     Uploaded Composition</a>
             </li>
+            <li>
+                <a href="<?php echo base_url('ebook-mng?tab=event'); ?>"><i class="fa fa-book"></i> Event
+                    Management</a>
+            </li>
         </ul>
     </aside>
     <div id="content">
@@ -122,6 +126,11 @@
                             <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of Composition Files
                         </a>
                     </li>
+                    <li role="presentation" id="tab_event">
+                        <a href="#event" aria-controls="event" role="tab" data-toggle="tab">
+                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;Event Creation
+                        </a>
+                    </li>
                 </ul>
 
                 <!-- Tab panes -->
@@ -130,10 +139,8 @@
                         <div class="card no-shadow">
                             <input type="hidden" value="<?php echo $remember_token; ?>" name="remember_token"
                                    id="remember_token">
-                            <input type="hidden" value="<?php echo $author_id; ?>" name="author_id" id="author_id">
-<!--                            --><?php
-//                            $current_date= date('Y-m-d');
-//                            ?>
+                           <input type="hidden" value="<?php echo $author_id; ?>" name="author_id" id="author_id">
+
                             <form id="form_ebook_upload" class="form-horizontal">
                                 <div class="card-header">
                                     <h2>E-Book Information
@@ -144,8 +151,6 @@
                                         </small>
                                     </h2>
                                 </div>
-
-<!--                                <input type="hidden" id="ebook_creation_date" name="ebook_creation_date" value="--><?php //echo $current_date;?><!--">-->
                                 <div class="card-body card-padding">
                                     <div class="form-group">
                                         <label for="book_category" class="col-sm-3 control-label">Select Language
@@ -217,7 +222,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="book_language" class="col-sm-3 control-label">File (Only doc/docx)*</label>
+                                        <label for="book_language" class="col-sm-3 control-label">File (Only pdf)*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line pos-relative">
                                                 <input type="hidden" name="ebook_file_path" id="ebook_file_path" value="">
@@ -362,7 +367,7 @@
                                         <label for="book_language" class="col-sm-3 control-label"></label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <button class="btn btn-primary btn-sm" type="submit" name="btn-save-composition-info" id="btn-save-book-info">
+                                                <button class="btn btn-primary btn-sm" type="submit" name="btn-save-composition-info" id="btn-save-composition-info">
                                                     Save Composition Info
                                                 </button>
                                                 <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
@@ -410,6 +415,88 @@
                             </div>
                         </div>
                     </div>
+                    <div role="tabpanel" class="tab-pane pmb-block" id="event">
+                        <div class="card no-shadow">
+                            <form id="form_event_upload" class="form-horizontal">
+                                <div class="card-header">
+                                    <h2>Event's Information
+                                        <small>Use Bootstrap's predefined grid classes to align labels and groups of
+                                            form controls in a horizontal layout by adding '.form-horizontal' to the
+                                            form. Doing so changes '.form-groups' to behave as grid rows, so no need for
+                                            '.row'.
+                                        </small>
+                                    </h2>
+                                </div>
+                                <div class="card-body card-padding">
+                                    <div class="form-group">
+                                        <label for="event_title" class="col-sm-3 control-label">File Title*</label>
+                                        <div class="col-sm-9">
+                                            <div class="fg-line pos-relative">
+                                                <input type="text" class="form-control" name="event_title" id="event_title" placeholder="Title of Event">
+                                                <span class="error-span" data-error-for="event_title"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="event_title" class="col-sm-3 control-label">Date of Event*</label>
+                                        <div class="col-sm-9">
+                                            <div class="fg-line pos-relative">
+                                                <input type='text' class="form-control date-picker" name="author_dob" id="author_dob" data-toggle="dropdown" placeholder="Click here...">
+                                                <span class="error-span" data-error-for="author_dob"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="book_language" class="col-sm-3 control-label">Event Image <br>(Image Only jpeg/jpg/png/gif)*</label>
+                                        <div class="col-sm-9">
+                                            <div class="fg-line">
+                                                <form class="form-image-upload" action="<?php echo base_url('ebook-cover-image-2'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="event_img_upload_form">
+                                                    <div class="fileinput fileinput-new file-prev-mng" data-provides="fileinput">
+                                                        <div class="fileinput-preview thumbnail" data-trigger="fileinput">
+                                                            <img src="<?php echo base_url('assets/img/headers/ebook-default/ebook_deft_img.jpg'); ?>" class="img-responsive"/>
+                                                        </div>
+                                                        <div>
+                                                            <span class="btn btn-primary btn-file" id="select_image">
+                                                                <span class="fileinput-new">Select image</span>
+                                                                <span class="fileinput-exists">Change</span>
+                                                                <input type="file" name="event_img" id="event_img">
+                                                            </span>
+                                                            <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                <span class="error-span" data-error-for=""></span>
+                                            </div>
+                                            <div class="uploading-progress-div hidden">
+                                                <div class="uploading-div-wrapper">
+                                                    <div class="dis-mid">
+                                                        <div class="c100 p0 small orange custom-progress">
+                                                            <span>0%</span>
+                                                            <div class="slice">
+                                                                <div class="bar"></div>
+                                                                <div class="fill"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="book_language" class="col-sm-3 control-label"></label>
+                                        <div class="col-sm-9">
+                                            <div class="fg-line">
+                                                <button class="btn btn-primary btn-sm" type="submit" name="btn-save-composition-info" id="btn-save-composition-info">
+                                                    Save Event Info
+                                                </button>
+                                                <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -443,6 +530,8 @@ echo script_tag('assets/js/jquery.mCustomScrollbar.concat.min.js');
 echo script_tag('assets/js/waves.min.js');
 echo script_tag('assets/js/bootstrap-growl.min.js');
 echo script_tag('assets/js/sweet-alert.min.js');
+echo script_tag('assets/js/moment.min.js');
+echo script_tag('assets/js/bootstrap-datetimepicker.min.js');
 echo script_tag('assets/js/functions.js');
 echo script_tag('assets/js/bootstrap-select.js');
 echo script_tag('assets/js/fileinput.min.js');

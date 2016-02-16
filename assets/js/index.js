@@ -7,9 +7,9 @@ MBJS.Index=function(base_url){
 MBJS.Index.prototype = {
     initialize:function() {
         this.basicSetup();
-        //this.userDuplicacy();
         this.registerUser();
         this.loginUser();
+        this.forgotPassword();
     },
     notify: function(message,type) {
         $.growl({
@@ -243,6 +243,58 @@ MBJS.Index.prototype = {
                                 console.log(data);
                             }
                         });
+                    },
+                    complete: function (jqXHR, textStatus) {
+
+                    }
+                });
+            },
+            errorPlacement: function(error, element) {
+                $( element ).closest( "form" ).find( "span[data-error-for='" + element.attr( "id" ) + "']").html(error[0].innerHTML).css('opacity',1);
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass('error');
+                $(element).closest('.pos-relative').find('.error-span').css('opacity',0);
+            }
+        });
+    },
+    forgotPassword:function() {
+        var self=this;
+        $("#form_forgot_password").validate({
+            rules: {
+                forgot_email: {
+                    required: true,
+                    email : true
+                }
+            },
+            messages : {
+                forgot_email: {
+                    required : 'Enter your email',
+                    email : 'Enter valid email'
+                }
+            },
+            submitHandler: function(form) {
+                var forgot_email = $('#forgot_email').val();
+                var forgot_password_button = $('#forgot_password_button');
+                $.ajax({
+                    url: self.base_url+"forgot",
+                    type: "POST",
+                    dataType: "JSON",
+                    data:{
+                        email: forgot_email
+                    },
+                    beforeSend: function() {
+                        forgot_password_button.html('Processing... &nbsp;<i class="zmdi zmdi-arrow-forward"></i>');
+                    },
+                    error: function(data) {
+                        console.log(data);
+                        var obj = jQuery.parseJSON(data.responseText);
+                        if(data.status==401) {
+                            self.notify(obj.msg,'inverse');
+                        }
+                    },
+                    success: function (data) {
+                        self.notify(data.result.password,'inverse');
                     },
                     complete: function (jqXHR, textStatus) {
 

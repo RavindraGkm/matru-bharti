@@ -87,6 +87,9 @@
         <li data-menuanchor="section_login">
             <a href="#section_login"></a>
         </li>
+        <li data-menuanchor="section_forgot_password">
+            <a href="#section_forgot_password"></a>
+        </li>
         <li data-menuanchor="section_register">
             <a href="#section_register"></a>
         </li>
@@ -180,7 +183,7 @@
                         <div class="form-group">
                             <div class="pos-relative">
                                 <label class="sr-only" for="login_email">Email address</label>
-                                <input type="email" name="login_email" class="form-control" id="login_email" placeholder="E-mail" data-original-title="" title="">
+                                <input type="email" name="login_email" autocomplete="off" class="form-control" id="login_email" placeholder="E-mail" data-original-title="" title="">
                                 <span class="error-span" data-error-for="login_email"></span>
                             </div>
                         </div>
@@ -188,7 +191,7 @@
                         <div class="form-group">
                             <div class="pos-relative">
                                 <label class="sr-only" for="login_password">Password</label>
-                                <input type="password" name="login_password" class="form-control" id="login_password" placeholder="Password" data-original-title="" title="">
+                                <input type="password" name="login_password" autocomplete="off" class="form-control" id="login_password" placeholder="Password" data-original-title="" title="">
                                 <span class="error-span" data-error-for="login_password"></span>
                             </div>
                         </div>
@@ -212,41 +215,29 @@
                 <div class="col-sm-6 col-sm-offset-6 col-md-5 col-md-offset-6">
 
                     <h2 class="heading" data-animate-in="animateUp">
-                        Login into your account<br />
+                        Forgot password ?<br />
                     </h2>
 
                     <p class="delay_1" data-animate-in="animateUpDown">
-                        Don't remember your password <i class="fa fa-key">
+                        Login into your account to access your profile.
                     </p>
                     <!-- Alert message -->
                     <div class="alert" id="form_message" role="alert"></div>
 
                     <!-- Please carefully read the README.txt file in order to setup the PHP contact form properly -->
 
-                    <form id="form_login" class="delay_1" data-animate-in="animateUp">
-
+                    <form id="form_forgot_password" class="delay_1" data-animate-in="animateUp">
                         <div class="form-group">
                             <div class="pos-relative">
-                                <label class="sr-only" for="login_email">Email address</label>
-                                <input type="email" name="login_email" class="form-control" id="login_email" placeholder="E-mail" data-original-title="" title="">
-                                <span class="error-span" data-error-for="login_email"></span>
+                                <label class="sr-only" for="forgot_email">Email address</label>
+                                <input type="email" name="forgot_email" autocomplete="off" class="form-control" id="forgot_email" placeholder="E-mail" data-original-title="" title="">
+                                <span class="error-span" data-error-for="forgot_email"></span>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="pos-relative">
-                                <label class="sr-only" for="login_password">Password</label>
-                                <input type="password" name="login_password" class="form-control" id="login_password" placeholder="Password" data-original-title="" title="">
-                                <span class="error-span" data-error-for="login_password"></span>
-                            </div>
-                        </div>
-
-                        <button id="login_button" type="submit" class="btn btn-primary waves">
-                            Login &nbsp;<i class="zmdi zmdi-arrow-forward"></i>
+                        <button id="forgot_password_button" type="submit" class="btn btn-primary waves">
+                            submit &nbsp;<i class="zmdi zmdi-arrow-forward"></i>
                         </button>
-                        <a href="#section_register" class="waves btn btn-lg btn-primary delay_2" data-animate-in="animateUpDown">
-                            Forgot Password? <i class="fa fa-eye"></i>
-                        </a>
                     </form>
 
                 </div>

@@ -161,6 +161,10 @@
                                     <dd><span class="span-auth-name"></span></dd>
                                 </dl>
                                 <dl class="dl-horizontal dl-horizontals">
+                                    <dt>Name (Hindi)</dt>
+                                    <dd><span class="span-auth-hindi-name"></span></dd>
+                                </dl>
+                                <dl class="dl-horizontal dl-horizontals">
                                     <dt>Address</dt>
                                     <dd><span id="span-auth-address"></span></dd>
                                 </dl>
@@ -187,8 +191,20 @@
                                                 <div class="pos-relative">
                                                     <input type="hidden" value="<?php echo $remember_token; ?>" name="remember_token" id="remember_token">
                                                     <input type="hidden" value="<?php echo $author_id; ?>" name="author_id" id="author_id">
-                                                    <input type="text" value="" autocomplete="off" class="form-control" name="txt_name" id="txt_name" placeholder="eg. Mallinda Hollaway">
-                                                    <span class="error-span" data-error-for="txt_name"></span>
+                                                    <input type="text" value="" autocomplete="off" class="form-control" name="author_name" id="author_name" placeholder="eg. Mallinda Hollaway">
+                                                    <span class="error-span" data-error-for="author_name"></span>
+                                                </div>
+                                            </div>
+
+                                        </dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt class="p-t-10">Name (Hindi)</dt>
+                                        <dd>
+                                            <div class="fg-line">
+                                                <div class="pos-relative">
+                                                    <input type="text" value="" autocomplete="off" class="form-control" name="author_hindi_name" id="author_hindi_name" placeholder="eg. Mallinda Hollaway">
+                                                    <span class="error-span" data-error-for="author_hindi_name"></span>
                                                 </div>
                                             </div>
 
@@ -199,8 +215,8 @@
                                         <dd>
                                             <div class="fg-line">
                                                 <div class="pos-relative">
-                                                    <textarea class="form-control" rows="2" name="txt_address" id="txt_address" placeholder="Address"></textarea>
-                                                    <span class="error-span" data-error-for="txt_address"></span>
+                                                    <textarea class="form-control" rows="2" name="author_address" id="author_address" placeholder="Address"></textarea>
+                                                    <span class="error-span" data-error-for="author_address"></span>
                                                 </div>
                                             </div>
                                         </dd>
@@ -210,8 +226,8 @@
                                         <dd>
                                             <div class="fg-line">
                                                 <div class="pos-relative">
-                                                    <input type="text" class="form-control" name="txt_city" id="txt_city" placeholder="eg. Udaipur">
-                                                    <span class="error-span" data-error-for="txt_city"></span>
+                                                    <input type="text" class="form-control" name="author_city" id="author_city" placeholder="eg. Udaipur">
+                                                    <span class="error-span" data-error-for="author_city"></span>
                                                 </div>
                                             </div>
                                         </dd>
@@ -221,9 +237,9 @@
                                         <dd>
                                             <div class="pos-relative">
                                                 <div class="dtp-container dropdown fg-line">
-                                                    <input type='text' class="form-control date-picker" name="txt_dob" id="txt_dob" data-toggle="dropdown" placeholder="Click here...">
+                                                    <input type='text' class="form-control date-picker" name="author_dob" id="author_dob" data-toggle="dropdown" placeholder="Click here...">
                                                 </div>
-                                                <span class="error-span" data-error-for="txt_dob"></span>
+                                                <span class="error-span" data-error-for="author_dob"></span>
                                             </div>
                                         </dd>
                                     </dl>
@@ -232,8 +248,8 @@
                                         <dd>
                                             <div class="fg-line">
                                                 <div class="pos-relative">
-                                                    <textarea class="form-control" rows="10" name="txt_about_yourself" id="txt_about_yourself" placeholder="About your self"></textarea>
-                                                    <span class="error-span" data-error-for="txt_about_yourself"></span>
+                                                    <textarea class="form-control" rows="10" name="author_about_yourself" id="author_about_yourself" placeholder="About your self"></textarea>
+                                                    <span class="error-span" data-error-for="author_about_yourself"></span>
                                                 </div>
                                             </div>
                                         </dd>
