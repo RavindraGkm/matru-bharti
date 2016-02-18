@@ -122,6 +122,7 @@
                                 <table id="data-table-basic" class="table table-striped">
                                     <thead>
                                     <tr>
+                                        <th data-column-id="serial_no">S.No.</th>
                                         <th data-column-id="file_title">File Title</th>
                                         <th data-column-id="file_published_status">File Published Status</th>
                                         <th data-column-id="publish-date">Publish Date</th>
@@ -141,6 +142,7 @@
                                 <table id="data-table-composition" class="table table-striped">
                                     <thead>
                                     <tr>
+                                        <th data-column-id="serial_no">S.No.</th>
                                         <th data-column-id="file-title">File Title</th>
                                         <th data-column-id="about_composition" data-formatter="links">Composition</th>
                                         <th data-column-id="file_published_status">File Published Status</th>
@@ -162,6 +164,7 @@
                                 <table id="data-table-authors" class="table table-striped">
                                     <thead>
                                     <tr>
+                                        <th data-column-id="serial_no">S.No.</th>
                                         <th data-column-id="author_name">Name</th>
                                         <th data-column-id="author_address">Address</th>
                                         <th data-column-id="author_city">City</th>

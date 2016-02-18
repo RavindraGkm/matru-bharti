@@ -74,24 +74,24 @@
         </div>
 
         <ul class="main-menu">
-            <li>
+            <li id="a_ebook">
                 <a href="<?php echo base_url('ebook-mng?tab=ebook'); ?>"><i class="fa fa-book"></i> E-Book
                     Management</a>
             </li>
-            <li>
+            <li id="a_composition">
                 <a href="<?php echo base_url('ebook-mng?tab=composition'); ?>"> <i class="fa fa-file-word-o"></i>
                     Composition</a>
             </li>
-            <li>
+            <li id="a_ebook_list">
                 <a href="<?php echo base_url('ebook-mng?tab=ebook_list'); ?>"> <i class="fa fa-list"></i> List of
                     Uploaded Books</a>
             </li>
-            <li>
+            <li id="a_composition_list">
                 <a href="<?php echo base_url('ebook-mng?tab=composition_list'); ?>"> <i class="fa fa-list"></i> List of
                     Uploaded Composition</a>
             </li>
-            <li>
-                <a href="<?php echo base_url('ebook-mng?tab=event'); ?>"><i class="fa fa-book"></i> Event
+            <li id="a_event">
+                <a href="<?php echo base_url('ebook-mng?tab=event'); ?>"><i class="fa fa-bell"></i> Event
                     Management</a>
             </li>
         </ul>
@@ -128,7 +128,7 @@
                     </li>
                     <li role="presentation" id="tab_event">
                         <a href="#event" aria-controls="event" role="tab" data-toggle="tab">
-                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;Event Creation
+                            <i class="fa fa-bell fa-lg"></i>&nbsp;&nbsp;Event Creation
                         </a>
                     </li>
                 </ul>
@@ -231,7 +231,7 @@
                                                         <span class="btn btn-primary btn-file m-r-10">
                                                             <span class="fileinput-new">Select file</span>
                                                             <span class="fileinput-exists">Change</span>
-                                                            <input type="file" name="ebook_file" id="ebook_file"/>
+                                                            <input type="file" name="ebook_file" id="ebook_file" accept="application/pdf"/>
                                                         </span>
                                                         <span class="fileinput-filename"></span>
                                                         <a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
@@ -255,7 +255,7 @@
                                                             <span class="btn btn-primary btn-file" id="select_image">
                                                                 <span class="fileinput-new">Select image</span>
                                                                 <span class="fileinput-exists">Change</span>
-                                                                <input type="file" name="ebook_cover" id="ebook_cover">
+                                                                <input type="file" name="ebook_cover" id="ebook_cover" accept="image/*">
                                                             </span>
                                                             <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
                                                         </div>
@@ -384,6 +384,7 @@
                                 <table id="data-table-basic" class="table table-striped">
                                     <thead>
                                     <tr>
+                                        <th data-column-id="serial_number">S.No.</th>
                                         <th data-column-id="file_title">File Title</th>
                                         <th data-column-id="file-published-status">File Published Status</th>
                                         <th data-column-id="publish-date">Publish Date</th>
@@ -403,6 +404,7 @@
                                 <table id="data-table-composition" class="table table-striped">
                                     <thead>
                                     <tr>
+                                        <th data-column-id="serial_number">S.No.</th>
                                         <th data-column-id="file-title">File Title</th>
                                         <th data-column-id="file-published-status">File Published Status</th>
                                         <th data-column-id="publish-date">Publish Date</th>
@@ -416,87 +418,122 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane pmb-block" id="event">
-                        <div class="card no-shadow">
-                            <form id="form_event_upload" class="form-horizontal">
-                                <div class="card-header">
-                                    <h2>Event's Information
-                                        <small>Use Bootstrap's predefined grid classes to align labels and groups of
-                                            form controls in a horizontal layout by adding '.form-horizontal' to the
-                                            form. Doing so changes '.form-groups' to behave as grid rows, so no need for
-                                            '.row'.
-                                        </small>
-                                    </h2>
-                                </div>
-                                <div class="card-body card-padding">
-                                    <div class="form-group">
-                                        <label for="event_title" class="col-sm-3 control-label">File Title*</label>
-                                        <div class="col-sm-9">
-                                            <div class="fg-line pos-relative">
-                                                <input type="text" class="form-control" name="event_title" id="event_title" placeholder="Title of Event">
-                                                <span class="error-span" data-error-for="event_title"></span>
-                                            </div>
+                        <ul class="tab-nav" role="tablist">
+                            <li role="presentation" id="tab_event_create">
+                                <a href="#event_create" aria-controls="event_create" role="tab" data-toggle="tab">
+                                    <i class="fa fa-bell fa-lg"></i>&nbsp;&nbsp;Event Creation
+                                </a>
+                            </li>
+                            <li role="presentation" id="tab_event_list">
+                                <a href="#event_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">
+                                    <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of Events
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane pmb-block" id="event_create">
+                                <div class="card no-shadow">
+                                    <form id="form_event_upload" class="form-horizontal">
+                                        <div class="card-header">
+                                            <h2>Event's Information
+                                                <small>Use Bootstrap's predefined grid classes to align labels and groups of
+                                                    form controls in a horizontal layout by adding '.form-horizontal' to the
+                                                    form. Doing so changes '.form-groups' to behave as grid rows, so no need for
+                                                    '.row'.
+                                                </small>
+                                            </h2>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="event_title" class="col-sm-3 control-label">Date of Event*</label>
-                                        <div class="col-sm-9">
-                                            <div class="fg-line pos-relative">
-                                                <input type='text' class="form-control date-picker" name="author_dob" id="author_dob" data-toggle="dropdown" placeholder="Click here...">
-                                                <span class="error-span" data-error-for="author_dob"></span>
+                                        <div class="card-body card-padding">
+                                            <div class="form-group">
+                                                <label for="event_title" class="col-sm-3 control-label">File Title*</label>
+                                                <div class="col-sm-9">
+                                                    <div class="fg-line pos-relative">
+                                                        <input type="text" class="form-control" name="event_title" id="event_title" placeholder="Title of Event">
+                                                        <span class="error-span" data-error-for="event_title"></span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="book_language" class="col-sm-3 control-label">Event Image <br>(Image Only jpeg/jpg/png/gif)*</label>
-                                        <div class="col-sm-9">
-                                            <div class="fg-line">
-                                                <form class="form-image-upload" action="<?php echo base_url('ebook-cover-image-2'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="event_img_upload_form">
-                                                    <div class="fileinput fileinput-new file-prev-mng" data-provides="fileinput">
-                                                        <div class="fileinput-preview thumbnail" data-trigger="fileinput">
-                                                            <img src="<?php echo base_url('assets/img/headers/ebook-default/ebook_deft_img.jpg'); ?>" class="img-responsive"/>
-                                                        </div>
-                                                        <div>
+                                            <div class="form-group">
+                                                <label for="event_date" class="col-sm-3 control-label">Date of Event*</label>
+                                                <div class="col-sm-9">
+                                                    <div class="fg-line pos-relative">
+                                                        <input type='text' class="form-control date-picker" name="event_date" id="event_date" data-toggle="dropdown" placeholder="Click here...">
+                                                        <span class="error-span" data-error-for="event_date"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="book_language" class="col-sm-3 control-label">Event Image <br>(Image Only jpeg/jpg/png/gif)*</label>
+                                                <div class="col-sm-9">
+                                                    <div class="fg-line">
+                                                        <form class="form-image-upload" action="<?php echo base_url('ebook-cover-image-2'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="event_img_upload_form">
+                                                            <div class="fileinput fileinput-new file-prev-mng" data-provides="fileinput">
+                                                                <div class="fileinput-preview thumbnail" data-trigger="fileinput">
+                                                                    <img src="<?php echo base_url('assets/img/headers/ebook-default/ebook_deft_img.jpg'); ?>" class="img-responsive"/>
+                                                                </div>
+                                                                <div>
                                                             <span class="btn btn-primary btn-file" id="select_image">
                                                                 <span class="fileinput-new">Select image</span>
                                                                 <span class="fileinput-exists">Change</span>
                                                                 <input type="file" name="event_img" id="event_img">
                                                             </span>
-                                                            <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
-                                                        </div>
+                                                                    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        <span class="error-span" data-error-for=""></span>
                                                     </div>
-                                                </form>
-                                                <span class="error-span" data-error-for=""></span>
-                                            </div>
-                                            <div class="uploading-progress-div hidden">
-                                                <div class="uploading-div-wrapper">
-                                                    <div class="dis-mid">
-                                                        <div class="c100 p0 small orange custom-progress">
-                                                            <span>0%</span>
-                                                            <div class="slice">
-                                                                <div class="bar"></div>
-                                                                <div class="fill"></div>
+                                                    <div class="uploading-progress-div hidden">
+                                                        <div class="uploading-div-wrapper">
+                                                            <div class="dis-mid">
+                                                                <div class="c100 p0 small orange custom-progress">
+                                                                    <span>0%</span>
+                                                                    <div class="slice">
+                                                                        <div class="bar"></div>
+                                                                        <div class="fill"></div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="book_language" class="col-sm-3 control-label"></label>
-                                        <div class="col-sm-9">
-                                            <div class="fg-line">
-                                                <button class="btn btn-primary btn-sm" type="submit" name="btn-save-composition-info" id="btn-save-composition-info">
-                                                    Save Event Info
-                                                </button>
-                                                <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
+                                            <div class="form-group">
+                                                <label for="book_language" class="col-sm-3 control-label"></label>
+                                                <div class="col-sm-9">
+                                                    <div class="fg-line">
+                                                        <button class="btn btn-primary btn-sm" type="submit" name="btn-save-event-info" id="btn-save-event-info">
+                                                            Save Event Info
+                                                        </button>
+                                                        <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane pmb-block" id="event_list">
+                                <div class="card no-shadow">
+                                    <div class="table-responsive">
+                                        <table id="data-table-event" class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th data-column-id="serial_number">S.No.</th>
+                                                <th data-column-id="event-image">Event Image</th>
+                                                <th data-column-id="event-title">File Title</th>
+                                                <th data-column-id="event-date">Event Date</th>
+                                                <th data-column-id="action" data-formatter="links">Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="event_list_info"></tbody>
+                                        </table>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

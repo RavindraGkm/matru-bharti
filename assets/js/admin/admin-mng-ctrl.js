@@ -69,19 +69,20 @@ MBJS.AdminControlPanel.prototype = {
                 var results = data.result;
                 var row;
                 for(var i=0;i<results.length;i++) {
+                    var s_no=i+1;
                     var published_date = results[i].published_at.split('-').reverse().join('-');
                     if(results[i].status=="Pending")
                     {
-                        row="<tr><td>"+results[i].title+"</td><td class='td-status-blue'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td></tr>";
+                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td class='td-status-blue'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td></tr>";
                         $("#ebook_list_info").append(row);
                     }
                     else if(results[i].status=="Approved") {
-                        row="<tr><td>"+results[i].title+"</td><td class='td-status-green'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td></tr>";
+                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td class='td-status-green'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td></tr>";
                         $("#ebook_list_info").append(row);
                     }
                     else
                     {
-                        row="<tr><td>"+results[i].title+"</td><td class='td-status-red'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td></tr>";
+                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td class='td-status-red'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td></tr>";
                         $("#ebook_list_info").append(row);
                     }
                 }
@@ -184,19 +185,20 @@ MBJS.AdminControlPanel.prototype = {
                 var results = data.result;
                 var row;
                 for(var i=0;i<results.length;i++) {
+                    var s_no=i+1;
                     var published_date = results[i].published_at.split('-').reverse().join('-');
                     if(results[i].status=="Pending")
                     {
-                        row="<tr><td>"+results[i].title+"</td><td>"+results[i].about+"</td><td>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].id+"</td></tr>";
+                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td>"+results[i].about+"</td><td>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].id+"</td></tr>";
                         $("#composition_list_info").append(row);
                     }
                     else if(results[i].status=="Approved") {
-                        row="<tr><td>"+results[i].title+"</td><td>"+results[i].about+"</td><td>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].id+"</td></tr>";
+                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td>"+results[i].about+"</td><td>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].id+"</td></tr>";
                         $("#composition_list_info").append(row);
                     }
                     else
                     {
-                        row="<tr><td>"+results[i].title+"</td><td>"+results[i].about+"</td><td>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].id+"</td></tr>";
+                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td>"+results[i].about+"</td><td>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].id+"</td></tr>";
                         $("#composition_list_info").append(row);
                     }
                 }
@@ -297,7 +299,8 @@ MBJS.AdminControlPanel.prototype = {
                 console.log(data.result);
                 var row;
                 for(var i=0;i<results.length;i++) {
-                    row="<tr><td>"+results[i].name+"</td><td>"+results[i].address+"</td><td>"+results[i].city+"</td><td>"+results[i].mobile+"</td><td>"+results[i].email+"</td><td>"+results[i].no_ebooks+"</td><td>"+results[i].no_compositions+"</td><td>"+results[i].id+"</td></tr>";
+                    var s_no=i+1;
+                    row="<tr><td>"+s_no+"</td><td>"+results[i].name+"</td><td>"+results[i].address+"</td><td>"+results[i].city+"</td><td>"+results[i].mobile+"</td><td>"+results[i].email+"</td><td>"+results[i].no_ebooks+"</td><td>"+results[i].no_compositions+"</td><td>"+results[i].id+"</td></tr>";
                     $("#authors_list_info").append(row);
 
                 }

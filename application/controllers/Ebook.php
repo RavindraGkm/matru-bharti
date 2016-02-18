@@ -128,6 +128,7 @@ class Ebook extends REST_Controller {
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: DELETE");
         $headers = $this->input->request_headers();
+
         if (!isset($headers['Authorization']) || empty($headers['Authorization'])) {
             $this->response(array('error' => 'No authorization header supplied'), REST_Controller::HTTP_UNAUTHORIZED);
         }
