@@ -82,6 +82,9 @@
             <li>
                 <a href="<?php echo base_url('admin-book-mng?tab=authors_list'); ?>" id="li_tab_url"> <i class="fa fa-list"></i> List of Authors</a>
             </li>
+            <li>
+                <a href="<?php echo base_url('admin-book-mng?tab=event_list'); ?>" id="li_tab_url"> <i class="fa fa-list"></i> List of Events</a>
+            </li>
         </ul>
     </aside>
     <div id="content">
@@ -107,6 +110,11 @@
                     <li role="presentation" id="tab_authors_list">
                         <a href="#authors_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">
                             <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of Authors
+                        </a>
+                    </li>
+                    <li role="presentation" id="tab_event_list">
+                        <a href="#event_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">
+                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of Events
                         </a>
                     </li>
                 </ul>
@@ -176,6 +184,23 @@
                                     </tr>
                                     </thead>
                                     <tbody id="authors_list_info"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane pmb-block" id="event_list">
+                        <div class="card no-shadow">
+                            <div class="table-responsive">
+                                <table id="data-table-event" class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th data-column-id="serial_number">S.No.</th>
+                                        <th data-column-id="event-image">Event Image</th>
+                                        <th data-column-id="event-title">File Title</th>
+                                        <th data-column-id="event-date">Event Date</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="event_list_info"></tbody>
                                 </table>
                             </div>
                         </div>

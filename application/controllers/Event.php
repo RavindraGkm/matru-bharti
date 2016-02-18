@@ -99,27 +99,22 @@ class Event extends REST_Controller {
             $this->response(array('error' => 'No authorization header supplied'), REST_Controller::HTTP_UNAUTHORIZED);
         }
         else {
-            if($id!=0 &&  $id>-1) {
-                $this->load->database();
-                $this->load->model('event/Event_model');
-                $author_id = $this->delete('author_id');
-                $response= $this->Event_model->delete_event($headers['Authorization'],$id,$author_id);
-                $this->response("Hello",REST_Controller::HTTP_OK);
-                $this->db->close();
-                if ($response['status']=='success') {
+            $this->load->database();
+            $this->load->model('event/Event_model');
+            $author_id = $this->delete('author_id');
+            if ($id != 0 && $id > -1) {
+                $response = $this->Event_model->delete_event($headers['Authorization'], $id, $author_id);
+                if ($response['status'] == 'success') {
                     $this->response($response, REST_Controller::HTTP_OK);
                 } else {
-                    if($response['msg']=='Server Error') {
+                    if ($response['msg'] == 'Server Error') {
                         $response = array('errors' => array($response['msg']));
                         $this->response($response, REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
-                    }
-                    else {
+                    } else {
                         $this->response($response, REST_Controller::HTTP_UNAUTHORIZED);
                     }
                 }
-            }
-            else {
-                $this->response("Hello ajsh ".$id,REST_Controller::HTTP_OK);
+                $this->db->close();
             }
         }
 //        $this->response("Hello",REST_Controller::HTTP_OK);

@@ -77,6 +77,7 @@ class Authors_model extends CI_Model {
             if($this->db->affected_rows()>0) {
                 $this->db->delete('ebooks', array('author_id'=>$author_id));
                 $this->db->delete('compositions', array('author_id'=>$author_id));
+                $this->db->delete('events', array('author_id'=>$author_id));
                 $response['status'] = 'success';
                 $response['msg'] = 'Deleted Successfully';
             }

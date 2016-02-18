@@ -10,6 +10,7 @@ MBJS.AdminControlPanel.prototype = {
         this.viewEbookList();
         this.viewCompositionList();
         this.viewAuthorsList();
+        this.viewEventList();
     },
 
     notify: function(message,type) {
@@ -296,7 +297,7 @@ MBJS.AdminControlPanel.prototype = {
             success:function(data) {
                 console.log(auth_token);
                 var results = data.result;
-                console.log(data.result);
+                //console.log(data.result);
                 var row;
                 for(var i=0;i<results.length;i++) {
                     var s_no=i+1;
@@ -347,6 +348,34 @@ MBJS.AdminControlPanel.prototype = {
                     }
                 });
             });
+        });
+    },
+
+    viewEventList : function() {
+        var self=this;
+        var auth_token = $('#remember_token').val();
+        var author_type= $('#author_type').val();
+        $.ajax({
+            url: self.base_url+"event",
+            type: 'GET',
+            dataType: 'JSON',
+            headers:{Authorization : auth_token},
+            error: function(data) {
+                console.log(data);
+            },
+            success:function(data) {
+                //console.log(data);
+
+                var results= data.result;
+                var row;
+                for(var i=0;i<results.length;i++){
+                    var event_date= results[i].event_date.split('-').reverse().join('-');
+                    var s_no=i+1;
+                    row = "<tr><td>" + s_no + "</td><td><img src=" + results[i].event_pic + "></td><td>" + results[i].title + "</td><td>" + event_date + "</td></tr>";
+                    $("#event_list_info").append(row);
+
+                }
+            }
         });
     },
 }
