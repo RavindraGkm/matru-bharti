@@ -56,6 +56,7 @@ $route['admin-book-mng'] = "Admin_controller";
 $route['admin/([0-9]+)'] = "admin/index/$1";
 $route['ebook/([0-9]+)'] = "ebook/index/$1";
 $route['event/([0-9]+)'] = "event/index/$1";
+$route['showcase/([0-9]+)'] = "showcase/index/$1";
 $route['composition/([0-9]+)'] = "composition/index/$1";
 $route['profile'] = "Profile_controller";
 $route['upload/ebook-file'] = "File_controller/ebook_file";

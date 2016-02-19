@@ -703,7 +703,7 @@ MBJS.AuthorBook.prototype = {
                 var author_id = $('#author_id').val();
                 var remember_token = $('#remember_token').val();
                 $.ajax({
-                    url: self.base_url + "event",
+                    url: self.base_url + "showcase",
                     type: "POST",
                     dataType: "JSON",
                     data: {
@@ -741,7 +741,7 @@ MBJS.AuthorBook.prototype = {
                     success: function (data, textStatus, jqXHR) {
                         swal({
                             title: "Success",
-                            text: "Event info saved successfully",
+                            text: "Book show case info saved successfully",
                             timer: 2000,
                             showConfirmButton: false,
                             showCancelButton: false,

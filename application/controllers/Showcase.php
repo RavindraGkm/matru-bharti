@@ -9,27 +9,27 @@ class Showcase extends REST_Controller {
         header("Access-Control-Allow-Methods: POST");
         $author_id=$this->post('author_id');
         $title=$this->post('title');
-        $event_date=$this->post('event_date');
-        $event_pic=$this->post('event_pic');
+        $show_case_category=$this->post('category');
+        $book_file=$this->post('book_file');
         $data = array();
 
+        if($show_case_category===NULL) {
+            $data[] = "Tags not provided";
+        }
         if($title===NULL) {
             $data[] = "Title not provided";
         }
-        if($event_date===NULL) {
-            $data[] = "Tags not provided";
-        }
-        if($event_pic===NULL) {
+        if($book_file===NULL) {
             $data[] = "Event image not provided";
         }
 
+        if($show_case_category=="") {
+            $data[] = "Event date can not be blank";
+        }
         if($title=="") {
             $data[] = "Event title can not be blank";
         }
-        if($event_date=="") {
-            $data[] = "Event date can not be blank";
-        }
-        if($event_pic=="") {
+        if($book_file=="") {
             $data[] = "Event image can not be blank";
         }
 
@@ -45,8 +45,8 @@ class Showcase extends REST_Controller {
             else {
                 $params = $this->post();
                 $this->load->database();
-                $this->load->model('event/Event_model');
-                $response = $this->Event_model->upload_new_event($params,$headers['Authorization']);
+                $this->load->model('showcase/ShowCase_model');
+                $response = $this->ShowCase_model->upload_new_book_show_case($params,$headers['Authorization']);
                 if($response['status']=='success') {
                     $this->response($response,REST_Controller::HTTP_OK);
                 }
