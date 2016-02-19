@@ -122,27 +122,9 @@ class Authors_model extends CI_Model {
         if ($query->num_rows() > 0) {
             $row = $query->row_array();
 
-            $sql = "SELECT authors.*, (SELECT sum(ebooks.no_downloads) from ebooks where ebooks.author_id = authors.id ) as ebook_downloads from authors ORDER by ebook_downloads desc LIMIT 10";
-            $query = $this->db->query($sql);
-            if ($query->num_rows() > 0) {
-                $response['status'] = 'success';
-                $response['result'] = $query->result_array();
-            }
-        }
-        else {
-            $response['status'] = 'error';
-            $response['msg'] = 'Anauthorized';
-        }
-        return $response;
-    }
+//            $sql = "SELECT authors.*, (SELECT sum(ebooks.no_downloads) from ebooks where ebooks.author_id = authors.id ) as ebook_downloads from authors ORDER by ebook_downloads desc LIMIT 10";
 
-    public function get_top_authors_composition($auth_token) {
-        $query = $this->db->get_where('authors', array('token' => $auth_token));
-        $response = array();
-        if ($query->num_rows() > 0) {
-            $row = $query->row_array();
-
-            $sql = "SELECT authors.*, (SELECT sum(compositions.no_seen) from compositions where compositions.author_id = authors.id ) as composition_seen from authors ORDER by composition_seen desc LIMIT 10";
+            $sql= "SELECT authors.*, (SELECT sum(ebooks.no_downloads) from ebooks where ebooks.author_id = authors.id )+(SELECT sum(compositions.no_seen) from compositions where compositions.author_id = authors.id ) as ebook_downloads from authors ORDER by ebook_downloads desc";
             $query = $this->db->query($sql);
             if ($query->num_rows() > 0) {
                 $response['status'] = 'success';

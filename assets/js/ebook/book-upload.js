@@ -13,6 +13,7 @@ MBJS.AuthorBook.prototype = {
         //this.ebookFileUpload();
         this.compositionUpload();
         this.eventUpload();
+        this.showCaseUpload();
         this.viewEbookList();
         this.viewCompositionList();
         this.viewEventList();
@@ -44,12 +45,12 @@ MBJS.AuthorBook.prototype = {
     },
     basicSetups : function () {
         // Active tabs
-        var active_tab = $(".active_tab_val").val();
+        var active_tab = $("#active_tab_val").val();
         $('#a_'+active_tab).addClass('active');
         $('#tab_'+active_tab).addClass('active');
         $('#'+active_tab).addClass('active');
 
-        if($(".active_tab_val").val()=="event") {
+        if($("#active_tab_val").val()=="event") {
             $('#tab_'+active_tab+'_create').addClass('active');
             $('#'+active_tab+'_create').addClass('active');
         }
@@ -61,18 +62,16 @@ MBJS.AuthorBook.prototype = {
             $('#event_list').removeClass('active');
         });
 
-        if($("#active_tab_val").val()=="top_authors") {
-            $('#tab_'+active_tab+'_ebook').addClass('active');
-            $('#'+active_tab+'_ebook').addClass('active');
+        if($("#active_tab_val").val()=="show_case") {
+            $('#tab_'+active_tab+'_create').addClass('active');
+            $('#'+active_tab+'_create').addClass('active');
         }
-        $('#tab_top_authors_ebook').click(function(){
-            $('#tab_top_authors_ebook').addClass('active');
-            $('#top_authors_ebook').addClass('active');
-            $('#tab_top_authors_composition').removeClass('active');
-            $('#top_authors_composition').removeClass('active');
+        $('#tab_show_case').click(function(){
+            $('#tab_event_create').addClass('active');
+            $('#event_create').addClass('active');
+            $('#tab_event_list').removeClass('active');
+            $('#event_list').removeClass('active');
         });
-
-
         // Uploading setups
         var author_id=$('#author_id').val();
         var remember_token = $('#remember_token').val();
@@ -663,6 +662,92 @@ MBJS.AuthorBook.prototype = {
                         });
                         $('.sweet-alert h2').addClass('h2_success');
                         event_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
+                    }
+                });
+            },
+            errorPlacement: function (error, element) {
+                $(element).closest("form").find("span[data-error-for='" + element.attr("id") + "']").html(error[0].innerHTML).css('opacity', 1);
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('error');
+                $(element).closest('.pos-relative').find('.error-span').css('opacity', 0);
+            }
+        });
+    },
+
+    showCaseUpload: function () {
+        var self = this;
+        $("#form_show_case_upload").validate({
+            rules: {
+                show_case_category: {
+                    required: true
+                },
+                show_case_title: {
+                    required: true
+                }
+            },
+            messages: {
+                show_case_category: {
+                    required: 'Select Book Category'
+
+                },
+                show_case_title: {
+                    required: 'Enter Book title'
+                }
+            },
+            submitHandler: function (form) {
+                var show_case_category = $('#show_case_category').val();
+                var show_case_title = $('#show_case_title').val();
+                var show_case_book_file= "show_book.pdf";
+                var show_case_save_button = $('#btn-save-show-case-info');
+                var author_id = $('#author_id').val();
+                var remember_token = $('#remember_token').val();
+                $.ajax({
+                    url: self.base_url + "event",
+                    type: "POST",
+                    dataType: "JSON",
+                    data: {
+                        title: show_case_title, category:show_case_category,
+                        book_file: show_case_book_file, author_id:author_id
+                    },
+                    headers: {Authorization: remember_token},
+                    beforeSend: function () {
+                        show_case_save_button.html('Saving... &nbsp;<i class="zmdi zmdi-edit"></i>');
+                    },
+                    error: function (data) {
+                        console.log(data);
+                        var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
+                        if (data.status == 422) {
+                            swal({
+                                title: "Error!",
+                                text: obj.error[0],
+                                timer: 2000,
+                                showConfirmButton: false,
+                                showCancelButton: false
+                            });
+                        }
+                        else if (data.status == 500) {
+                            swal({
+                                title: "Opps!",
+                                text: 'Something went wrong on server !',
+                                timer: 2000,
+                                showConfirmButton: false,
+                                showCancelButton: false
+                            });
+                            show_case_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
+                        }
+                    },
+
+                    success: function (data, textStatus, jqXHR) {
+                        swal({
+                            title: "Success",
+                            text: "Event info saved successfully",
+                            timer: 2000,
+                            showConfirmButton: false,
+                            showCancelButton: false,
+                        });
+                        $('.sweet-alert h2').addClass('h2_success');
+                        show_case_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
                     }
                 });
             },

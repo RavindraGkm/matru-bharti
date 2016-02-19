@@ -8,7 +8,6 @@ MBJS.UserProfile=function(base_url){
 MBJS.UserProfile.prototype = {
 
     initialize:function() {
-        this.basicSetups();
         this.viewProfileInfo();
         this.profileUpdate();
         this.profileImageUpload();
@@ -37,12 +36,7 @@ MBJS.UserProfile.prototype = {
             }
         });
     },
-    //===================================================================
-    basicSetups : function () {
-        // Active tabs
-        $('#a_profile').addClass('active');
-    },
-    //====================================================================
+
     profileImageUpload: function() {
 
         $("#profileImage").change(function() {

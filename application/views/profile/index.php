@@ -69,7 +69,7 @@
                 </div>
             </a>
             <ul class="main-menu">
-                <li id="a_profile">
+                <li class="active">
                     <a href="<?php echo base_url('profile');?>"><i class="zmdi zmdi-account"></i> View Profile</a>
                 </li>
                 <li>

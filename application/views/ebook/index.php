@@ -98,6 +98,9 @@
                 <a href="<?php echo base_url('ebook-mng?tab=event'); ?>"><i class="fa fa-bell"></i> Event
                     Management</a>
             </li>
+            <li id="a_show_case">
+                <a href="<?php echo base_url('ebook-mng?tab=show_case'); ?>"><i class="fa fa-book"></i> Books Show Case </a>
+            </li>
         </ul>
     </aside>
     <div id="content">
@@ -108,7 +111,7 @@
             </div>
 
             <div class="card col col-lg-12 col-md-12 col-sm-12 col-xs-12" id="profile-main">
-                <input type="hidden" value="<?php echo $active_tab; ?>" class="active_tab_val"/>
+                <input type="hidden" value="<?php echo $active_tab; ?>" id="active_tab_val"/>
                 <ul class="tab-nav" role="tablist">
                     <li role="presentation" id="tab_ebook">
                         <a href="#ebook" aria-controls="ebook" role="tab" data-toggle="tab">
@@ -122,12 +125,12 @@
                     </li>
                     <li role="presentation" id="tab_ebook_list">
                         <a href="#ebook_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">
-                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of E-Book Files
+                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;E-Books List
                         </a>
                     </li>
                     <li role="presentation" id="tab_composition_list">
                         <a href="#composition_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">
-                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of Composition Files
+                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;Compositions List
                         </a>
                     </li>
                     <li role="presentation" id="tab_top_authors">
@@ -138,6 +141,11 @@
                     <li role="presentation" id="tab_event">
                         <a href="#event" aria-controls="event" role="tab" data-toggle="tab">
                             <i class="fa fa-bell fa-lg"></i>&nbsp;&nbsp;Event Creation
+                        </a>
+                    </li>
+                    <li role="presentation" id="tab_show_case">
+                        <a href="#show_case" aria-controls="show_case" role="tab" data-toggle="tab">
+                            <i class="fa fa-book fa-lg"></i>&nbsp;&nbsp;Books Show Case
                         </a>
                     </li>
                 </ul>
@@ -427,52 +435,19 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane pmb-block" id="top_authors">
-                        <ul class="tab-nav" role="tablist">
-                            <li role="presentation" id="tab_top_authors_ebook">
-                                <a href="#tab_top_authors_ebook" aria-controls="top_authors_ebook" role="tab" data-toggle="tab">
-                                    <i class="fa fa-users fa-lg"></i>&nbsp;&nbsp;Top 10 Ebook Authors
-                                </a>
-                            </li>
-                            <li role="presentation" id="tab_top_authors_composition">
-                                <a href="#top_authors_composition" aria-controls="top_authors_composition" role="tab" data-toggle="tab">
-                                    <i class="fa fa-users fa-lg"></i>&nbsp;&nbsp;Top 10 Composition Authors
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane pmb-block" id="top_authors_ebook">
-                                <div class="card no-shadow">
-                                    <div class="table-responsive">
-                                        <table id="data-table-top-ebook-author" class="table table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th data-column-id="serial_number">S.No.</th>
-                                                <th data-column-id="event-image">Name</th>
-                                                <th data-column-id="event-title">City</th>
-                                                <th data-column-id="event-date">Total Downloads</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody id="top_ebook_author_list"></tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane pmb-block" id="top_authors_composition">
-                                <div class="card no-shadow">
-                                    <div class="table-responsive">
-                                        <table id="data-table-top-composition-author" class="table table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th data-column-id="serial_number">S.No.</th>
-                                                <th data-column-id="event-image">Name</th>
-                                                <th data-column-id="event-title">City</th>
-                                                <th data-column-id="event-date">Total Views</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody id="top_composition_author_list"></tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                        <div class="card no-shadow">
+                            <div class="table-responsive">
+                                <table id="data-table-top-ebook-author" class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th data-column-id="serial_number">S.No.</th>
+                                        <th data-column-id="event-image">Name</th>
+                                        <th data-column-id="event-title">City</th>
+                                        <th data-column-id="event-date">Total Downloads</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="top_ebook_author_list"></tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -485,7 +460,7 @@
                             </li>
                             <li role="presentation" id="tab_event_list">
                                 <a href="#event_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">
-                                    <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of Events
+                                    <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;Events List
                                 </a>
                             </li>
                         </ul>
@@ -586,6 +561,114 @@
                                             </tr>
                                             </thead>
                                             <tbody id="event_list_info"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane pmb-block" id="show_case">
+                        <ul class="tab-nav" role="tablist">
+                            <li role="presentation" id="tab_show_case_create">
+                                <a href="#show_case_create" aria-controls="show_case_create" role="tab" data-toggle="tab">
+                                    <i class="fa fa-bell fa-lg"></i>&nbsp;&nbsp;Book Show Case Creation
+                                </a>
+                            </li>
+                            <li role="presentation" id="tab_show_case_list">
+                                <a href="#show_case_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">
+                                    <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;Book Show Case List
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane pmb-block" id="show_case_create">
+                                <div class="card no-shadow">
+                                    <form id="form_show_case_upload" class="form-horizontal">
+                                        <div class="card-header">
+                                            <h2>Book Show Case Information
+                                                <small>Use Bootstrap's predefined grid classes to align labels and groups of
+                                                    form controls in a horizontal layout by adding '.form-horizontal' to the
+                                                    form. Doing so changes '.form-groups' to behave as grid rows, so no need for
+                                                    '.row'.
+                                                </small>
+                                            </h2>
+                                        </div>
+                                        <div class="card-body card-padding">
+                                            <div class="form-group">
+                                                <label for="book_language" class="col-sm-3 control-label">Category*</label>
+                                                <div class="col-sm-9">
+                                                    <div class="fg-line pos-relative">
+                                                        <select class="form-control" name="show_case_category" id="show_case_category">
+                                                            <option value="">Select Category...</option>
+                                                            <option value="Stories">Stories</option>
+                                                            <option value="Articles">Articles</option>
+                                                            <option value="Spritual">Spritual</option>
+                                                            <option value="Religious">Religious</option>
+                                                            <option value="Novels">Novels</option>
+                                                            <option value="Motivational">Motivational</option>
+                                                        </select>
+                                                        <span class="error-span" data-error-for="show_case_category"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="event_title" class="col-sm-3 control-label">File Title*</label>
+                                                <div class="col-sm-9">
+                                                    <div class="fg-line pos-relative">
+                                                        <input type="text" class="form-control" name="show_case_title" id="show_case_title" placeholder="Title of Book">
+                                                        <span class="error-span" data-error-for="show_case_title"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="book_language" class="col-sm-3 control-label">File (Only pdf)*</label>
+                                                <div class="col-sm-9">
+                                                    <div class="fg-line pos-relative">
+                                                        <input type="hidden" name="show_case_book_file_path" id="show_case_book_file_path" value="">
+                                                        <form class="show_case_book_upload_form" action="<?php echo base_url('upload/ebook-file'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="show_case_book_upload_form">
+                                                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <span class="btn btn-primary btn-file m-r-10">
+                                                            <span class="fileinput-new">Select file</span>
+                                                            <span class="fileinput-exists">Change</span>
+                                                            <input type="file" name="show_case_file" id="show_case_file" accept="application/pdf"/>
+                                                        </span>
+                                                                <span class="fileinput-filename"></span>
+                                                                <a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
+                                                            </div>
+                                                        </form>
+                                                        <span class="error-span" data-error-for="show_case_book_file_path"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="book_language" class="col-sm-3 control-label"></label>
+                                                <div class="col-sm-9">
+                                                    <div class="fg-line">
+                                                        <button class="btn btn-primary btn-sm" type="submit" name="btn-save-event-info" id="btn-save-show-case-info">
+                                                            Save Show Case Info
+                                                        </button>
+                                                        <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane pmb-block" id="show_case_list">
+                                <div class="card no-shadow">
+                                    <div class="table-responsive">
+                                        <table id="data-table-show_case" class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th data-column-id="serial_number">S.No.</th>
+                                                <th data-column-id="book-title">Book Title</th>
+                                                <th data-column-id="book-category">Book Category</th>
+                                                <th data-column-id="book-files">Uploaded Files</th>
+                                                <th data-column-id="action" data-formatter="links">Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="show_case_list_info"></tbody>
                                         </table>
                                     </div>
                                 </div>
