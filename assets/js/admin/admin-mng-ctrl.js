@@ -375,6 +375,20 @@ MBJS.AdminControlPanel.prototype = {
                     $("#event_list_info").append(row);
 
                 }
+                //$("#data-table-authors").bootgrid({
+                //    css: {
+                //        icon: 'zmdi icon',
+                //        iconColumns: 'zmdi-view-module',
+                //        iconDown: 'zmdi-expand-more',
+                //        iconRefresh: 'zmdi-refresh',
+                //        iconUp: 'zmdi-expand-less'
+                //    },
+                //    formatters: {
+                //        "links": function(column, row) {
+                //            return "<button type=\"button\" class=\"btn btn-icon command-delete delete-author waves-effect waves-circle\" data-row-id=\"" + row.action + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
+                //        }
+                //    }
+                //});
             }
         });
     },

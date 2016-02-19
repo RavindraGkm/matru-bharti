@@ -50,7 +50,6 @@ class Ebook_model extends CI_Model {
             $response['msg'] = 'Anauthorized';
         }
         return $response;
-
     }
 
     public function delete_ebook($auth_token,$ebook_id) {

@@ -69,7 +69,7 @@
                 </div>
             </a>
             <ul class="main-menu">
-                <li>
+                <li id="a_profile">
                     <a href="<?php echo base_url('profile');?>"><i class="zmdi zmdi-account"></i> View Profile</a>
                 </li>
                 <li>
@@ -83,6 +83,7 @@
             <li><a href="<?php echo base_url('ebook-mng?tab=composition'); ?>"><i class="fa fa-file-word-o"></i> Composition</a></li>
             <li><a href="<?php echo base_url('ebook-mng?tab=ebook_list'); ?>"><i class="fa fa-list"></i> List of Uploaded Books</a></li>
             <li><a href="<?php echo base_url('ebook-mng?tab=composition_list'); ?>"><i class="fa fa-list"></i> List of Uploaded Composition</a></li>
+            <li id="a_top_authors"><a href="<?php echo base_url('ebook-mng?tab=top_authors'); ?>"> <i class="fa fa-users"></i> List of Top 10 Authors</a></li>
             <li id="a_event"><a href="<?php echo base_url('ebook-mng?tab=event'); ?>"><i class="fa fa-bell"></i> Event Management</a></li>
         </ul>
     </aside>

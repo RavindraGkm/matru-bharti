@@ -74,7 +74,7 @@
         </div>
 
         <ul class="main-menu">
-            <li id="a_ebook">
+            <li id="a_ebook" class="s">
                 <a href="<?php echo base_url('ebook-mng?tab=ebook'); ?>"><i class="fa fa-book"></i> E-Book
                     Management</a>
             </li>
@@ -90,6 +90,10 @@
                 <a href="<?php echo base_url('ebook-mng?tab=composition_list'); ?>"> <i class="fa fa-list"></i> List of
                     Uploaded Composition</a>
             </li>
+            <li id="a_top_authors">
+                <a href="<?php echo base_url('ebook-mng?tab=top_authors'); ?>"> <i class="fa fa-users"></i> List of
+                    Top 10 Authors</a>
+            </li>
             <li id="a_event">
                 <a href="<?php echo base_url('ebook-mng?tab=event'); ?>"><i class="fa fa-bell"></i> Event
                     Management</a>
@@ -99,12 +103,12 @@
     <div id="content">
         <div class="container">
 
-            <div class="block-header col-md-offset-1 col-lg-10 col-md-10 col-sm-12 col-xs-12">
+            <div class="block-header col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h2 id="h2_name"></h2>
             </div>
 
-            <div class="card col col-md-offset-1 col-lg-10 col-md-10 col-sm-12 col-xs-12" id="profile-main">
-                <input type="hidden" value="<?php echo $active_tab; ?>" id="active_tab_val"/>
+            <div class="card col col-lg-12 col-md-12 col-sm-12 col-xs-12" id="profile-main">
+                <input type="hidden" value="<?php echo $active_tab; ?>" class="active_tab_val"/>
                 <ul class="tab-nav" role="tablist">
                     <li role="presentation" id="tab_ebook">
                         <a href="#ebook" aria-controls="ebook" role="tab" data-toggle="tab">
@@ -124,6 +128,11 @@
                     <li role="presentation" id="tab_composition_list">
                         <a href="#composition_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">
                             <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of Composition Files
+                        </a>
+                    </li>
+                    <li role="presentation" id="tab_top_authors">
+                        <a href="#top_authors" aria-controls="upload-file-list" role="tab" data-toggle="tab">
+                            <i class="fa fa-users fa-lg"></i>&nbsp;&nbsp;Top 10 Authors
                         </a>
                     </li>
                     <li role="presentation" id="tab_event">
@@ -388,7 +397,7 @@
                                         <th data-column-id="file_title">File Title</th>
                                         <th data-column-id="file-published-status">File Published Status</th>
                                         <th data-column-id="publish-date">Publish Date</th>
-                                        <th data-column-id="file-attachment">File Attachment</th>
+                                        <th data-column-id="file_attachment" data-formatter="file_link">File Attachment</th>
                                         <th data-column-id="action" data-formatter="links">Actions</th>
                                     </tr>
                                     </thead>
@@ -414,6 +423,56 @@
                                     </thead>
                                     <tbody id="composition_list_info"></tbody>
                                 </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane pmb-block" id="top_authors">
+                        <ul class="tab-nav" role="tablist">
+                            <li role="presentation" id="tab_top_authors_ebook">
+                                <a href="#tab_top_authors_ebook" aria-controls="top_authors_ebook" role="tab" data-toggle="tab">
+                                    <i class="fa fa-users fa-lg"></i>&nbsp;&nbsp;Top 10 Ebook Authors
+                                </a>
+                            </li>
+                            <li role="presentation" id="tab_top_authors_composition">
+                                <a href="#top_authors_composition" aria-controls="top_authors_composition" role="tab" data-toggle="tab">
+                                    <i class="fa fa-users fa-lg"></i>&nbsp;&nbsp;Top 10 Composition Authors
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane pmb-block" id="top_authors_ebook">
+                                <div class="card no-shadow">
+                                    <div class="table-responsive">
+                                        <table id="data-table-top-ebook-author" class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th data-column-id="serial_number">S.No.</th>
+                                                <th data-column-id="event-image">Name</th>
+                                                <th data-column-id="event-title">City</th>
+                                                <th data-column-id="event-date">Total Downloads</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="top_ebook_author_list"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane pmb-block" id="top_authors_composition">
+                                <div class="card no-shadow">
+                                    <div class="table-responsive">
+                                        <table id="data-table-top-composition-author" class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th data-column-id="serial_number">S.No.</th>
+                                                <th data-column-id="event-image">Name</th>
+                                                <th data-column-id="event-title">City</th>
+                                                <th data-column-id="event-date">Total Views</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="top_composition_author_list"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -533,7 +592,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

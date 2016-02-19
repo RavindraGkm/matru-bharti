@@ -16,6 +16,7 @@ MBJS.AuthorBook.prototype = {
         this.viewEbookList();
         this.viewCompositionList();
         this.viewEventList();
+        this.viewTopAuthorsList();
     },
 
     notify: function(message,type) {
@@ -43,12 +44,12 @@ MBJS.AuthorBook.prototype = {
     },
     basicSetups : function () {
         // Active tabs
-        var active_tab = $("#active_tab_val").val();
+        var active_tab = $(".active_tab_val").val();
         $('#a_'+active_tab).addClass('active');
         $('#tab_'+active_tab).addClass('active');
         $('#'+active_tab).addClass('active');
 
-        if($("#active_tab_val").val()=="event") {
+        if($(".active_tab_val").val()=="event") {
             $('#tab_'+active_tab+'_create').addClass('active');
             $('#'+active_tab+'_create').addClass('active');
         }
@@ -59,6 +60,18 @@ MBJS.AuthorBook.prototype = {
             $('#tab_event_list').removeClass('active');
             $('#event_list').removeClass('active');
         });
+
+        if($("#active_tab_val").val()=="top_authors") {
+            $('#tab_'+active_tab+'_ebook').addClass('active');
+            $('#'+active_tab+'_ebook').addClass('active');
+        }
+        $('#tab_top_authors_ebook').click(function(){
+            $('#tab_top_authors_ebook').addClass('active');
+            $('#top_authors_ebook').addClass('active');
+            $('#tab_top_authors_composition').removeClass('active');
+            $('#top_authors_composition').removeClass('active');
+        });
+
 
         // Uploading setups
         var author_id=$('#author_id').val();
@@ -674,23 +687,24 @@ MBJS.AuthorBook.prototype = {
             headers:{Authorization : auth_token},
             success:function(data) {
                 var results = data.result;
+                console.log(data);
                 var row;
                 for(var i=0;i<results.length;i++) {
                     var published_date = results[i].published_at.split('-').reverse().join('-');
                     var s_no=i+1;
                     if(results[i].status=="Panding")
                     {
-                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td class='td-status-blue'>"+results[i].status+"</td><td>"+published_date+"</td><td><a href="+results[i].file+"></a></td><td>"+results[i].id+"</td></tr>";
+                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td class='td-status-blue'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td></tr>";
                         $("#ebook_list_info").append(row);
                     }
                     else if(results[i].status=="Approved")
                     {
-                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td class='td-status-green'>"+results[i].status+"</td><td>"+published_date+"</td><td><a href="+results[i].file+"></a></td><td>"+results[i].id+"</td></tr>";
+                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td class='td-status-blue'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td></tr>";
                         $("#ebook_list_info").append(row);
                     }
                     else
                     {
-                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td class='td-status-red'>"+results[i].status+"</td><td>"+published_date+"</td><td><a href="+results[i].file+"></a></td><td>"+results[i].id+"</td></tr>";
+                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td class='td-status-blue'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td></tr>";
                         $("#ebook_list_info").append(row);
                     }
 
@@ -704,6 +718,9 @@ MBJS.AuthorBook.prototype = {
                         iconUp: 'zmdi-expand-less'
                     },
                     formatters: {
+                        "file_link": function(column, row) {
+                            return "<a href=\"" + row.file_attachment + "\" class=\"btn btn-icon command-file view-ebook waves-effect waves-circle\" target='_blank'><i class=\"fa fa-download fa-lg\"></i></a>";
+                        },
                         "links": function(column, row) {
                             return "<button type=\"button\" class=\"btn btn-icon command-delete delete-ebook waves-effect waves-circle\" data-row-id=\"" + row.action + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
                         }
@@ -711,8 +728,16 @@ MBJS.AuthorBook.prototype = {
                 });
             }
         });
+        //<<<---< Download Ebook Count
+        var downloads=0;
+        $('#ebook_list_info').on('click','.view-ebook',function() {
+            downloads++;
+            console.log(downloads);
+        });
         //<<<------<< Delete ebook functionality
+
         $('#ebook_list_info').on('click','.delete-ebook',function() {
+
             var ebook_table_id = $(this).attr('data-row-id');
             //console.log(ebook_table_id);
             var author_id = $('#author_id').val();
@@ -901,6 +926,45 @@ MBJS.AuthorBook.prototype = {
                     }
                 });
             });
+        });
+    },
+
+    viewTopAuthorsList:function () {
+        var self=this;
+        var auth_token = $('#remember_token').val();
+        $.ajax({
+            url: self.base_url+"topauthors",
+            type: 'GET',
+            dataType: 'JSON',
+            headers:{Authorization : auth_token},
+            error: function(data) {
+                console.log(data);
+            },
+            success:function(data) {
+                console.log(auth_token);
+                var results = data.result;
+                console.log(data.result);
+                var row;
+                for(var i=0;i<results.length;i++) {
+                    var s_no=i+1;
+                    if(results[i].ebook_downloads!=null){
+                        row="<tr><td>"+s_no+"</td><td>"+results[i].name+"</td><td>"+results[i].city+"</td><td>"+results[i].ebook_downloads+"</td></tr>";
+                        $("#top_ebook_author_list").append(row);
+                    }
+                }
+                $("#data-table-top-ebook-author").bootgrid({
+                    css: {
+                        icon: 'zmdi icon',
+                        iconColumns: 'zmdi-view-module',
+                        iconDown: 'zmdi-expand-more',
+                        iconRefresh: 'zmdi-refresh',
+                        iconUp: 'zmdi-expand-less'
+                    },
+                    formatters: {
+
+                    }
+                });
+            }
         });
     }
 }
