@@ -424,14 +424,17 @@
                                     <tr>
                                         <th data-column-id="serial_number">S.No.</th>
                                         <th data-column-id="file-title">File Title</th>
+                                        <th data-column-id="about_composition" data-formatter="composition_more">Composition</th>
                                         <th data-column-id="file-published-status">File Published Status</th>
                                         <th data-column-id="publish-date">Publish Date</th>
-                                        <th data-column-id="file-attachment">File Attachment</th>
-                                        <th data-column-id="action" data-formatter="links">Actions</th>
+                                        <th data-column-id="action" data-formatter="composition_delete">Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody id="composition_list_info"></tbody>
                                 </table>
+                                <div class="popover fade bottom in composition_more_desctiption" id="popover288972" role="tooltip" style="top: 671px;left: 53.6406px; display: block;">
+
+                                </div>
                             </div>
                         </div>
                     </div>

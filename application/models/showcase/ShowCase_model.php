@@ -15,8 +15,8 @@ class ShowCase_model extends CI_Model {
                 }
             }
             else {
-                $author_id = $row['id'];
-                $query = $this->db->get_where('book_show_case', array('author_id' => $author_id));
+//                $author_id = $row['id'];
+                $query = $this->db->get_where('book_show_case', array('status'=>'Visible'));
                 if($query->num_rows()>0) {
                     $response['status'] = 'success';
                     $response['result'] = $query->result_array();

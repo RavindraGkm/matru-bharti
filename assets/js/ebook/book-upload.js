@@ -804,17 +804,17 @@ MBJS.AuthorBook.prototype = {
                     var s_no=i+1;
                     if(results[i].status=="Panding")
                     {
-                        row = "<tr><td>" + s_no + "</td><td>" + results[i].title + "</td><td class='td-status-blue'>" + results[i].status + "</td><td>" + published_date + "</td><td>" + results[i].title + "</td><td>" + results[i].id + "</td></tr>";
+                        row = "<tr><td>" + s_no + "</td><td>" + results[i].title + "</td><td>" + results[i].about + "</td><td class='td-status-blue'>" + results[i].status + "</td><td>" + published_date + "</td><td>" + results[i].title + "</td><td>" + results[i].id + "</td></tr>";
                         $("#composition_list_info").append(row);
                     }
                     else if(results[i].status=="Approved")
                     {
-                        row = "<tr><td>" + s_no + "</td><td>" + results[i].title + "</td><td class='td-status-green'>" + results[i].status + "</td><td>" + published_date + "</td><td>" + results[i].title + "</td><td>" + results[i].id + "</td></tr>";
+                        row = "<tr><td>" + s_no + "</td><td>" + results[i].title + "</td><td>" + results[i].about + "</td><td class='td-status-green'>" + results[i].status + "</td><td>" + published_date + "</td><td>" + results[i].title + "</td><td>" + results[i].id + "</td></tr>";
                         $("#composition_list_info").append(row);
                     }
                     else
                     {
-                        row = "<tr><td>" + s_no + "</td><td>" + results[i].title + "</td><td class='td-status-red'>" + results[i].status + "</td><td>" + published_date + "</td><td>" + results[i].title + "</td><td>" + results[i].id + "</td></tr>";
+                        row = "<tr><td>" + s_no + "</td><td>" + results[i].title + "</td><td>" + results[i].about + "</td><td class='td-status-red'>" + results[i].status + "</td><td>" + published_date + "</td><td>" + results[i].id + "</td></tr>";
                         $("#composition_list_info").append(row);
                     }
                 }
@@ -827,12 +827,24 @@ MBJS.AuthorBook.prototype = {
                         iconUp: 'zmdi-expand-less'
                     },
                     formatters: {
-                        "links": function(column, row) {
+                        "composition_more": function(column, row) {
+                            return "<div class='btn-link'><label>"+row.about_composition.substring(0,45)+"...&nbsp;&nbsp;<span data-desctiption=\""+row.about_composition+"\" data-content=\""+row.about_composition+"\" data-trigger=\"hover\" data-toggle=\"popover\" data-placement=\"bottom\"  aria-describedby='popover288972' class=\"more-description dropdown open\" >more</span></label></div>";
+                        },
+                        "composition_delete": function(column, row) {
                             return "<button type=\"button\" class=\"btn btn-icon command-delete delete-composition waves-effect waves-circle\" data-row-id=\"" + row.action + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
                         }
                     }
                 });
+            },
+            complete: function() {
+                setTimeout(function() {
+                    $('[data-toggle="popover"]').popover();
+                },1000);
             }
+        });
+        $('#composition_list_info').on('hover','.more-description',function(){
+            var composition_description=$(this).attr('data-content');
+            $('.composition_more_desctiption').html(composition_description);
         });
         $('#composition_list_info').on('click','.delete-composition',function() {
             var composition_table_id = $(this).attr('data-row-id');
@@ -873,6 +885,7 @@ MBJS.AuthorBook.prototype = {
         var self=this;
         var auth_token = $('#remember_token').val();
         var author_id = $('#author_id').val();
+
         $.ajax({
             url: self.base_url+"event/"+author_id,
             type: 'GET',
@@ -884,7 +897,6 @@ MBJS.AuthorBook.prototype = {
             },
             success:function(data) {
                 //console.log(data);
-
                 var results= data.result;
                 var row;
                 for(var i=0;i<results.length;i++){
@@ -909,7 +921,7 @@ MBJS.AuthorBook.prototype = {
                         },
                         "event_image": function(column, row) {
                             return "<div class=\"tab-prev-img-div more-discription-img dropdown open\" data-desctiption=\""+row.event_pic+"\" data-content=\""+row.event_pic+"\" data-trigger=\"click\" data-toggle=\"popover\" data-placement=\"bottom\"  aria-describedby='popover288980' ><img class=\"img img-responsive superbox-current-img \" src=\"" + row.event_image + "\" /></div>";
-                            $('[data-toggle="popover"]').popover();
+
                         }
                     }
                 });
@@ -963,7 +975,7 @@ MBJS.AuthorBook.prototype = {
                 console.log(data);
             },
             success: function (data) {
-                //console.log(data);
+                console.log(data);
 
                 var results = data.result;
                 //console.log(results[i].status);
