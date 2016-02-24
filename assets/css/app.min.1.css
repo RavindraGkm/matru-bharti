@@ -9,6 +9,14 @@
  */
 
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+.tab-prev-img-div {
+  max-height: 70px;
+  max-width: 60px;
+}
+
+.tab-prev-img-div>img {
+    border-radius: 2px;
+}
 
 .pos-relative {
   position: relative;

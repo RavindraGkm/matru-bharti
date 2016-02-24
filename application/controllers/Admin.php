@@ -54,5 +54,35 @@ class Admin extends REST_Controller {
 
     }
 
+    public function  index_delete ($id=0) {
+
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: DELETE");
+        $headers = $this->input->request_headers();
+        if (!isset($headers['Authorization']) || empty($headers['Authorization'])) {
+            $this->response(array('error' => 'No authorization header supplied'), REST_Controller::HTTP_UNAUTHORIZED);
+        }
+        else {
+            $this->load->database();
+            $this->load->model('admin/Admin_model');
+            if ($id != 0 && $id > -1) {
+                $response = $this->Admin_model->delete_event($headers['Authorization'], $id);
+            }
+
+            if ($response['status'] == 'success') {
+                $this->response($response, REST_Controller::HTTP_OK);
+            } else {
+                if ($response['msg'] == 'Server Error') {
+                    $response = array('errors' => array($response['msg']));
+                    $this->response($response, REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
+                } else {
+                    $this->response($response, REST_Controller::HTTP_UNAUTHORIZED);
+                }
+            }
+            $this->db->close();
+        }
+//        $this->response("Hello",REST_Controller::HTTP_OK);
+    }
+
 }
 ?>

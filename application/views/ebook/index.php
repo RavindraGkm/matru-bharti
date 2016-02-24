@@ -115,37 +115,37 @@
                 <ul class="tab-nav" role="tablist">
                     <li role="presentation" id="tab_ebook">
                         <a href="#ebook" aria-controls="ebook" role="tab" data-toggle="tab">
-                            <i class="fa fa-book fa-lg"></i>&nbsp;&nbsp;E-Book Upload
+                            <i class="fa fa-book fa-lg"></i>&nbsp;E-Book Upload
                         </a>
                     </li>
                     <li role="presentation" id="tab_composition">
                         <a href="#composition" aria-controls="composition" role="tab" data-toggle="tab">
-                            <i class="fa fa-file-word-o fa-lg"></i>&nbsp;&nbsp;Composition / Creation upload
+                            <i class="fa fa-file-word-o fa-lg"></i>&nbsp;Composition upload
                         </a>
                     </li>
                     <li role="presentation" id="tab_ebook_list">
                         <a href="#ebook_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">
-                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;E-Books List
+                            <i class="fa fa-list fa-lg"></i>&nbsp;E-Books List
                         </a>
                     </li>
                     <li role="presentation" id="tab_composition_list">
                         <a href="#composition_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">
-                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;Compositions List
+                            <i class="fa fa-list fa-lg"></i>&nbsp;Compositions List
                         </a>
                     </li>
                     <li role="presentation" id="tab_top_authors">
                         <a href="#top_authors" aria-controls="upload-file-list" role="tab" data-toggle="tab">
-                            <i class="fa fa-users fa-lg"></i>&nbsp;&nbsp;Top 10 Authors
+                            <i class="fa fa-users fa-lg"></i>&nbsp;Top 10 Authors
                         </a>
                     </li>
                     <li role="presentation" id="tab_event">
                         <a href="#event" aria-controls="event" role="tab" data-toggle="tab">
-                            <i class="fa fa-bell fa-lg"></i>&nbsp;&nbsp;Event Creation
+                            <i class="fa fa-bell fa-lg"></i>&nbsp;Event Creation
                         </a>
                     </li>
                     <li role="presentation" id="tab_show_case">
                         <a href="#show_case" aria-controls="show_case" role="tab" data-toggle="tab">
-                            <i class="fa fa-book fa-lg"></i>&nbsp;&nbsp;Books Show Case
+                            <i class="fa fa-book fa-lg"></i>&nbsp;Books Show Case
                         </a>
                     </li>
                 </ul>
@@ -263,6 +263,7 @@
                                             jpeg/jpg/png/gif)*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
+                                                <!--<form class="form-image-upload" action="--><?php //echo base_url('profile-image-2'); ?><!--" onSubmit="return false" method="post" enctype="multipart/form-data" id="MyUploadForm">-->
                                                 <form class="form-image-upload" action="<?php echo base_url('ebook-cover-image-2'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_cover_upload_form">
                                                     <div class="fileinput fileinput-new file-prev-mng" data-provides="fileinput">
                                                         <div class="fileinput-preview thumbnail" data-trigger="fileinput">
@@ -436,6 +437,9 @@
                     </div>
                     <div role="tabpanel" class="tab-pane pmb-block" id="top_authors">
                         <div class="card no-shadow">
+                            <h2>
+                                Top 10 Authors
+                            </h2>
                             <div class="table-responsive">
                                 <table id="data-table-top-ebook-author" class="table table-striped">
                                     <thead>
@@ -554,7 +558,7 @@
                                             <thead>
                                             <tr>
                                                 <th data-column-id="serial_number">S.No.</th>
-                                                <th data-column-id="event-image">Event Image</th>
+                                                <th data-column-id="event_image" data-formatter="event_image">Event Image</th>
                                                 <th data-column-id="event-title">File Title</th>
                                                 <th data-column-id="event-date">Event Date</th>
                                                 <th data-column-id="action" data-formatter="links">Actions</th>

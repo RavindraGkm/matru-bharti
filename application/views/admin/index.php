@@ -85,6 +85,9 @@
             <li>
                 <a href="<?php echo base_url('admin-book-mng?tab=event_list'); ?>" id="li_tab_url"> <i class="fa fa-list"></i> List of Events</a>
             </li>
+            <li>
+                <a href="<?php echo base_url('admin-book-mng?tab=show_case_list'); ?>" id="li_tab_url"> <i class="fa fa-list"></i> List of Books Show Case</a>
+            </li>
         </ul>
     </aside>
     <div id="content">
@@ -115,6 +118,11 @@
                     <li role="presentation" id="tab_event_list">
                         <a href="#event_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">
                             <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of Events
+                        </a>
+                    </li>
+                    <li role="presentation" id="tab_show_case_list">
+                        <a href="#show_case_list" aria-controls="upload-file-list" role="tab" data-toggle="tab">
+                            <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp;List of Books Show Case
                         </a>
                     </li>
                 </ul>
@@ -195,12 +203,36 @@
                                     <thead>
                                     <tr>
                                         <th data-column-id="serial_number">S.No.</th>
-                                        <th data-column-id="event-image">Event Image</th>
+                                        <th data-column-id="event_image" data-formatter="event_image">Event Image</th>
                                         <th data-column-id="event-title">File Title</th>
                                         <th data-column-id="event-date">Event Date</th>
+                                        <th data-column-id="action" data-formatter="action">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody id="event_list_info"></tbody>
+                                </table>
+                                <div class="popover fade bottom in img-large-popover" id="popover288980" role="tooltip" style="top: 671px;left: 53.6406px; display: block;">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane pmb-block" id="show_case_list">
+                        <div class="card no-shadow">
+                            <div class="table-responsive">
+                                <table id="data-table-show-case" class="table table-striped data-table-show-case">
+                                    <thead>
+                                    <tr>
+                                        <th data-column-id="serial_number">S.No.</th>
+                                        <th data-column-id="book-title">Book Title</th>
+                                        <th data-column-id="book-category">Book Category</th>
+                                        <th data-column-id="book-files">Uploaded Files</th>
+                                        <th data-column-id="book_files_status">Status</th>
+                                        <th data-column-id="access" data-formatter="access">Access</th>
+                                        <th data-column-id="book_show_case_delete" data-formatter="delete">Delete</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="show_case_list_info"></tbody>
                                 </table>
                             </div>
                         </div>

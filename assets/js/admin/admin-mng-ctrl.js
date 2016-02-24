@@ -11,6 +11,7 @@ MBJS.AdminControlPanel.prototype = {
         this.viewCompositionList();
         this.viewAuthorsList();
         this.viewEventList();
+        this.viewShowCaseList();
     },
 
     notify: function(message,type) {
@@ -98,7 +99,7 @@ MBJS.AdminControlPanel.prototype = {
                     },
                     formatters: {
                         "links": function(column, row) {
-                                return "<div class='btn-link'><label><a href=\""+row.file_attachment+"\" class=\"btn btn-icon command-delete approve-ebook waves-effect waves-circle\"><i class=\"fa fa-download fa-lg\"></i></a></label></div>";
+                                return "<div class='btn-link'><label><a href=\""+row.file_attachment+"\" target='_blank' class=\"btn btn-icon command-delete approve-ebook waves-effect waves-circle\"><i class=\"fa fa-download fa-lg\"></i></a></label></div>";
                         },
                         "approvel": function(column, row) {
                             if(row.file_published_status==='Approved') {
@@ -371,25 +372,195 @@ MBJS.AdminControlPanel.prototype = {
                 for(var i=0;i<results.length;i++){
                     var event_date= results[i].event_date.split('-').reverse().join('-');
                     var s_no=i+1;
-                    row = "<tr><td>" + s_no + "</td><td><img src=" + results[i].event_pic + "></td><td>" + results[i].title + "</td><td>" + event_date + "</td></tr>";
+                    row = "<tr><td>" + s_no + "</td><td>"+results[i].event_pic + "</td><td>" + results[i].title + "</td><td>" + event_date + "</td><td>" + results[i].id + "</td></tr>";
                     $("#event_list_info").append(row);
 
                 }
-                //$("#data-table-authors").bootgrid({
-                //    css: {
-                //        icon: 'zmdi icon',
-                //        iconColumns: 'zmdi-view-module',
-                //        iconDown: 'zmdi-expand-more',
-                //        iconRefresh: 'zmdi-refresh',
-                //        iconUp: 'zmdi-expand-less'
-                //    },
-                //    formatters: {
-                //        "links": function(column, row) {
-                //            return "<button type=\"button\" class=\"btn btn-icon command-delete delete-author waves-effect waves-circle\" data-row-id=\"" + row.action + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
-                //        }
-                //    }
-                //});
+                $("#data-table-event").bootgrid({
+                    css: {
+                        icon: 'zmdi icon',
+                        iconColumns: 'zmdi-view-module',
+                        iconDown: 'zmdi-expand-more',
+                        iconRefresh: 'zmdi-refresh',
+                        iconUp: 'zmdi-expand-less'
+                    },
+                    formatters: {
+                        "action": function(column, row) {
+                            return "<button type=\"button\" class=\"btn btn-icon command-delete delete-event waves-effect waves-circle\" data-row-id=\"" + row.action + "\"><i class=\"zmdi zmdi-delete\"></i></button>";
+                        },
+                        "event_image": function(column, row) {
+                            return "<div class=\"tab-prev-img-div more-discription-img dropdown open\" data-desctiption=\""+row.event_pic+"\" data-content=\""+row.event_pic+"\" data-trigger=\"click\" data-toggle=\"popover\" data-placement=\"bottom\"  aria-describedby='popover288980' ><img class=\"img img-responsive superbox-current-img \" src=\"" + row.event_image + "\" /></div>";
+                            $('[data-toggle="popover"]').popover();
+                        }
+                    }
+                });
+            },
+            complete: function() {
+                setTimeout(function() {
+                    $('[data-toggle="popover"]').popover();
+                },1000);
             }
+        });
+        $('#event_list_info').on('click','.delete-event',function() {
+            var event_table_id = $(this).attr('data-row-id');
+            var author_id = $('#author_id').val();
+            console.log("Auth:" + auth_token);
+            console.log(event_table_id);
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to undo this action !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: true
+            }, function() {
+                $.ajax({
+                    url: self.base_url+"admin/"+event_table_id,
+                    type: 'DELETE',
+                    dataType: 'JSON',
+                    headers:{Authorization : auth_token},
+                    success:function(data) {
+                        self.notify('Successfully deleted','inverse');
+                    },
+                    error:function(data) {
+                        //console.log('came in error');
+                        console.log(data);
+                    }
+                });
+            });
+        });
+        $('#event_list_info').on('click','.more-discription-img',function(){
+            var large_image=$(this).attr('data-content');
+            $('.img-large-popover').html("<img src="+large_image+"/>");
+        });
+    },
+
+    viewShowCaseList : function() {
+        var self=this;
+        var auth_token = $('#remember_token').val();
+        var author_type= $('#author_type').val();
+        $.ajax({
+                url: self.base_url + "showcase",
+                type: 'GET',
+                dataType: 'JSON',
+                headers: {Authorization: auth_token},
+                error: function (data) {
+                    console.log(data);
+                },
+                success: function (data) {
+                    console.log(data);
+
+                    var results = data.result;
+                    var row;
+                    for (var i = 0; i < results.length; i++) {
+                        var s_no = i + 1;
+                        row = "<tr><td>" + s_no + "</td><td>" + results[i].title + "</td><td>" + results[i].category + "</td><td>" + results[i].book_file + "</td><td>" + results[i].status + "</td><td>" + results[i].id + "</td><td>" + results[i].id + "</td></tr>";
+                        $("#show_case_list_info").append(row);
+
+                    }
+                    $(".data-table-show-case").bootgrid({
+                        css: {
+                            icon: 'zmdi icon',
+                            iconColumns: 'zmdi-view-module',
+                            iconDown: 'zmdi-expand-more',
+                            iconRefresh: 'zmdi-refresh',
+                            iconUp: 'zmdi-expand-less'
+                        },
+                        formatters: {
+                            "delete": function (column, row) {
+                                return "<button type=\"button\" class=\"btn btn-icon command-delete delete-show-case waves-effect waves-circle\" data-row-id=\"" + row.book_show_case_delete + "\"><i class=\"zmdi zmdi-delete\"></i></button>";
+                            },
+                            "access": function (column, row) {
+
+                                if (row.book_files_status === 'Visible') {
+                                    console.log();
+                                    return "<div class='checkbox'><label><input type=\"checkbox\" checked class=\"btn btn-icon command-delete access-show-case waves-effect waves-circle\"  data-row-id=\"" + row.access + "\"><i class=\"input-helper\"></i></input></label></div>";
+                                }
+                                else {
+                                    return "<div class='checkbox'><label><input type=\"checkbox\" class=\"btn btn-icon command-delete access-show-case waves-effect waves-circle\"  data-row-id=\"" + row.access + "\"><i class=\"input-helper\"></i></input></label></div>";
+                                }
+                            }
+
+                        }
+                    });
+
+                },
+                complete: function(data) {
+                    setTimeout(doAjax,1000);
+                }
+            });
+        $('.data-table-show-case').on('change','.access-show-case',function() {
+            var checkbox=$(this);
+            var access_show_case_table_id = $(this).attr('data-row-id');
+            console.log(access_show_case_table_id);
+            var author_id = $('#author_id').val();
+            var status;
+            if(checkbox.is(':checked')) {
+                status = 'Visible';
+            }
+            else {
+                status = 'Denied';
+            }
+            swal({
+                title: "Are you sure?",
+                text: "You want to "+status+" !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#4caf50",
+                confirmButtonText: "Yes, "+status+" it!",
+                closeOnConfirm: true
+            }, function() {
+
+                $.ajax({
+                    url: self.base_url+"showcase/"+access_show_case_table_id,
+                    type: 'PUT',
+                    dataType: 'JSON',
+                    headers:{Authorization : auth_token},
+                    data: {
+                        status: status
+                    },
+
+                    success:function(data) {
+                        self.notify(data.msg,'inverse');
+                    },
+                    error:function(data) {
+                        console.log(data);
+                    }
+                })
+            });
+        });
+        $('#show_case_list_info').on('click','.delete-show-case',function() {
+            var show_case_table_id = $(this).attr('data-row-id');
+            var author_id = $('#author_id').val();
+            console.log("Auth:" + auth_token);
+            console.log(show_case_table_id);
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to undo this action !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: true
+            }, function() {
+                $.ajax({
+                    url: self.base_url+"showcase/"+show_case_table_id,
+                    type: 'DELETE',
+                    dataType: 'JSON',
+                    headers:{Authorization : auth_token},
+                    data: {
+                        author_id : author_id
+                    },
+                    success:function(data) {
+                        self.notify('Successfully deleted','inverse');
+                    },
+                    error:function(data) {
+                        //console.log('came in error');
+                        console.log(data);
+                    }
+                });
+            });
         });
     },
 }

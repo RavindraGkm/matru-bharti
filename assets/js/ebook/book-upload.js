@@ -17,6 +17,7 @@ MBJS.AuthorBook.prototype = {
         this.viewEbookList();
         this.viewCompositionList();
         this.viewEventList();
+        this.viewShowCaseList();
         this.viewTopAuthorsList();
     },
 
@@ -67,10 +68,10 @@ MBJS.AuthorBook.prototype = {
             $('#'+active_tab+'_create').addClass('active');
         }
         $('#tab_show_case').click(function(){
-            $('#tab_event_create').addClass('active');
-            $('#event_create').addClass('active');
-            $('#tab_event_list').removeClass('active');
-            $('#event_list').removeClass('active');
+            $('#tab_show_case_create').addClass('active');
+            $('#show_case_create').addClass('active');
+            $('#tab_show_case_list').removeClass('active');
+            $('#show_case_list').removeClass('active');
         });
         // Uploading setups
         var author_id=$('#author_id').val();
@@ -217,81 +218,6 @@ MBJS.AuthorBook.prototype = {
                 var fsize = $('#profileImage')[0].files[0].size; //get file size
                 console.log(fsize);
                 var ftype = $('#profileImage')[0].files[0].type; // get file type
-                //allow only valid image file types
-                switch(ftype) {
-                    case 'image/png': case 'image/gif': case 'image/jpeg': case 'image/pjpeg':
-                    break;
-                    default:
-                        self.notify("Please select image file",'danger');
-                        return false
-                }
-                //Allowed file size is less than 1 MB (1048576)
-                if(fsize>1048576) {
-                    $("#output").html("<b>"+bytesToSize(fsize) +"</b> Too big Image file! <br />Please reduce the size of your photo using an image editor.");
-                    return false
-                }
-                //Progress bar
-                uploadingprogressdiv.removeClass('hidden');
-            }
-            else {
-                self.notify("Please upgrade your browser, because your current browser lacks some new features we need!",'danger');
-                return false;
-            }
-        }
-    },
-
-    profileImageUpload: function() {
-
-        $("#ebook_cover").change(function() {
-            $('#ebook_cover_upload_form').submit();
-            return false;
-        });
-
-        var self = this;
-        var remember_token = $('#remember_token').val();
-        var progressbox = $('#progressbox');
-        var progressbar = $('.custom-progress');
-        var statustxt = $('.custom-progress span');
-        var completed = '0%';
-        var uploadingprogressdiv = $('.uploading-progress-div');
-        var author_id=$('#author_id').val();
-
-        var options = {
-            beforeSubmit:beforeSubmit,
-            uploadProgress:OnProgress,
-            success:afterSuccess,
-            resetForm: true,
-            data: {author_id : author_id},
-            headers:{Authorization : remember_token}
-        };
-
-
-        $('#ebook_cover_upload_form').submit(function() {
-            $(this).ajaxSubmit(options);
-            return false;
-        });
-
-        function OnProgress(event, position, total, percentComplete) {
-            progressbar.removeClass(self.last_class).addClass("p"+percentComplete);
-            self.last_class = "p"+percentComplete;
-            statustxt.html(percentComplete + '%');
-        }
-
-        function afterSuccess() {
-            uploadingprogressdiv.addClass('hidden');
-            var new_source = self.base_url+"image/upload/"+author_id + "?timestamp="  + new Date().getTime();
-            $('#profile_image').attr('src',new_source);
-        }
-
-        function beforeSubmit() {
-            if (window.File && window.FileReader && window.FileList && window.Blob) {
-                if( !$('#ebook_cover').val()) {
-                    self.notify("No File selected",'danger');
-                    return false
-                }
-                var fsize = $('#ebook_cover')[0].files[0].size; //get file size
-                console.log(fsize);
-                var ftype = $('#ebook_cover')[0].files[0].type; // get file type
                 //allow only valid image file types
                 switch(ftype) {
                     case 'image/png': case 'image/gif': case 'image/jpeg': case 'image/pjpeg':
@@ -472,7 +398,7 @@ MBJS.AuthorBook.prototype = {
                             showConfirmButton: false,
                             showCancelButton: false
                         });
-                        book_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
+                        book_save_button.html('Save Book Info &nbsp;<i class="zmdi zmdi-edit"></i>');
                     }
                 },
                 success: function (data, textStatus, jqXHR) {
@@ -708,7 +634,7 @@ MBJS.AuthorBook.prototype = {
                     dataType: "JSON",
                     data: {
                         title: show_case_title, category:show_case_category,
-                        book_file: show_case_book_file, author_id:author_id
+                        book_file: show_case_book_file,status:"Visible", author_id:author_id
                     },
                     headers: {Authorization: remember_token},
                     beforeSend: function () {
@@ -748,6 +674,10 @@ MBJS.AuthorBook.prototype = {
                         });
                         $('.sweet-alert h2').addClass('h2_success');
                         show_case_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
+                    },
+
+                    complete: function(data) {
+
                     }
                 });
             },
@@ -772,7 +702,7 @@ MBJS.AuthorBook.prototype = {
             headers:{Authorization : auth_token},
             success:function(data) {
                 var results = data.result;
-                console.log(data);
+                //console.log(data);
                 var row;
                 for(var i=0;i<results.length;i++) {
                     var published_date = results[i].published_at.split('-').reverse().join('-');
@@ -976,6 +906,10 @@ MBJS.AuthorBook.prototype = {
                     formatters: {
                         "links": function(column, row) {
                             return "<button type=\"button\" class=\"btn btn-icon command-delete delete-event waves-effect waves-circle\" data-row-id=\"" + row.action + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
+                        },
+                        "event_image": function(column, row) {
+                            return "<div class=\"tab-prev-img-div more-discription-img dropdown open\" data-desctiption=\""+row.event_pic+"\" data-content=\""+row.event_pic+"\" data-trigger=\"click\" data-toggle=\"popover\" data-placement=\"bottom\"  aria-describedby='popover288980' ><img class=\"img img-responsive superbox-current-img \" src=\"" + row.event_image + "\" /></div>";
+                            $('[data-toggle="popover"]').popover();
                         }
                     }
                 });
@@ -1014,6 +948,89 @@ MBJS.AuthorBook.prototype = {
         });
     },
 
+    viewShowCaseList : function() {
+        var self=this;
+        var auth_token = $('#remember_token').val();
+        var author_id = $('#author_id').val();
+        var show_case_save_button = $('#btn-save-show-case-info');
+            $.ajax({
+            url: self.base_url + "showcase/" + author_id,
+            type: 'GET',
+            dataType: 'JSON',
+            headers: {Authorization: auth_token},
+            error: function (data) {
+                //console.log(auth_token)
+                console.log(data);
+            },
+            success: function (data) {
+                //console.log(data);
+
+                var results = data.result;
+                //console.log(results[i].status);
+                var row;
+
+                 for (var i = 0; i < results.length; i++) {
+                     var s_no=i+1;
+
+                    if (results[i].status == "Visible") {
+                        row = "<tr><td>" + s_no + "</td><td>" + results[i].title + "</td><td>" + results[i].category + "</td><td>" + results[i].book_file + "</td><td>" + results[i].id + "</td></tr>";
+                        $("#show_case_list_info").append(row);
+                    }
+
+
+                }
+                $("#data-table-show_case").bootgrid({
+                    css: {
+                        icon: 'zmdi icon',
+                        iconColumns: 'zmdi-view-module',
+                        iconDown: 'zmdi-expand-more',
+                        iconRefresh: 'zmdi-refresh',
+                        iconUp: 'zmdi-expand-less'
+                    },
+                    formatters: {
+                        "links": function (column, row) {
+                            return "<button type=\"button\" class=\"btn btn-icon command-delete delete-show-case waves-effect waves-circle\" data-row-id=\"" + row.action + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
+                        }
+                    }
+                });
+            }
+        });
+
+
+        $('#show_case_list_info').on('click','.delete-show-case',function() {
+            var show_case_table_id = $(this).attr('data-row-id');
+            var author_id = $('#author_id').val();
+            console.log("Auth:" + auth_token);
+            console.log(show_case_table_id);
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to undo this action !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: true
+            }, function() {
+                $.ajax({
+                    url: self.base_url+"showcase/"+show_case_table_id,
+                    type: 'DELETE',
+                    dataType: 'JSON',
+                    headers:{Authorization : auth_token},
+                    data: {
+                        author_id : author_id
+                    },
+                    success:function(data) {
+                        self.notify('Successfully deleted','inverse');
+                    },
+                    error:function(data) {
+                        //console.log('came in error');
+                        console.log(data);
+                    }
+                });
+            });
+        });
+    },
+
     viewTopAuthorsList:function () {
         var self=this;
         var auth_token = $('#remember_token').val();
@@ -1026,9 +1043,9 @@ MBJS.AuthorBook.prototype = {
                 console.log(data);
             },
             success:function(data) {
-                console.log(auth_token);
+                //console.log(auth_token);
                 var results = data.result;
-                console.log(data.result);
+                //console.log(data.result);
                 var row;
                 for(var i=0;i<results.length;i++) {
                     var s_no=i+1;

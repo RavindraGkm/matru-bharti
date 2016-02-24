@@ -55,7 +55,7 @@ class Event_model extends CI_Model {
         $query = $this->db->get_where('authors', array('token' => $auth_token));
         $response = array();
         if($query->num_rows()>0) {
-            $this->db->delete('events', array('id'=>$event_id,'author_id'=>$author_id));
+            $this->db->delete('events', array('id'=>$event_id, 'author_id'=>$author_id));
             if($this->db->affected_rows()>0) {
                 $response['status'] = 'success';
                 $response['msg'] = 'Deleted Successfully';
