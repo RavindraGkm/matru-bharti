@@ -30,7 +30,9 @@ class Composition_model extends CI_Model {
         if($query->num_rows()>0) {
             $row = $query->row_array();
             if($row['type']=='admin') {
-                $query = $this->db->get('compositions');
+                $sql = "SELECT compositions.*, (SELECT authors.name FROM authors WHERE authors.id = compositions.author_id) AS author_name FROM compositions";
+                $query = $this->db->query($sql);
+//                $query = $this->db->get('compositions');
                 if($query->num_rows()>0) {
                     $response['status'] = 'success';
                     $response['result'] = $query->result_array();

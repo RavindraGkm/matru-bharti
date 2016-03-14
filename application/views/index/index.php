@@ -59,7 +59,13 @@
             </a>
             <ul class="nav navbar-nav navbar-right menu">
                 <li data-menuanchor="section_home">
-                    <a href="#section_home">Home</a>
+                    <a href="#section_home"><i class="fa fa-home"></i></a>
+                </li>
+                <li>
+                    <a href="<?php echo base_url('home?page=ebook_gallery');?>">E-Books</a>
+                </li>
+                <li>
+                    <a href="<?php echo base_url('home?page=show_case');?>">Books Show Case</a>
                 </li>
                 <li data-menuanchor="section_login">
                     <a href="#section_login">Login</a>
@@ -69,6 +75,12 @@
                 </li>
                 <li data-menuanchor="section_contact_us">
                     <a href="#section_contact_us">Contact Us</a>
+                </li>
+                <li>
+                    <a href="<?php echo base_url('about-us');?>">About Us</a>
+                </li>
+                <li>
+                    <a href="<?php echo base_url('terms-conditions');?>">Tems &amp; Conditions</a>
                 </li>
             </ul>
 
@@ -146,7 +158,7 @@
                     </h1>
 
                     <p class="delay_1" data-animate-in="animateUpDown">
-                        Manthan is a self-publishing platform for ebooks. We accept stories, novels, articles, biographies, poems, essays and more.
+                        Manthan is a self-publishing platform
                     </p>
                     <a href="#section_login" class="waves btn btn-lg btn-primary delay_2" data-animate-in="animateUpDown">
                         <i class="fa fa-key"></i> Login

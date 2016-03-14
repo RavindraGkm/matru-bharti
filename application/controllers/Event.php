@@ -10,6 +10,9 @@ class Event extends REST_Controller {
         $author_id=$this->post('author_id');
         $title=$this->post('title');
         $event_date=$this->post('event_date');
+        $place=$this->post('place');
+        $event_details=$this->post('details');
+//        $event_status=$this->post('status');
         $event_pic=$this->post('event_pic');
         $data = array();
 
@@ -17,7 +20,13 @@ class Event extends REST_Controller {
             $data[] = "Title not provided";
         }
         if($event_date===NULL) {
-            $data[] = "Tags not provided";
+            $data[] = "Date not provided";
+        }
+        if($place===NULL) {
+            $data[] = "Place not provided";
+        }
+        if($event_details===NULL) {
+            $data[] = "Details not provided";
         }
         if($event_pic===NULL) {
             $data[] = "Event image not provided";
@@ -28,6 +37,12 @@ class Event extends REST_Controller {
         }
         if($event_date=="") {
             $data[] = "Event date can not be blank";
+        }
+        if($place=="") {
+            $data[] = "Event place can not be blank";
+        }
+        if($event_details=="") {
+            $data[] = "Event details can not be blank";
         }
         if($event_pic=="") {
             $data[] = "Event image can not be blank";
@@ -122,6 +137,47 @@ class Event extends REST_Controller {
             $this->db->close();
         }
 //        $this->response("Hello",REST_Controller::HTTP_OK);
+    }
+
+    public function index_put ($id=0) {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: PUT");
+        $status=$this->put('status');
+        $data = array();
+        if($status===NULL) {
+            $data[] = "Name not provided";
+        }
+        if($status=="") {
+            $data[] = "Name can not be blank";
+        }
+        if($id==0) {
+            $response = array('error'=>'Invalid Method');
+            $this->response($response,REST_Controller::HTTP_METHOD_NOT_ALLOWED);
+        }
+
+        if(count($data)>0){
+            $error['error'] = $data;
+            $this->response($error,REST_Controller::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        else{
+            $headers = $this->input->request_headers();
+            if(!isset($headers['Authorization']) || empty($headers['Authorization'])) {
+                $this->response(array('error'=>'Unauthorized Access'),REST_Controller::HTTP_UNAUTHORIZED);
+            }
+            else {
+                $params = $this->put();
+                $this->load->database();
+                $this->load->model('admin/Admin_model');
+                $response = $this->Admin_model->event_approvel($headers['Authorization'],$params,$id);
+                if($response['status']=='success') {
+                    $this->response($response,REST_Controller::HTTP_OK);
+                }
+                else {
+                    $this->response($response,REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
+                }
+            }
+        }
+
     }
 }
 ?>

@@ -14,9 +14,18 @@ class ShowCase_model extends CI_Model {
                     $response['result'] = $query->result_array();
                 }
             }
+            if($row['type']=='guest') {
+                $sql = "SELECT book_show_case.*, (SELECT authors.name FROM authors WHERE authors.id = book_show_case.author_id) AS author_name FROM book_show_case";
+                $query = $this->db->query($sql);
+//                $query = $this->db->get('book_show_case');
+                if($query->num_rows()>0) {
+                    $response['status'] = 'success';
+                    $response['result'] = $query->result_array();
+                }
+            }
             else {
-//                $author_id = $row['id'];
-                $query = $this->db->get_where('book_show_case', array('status'=>'Visible'));
+                $author_id = $row['id'];
+                $query = $this->db->get_where('book_show_case', array('author_id'=>$author_id));
                 if($query->num_rows()>0) {
                     $response['status'] = 'success';
                     $response['result'] = $query->result_array();
@@ -24,8 +33,8 @@ class ShowCase_model extends CI_Model {
             }
         }
         else {
-            $response['status'] = 'error';
-            $response['msg'] = 'Anauthorized';
+                $response['status'] = 'error';
+                $response['msg'] = 'Anauthorized';
         }
         return $response;
     }
@@ -59,6 +68,28 @@ class ShowCase_model extends CI_Model {
             if($this->db->affected_rows()>0) {
                 $response['status'] = 'success';
                 $response['msg'] = 'Deleted Successfully';
+            }
+            else {
+                $response['status'] = 'error';
+                $response['msg'] = 'Server Error';
+            }
+        }
+        else {
+            $response['status'] = 'error';
+            $response['msg'] = 'Anauthorized';
+        }
+        return $response;
+    }
+
+    public function get_book_show_case($auth_token,$id) {
+        $query = $this->db->get_where('authors', array('token' => $auth_token));
+        $response = array();
+        if($query->num_rows()>0) {
+            $sql = "SELECT book_show_case.*, (SELECT authors.name FROM authors WHERE authors.id = book_show_case.author_id) AS author_name, (SELECT authors.mobile FROM authors WHERE authors.id = book_show_case.author_id) AS author_contact, (SELECT  authors.email FROM authors WHERE authors.id=book_show_case.author_id) AS author_email FROM book_show_case where book_show_case.id=$id";
+            $query = $this->db->query($sql);
+            if($query->num_rows()>0) {
+                $response['status'] = 'success';
+                $response['result'] = $query->row_array();
             }
             else {
                 $response['status'] = 'error';

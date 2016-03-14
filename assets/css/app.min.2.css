@@ -43,7 +43,8 @@
 }
 
 .photos:not(.p-timeline) [data-src] {
-  padding: 3px;
+  /*padding: 3px;*/
+  padding: 7px;
   -webkit-transition: all;
   -o-transition: all;
   transition: all;

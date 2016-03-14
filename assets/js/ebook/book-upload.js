@@ -10,6 +10,7 @@ MBJS.AuthorBook.prototype = {
         this.basicSetups();
         this.viewProfileInfo();
         this.ebookUpload();
+        this.getEbookCategory();
         //this.ebookFileUpload();
         this.compositionUpload();
         this.eventUpload();
@@ -19,6 +20,7 @@ MBJS.AuthorBook.prototype = {
         this.viewEventList();
         this.viewShowCaseList();
         this.viewTopAuthorsList();
+        this.viewEbookShowCase();
     },
 
     notify: function(message,type) {
@@ -243,111 +245,6 @@ MBJS.AuthorBook.prototype = {
 
     ebookUpload: function () {
         var self = this;
-        //$('#form_ebook_upload').validate({
-        //    rules:{
-        //        book_language: {
-        //            required:true
-        //        },
-        //        book_category: {
-        //            required:true
-        //        },
-        //        file_title: {
-        //            required:true
-        //        },
-        //        book_tag: {
-        //            required:true
-        //        },
-        //        about_book: {
-        //            required:true
-        //        }
-        //    },
-        //    message:{
-        //        book_language: {
-        //            required: "Select Language"
-        //        },
-        //        book_category: {
-        //            required: "Select Category"
-        //        },
-        //        file_title: {
-        //            required: "Enter file title"
-        //        },
-        //        book_tag: {
-        //            required: "Enter book tag"
-        //        },
-        //        about_book: {
-        //            required: "Enter about book"
-        //        }
-        //    },
-        //    submitHandler: function(form) {
-        //        var book_language = $('#book_language').val();
-        //        var book_category = $('#book_category').val();
-        //        var file_title = $('#file_title').val();
-        //        var about_book = $('#about_book').val();
-        //        var book_tag = $('#book_tag').val();
-        //        var ebook_file = "Abc_file";
-        //        var ebook_cover = "Abc_cover";
-        //        var ebook_status="Panding";
-        //        var book_save_button = $('#btn-save-book-info');
-        //        var author_id = $('#author_id').val();
-        //        var remember_token = $('#remember_token').val();
-        //        $.ajax({
-        //            url: self.base_url + "ebook",
-        //            type: "POST",
-        //            dataType: "JSON",
-        //            data: {
-        //                language: book_language, category: book_category,
-        //                title: file_title, about: about_book,
-        //                tag: book_tag,author_id:author_id,
-        //                file: ebook_file, cover: ebook_cover,status:ebook_status
-        //            },
-        //            headers: {Authorization: remember_token},
-        //            beforeSend: function () {
-        //                book_save_button.html('Uploading... &nbsp;<i class="zmdi zmdi-edit"></i>');
-        //
-        //            },
-        //            error: function (data) {
-        //                var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
-        //                if (data.status == 422) {
-        //                    swal({
-        //                        title: "Error!",
-        //                        text: obj.error[0],
-        //                        timer: 2000,
-        //                        showConfirmButton: false,
-        //                        showCancelButton: false
-        //                    });
-        //                }
-        //                else if (data.status == 500) {
-        //                    swal({
-        //                        title: "Opps!",
-        //                        text: 'Something went wrong on server !',
-        //                        timer: 2000,
-        //                        showConfirmButton: false,
-        //                        showCancelButton: false
-        //                    });
-        //                    book_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
-        //                }
-        //            },
-        //            success: function (data, textStatus, jqXHR) {
-        //                swal({
-        //                    title: "Success",
-        //                    text: "Book info saved successfully",
-        //                    timer: 2000,
-        //                    showConfirmButton: false,
-        //                    showCancelButton: false,
-        //                });
-        //                $('.sweet-alert h2').addClass('h2_success');
-        //                book_save_button.html('Save Book Info');
-        //            }
-        //        });
-        //    },
-        //    errorPlacement: function (error, element) {
-        //        $(element).closest("form").find("span[data-error-for='" + element.attr("id") + "']").html(error[0].innerHTML).css('opacity', 1);
-        //    },
-        //    unhighlight: function (element, errorClass, validClass) {
-        //        $(element).removeClass('error');
-        //        $(element).closest('.pos-relative').find('.error-span').css('opacity', 0);
-        //    }
-        //});
 
         $("#btn-save-book-info").click(function(){
             var book_language = $('#book_language').val();
@@ -382,34 +279,15 @@ MBJS.AuthorBook.prototype = {
                 error: function (data) {
                     var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
                     if (data.status == 422) {
-                        swal({
-                            title: "Error!",
-                            text: obj.error[0],
-                            timer: 2000,
-                            showConfirmButton: false,
-                            showCancelButton: false
-                        });
+                        self.notify(obj.error[0],'inverse');
                     }
                     else if (data.status == 500) {
-                        swal({
-                            title: "Opps!",
-                            text: 'Something went wrong on server !',
-                            timer: 2000,
-                            showConfirmButton: false,
-                            showCancelButton: false
-                        });
+                        self.notify('Error! ','Something went wrong on server !','inverse');
                         book_save_button.html('Save Book Info &nbsp;<i class="zmdi zmdi-edit"></i>');
                     }
                 },
                 success: function (data, textStatus, jqXHR) {
-                    swal({
-                        title: "Success",
-                        text: "Book info saved successfully",
-                        timer: 2000,
-                        showConfirmButton: false,
-                        showCancelButton: false,
-                    });
-                    $('.sweet-alert h2').addClass('h2_success');
+                    self.notify('Book info saved successfully','inverse');
                     book_save_button.html('Save Book Info');
                 }
             });
@@ -474,35 +352,17 @@ MBJS.AuthorBook.prototype = {
                         console.log(data);
                         var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
                         if (data.status == 422) {
-                            swal({
-                                title: "Error!",
-                                text: obj.error[0],
-                                timer: 2000,
-                                showConfirmButton: false,
-                                showCancelButton: false
-                            });
+                            self.notify(obj.error[0],'inverse');
                         }
                         else if (data.status == 500) {
-                            swal({
-                                title: "Opps!",
-                                text: 'Something went wrong on server !',
-                                timer: 2000,
-                                showConfirmButton: false,
-                                showCancelButton: false
-                            });
+                            self.notify('Opps: Something went wrong on server !','inverse');
                             composition_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
                         }
                     },
                     success: function (data, textStatus, jqXHR) {
-                        swal({
-                            title: "Success",
-                            text: "Composition info saved successfully",
-                            timer: 2000,
-                            showConfirmButton: false,
-                            showCancelButton: false,
-                        });
+                        self.notify('Composition info saved successfully','inverse');
                         $('.sweet-alert h2').addClass('h2_success');
-                        composition_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
+                        composition_save_button.html('Save Composition Info');
                     }
                 });
             },
@@ -525,21 +385,35 @@ MBJS.AuthorBook.prototype = {
                 },
                 event_date: {
                     required: true
+                },
+                event_place: {
+                    required: true
+                },
+                event_details: {
+                    required: true
                 }
             },
             messages: {
                 event_title: {
                     required: 'Enter event title'
-
                 },
                 event_date: {
-                    required: 'Enter Event date'
+                    required: 'Enter event date'
+                },
+                event_place: {
+                    required: 'Enter event place'
+                },
+                event_details: {
+                    required: 'Enter event details'
                 }
             },
             submitHandler: function (form) {
                 var event_title = $('#event_title').val();
                 var event_date = $('#event_date').val().split('-').reverse().join('-');
+                var event_place=$('#event_place').val();
+                var event_details=$('#event_details').val();
                 var event_image= "event.jpg";
+                var event_status= "Pending";
                 var event_save_button = $('#btn-save-event-info');
                 var author_id = $('#author_id').val();
                 var remember_token = $('#remember_token').val();
@@ -549,7 +423,9 @@ MBJS.AuthorBook.prototype = {
                     dataType: "JSON",
                     data: {
                         title: event_title, event_date:event_date,
-                        event_pic: event_image, author_id:author_id
+                        place: event_place,
+                         details:event_details,
+                        event_pic: event_image,status:event_status, author_id:author_id
                     },
                     headers: {Authorization: remember_token},
                     beforeSend: function () {
@@ -559,34 +435,15 @@ MBJS.AuthorBook.prototype = {
                         console.log(data);
                         var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
                         if (data.status == 422) {
-                            swal({
-                                title: "Error!",
-                                text: obj.error[0],
-                                timer: 2000,
-                                showConfirmButton: false,
-                                showCancelButton: false
-                            });
+                            self.notify(obj.error[0],'danger');
                         }
                         else if (data.status == 500) {
-                            swal({
-                                title: "Opps!",
-                                text: 'Something went wrong on server !',
-                                timer: 2000,
-                                showConfirmButton: false,
-                                showCancelButton: false
-                            });
+                            self.notify("Something went wrong on server",'danger');
                             event_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
                         }
                     },
                     success: function (data, textStatus, jqXHR) {
-                        swal({
-                            title: "Success",
-                            text: "Event info saved successfully",
-                            timer: 2000,
-                            showConfirmButton: false,
-                            showCancelButton: false,
-                        });
-                        $('.sweet-alert h2').addClass('h2_success');
+                        self.notify("Event info saved successfully",'inverse');
                         event_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
                     }
                 });
@@ -644,36 +501,17 @@ MBJS.AuthorBook.prototype = {
                         console.log(data);
                         var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
                         if (data.status == 422) {
-                            swal({
-                                title: "Error!",
-                                text: obj.error[0],
-                                timer: 2000,
-                                showConfirmButton: false,
-                                showCancelButton: false
-                            });
+                            self.notify(obj.error[0],'danger');
                         }
                         else if (data.status == 500) {
-                            swal({
-                                title: "Opps!",
-                                text: 'Something went wrong on server !',
-                                timer: 2000,
-                                showConfirmButton: false,
-                                showCancelButton: false
-                            });
+                            self.notify("Something went wrong on server",'danger');
                             show_case_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
                         }
                     },
 
                     success: function (data, textStatus, jqXHR) {
-                        swal({
-                            title: "Success",
-                            text: "Book show case info saved successfully",
-                            timer: 2000,
-                            showConfirmButton: false,
-                            showCancelButton: false,
-                        });
-                        $('.sweet-alert h2').addClass('h2_success');
-                        show_case_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
+                        self.notify("Show case info saved successfully",'inverse');
+                        show_case_save_button.html('Save Show Case Info');
                     },
 
                     complete: function(data) {
@@ -689,6 +527,75 @@ MBJS.AuthorBook.prototype = {
                 $(element).closest('.pos-relative').find('.error-span').css('opacity', 0);
             }
         });
+    },
+
+    getEbookCategory : function() {
+        var self=this;
+        var auth_token = $('#remember_token').val();
+        $.ajax({
+            url: self.base_url+"ebook",
+            type: 'GET',
+            dataType: 'JSON',
+            headers:{Authorization : auth_token},
+            success:function(data) {
+                var result = data.result;
+                var results = data.results;
+                console.log(data);
+                var row;
+                for(var i=0;i<results.length;i++) {
+                    row="<option value="+results[i].lang+">"+results[i].lang+"</option>";
+                    $("#book_language").append(row);
+                }
+                for(var i=0;i<result.length;i++) {
+                    row="<option value="+result[i].category+">"+result[i].category+"</option>";
+                    $("#book_category").append(row);
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+        //<<<---< Download Ebook Count
+        var downloads=0;
+        $('#ebook_list_info').on('click','.view-ebook',function() {
+            downloads++;
+            //console.log(downloads);
+        });
+        //<<<------<< Delete ebook functionality
+
+        $('#ebook_list_info').on('click','.delete-ebook',function() {
+
+            var ebook_table_id = $(this).attr('data-row-id');
+            //console.log(ebook_table_id);
+            var author_id = $('#author_id').val();
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to undo this action !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: true
+            }, function() {
+                $.ajax({
+                    url: self.base_url+"ebook/"+ebook_table_id,
+                    type: 'DELETE',
+                    dataType: 'JSON',
+                    headers:{Authorization : auth_token},
+                    data: {
+                        author_id : author_id
+                    },
+                    success:function(data) {
+                        //console.log(ebook_table_id);
+                        self.notify('Successfully deleted','inverse');
+                    },
+                    error:function(data) {
+                        console.log(data);
+                    }
+                });
+            });
+        });
+
     },
 
     viewEbookList : function() {
@@ -747,7 +654,7 @@ MBJS.AuthorBook.prototype = {
         var downloads=0;
         $('#ebook_list_info').on('click','.view-ebook',function() {
             downloads++;
-            console.log(downloads);
+            //console.log(downloads);
         });
         //<<<------<< Delete ebook functionality
 
@@ -774,7 +681,101 @@ MBJS.AuthorBook.prototype = {
                         author_id : author_id
                     },
                     success:function(data) {
-                        console.log(ebook_table_id);
+                        //console.log(ebook_table_id);
+                        self.notify('Successfully deleted','inverse');
+                    },
+                    error:function(data) {
+                        console.log(data);
+                    }
+                });
+            });
+        });
+
+    },
+
+    viewEbookShowCase : function() {
+        var self=this;
+
+        $.ajax({
+            url: self.base_url+"ebook",
+            type: 'GET',
+            dataType: 'JSON',
+            headers:{Authorization : auth_token},
+            success:function(data) {
+                var results = data.result;
+                //console.log(data);
+                var row;
+                for(var i=0;i<results.length;i++) {
+                    var published_date = results[i].published_at.split('-').reverse().join('-');
+                    var s_no=i+1;
+                    if(results[i].status=="Panding")
+                    {
+                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td class='td-status-blue'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td></tr>";
+                        $("#ebook_list_info").append(row);
+                    }
+                    else if(results[i].status=="Approved")
+                    {
+                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td class='td-status-blue'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td></tr>";
+                        $("#ebook_list_info").append(row);
+                    }
+                    else
+                    {
+                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td class='td-status-blue'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td></tr>";
+                        $("#ebook_list_info").append(row);
+                    }
+
+                }
+                $("#data-table-basic").bootgrid({
+                    css: {
+                        icon: 'zmdi icon',
+                        iconColumns: 'zmdi-view-module',
+                        iconDown: 'zmdi-expand-more',
+                        iconRefresh: 'zmdi-refresh',
+                        iconUp: 'zmdi-expand-less'
+                    },
+                    formatters: {
+                        "file_link": function(column, row) {
+                            return "<a href=\"" + row.file_attachment + "\" class=\"btn btn-icon command-file view-ebook waves-effect waves-circle\" target='_blank'><i class=\"fa fa-download fa-lg\"></i></a>";
+                        },
+                        "links": function(column, row) {
+                            return "<button type=\"button\" class=\"btn btn-icon command-delete delete-ebook waves-effect waves-circle\" data-row-id=\"" + row.action + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
+                        }
+                    }
+                });
+            }
+        });
+        //<<<---< Download Ebook Count
+        var downloads=0;
+        $('#ebook_list_info').on('click','.view-ebook',function() {
+            downloads++;
+            //console.log(downloads);
+        });
+        //<<<------<< Delete ebook functionality
+
+        $('#ebook_list_info').on('click','.delete-ebook',function() {
+
+            var ebook_table_id = $(this).attr('data-row-id');
+            //console.log(ebook_table_id);
+            var author_id = $('#author_id').val();
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to undo this action !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: true
+            }, function() {
+                $.ajax({
+                    url: self.base_url+"ebook/"+ebook_table_id,
+                    type: 'DELETE',
+                    dataType: 'JSON',
+                    headers:{Authorization : auth_token},
+                    data: {
+                        author_id : author_id
+                    },
+                    success:function(data) {
+                        //console.log(ebook_table_id);
                         self.notify('Successfully deleted','inverse');
                     },
                     error:function(data) {
@@ -902,7 +903,7 @@ MBJS.AuthorBook.prototype = {
                 for(var i=0;i<results.length;i++){
                     var event_date= results[i].event_date.split('-').reverse().join('-');
                     var s_no=i+1;
-                    row = "<tr><td>" + s_no + "</td><td>"+ results[i].event_pic +"</td><td>" + results[i].title + "</td><td>" + event_date + "</td><td>" + results[i].id + "</td></tr>";
+                    row = "<tr><td>" + s_no + "</td><td>"+ results[i].event_pic +"</td><td>" + results[i].title + "</td><td>" + event_date + "</td><td>" + results[i].place + "</td><td>" + results[i].details + "</td><td>" + results[i].status + "</td><td>" + results[i].id + "</td></tr>";
                     $("#event_list_info").append(row);
 
 
@@ -922,6 +923,9 @@ MBJS.AuthorBook.prototype = {
                         "event_image": function(column, row) {
                             return "<div class=\"tab-prev-img-div more-discription-img dropdown open\" data-desctiption=\""+row.event_pic+"\" data-content=\""+row.event_pic+"\" data-trigger=\"click\" data-toggle=\"popover\" data-placement=\"bottom\"  aria-describedby='popover288980' ><img class=\"img img-responsive superbox-current-img \" src=\"" + row.event_image + "\" /></div>";
 
+                        },
+                        "event_more": function(column, row) {
+                            return "<div class='btn-link'><label>"+row.event_details.substring(0,45)+"...&nbsp;&nbsp;<span data-desctiption=\""+row.event_details+"\" data-content=\""+row.event_details+"\" data-trigger=\"hover\" data-toggle=\"popover\" data-placement=\"bottom\"  aria-describedby='popover288972' class=\"more-description dropdown open\" >more</span></label></div>";
                         }
                     }
                 });
@@ -930,7 +934,7 @@ MBJS.AuthorBook.prototype = {
         $('#event_list_info').on('click','.delete-event',function() {
             var event_table_id = $(this).attr('data-row-id');
             var author_id = $('#author_id').val();
-            console.log("Auth:" + auth_token);
+            //console.log("Auth:" + auth_token);
             swal({
                 title: "Are you sure?",
                 text: "You will not be able to undo this action !",
@@ -975,7 +979,7 @@ MBJS.AuthorBook.prototype = {
                 console.log(data);
             },
             success: function (data) {
-                console.log(data);
+                //console.log(data);
 
                 var results = data.result;
                 //console.log(results[i].status);
@@ -983,14 +987,9 @@ MBJS.AuthorBook.prototype = {
 
                  for (var i = 0; i < results.length; i++) {
                      var s_no=i+1;
-
-                    if (results[i].status == "Visible") {
-                        row = "<tr><td>" + s_no + "</td><td>" + results[i].title + "</td><td>" + results[i].category + "</td><td>" + results[i].book_file + "</td><td>" + results[i].id + "</td></tr>";
-                        $("#show_case_list_info").append(row);
-                    }
-
-
-                }
+                     row = "<tr><td>" + s_no + "</td><td>" + results[i].title + "</td><td>" + results[i].category + "</td><td>" + results[i].book_file + "</td><td>" + results[i].status + "</td><td>" + results[i].id + "</td></tr>";
+                     $("#show_case_list_info").append(row);
+                 }
                 $("#data-table-show_case").bootgrid({
                     css: {
                         icon: 'zmdi icon',
@@ -1012,8 +1011,8 @@ MBJS.AuthorBook.prototype = {
         $('#show_case_list_info').on('click','.delete-show-case',function() {
             var show_case_table_id = $(this).attr('data-row-id');
             var author_id = $('#author_id').val();
-            console.log("Auth:" + auth_token);
-            console.log(show_case_table_id);
+            //console.log("Auth:" + auth_token);
+            //console.log(show_case_table_id);
             swal({
                 title: "Are you sure?",
                 text: "You will not be able to undo this action !",
@@ -1061,8 +1060,10 @@ MBJS.AuthorBook.prototype = {
                 var row;
                 for(var i=0;i<results.length;i++) {
                     var s_no=i+1;
+                    var img=self.base_url+'assets/uploads/authors-images/author-'+results[i].id+'.jpg';
+                    //var img='assets/uploads/authors-images/author-'+results[i].id+'.jpg';
                     if(results[i].ebook_downloads!=null){
-                        row="<tr><td>"+s_no+"</td><td>"+results[i].name+"</td><td>"+results[i].city+"</td><td>"+results[i].ebook_downloads+"</td></tr>";
+                        row="<tr><td>"+s_no+"</td><td>"+img+"</td><td>"+results[i].name+"</td><td>"+results[i].city+"</td><td>"+results[i].ebook_downloads+"</td></tr>";
                         $("#top_ebook_author_list").append(row);
                     }
                 }
@@ -1075,7 +1076,10 @@ MBJS.AuthorBook.prototype = {
                         iconUp: 'zmdi-expand-less'
                     },
                     formatters: {
+                        "author_image": function(column, row) {
+                            return "<div class=\"tab-prev-img-div more-discription-author-img dropdown open\" data-desctiption=\""+row.author_pic+"\" data-content=\""+row.author_pic+"\" data-trigger=\"click\" data-toggle=\"popover\" data-placement=\"bottom\"  aria-describedby='popover288980' ><img class=\"img img-responsive pro-img-tab-list \" src=\"" + row.author_image + "\" /></div>";
 
+                        }
                     }
                 });
             }

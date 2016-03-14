@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Matru Bharti</title>
+    <title>Manthan</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
     <?php
     echo link_tag('assets/css/bootstrap.min.css');
@@ -39,7 +39,7 @@
         </li>
         <li class="logo hidden-xs">
             <a href="<?php echo base_url('profile'); ?>">
-                Matru Bharti
+                Manthan
             </a>
         </li>
         <li class="pull-right pull-right-margine">
@@ -176,8 +176,6 @@
                                             <div class="fg-line pos-relative">
                                                 <select class="form-control" name="book_language" id="book_language">
                                                     <option value="">Select Language...</option>
-                                                    <option value="Hindi">Hindi</option>
-                                                    <option value="English">English</option>
                                                 </select>
                                                 <span class="error-span" data-error-for="book_language"></span>
                                             </div>
@@ -189,32 +187,6 @@
                                             <div class="fg-line pos-relative">
                                                 <select class="form-control" name="book_category" id="book_category">
                                                     <option value="">Select Category...</option>
-                                                    <option value="Stories">Stories</option>
-                                                    <option value="Articles">Articles</option>
-                                                    <option value="Spritual">Spritual</option>
-                                                    <option value="Religious">Religious</option>
-                                                    <option value="Novels">Novels</option>
-                                                    <option value="Motivational">Motivational</option>
-                                                    <option value="Classic">Classic</option>
-                                                    <option value="Children">Children</option>
-                                                    <option value="Cooking">Cooking</option>
-                                                    <option value="Humor">Humor</option>
-                                                    <option value="Magazine">Magazine</option>
-                                                    <option value="Poems">Poems</option>
-                                                    <option value="Travel">Travel</option>
-                                                    <option value="Women">Women</option>
-                                                    <option value="Drama">Drama</option>
-                                                    <option value="Love Stories">Love Stories</option>
-                                                    <option value="Adventure">Adventure</option>
-                                                    <option value="Fiction">Fiction</option>
-                                                    <option value="Adventure,Fiction">Adventure,Fiction</option>
-                                                    <option value="Human Science">Human Science</option>
-                                                    <option value="Philosophy">Philosophy</option>
-                                                    <option value="Health">Health</option>
-                                                    <option value="Education">Education</option>
-                                                    <option value="Biography">Biography</option>
-                                                    <option value="Management">Management</option>
-                                                    <option value="Food">Food</option>
                                                 </select>
                                                 <span class="error-span" data-error-for="book_category"></span>
                                             </div>
@@ -243,7 +215,7 @@
                                         <div class="col-sm-9">
                                             <div class="fg-line pos-relative">
                                                 <input type="hidden" name="ebook_file_path" id="ebook_file_path" value="">
-                                                <form class="ebook_upload_form" action="<?php echo base_url('upload/ebook-file'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_upload_form">
+                                                <form class="ebook_upload_form" action="<?php echo base_url('ebook-file-upload'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_upload_form">
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                                         <span class="btn btn-primary btn-file m-r-10">
                                                             <span class="fileinput-new">Select file</span>
@@ -263,7 +235,6 @@
                                             jpeg/jpg/png/gif)*</label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <!--<form class="form-image-upload" action="--><?php //echo base_url('profile-image-2'); ?><!--" onSubmit="return false" method="post" enctype="multipart/form-data" id="MyUploadForm">-->
                                                 <form class="form-image-upload" action="<?php echo base_url('ebook-cover-image-2'); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="ebook_cover_upload_form">
                                                     <div class="fileinput fileinput-new file-prev-mng" data-provides="fileinput">
                                                         <div class="fileinput-preview thumbnail" data-trigger="fileinput">
@@ -448,6 +419,7 @@
                                     <thead>
                                     <tr>
                                         <th data-column-id="serial_number">S.No.</th>
+                                        <th data-column-id="author_image" data-formatter="author_image">Author Image</th>
                                         <th data-column-id="event-image">Name</th>
                                         <th data-column-id="event-title">City</th>
                                         <th data-column-id="event-date">Total Downloads</th>
@@ -486,7 +458,7 @@
                                         </div>
                                         <div class="card-body card-padding">
                                             <div class="form-group">
-                                                <label for="event_title" class="col-sm-3 control-label">File Title*</label>
+                                                <label for="event_title" class="col-sm-3 control-label">Event Title*</label>
                                                 <div class="col-sm-9">
                                                     <div class="fg-line pos-relative">
                                                         <input type="text" class="form-control" name="event_title" id="event_title" placeholder="Title of Event">
@@ -500,6 +472,24 @@
                                                     <div class="fg-line pos-relative">
                                                         <input type='text' class="form-control date-picker" name="event_date" id="event_date" data-toggle="dropdown" placeholder="Click here...">
                                                         <span class="error-span" data-error-for="event_date"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="event_title" class="col-sm-3 control-label">Event Place*</label>
+                                                <div class="col-sm-9">
+                                                    <div class="fg-line pos-relative">
+                                                        <input type="text" class="form-control" name="event_place" id="event_place" placeholder="Plcae of Event">
+                                                        <span class="error-span" data-error-for="event_place"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="event_title" class="col-sm-3 control-label">Event Details*</label>
+                                                <div class="col-sm-9">
+                                                    <div class="fg-line pos-relative">
+                                                        <textarea class="form-control" name="event_details" id="event_details" rows="8" placeholder=""></textarea>
+                                                        <span class="error-span" data-error-for="event_details"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -564,6 +554,9 @@
                                                 <th data-column-id="event_image" data-formatter="event_image">Event Image</th>
                                                 <th data-column-id="event-title">File Title</th>
                                                 <th data-column-id="event-date">Event Date</th>
+                                                <th data-column-id="event-place">Event Place</th>
+                                                <th data-column-id="event_details" data-formatter="event_more">Event Details</th>
+                                                <th data-column-id="event-status">Status</th>
                                                 <th data-column-id="action" data-formatter="links">Actions</th>
                                             </tr>
                                             </thead>
@@ -619,7 +612,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="event_title" class="col-sm-3 control-label">File Title*</label>
+                                                <label for="show_case_title" class="col-sm-3 control-label">File Title*</label>
                                                 <div class="col-sm-9">
                                                     <div class="fg-line pos-relative">
                                                         <input type="text" class="form-control" name="show_case_title" id="show_case_title" placeholder="Title of Book">
@@ -628,7 +621,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="book_language" class="col-sm-3 control-label">File (Only pdf)*</label>
+                                                <label for="show_case_file" class="col-sm-3 control-label">File (Only pdf)*</label>
                                                 <div class="col-sm-9">
                                                     <div class="fg-line pos-relative">
                                                         <input type="hidden" name="show_case_book_file_path" id="show_case_book_file_path" value="">
@@ -651,7 +644,7 @@
                                                 <label for="book_language" class="col-sm-3 control-label"></label>
                                                 <div class="col-sm-9">
                                                     <div class="fg-line">
-                                                        <button class="btn btn-primary btn-sm" type="submit" name="btn-save-event-info" id="btn-save-show-case-info">
+                                                        <button class="btn btn-primary btn-sm" type="submit" name="btn-save-show-case-info" id="btn-save-show-case-info">
                                                             Save Show Case Info
                                                         </button>
                                                         <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
@@ -672,6 +665,7 @@
                                                 <th data-column-id="book-title">Book Title</th>
                                                 <th data-column-id="book-category">Book Category</th>
                                                 <th data-column-id="book-files">Uploaded Files</th>
+                                                <th data-column-id="status">Status</th>
                                                 <th data-column-id="action" data-formatter="links">Actions</th>
                                             </tr>
                                             </thead>
@@ -689,7 +683,7 @@
 </section>
 
 <footer id="footer">
-    Copyright &copy; 2016 Matru Bharti
+    Copyright &copy; 2016 Manthan
 
     <ul class="f-menu">
         <li><a href="">Home</a></li>

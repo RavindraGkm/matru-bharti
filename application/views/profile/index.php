@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Martu Bharti</title>
+    <title>Manthan</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <!--    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>-->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
@@ -44,7 +44,7 @@
         </li>
         <li class="logo hidden-xs">
             <a href="<?php echo base_url('profile'); ?>">
-                Matru Bharti
+                Manthan
             </a>
         </li>
         <li class="logo pull-right pull-right-margine">
@@ -97,9 +97,22 @@
             <div class="card" id="profile-main">
                 <div class="pm-overview c-overflow">
                     <div class="pmo-pic">
-                        <div class="p-relative">
-                            <a href="">
-                                <img id="profile_image" class="img-responsive" src="<?php echo base_url('image/upload/w_400/'.$author_id);?>" alt="" />
+                        <div class="p-relative ">
+                            <a href="" class="">
+                                <?php
+                                    $url = 'assets/uploads/authors-images/author-'.$author_id.'.jpg';
+                                    if(file_exists($url)) {
+                                ?>
+                                        <img id="profile_image" class="img-responsive" src="<?php echo base_url('image/upload/w_400/'.$author_id);?>" alt="" />
+                                <?php
+                                    }
+                                    else {
+                                ?>
+                                        <img id="profile_image" class="img-responsive" src="assets/img/profile-pics/no-image-1.jpg" alt="" />
+                                <?php
+                                    }
+                                ?>
+
                             </a>
                             <div class="dropdown pmop-message">
                                 <a data-toggle="dropdown" href="" class="btn bgm-white btn-float z-depth-1">
@@ -180,6 +193,10 @@
                                     <dd><span id="span-auth-dob"></span></dd>
                                 </dl>
                                 <dl class="dl-horizontal dl-horizontals">
+                                    <dt>PAN Number*</dt>
+                                    <dd><span id="span-auth-pan"></span></dd>
+                                </dl>
+                                <dl class="dl-horizontal dl-horizontals">
                                     <dt>About yourself</dt>
                                     <dd><span id="span-auth-about"></span></dd>
                                 </dl>
@@ -247,6 +264,15 @@
                                         </dd>
                                     </dl>
                                     <dl class="dl-horizontal">
+                                        <dt class="p-t-10">PAN Number*</dt>
+                                        <dd>
+                                            <div class="pos-relative">
+                                                <input type="text" class="form-control" name="author_pan_card" id="author_pan_card" placeholder="Pan Number">
+                                                <span class="error-span" data-error-for="author_pan_card"></span>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
                                         <dt class="p-t-10">About yourself</dt>
                                         <dd>
                                             <div class="fg-line">
@@ -278,7 +304,7 @@
 </section>
 
 <footer id="footer">
-    Copyright &copy; 2015 Matru Bharti
+    Copyright &copy; 2015 Manthan
 
     <ul class="f-menu">
         <li><a href="">Home</a></li>

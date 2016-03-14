@@ -7,8 +7,18 @@ class Event_model extends CI_Model {
         $response = array();
         if($query->num_rows()>0) {
             $row = $query->row_array();
-            if($row['type']=='admin') {
-                $query = $this->db->get('events');
+            if($row['type']=='admin' && $event_id != 0) {
+                $sql = "SELECT events.*, (SELECT authors.name FROM authors WHERE authors.id = events.author_id) AS author_name, (SELECT authors.mobile FROM authors WHERE authors.id = events.author_id) AS author_contact FROM events where events.id=$event_id";
+                $query = $this->db->query($sql);
+                if($query->num_rows()>0) {
+                    $response['status'] = 'success';
+                    $response['result'] = $query->row_array();
+                }
+            }
+            else if($row['type']=='admin') {
+                $sql="SELECT events.* FROM events ORDER BY events.event_date DESC ";
+                $query = $this->db->query($sql);
+//                $query = $this->db->get('events');
                 if($query->num_rows()>0) {
                     $response['status'] = 'success';
                     $response['result'] = $query->result_array();
@@ -16,7 +26,9 @@ class Event_model extends CI_Model {
             }
             else {
                 $author_id = $row['id'];
-                $query = $this->db->get_where('events', array('author_id' => $author_id));
+//                $query = $this->db->get_where('events', array('author_id' => $author_id));
+                $sql="SELECT events.* FROM events where events.author_id=$author_id ORDER BY events.event_date DESC ";
+                $query = $this->db->query($sql);
                 if($query->num_rows()>0) {
                     $response['status'] = 'success';
                     $response['result'] = $query->result_array();

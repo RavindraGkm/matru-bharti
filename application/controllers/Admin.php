@@ -4,6 +4,46 @@ require(APPPATH.'libraries/REST_Controller.php');
 
 class Admin extends REST_Controller {
 
+    public function index_post () {
+
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: POST");
+        $data = array();
+        if(count($data)>0){
+            $error['error'] = $data;
+            $this->response($error,REST_Controller::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        else{
+            $headers = $this->input->request_headers();
+            if (!isset($headers['Authorization']) || empty($headers['Authorization'])) {
+                $this->response(array('error' => 'Unauthorized Access'), REST_Controller::HTTP_UNAUTHORIZED);
+            }
+            else {
+                $params = $this->post();
+                $this->load->database();
+                $this->load->model('admin/Admin_model');
+
+                $response = $this->Admin_model->upload_new_terms($params,$headers['Authorization']);
+
+//                if((!($this->post('book_category')))&&(!($this->post('category')))) {
+//                    $response = $this->Admin_model->upload_new_language($params,$headers['Authorization']);
+//                }
+//                else if((!($this->post('lang')))&&(!($this->post('category')))) {
+//                    $response = $this->Admin_model->upload_new_book_category($params,$headers['Authorization']);
+//                }
+//                else if((!($this->post('lang')))&&(!($this->post('book_category')))) {
+//                    $response = $this->Admin_model->upload_new_composition_category($params,$headers['Authorization']);
+//                }
+                if($response['status']=='success') {
+                    $this->response($response,REST_Controller::HTTP_OK);
+                }
+                else {
+                    $this->response($response,REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
+                }
+            }
+        }
+    }
+
     public function index_put ($id=0) {
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: PUT");

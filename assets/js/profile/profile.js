@@ -131,6 +131,7 @@ MBJS.UserProfile.prototype = {
                 $('#span-auth-address').html(data.result.address);
                 $('#span-auth-city').html(data.result.city);
                 $('#span-auth-dob').html(data.result.dob.split('-').reverse().join('-'));
+                $('#span-auth-pan').html(data.result.pan);
                 $('#span-auth-about').html(data.result.about);
                 //console.log(data.result.dob);
                 var profile_view = $('#profile_view');
@@ -156,6 +157,7 @@ MBJS.UserProfile.prototype = {
                     $('#author_address').val(data.result.address);
                     $('#author_city').val(data.result.city);
                     $('#author_dob').val(data.result.dob.split('-').reverse().join('-'));
+                    $('#author_pan_card').val(data.result.pan);
                     $('#author_about_yourself').val(data.result.about);
                     $('.pmbb-body div.pmbb-header ul.actions ').hide();
                 });
@@ -187,6 +189,11 @@ MBJS.UserProfile.prototype = {
                 author_dob: {
                     required: true
                 },
+                author_pan_card: {
+                    required: true,
+                    minlength:10,
+                    maxlength:10
+                },
                 author_about_yourself: {
                     required: true
                 }
@@ -207,6 +214,11 @@ MBJS.UserProfile.prototype = {
                 author_dob: {
                     required : 'Enter your Date of birth'
                 },
+                author_pan_card: {
+                    required: "Enter your PAN Card number",
+                    minlength:"Enter Valid PAN number",
+                    maxlength:"Enter Valid PAN number"
+                },
                 author_about_yourself: {
                     required: 'Enter about your self'
                 }
@@ -217,6 +229,7 @@ MBJS.UserProfile.prototype = {
                 var author_address = $('#author_address').val();
                 var author_city = $('#author_city').val();
                 var author_dob = $('#author_dob').val().split('-').reverse().join('-');
+                var author_pan = $('#author_pan_card').val();
                 var about = $('#author_about_yourself').val();
                 var remember_token = $('#remember_token').val();
                 var update_button = $('#btn-update-profile');
@@ -229,7 +242,7 @@ MBJS.UserProfile.prototype = {
                     dataType: "JSON",
                     data:{
                         name: author_name,hindi_name:author_hindi_name,address: author_address,
-                        city: author_city,dob: author_dob,
+                        city: author_city,dob: author_dob,pan: author_pan,
                         about: about
                     },
                     headers:{Authorization : remember_token},
@@ -255,6 +268,7 @@ MBJS.UserProfile.prototype = {
                         $('#span-auth-address').html(author_address);
                         $('#span-auth-city').html(author_city);
                         $('#span-auth-dob').html(author_dob);
+                        $('#span-auth-pan').html(author_pan);
                         $('#span-auth-about').html(about);
                         $('.pmbb-body div.pmbb-header ul.actions ').show();
                     },
