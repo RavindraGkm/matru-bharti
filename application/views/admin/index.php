@@ -137,6 +137,11 @@
                             <i class="fa fa-image fa-lg"></i>&nbsp;Show Case Gallery
                         </a>
                     </li>
+                    <li role="presentation" id="tab_show_case_gallery">
+                        <a href="#show_case_gallery" aria-controls="upload-file-list" role="tab" data-toggle="tab">
+                            <i class="fa fa-image fa-lg"></i>&nbsp;Req. for Add
+                        </a>
+                    </li>
                     <li role="presentation" id="tab_control_panel">
                         <a href="#control_panel" aria-controls="upload-file-list" role="tab" data-toggle="tab">
                             <i class="fa fa-cogs fa-lg"></i>&nbsp;Control Panel
@@ -582,7 +587,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="card no-shadow" id="section_condition">
+                        <div class="card no-shadow hidden" id="section_condition">
                             <form id="form_condition_mng" class="form-horizontal">
                                 <div class="card-header">
                                     <h2>Terms &amp; Condition</h2>
@@ -692,8 +697,8 @@
                                                         <thead>
                                                         <tr>
                                                             <th data-column-id="serial_number">S.No.</th>
-                                                            <th data-column-id="english-terms">Terms (English)</th>
-                                                            <th data-column-id="hindi-terms">Terms (Hindi)</th>
+                                                            <th data-column-id="english_terms">Terms (English)</th>
+                                                            <th data-column-id="hindi_terms">Terms (Hindi)</th>
                                                             <th data-column-id="action" data-formatter="action">Action</th>
                                                         </tr>
                                                         </thead>
@@ -785,7 +790,7 @@
                                     </div>
                                 </form>
                         </div>
-                        <div class="card no-shadow hidden" id="section_about_msg">
+                        <div class="card no-shadow" id="section_about_msg">
                             <form id="form_Terms_upload" class="form-horizontal">
                                 <div class="card-header">
                                     <h2>About
@@ -796,9 +801,14 @@
                                 <div class="card-body card-padding">
                                     <div class="form-group">
                                         <label for="message_english" class="col-sm-3 control-label">Message</label>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-7">
                                             <div class="fg-line pos-relative">
-                                                <textarea class="form-control" name="message_english" id="message_english" rows="5" placeholder="Manthan message....."></textarea>
+                                                <textarea class="form-control" name="message_english" id="message_english" rows="5" disabled="true" placeholder="Manthan message....."></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="fg-line pos-relative">
+                                                <button type="button" class="btn btn-icon edit-about-english  waves-effect waves-circle" ><i class="zmdi zmdi-edit"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -811,9 +821,14 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="message_hindi" class="col-sm-3 control-label">मंथन संदेश  (हिन्दी ):</label>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-7">
                                             <div class="fg-line pos-relative">
-                                                <textarea class="form-control" name="message_hindi" id="message_hindi" rows="5" placeholder="मंथन संदेश....."></textarea>
+                                                <textarea class="form-control" name="message_hindi" disabled="true" id="message_hindi" rows="5" placeholder="मंथन संदेश....."></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="fg-line pos-relative">
+                                                <button type="button" class="btn btn-icon edit-about-hindi  waves-effect waves-circle" ><i class="zmdi zmdi-edit"></i></button>
                                             </div>
                                         </div>
                                     </div>

@@ -168,6 +168,57 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="dropdown">
+                                    <a href="" data-toggle="dropdown">
+                                        <i class="fa fa-cog"></i>
+                                    </a>
+
+                                    <ul class="dropdown-menu dropdown-menu-right dropdown-menu-profile">
+                                        <li>
+                                            <div class="checkbox m-b-15 pull-left">
+                                                <label><i class="fa fa-cog"></i>
+                                                    Privacy Settings
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="checkbox m-b-15 pull-left li-pd-left">
+                                                <label>
+                                                    <input type="checkbox" value="">
+                                                    <i class="input-helper"></i>
+                                                    Hide Image for viewer
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li class="">
+                                            <div class="checkbox m-b-15 pull-left li-pd-left">
+                                                <label>
+                                                    <input type="checkbox" value="">
+                                                    <i class="input-helper"></i>
+                                                    Hide Contact for viewer
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li class="">
+                                            <div class="checkbox m-b-15 pull-left li-pd-left">
+                                                <label>
+                                                    <input type="checkbox" value="">
+                                                    <i class="input-helper"></i>
+                                                    Hide Email for viewer
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li class="">
+                                            <div class="checkbox m-b-15 pull-left li-pd-left">
+                                                <label>
+                                                    <input type="checkbox" value="">
+                                                    <i class="input-helper"></i>
+                                                    Hide Address for viewer
+                                                </label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                         <div class="pmbb-body p-l-30">

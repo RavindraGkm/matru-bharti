@@ -9,10 +9,19 @@
  */
 
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+.dropdown-menu-profile {
+  width:200px;
+}
+
 .home-nav-link {
   padding:2px 5px;
   margin:0px 5px;
   font-size: 15px;
+}
+
+.li-pd-left {
+  padding-left:10px;
+
 }
 
 .card-msg-align {

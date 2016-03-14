@@ -23,17 +23,15 @@ class Admin extends REST_Controller {
                 $this->load->database();
                 $this->load->model('admin/Admin_model');
 
-                $response = $this->Admin_model->upload_new_terms($params,$headers['Authorization']);
-
-//                if((!($this->post('book_category')))&&(!($this->post('category')))) {
-//                    $response = $this->Admin_model->upload_new_language($params,$headers['Authorization']);
-//                }
-//                else if((!($this->post('lang')))&&(!($this->post('category')))) {
-//                    $response = $this->Admin_model->upload_new_book_category($params,$headers['Authorization']);
-//                }
-//                else if((!($this->post('lang')))&&(!($this->post('book_category')))) {
-//                    $response = $this->Admin_model->upload_new_composition_category($params,$headers['Authorization']);
-//                }
+                if((!($this->post('book_category')))&&(!($this->post('category')))) {
+                    $response = $this->Admin_model->upload_new_language($params,$headers['Authorization']);
+                }
+                else if((!($this->post('lang')))&&(!($this->post('category')))) {
+                    $response = $this->Admin_model->upload_new_book_category($params,$headers['Authorization']);
+                }
+                else if((!($this->post('lang')))&&(!($this->post('book_category')))) {
+                    $response = $this->Admin_model->upload_new_composition_category($params,$headers['Authorization']);
+                }
                 if($response['status']=='success') {
                     $this->response($response,REST_Controller::HTTP_OK);
                 }

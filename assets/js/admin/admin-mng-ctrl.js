@@ -53,7 +53,7 @@ MBJS.AdminControlPanel.prototype = {
         var remember_token = $('#remember_token').val();
 
         // Control Panel Radio button Setups
-        $('#radio_condition').attr("checked","checked");
+        $('#radio_about_ctrl').attr("checked","checked");
         $('#radio_event').click(function(){
             $('#section_event').removeClass('hidden');
             $('#section_language_category').addClass('hidden');
@@ -86,6 +86,14 @@ MBJS.AdminControlPanel.prototype = {
         $('#radio_edit_condition').click(function(){
             $('.section-edit-condition').removeClass('hidden');
             $('#section-add-new-condition').addClass('hidden');
+        });
+
+        $('.edit-about-english').click(function(){
+            $('#message_english').removeAttr('disabled');
+        });
+
+        $('.edit-about-hindi').click(function(){
+            $('#message_hindi').removeAttr('disabled');
         });
     },
 
@@ -1071,48 +1079,21 @@ MBJS.AdminControlPanel.prototype = {
                     },
                     formatters: {
                         "action": function(column, row) {
-                            return "<button type=\"button\" class=\"btn btn-icon edit-terms-condition  waves-effect waves-circle\" title='Edit' data-row-id=\"" + row.action + "\"><i class=\"zmdi zmdi-edit\"></i></button>";
+                            return "<button type=\"button\" class=\"btn btn-icon edit-terms-condition  waves-effect waves-circle\" title='Edit' data-eng-term=\"" +row.english_terms+ "\" data-hindi-term=\"" +row.hindi_terms+ "\" data-row-id=\"" + row.action + "\"><i class=\"zmdi zmdi-edit\"></i></button>";
                         }
                     }
                 });
             }
         });
+        var terms_table_id
         $('#terms_list_info').on('click','.edit-terms-condition',function() {
             var checkbox=$(this);
-            var terms_table_id = $(this).attr('data-row-id');
+            terms_table_id = $(this).attr('data-row-id');
+            $('#edit_eng_condition').val($(this).attr('data-eng-term'));
+            $('#edit_hindi_condition').val($(this).attr('data-hindi-term'));
             console.log(terms_table_id);
+
             var author_id = $('#author_id').val();
-            var status;
-
-            swal({
-                title: "Are you sure?",
-                text: "You want to "+status+" !",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#4caf50",
-                confirmButtonText: "Yes, "+status+" it!",
-                closeOnConfirm: true
-            }, function() {
-
-                $.ajax({
-                    url: self.base_url+"event/"+event_table_id,
-                    type: 'PUT',
-                    dataType: 'JSON',
-                    headers:{Authorization : auth_token},
-                    data: {
-                        status: status
-                    },
-                    beforesend:function(data) {
-                        console.log(auth_token);
-                    },
-                    success:function(data) {
-                        self.notify(data.msg,'inverse');
-                    },
-                    error:function(data) {
-                        console.log(data);
-                    }
-                })
-            });
         });
 
         $("#btn-update-condition").click(function() {
@@ -1120,9 +1101,9 @@ MBJS.AdminControlPanel.prototype = {
             var edit_term_hindi=$('#edit_hindi_condition').val();
             var terms_update_button = $('#btn-update-condition');
             var remember_token = $('#remember_token').val();
-            var id=17;
+            //var id=17;
             $.ajax({
-                url: self.base_url + "terms_cond/"+id,
+                url: self.base_url + "terms_cond/"+terms_table_id,
                 type: "PUT",
                 dataType: "JSON",
                 data: {
