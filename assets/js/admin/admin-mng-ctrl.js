@@ -111,24 +111,25 @@ MBJS.AdminControlPanel.prototype = {
                 console.log(data);
             },
             success:function(data) {
-                //console.log(data);
+                console.log(data);
                 var results = data.result;
                 var row;
                 for(var i=0;i<results.length;i++) {
                     var s_no=i+1;
                     var published_date = results[i].published_at.split('-').reverse().join('-');
+                    var adv_start_date = results[i].adv_start_date.split('-').reverse().join('-');
                     if(results[i].status=="Pending")
                     {
-                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td>"+results[i].author_name+"</td><td class='td-status-blue'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].no_downloads+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td></tr>";
+                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td>"+results[i].author_name+"</td><td class='td-status-blue'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+adv_start_date+"</td><td>"+results[i].adv_req+"</td><td>"+results[i].adv_status+"</td><td>"+results[i].no_downloads+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td><td>"+results[i].id+"</td></tr>";
                         $("#ebook_list_info").append(row);
                     }
                     else if(results[i].status=="Approved") {
-                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td>"+results[i].author_name+"</td><td class='td-status-green'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].no_downloads+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td></tr>";
+                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td>"+results[i].author_name+"</td><td class='td-status-green'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+adv_start_date+"</td><td>"+results[i].adv_req+"</td><td>"+results[i].adv_status+"</td><td>"+results[i].no_downloads+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td><td>"+results[i].id+"</td></tr>";
                         $("#ebook_list_info").append(row);
                     }
                     else
                     {
-                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td>"+results[i].author_name+"</td><td class='td-status-red'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].no_downloads+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td></tr>";
+                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td>"+results[i].author_name+"</td><td class='td-status-red'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+adv_start_date+"</td><td>"+results[i].adv_req+"</td><td>"+results[i].adv_status+"</td><td>"+results[i].no_downloads+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td><td>"+results[i].id+"</td></tr>";
                         $("#ebook_list_info").append(row);
                     }
                 }
@@ -157,12 +158,66 @@ MBJS.AdminControlPanel.prototype = {
                             else {
                                 return "<div class='checkbox'><label><input type=\"checkbox\" class=\"btn btn-icon command-delete approve-ebook waves-effect waves-circle\"  data-row-id=\"" + row.action + "\"><i class=\"input-helper\"></i></input></label></div>";
                             }
+                        },
+                        "add_approvel": function(column, row) {
+                            if(row.adv_status==='Approved') {
+                                return "<div class='checkbox'><label><input type=\"checkbox\" checked class=\"btn btn-icon approve-advertisement waves-effect waves-circle\"  data-row-id=\"" + row.add_approve + "\"><i class=\"input-helper\"></i></input></label></div>";
+                            }
+                            else {
+                                return "<div class='checkbox'><label><input type=\"checkbox\" class=\"btn btn-icon approve-advertisement waves-effect waves-circle\"  data-row-id=\"" + row.add_approve + "\"><i class=\"input-helper\"></i></input></label></div>";
+                            }
                         }
                     }
                 });
             }
         });
-
+        //<<<------<< adv. approvel
+        $('#ebook_list_info').on('change','.approve-advertisement',function() {
+            var checkbox=$(this);
+            var adv_aprove_id = $(this).attr('data-row-id');
+            console.log(adv_aprove_id);
+            var author_id = $('#author_id').val();
+            var status;
+            if(checkbox.is(':checked')) {
+                status = 'Approved';
+            }
+            else {
+                status = 'Pending';
+            }
+            swal({
+                title: "Are you sure?",
+                text: "You want to "+status+" !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#4caf50",
+                confirmButtonText: "Yes, "+status+" it!",
+                closeOnConfirm: true
+            }, function() {
+                var status;
+                if(checkbox.is(':checked')) {
+                    adv_status = 'Approved';
+                }
+                else {
+                    adv_status = 'Pending';
+                }
+                $.ajax({
+                    url: self.base_url+"ebook/"+adv_aprove_id,
+                    type: 'PUT',
+                    dataType: 'JSON',
+                    headers:{Authorization : auth_token},
+                    data: {
+                        adv_status: adv_status,
+                        //published_at: ebook_publish_date
+                    },
+                    success:function(data) {
+                        self.notify(data.msg,'inverse');
+                    },
+                    error:function(data) {
+                        console.log(data);
+                    }
+                })
+            });
+        });
         //<<<------<< ebook approvel functionality
         $('#ebook_list_info').on('click','.download-ebook',function() {
             var ebook_download = $(this).attr('data-row-download');

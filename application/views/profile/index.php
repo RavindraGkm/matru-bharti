@@ -184,7 +184,7 @@
                                         <li>
                                             <div class="checkbox m-b-15 pull-left li-pd-left">
                                                 <label>
-                                                    <input type="checkbox" value="">
+                                                    <input type="checkbox" id="hide_img_chk" value="">
                                                     <i class="input-helper"></i>
                                                     Hide Image for viewer
                                                 </label>
@@ -193,7 +193,7 @@
                                         <li class="">
                                             <div class="checkbox m-b-15 pull-left li-pd-left">
                                                 <label>
-                                                    <input type="checkbox" value="">
+                                                    <input type="checkbox" id="hide_phn_chk" value="">
                                                     <i class="input-helper"></i>
                                                     Hide Contact for viewer
                                                 </label>
@@ -202,7 +202,7 @@
                                         <li class="">
                                             <div class="checkbox m-b-15 pull-left li-pd-left">
                                                 <label>
-                                                    <input type="checkbox" value="">
+                                                    <input type="checkbox" id="hide_email_chk" value="">
                                                     <i class="input-helper"></i>
                                                     Hide Email for viewer
                                                 </label>
@@ -211,7 +211,7 @@
                                         <li class="">
                                             <div class="checkbox m-b-15 pull-left li-pd-left">
                                                 <label>
-                                                    <input type="checkbox" value="">
+                                                    <input type="checkbox" id="hide_add_chk" value="">
                                                     <i class="input-helper"></i>
                                                     Hide Address for viewer
                                                 </label>

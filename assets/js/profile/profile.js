@@ -11,6 +11,7 @@ MBJS.UserProfile.prototype = {
         this.viewProfileInfo();
         this.profileUpdate();
         this.profileImageUpload();
+        this.privacySetting();
     },
 
     notify: function(message,type) {
@@ -167,6 +168,7 @@ MBJS.UserProfile.prototype = {
             }
         });
     },
+
     profileUpdate:function() {
         $('#author_name').keyup(function(){
             $('#h2_name').html($('#author_name').val());
@@ -290,6 +292,40 @@ MBJS.UserProfile.prototype = {
                 $(element).removeClass('error');
                 $(element).closest('.pos-relative').find('.error-span').css('opacity',0);
             }
+        });
+    },
+
+    privacySetting:function() {
+        var author_id=$('#author_id').val();
+
+        $('#hide_img_chk').change(function() {
+            var checkbox=$(this);
+            console.log(event_table_id);
+            var status;
+            if(checkbox.is(':checked')) {
+                status = 'Hidden';
+            }
+            else {
+                status = 'View';
+            }
+            $.ajax({
+                url: self.base_url+"profile/"+author_id,
+                type: 'PUT',
+                dataType: 'JSON',
+                headers:{Authorization : auth_token},
+                data: {
+                    status: status
+                },
+                beforesend:function(data) {
+                    console.log(auth_token);
+                },
+                success:function(data) {
+                    self.notify(data.msg,'inverse');
+                },
+                error:function(data) {
+                    console.log(data);
+                }
+            })
         });
     }
 };

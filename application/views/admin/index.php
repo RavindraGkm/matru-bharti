@@ -98,7 +98,7 @@
         </ul>
     </aside>
     <div id="content">
-        <div class="container">
+        <div class="container-fluid">
 
             <div class="block-header col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h2 id="h2_name"></h2>
@@ -137,11 +137,7 @@
                             <i class="fa fa-image fa-lg"></i>&nbsp;Show Case Gallery
                         </a>
                     </li>
-                    <li role="presentation" id="tab_show_case_gallery">
-                        <a href="#show_case_gallery" aria-controls="upload-file-list" role="tab" data-toggle="tab">
-                            <i class="fa fa-image fa-lg"></i>&nbsp;Req. for Add
-                        </a>
-                    </li>
+
                     <li role="presentation" id="tab_control_panel">
                         <a href="#control_panel" aria-controls="upload-file-list" role="tab" data-toggle="tab">
                             <i class="fa fa-cogs fa-lg"></i>&nbsp;Control Panel
@@ -165,9 +161,13 @@
                                         <th data-column-id="file_author">Author Name</th>
                                         <th data-column-id="file_published_status">Published Status</th>
                                         <th data-column-id="publish-date">Publish Date</th>
+                                        <th data-column-id="add-start-date">Adv. Start Date</th>
+                                        <th data-column-id="adv_req">Adv. Request</th>
+                                        <th data-column-id="adv_status">Adv. Status</th>
                                         <th data-column-id="file_downloads" data-formatter="downloads">Downloads</th>
                                         <th data-column-id="file_attachment" data-formatter="links">File Attachment</th>
                                         <th data-column-id="action"  data-formatter="approvel">Is Approve</th>
+                                        <th data-column-id="add_approve"  data-formatter="add_approvel">Is Adv. Approve</th>
                                     </tr>
                                     </thead>
                                     <tbody id="ebook_list_info">

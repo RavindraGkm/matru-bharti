@@ -12,7 +12,32 @@ class Admin_model extends CI_Model {
             $response = array();
             if($this->db->query($sql)) {
                 $response['status'] = 'success';
-                $response['msg'] = $params['status'].' Updated Successfully';
+                $response['msg'] = ' Updated Successfully';
+            }
+            else {
+                $response['status'] = 'error';
+                $response['msg'] = 'Server Error';
+            }
+        }
+        else {
+            $response['status'] = 'error';
+            $response['msg'] = 'Anauthorized';
+        }
+        return $response;
+    }
+
+    public  function  advertisement_req_approve($auth_token,$params,$id) {
+        $query = $this->db->get_where('authors', array('token' => $auth_token));
+        $response = array();
+        $current_date=date('Y-m-d');
+        $params['adv_start_date']=$current_date;
+        if($query->num_rows()>0) {
+            $where = "id = ".$id;
+            $sql = $this->db->update_string('ebooks', $params, $where);
+            $response = array();
+            if($this->db->query($sql)) {
+                $response['status'] = 'success';
+                $response['msg'] = 'Updated Successfully';
             }
             else {
                 $response['status'] = 'error';

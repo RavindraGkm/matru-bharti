@@ -20,7 +20,7 @@ MBJS.AuthorBook.prototype = {
         this.viewEventList();
         this.viewShowCaseList();
         this.viewTopAuthorsList();
-        this.viewEbookShowCase();
+        //this.viewEbookShowCase();
     },
 
     notify: function(message,type) {
@@ -602,6 +602,7 @@ MBJS.AuthorBook.prototype = {
         var self=this;
         var auth_token = $('#remember_token').val();
         var author_id = $('#author_id').val();
+        //var ebook_publish_date= $('#publish_date').val();
         $.ajax({
             url: self.base_url+"ebook/"+author_id,
             type: 'GET',
@@ -616,17 +617,17 @@ MBJS.AuthorBook.prototype = {
                     var s_no=i+1;
                     if(results[i].status=="Panding")
                     {
-                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td class='td-status-blue'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td></tr>";
+                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].adv_req+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td><td>"+results[i].id+"</td></tr>";
                         $("#ebook_list_info").append(row);
                     }
                     else if(results[i].status=="Approved")
                     {
-                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td class='td-status-blue'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td></tr>";
+                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].adv_req+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td><td>"+results[i].id+"</td></tr>";
                         $("#ebook_list_info").append(row);
                     }
                     else
                     {
-                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td class='td-status-blue'>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td></tr>";
+                        row="<tr><td>"+s_no+"</td><td>"+results[i].title+"</td><td>"+results[i].status+"</td><td>"+published_date+"</td><td>"+results[i].adv_req+"</td><td>"+results[i].file+"</td><td>"+results[i].id+"</td><td>"+results[i].id+"</td></tr>";
                         $("#ebook_list_info").append(row);
                     }
 
@@ -645,6 +646,15 @@ MBJS.AuthorBook.prototype = {
                         },
                         "links": function(column, row) {
                             return "<button type=\"button\" class=\"btn btn-icon command-delete delete-ebook waves-effect waves-circle\" data-row-id=\"" + row.action + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
+                        },
+                        "req_approvel": function(column, row) {
+                            if(row.advertisement_status==='Requested') {
+                                console.log();
+                                return "<div class='checkbox'><label><input type=\"checkbox\" checked class=\"btn btn-icon req-advertisement waves-effect waves-circle\"  data-row-id=\"" + row.approvel + "\"><i class=\"input-helper\"></i></input></label></div>";
+                            }
+                            else {
+                                return "<div class='checkbox'><label><input type=\"checkbox\" class=\"btn btn-icon  req-advertisement waves-effect waves-circle\"  data-row-id=\"" + row.approvel + "\"><i class=\"input-helper\"></i></input></label></div>";
+                            }
                         }
                     }
                 });
@@ -691,11 +701,56 @@ MBJS.AuthorBook.prototype = {
             });
         });
 
+        $('#ebook_list_info').on('change','.req-advertisement',function() {
+            var checkbox=$(this);
+            var ebook_table_id = $(this).attr('data-row-id');
+            console.log(ebook_table_id);
+            var author_id = $('#author_id').val();
+            var status;
+            if(checkbox.is(':checked')) {
+                status = 'Requested';
+            }
+            else {
+                status = 'Unrequested';
+            }
+            swal({
+                title: "Are you sure?",
+                text: "You want to "+status+" for Advertisement !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#4caf50",
+                confirmButtonText: "Yes, "+status+" it!",
+                closeOnConfirm: true
+            }, function() {
+                var status;
+                if(checkbox.is(':checked')) {
+                    status = 'Requested';
+                }
+                else {
+                    status = 'Unrequested';
+                }
+                $.ajax({
+                    url: self.base_url+"ebook/"+ebook_table_id,
+                    type: 'PUT',
+                    dataType: 'JSON',
+                    headers:{Authorization : auth_token},
+                    data: {
+                        adv_req: status
+                    },
+                    success:function(data) {
+                        self.notify(data.msg,'inverse');
+                    },
+                    error:function(data) {
+                        console.log(data);
+                    }
+                })
+            });
+        });
     },
 
     viewEbookShowCase : function() {
         var self=this;
-
+        var auth_token = $('#remember_token').val();
         $.ajax({
             url: self.base_url+"ebook",
             type: 'GET',

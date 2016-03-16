@@ -377,7 +377,9 @@
                                         <th data-column-id="file_title">File Title</th>
                                         <th data-column-id="file-published-status">File Published Status</th>
                                         <th data-column-id="publish-date">Publish Date</th>
+                                        <th data-column-id="advertisement_status">Adv. Status</th>
                                         <th data-column-id="file_attachment" data-formatter="file_link">File Attachment</th>
+                                        <th data-column-id="approvel" data-formatter="req_approvel">Req. for Advertisement</th>
                                         <th data-column-id="action" data-formatter="links">Actions</th>
                                     </tr>
                                     </thead>
