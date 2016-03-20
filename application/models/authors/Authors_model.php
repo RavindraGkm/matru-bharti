@@ -71,6 +71,29 @@ class Authors_model extends CI_Model {
         return $response;
     }
 
+    public function privacy_setting ($params,$author_id,$auth_token) {
+        $query = $this->db->get_where('authors', array('token' => $auth_token));
+        $response = array();
+        if($query->num_rows()>0) {
+            $where = "id = ".$author_id;
+            $sql = $this->db->update_string('authors', $params, $where);
+            $response = array();
+            if($this->db->query($sql)) {
+                $response['status'] = 'success';
+                $response['msg'] = 'Profile Updated successfully';
+            }
+            else {
+                $response['status'] = 'error';
+                $response['msg'] = 'Server Error';
+            }
+        }
+        else {
+            $response['status'] = 'error';
+            $response['msg'] = 'Anauthorized';
+        }
+        return $response;
+    }
+
     public function delete_author($auth_token,$author_id) {
         $query = $this->db->get_where('authors', array('token' => $auth_token));
         $response = array();

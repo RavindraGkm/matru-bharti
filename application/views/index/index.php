@@ -339,24 +339,27 @@
                     <form id="form_sendemail" class="delay_1" data-animate-in="animateUp">
 
                         <div class="form-group">
-                            <label class="sr-only" for="email">Email address</label>
-                            <input type="email" name="email" class="form-control" id="email" placeholder="E-mail" data-original-title="" title="">
-
-                            <span class="help-block"></span>
+                            <div class="pos-relative">
+                                <label class="sr-only" for="email">Email address</label>
+                                <input type="email" name="email" class="form-control" id="email" placeholder="E-mail" data-original-title="" title="">
+                                <span class="error-span" data-error-for="email"></span>
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="sr-only" for="name">Name</label>
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Full Name" data-original-title="" title="">
-
-                            <span class="help-block"></span>
+                            <div class="pos-relative">
+                                <label class="sr-only" for="name">Name</label>
+                                <input type="text" name="name" class="form-control" id="name" placeholder="Full Name" data-original-title="" title="">
+                                <span class="error-span" data-error-for="name"></span>
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="sr-only" for="message">Message</label>
-                            <textarea name="message" class="form-control" rows="3" id="message" placeholder="Message"></textarea>
-
-                            <span class="help-block"></span>
+                            <div class="pos-relative">
+                                <label class="sr-only" for="message">Message</label>
+                                <textarea name="message" class="form-control" rows="3" id="message" placeholder="Message"></textarea>
+                                <span class="error-span" data-error-for="message"></span>
+                            </div>
                         </div>
 
                         <!-- reCAPTCHA -->
@@ -368,7 +371,7 @@
                         </div>
                         <!-- /reCAPTCHA -->
 
-                        <button type="submit" class="btn btn-primary">
+                        <button id="send_message" type="submit" class="btn btn-primary">
                             Send Message
                         </button>
 
@@ -397,6 +400,7 @@ echo script_tag('assets/js/custom.js');
 echo script_tag('assets/js/jquery.validate.min.js');
 echo script_tag('assets/js/sweet-alert.min.js');
 echo script_tag('assets/js/index.js');
+
 ?>
 </body>
 </html>

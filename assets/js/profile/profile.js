@@ -134,7 +134,18 @@ MBJS.UserProfile.prototype = {
                 $('#span-auth-dob').html(data.result.dob.split('-').reverse().join('-'));
                 $('#span-auth-pan').html(data.result.pan);
                 $('#span-auth-about').html(data.result.about);
-                //console.log(data.result.dob);
+                if(data.result.img_status=='Hidden') {
+                    $('#hide_img_chk').selected(true);
+                }
+                if(data.result.phn_status=='Hidden') {
+                    $('#hide_phn_chk').selected(true);
+                }
+                if(data.result.email_status=='Hidden') {
+                    $('#hide_email_chk').selected(true);
+                }
+                if(data.result.add_status=='Hidden') {
+                    $('#hide_add_chk').selected(true);
+                }
                 var profile_view = $('#profile_view');
                 var profile_editable=$('#profile_editable');
                 if(data.result.name=="") {
@@ -173,7 +184,8 @@ MBJS.UserProfile.prototype = {
         $('#author_name').keyup(function(){
             $('#h2_name').html($('#author_name').val());
         });
-        var self=this;
+
+
         $("#form_profile_update").validate({
             rules: {
                 author_name: {
@@ -245,7 +257,7 @@ MBJS.UserProfile.prototype = {
                     data:{
                         name: author_name,hindi_name:author_hindi_name,address: author_address,
                         city: author_city,dob: author_dob,pan: author_pan,
-                        about: about
+                        about: about,img_status:status_img
                     },
                     headers:{Authorization : remember_token},
                     beforeSend: function() {
@@ -297,35 +309,139 @@ MBJS.UserProfile.prototype = {
 
     privacySetting:function() {
         var author_id=$('#author_id').val();
-
+        var auth_token = $('#remember_token').val();
+        var self=this;
+        var status_img;
+        var status_phn;
+        var status_email;
+        var status_add;
         $('#hide_img_chk').change(function() {
             var checkbox=$(this);
-            console.log(event_table_id);
-            var status;
             if(checkbox.is(':checked')) {
-                status = 'Hidden';
+                status_img = 'Hidden';
             }
             else {
-                status = 'View';
+                status_img = 'View';
             }
             $.ajax({
-                url: self.base_url+"profile/"+author_id,
-                type: 'PUT',
-                dataType: 'JSON',
+                url: self.base_url+"authors/"+author_id,
+                type: "PUT",
+                dataType: "JSON",
+                data:{
+                    img_status:status_img
+                },
                 headers:{Authorization : auth_token},
-                data: {
-                    status: status
-                },
-                beforesend:function(data) {
-                    console.log(auth_token);
-                },
-                success:function(data) {
-                    self.notify(data.msg,'inverse');
-                },
                 error:function(data) {
                     console.log(data);
+                    var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
+                    if(data.status==422) {
+                        self.notify(obj.error[0],'danger');
+                    }
+                    else if(data.status==500) {
+                        self.notify("Something went wrong on server",'danger');
+                    }
+                },
+                success: function (data, textStatus, jqXHR) {
+                    console.log(data);
+                    self.notify("Profile Updated successfully",'inverse');
                 }
-            })
+            });
+        });
+        $('#hide_phn_chk').change(function() {
+            var checkbox=$(this);
+            if(checkbox.is(':checked')) {
+                status_phn = 'Hidden';
+            }
+            else {
+                status_phn = 'View';
+            }
+            $.ajax({
+                url: self.base_url+"authors/"+author_id,
+                type: "PUT",
+                dataType: "JSON",
+                data:{
+                    phn_status:status_phn
+                },
+                headers:{Authorization : auth_token},
+                error:function(data) {
+                    console.log(data);
+                    var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
+                    if(data.status==422) {
+                        self.notify(obj.error[0],'danger');
+                    }
+                    else if(data.status==500) {
+                        self.notify("Something went wrong on server",'danger');
+                    }
+                },
+                success: function (data, textStatus, jqXHR) {
+                    console.log(data);
+                    self.notify("Profile Updated successfully",'inverse');
+                }
+            });
+        });
+        $('#hide_email_chk').change(function() {
+            var checkbox=$(this);
+            if(checkbox.is(':checked')) {
+                status_email = 'Hidden';
+            }
+            else {
+                status_email = 'View';
+            }
+            $.ajax({
+                url: self.base_url+"authors/"+author_id,
+                type: "PUT",
+                dataType: "JSON",
+                data:{
+                    email_status:status_email
+                },
+                headers:{Authorization : auth_token},
+                error:function(data) {
+                    console.log(data);
+                    var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
+                    if(data.status==422) {
+                        self.notify(obj.error[0],'danger');
+                    }
+                    else if(data.status==500) {
+                        self.notify("Something went wrong on server",'danger');
+                    }
+                },
+                success: function (data, textStatus, jqXHR) {
+                    console.log(data);
+                    self.notify("Profile Updated successfully",'inverse');
+                }
+            });
+        });
+        $('#hide_add_chk').change(function() {
+            var checkbox=$(this);
+            if(checkbox.is(':checked')) {
+                status_add = 'Hidden';
+            }
+            else {
+                status_add = 'View';
+            }
+            $.ajax({
+                url: self.base_url+"authors/"+author_id,
+                type: "PUT",
+                dataType: "JSON",
+                data:{
+                    add_status:status_add
+                },
+                headers:{Authorization : auth_token},
+                error:function(data) {
+                    console.log(data);
+                    var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
+                    if(data.status==422) {
+                        self.notify(obj.error[0],'danger');
+                    }
+                    else if(data.status==500) {
+                        self.notify("Something went wrong on server",'danger');
+                    }
+                },
+                success: function (data, textStatus, jqXHR) {
+                    console.log(data);
+                    self.notify("Profile Updated successfully",'inverse');
+                }
+            });
         });
     }
 };

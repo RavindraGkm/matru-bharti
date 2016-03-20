@@ -318,18 +318,73 @@ class Admin_model extends CI_Model {
         return $response;
     }
 
-    public function get_about_data($auth_token) {
-
+    public function get_about_data($auth_token,$id) {
         $query = $this->db->get_where('authors', array('token' => $auth_token));
         $response = array();
         if($query->num_rows()>0) {
             $row = $query->row_array();
             if($row['type']=='admin') {
-                $query = $this->db->get('about_mng');
+                $query = $this->db->get_where('about_mng',array('id'=>$id));
                 if($query->num_rows()>0) {
                     $response['status'] = 'success';
-                    $response['result'] = $query->result_array();
+                    $response['result'] = $query->row_array();
                 }
+            }
+        }
+        else {
+            $response['status'] = 'error';
+            $response['msg'] = 'Anauthorized';
+        }
+        return $response;
+    }
+
+    public function get_about_us() {
+        $response = array();
+        $query = $this->db->get('about_mng');
+        if($query->num_rows()>0) {
+            $response['status'] = 'success';
+            $response['result'] = $query->row_array();
+        }
+        return $response;
+    }
+
+    public function upload_advertisement ($params,$auth_token) {
+        $query = $this->db->get_where('authors', array('token' => $auth_token));
+        $response = array();
+        $current_date=date('Y-m-d');
+        $params['start_date']=$current_date;
+        if($query->num_rows()>0) {
+            $sql = $this->db->insert('advertisement', $params);
+            if($sql) {
+                $response['status'] = 'success';
+                $response['msg'] = 'success';
+            }
+            else {
+                $response['status'] = 'error';
+                $response['msg'] = 'Server error';
+            }
+        }
+        else {
+            $response['status'] = 'error';
+            $response['msg'] = 'Anauthorized';
+        }
+        return $response;
+    }
+
+    public  function  update_about_data($auth_token,$params,$id) {
+        $query = $this->db->get_where('authors', array('token' => $auth_token));
+        $response = array();
+        if($query->num_rows()>0) {
+            $where = "id = ".$id;
+            $sql = $this->db->update_string('about_mng', $params, $where);
+            $response = array();
+            if($this->db->query($sql)) {
+                $response['status'] = 'success';
+                $response['msg'] = ' Updated Successfully';
+            }
+            else {
+                $response['status'] = 'error';
+                $response['msg'] = 'Server Error';
             }
         }
         else {

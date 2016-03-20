@@ -69,6 +69,16 @@
             <div class="row">
                 <div class="card col-md-offset-1 col-lg-10 col-md-10 col-sm-12 col-xs-12" id="terms_hindi">
                     <div class="card no-shadow card-msg-align">
+                        <div id="div_hindi_message">
+                            <div class="col-md-offset-8 col-md-4 ">
+                                <div class="manthan-data pull-right">
+                                    <div class="img" id="image-auth">
+
+                                    </div>
+                                    <div class="" id=""></div>
+                                </div>
+                            </div>
+                        </div>
                         <h3><span>मंथन</span></h3>
                         <hr>
                         <div id="div_hindi_message">
@@ -77,10 +87,6 @@
                                 हमारा प्रयास लेखक की साहित्यिक सामग्री को पाठको तक आसान से और शीघ्रता से पहुँचाना है। हम विश्वास दिलाते है कि यह मंथन व्यक्ति के चिन्तन और पठन को आगे बढ़ाऐगा। रचनाकर एवं लेखक के साथ-साथ पाठको को भी क्रियात्मक अभिव्यक्ति की ओर उन्मुख करने का प्रयास मंथन कर सकेगा।</p>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="card col-md-offset-1 col-lg-10 col-md-10 col-sm-12 col-xs-12" id="terms_hindi">
                     <div class="card no-shadow card-msg-align">
                         <h3><span>Manthan</span></h3>
                         <hr>
@@ -114,12 +120,12 @@ echo script_tag('assets/js/jquery.js');
 echo script_tag('assets/js/bootstrap.min.js');
 echo script_tag('assets/js/waves.min.js');
 echo script_tag('assets/js/functions.js');
-echo script_tag('assets/js/terms/terms.js');
+echo script_tag('assets/js/about/about.js');
 ?>
 </body>
 </html>
 <script type="text/javascript">
     $(document).ready(function () {
-        new MBJS.Terms("<?php echo base_url(); ?>");
+        new MBJS.About("<?php echo base_url(); ?>");
     });
 </script>

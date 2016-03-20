@@ -547,7 +547,7 @@ MBJS.AuthorBook.prototype = {
                     $("#book_language").append(row);
                 }
                 for(var i=0;i<result.length;i++) {
-                    row="<option value="+result[i].category+">"+result[i].category+"</option>";
+                    row="<option value="+result[i].book_category+">"+result[i].book_category+"</option>";
                     $("#book_category").append(row);
                 }
             },

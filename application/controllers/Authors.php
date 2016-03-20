@@ -95,36 +95,6 @@ class Authors extends REST_Controller {
 		$about = $this->put('about');
 		$status=$this->put('status');
 		$data = array();
-//		if ($name === NULL) {
-//			$data[] = "Name not provided";
-//		}
-//		if ($address === NULL) {
-//			$data[] = "Address not provided";
-//		}
-//		if ($city === NULL) {
-//			$data[] = "City not provided";
-//		}
-//		if ($dob === NULL) {
-//			$data[] = "Date of birth not provided";
-//		}
-//		if ($about === NULL) {
-//			$data[] = "About your self not provided";
-//		}
-//		if ($name == "") {
-//			$data[] = "Name can not be blank";
-//		}
-//		if ($address == "") {
-//			$data[] = "Address can not be blank";
-//		}
-//		if ($city == "") {
-//			$data[] = "City can not be blank";
-//		}
-//		if ($dob == "") {
-//			$data[] = "Date of birth can not be blank";
-//		}
-//		if ($about == "") {
-//			$data[] = "About your self can not be blank";
-//		}
 		if ($id == 0) {
 			$response = array('error' => 'Invalid Method');
 			$this->response($response, REST_Controller::HTTP_METHOD_NOT_ALLOWED);
@@ -141,7 +111,13 @@ class Authors extends REST_Controller {
 					$params = $this->put();
 					$this->load->database();
 					$this->load->model('authors/Authors_model');
-					$response = $this->Authors_model->update_author($params, $id, $headers['Authorization']);
+					if((!($this->put('img_status')))) {
+						$response = $this->Authors_model->update_author($params, $id, $headers['Authorization']);
+					}
+					else{
+						$response = $this->Authors_model->privacy_setting($params, $id, $headers['Authorization']);
+					}
+
 					if ($response['status'] == 'success') {
 						$this->response($response, REST_Controller::HTTP_OK);
 					} else {

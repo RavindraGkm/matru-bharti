@@ -93,6 +93,9 @@
                 <a href="<?php echo base_url('admin-book-mng?tab=show_case_gallery'); ?>" id="li_tab_url"> <i class="fa fa-image"></i> Books Show Case Gallery</a>
             </li>
             <li>
+                <a href="<?php echo base_url('admin-book-mng?tab=contact_us'); ?>" id="li_tab_url"> <i class="fa fa-envelope"></i> Contact Us</a>
+            </li>
+            <li>
                 <a href="<?php echo base_url('admin-book-mng?tab=control_panel'); ?>" id="li_tab_url"> <i class="fa fa-cogs"></i> Control Panel</a>
             </li>
         </ul>
@@ -137,7 +140,11 @@
                             <i class="fa fa-image fa-lg"></i>&nbsp;Show Case Gallery
                         </a>
                     </li>
-
+                    <li role="presentation" id="tab_contact_us">
+                        <a href="#contact_us" aria-controls="upload-file-list" role="tab" data-toggle="tab">
+                            <i class="fa fa-envelope fa-lg"></i>&nbsp;Contact Us
+                        </a>
+                    </li>
                     <li role="presentation" id="tab_control_panel">
                         <a href="#control_panel" aria-controls="upload-file-list" role="tab" data-toggle="tab">
                             <i class="fa fa-cogs fa-lg"></i>&nbsp;Control Panel
@@ -450,6 +457,24 @@
                             </div>
                         </div>
                     </div>
+                    <div role="tabpanel" class="tab-pane pmb-block" id="contact_us">
+                        <div class="card no-shadow">
+                            <div class="table-responsive">
+                                <table id="data-table-contact-us" class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th data-column-id="serial_no">S.No.</th>
+                                        <th data-column-id="ct_name">Name</th>
+                                        <th data-column-id="ct_email">Email</th>
+                                        <th data-column-id="ct_message">Message</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="contact_us_list_info">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                     <div role="tabpanel" class="tab-pane pmb-block" id="control_panel">
                         <div class="card no-shadow ">
                             <div class="col-md-2">
@@ -461,7 +486,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="radio">
                                     <label class="lbl-radio">
                                         <input type="radio" name="admin_ctrl" id="radio_lang_category" value="">
@@ -470,7 +495,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="radio">
                                     <label class="lbl-radio">
                                         <input type="radio" name="admin_ctrl" id="radio_about_ctrl" value="">
@@ -479,12 +504,21 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="radio">
                                     <label class="lbl-radio">
                                         <input type="radio" name="admin_ctrl" id="radio_condition" value="">
                                         <i class="input-helper"></i>
                                         <i class="fa fa-plus"></i> Terms &amp; Condition
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="radio">
+                                    <label class="lbl-radio">
+                                        <input type="radio" name="admin_ctrl" id="radio_advertisement_ctrl" value="">
+                                        <i class="input-helper"></i>
+                                        <i class="fa fa-plus"></i> Advertisement
                                     </label>
                                 </div>
                             </div>
@@ -790,10 +824,10 @@
                                     </div>
                                 </form>
                         </div>
-                        <div class="card no-shadow" id="section_about_msg">
-                            <form id="form_Terms_upload" class="form-horizontal">
+                        <div class="card no-shadow hidden" id="section_about_msg">
+                            <form id="form_about_upload" class="form-horizontal">
                                 <div class="card-header">
-                                    <h2>About
+                                    <h2>About Us
                                         <small>Update your About Message
                                         </small>
                                     </h2>
@@ -812,7 +846,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <div class="col-sm-3"></div>
                                         <div class="col-sm-9">
@@ -833,16 +866,101 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="" class="col-sm-3 control-label"></label>
+                                        <label for="btn-update-about-message" class="col-sm-3 control-label"></label>
                                         <div class="col-sm-9">
                                             <div class="fg-line">
-                                                <button class="btn btn-primary btn-sm" type="submit" name="btn-update-about-message" id="btn-update-about-message">
+                                                <button class="btn btn-primary btn-sm" type="button" name="btn-update-about-message" id="btn-update-about-message">
                                                     Update About Message
                                                 </button>
                                                 <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card no-shadow " id="section_advertisement">
+                            <form id="form_advertisement" class="form-horizontal">
+                                <div class="card-header">
+                                    <h2>Advertisement
+                                        <small>Advertisement easily added by Admin</small>
+                                    </h2>
+                                </div>
+                                <div class="card-body card-padding">
+                                    <div class="col-md-8">
+                                        <div class="card-body card-padding">
+                                            <div class="form-group">
+                                                <label for="adv_book_title" class="col-sm-3 control-label">Title</label>
+                                                <div class="col-sm-9">
+                                                    <div class="fg-line pos-relative">
+                                                        <input type="text" class="form-control" name="adv_book_title" id="adv_book_title" placeholder="Book Title">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="adv_book_category" class="col-sm-3 control-label">Category</label>
+                                                <div class="col-sm-9">
+                                                    <div class="fg-line pos-relative">
+                                                        <input type="text" class="form-control" name="adv_book_category" id="adv_book_category" placeholder="Category">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="adv_author" class="col-sm-3 control-label">Author Name</label>
+                                                <div class="col-sm-9">
+                                                    <div class="fg-line pos-relative">
+                                                        <input type="text" class="form-control" name="adv_author" id="adv_author" placeholder="Author Name">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="adv_image" class="col-sm-3 control-label">Book Image <br>(Image Only jpeg/jpg/png/gif)*</label>
+                                                <div class="col-sm-9">
+                                                    <div class="fg-line">
+                                                        <form class="form-image-upload" action="<?php echo base_url(''); ?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="adv_book_img_upload_form">
+                                                            <div class="fileinput fileinput-new file-prev-mng" data-provides="fileinput">
+                                                                <div class="fileinput-preview thumbnail" data-trigger="fileinput">
+                                                                    <img src="<?php echo base_url('assets/img/headers/ebook-default/ebook_deft_img.jpg'); ?>" class="img-responsive"/>
+                                                                </div>
+                                                                <div>
+                                                            <span class="btn btn-primary btn-file" id="select_image">
+                                                                <span class="fileinput-new">Select image</span>
+                                                                <span class="fileinput-exists">Change</span>
+                                                                <input type="file" name="adv_book_img" id="adv_book_img">
+                                                            </span>
+                                                                    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        <span class="error-span" data-error-for=""></span>
+                                                    </div>
+                                                    <div class="uploading-progress-div hidden">
+                                                        <div class="uploading-div-wrapper">
+                                                            <div class="dis-mid">
+                                                                <div class="c100 p0 small orange custom-progress">
+                                                                    <span>0%</span>
+                                                                    <div class="slice">
+                                                                        <div class="bar"></div>
+                                                                        <div class="fill"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="" class="col-sm-3 control-label"></label>
+                                                <div class="col-sm-9">
+                                                    <div class="fg-line">
+                                                        <button class="btn btn-primary btn-sm" type="button" name="btn-save-adv" id="btn-save-adv">Save Advertisement</button>
+                                                        <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4"></div>
                                 </div>
                             </form>
                         </div>

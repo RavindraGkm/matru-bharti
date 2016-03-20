@@ -103,8 +103,9 @@ class Profile extends REST_Controller {
                 $params = $this->put();
                 $this->load->database();
                 $this->load->model('profile/Profile_model');
-                $params= $this->put('profile');
-                $response = $this->Profile_model->update_author($name,$hindi_name,$email,$mobile,$address,$city,$dob,$about_yourself,$id);
+                $response = $this->Profile_model->privacy_setting($headers['Authorization'],$params,$id);
+//                $params= $this->put('profile');
+//                $response = $this->Profile_model->update_author($name,$hindi_name,$email,$mobile,$address,$city,$dob,$about_yourself,$id);
                 if($response['status']=='success') {
                     $this->response($response,REST_Controller::HTTP_OK);
                 }

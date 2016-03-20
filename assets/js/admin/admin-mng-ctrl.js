@@ -15,6 +15,9 @@ MBJS.AdminControlPanel.prototype = {
         this.addCategoryLanguage();
         this.eventUpload();
         this.termConditionUpload();
+        this.addAdvertisement();
+        this.updateAboutUs();
+        this.getContactUs();
     },
 
     notify: function(message,type) {
@@ -53,30 +56,41 @@ MBJS.AdminControlPanel.prototype = {
         var remember_token = $('#remember_token').val();
 
         // Control Panel Radio button Setups
-        $('#radio_about_ctrl').attr("checked","checked");
+        $('#radio_advertisement_ctrl').attr("checked","checked");
+        $('#radio_advertisement_ctrl').click(function(){
+            $('#section_event').addClass('hidden');
+            $('#section_language_category').addClass('hidden');
+            $('#section_condition').addClass('hidden');
+            $('#section_about_msg').addClass('hidden');
+            $('#section_advertisement').removeClass('hidden');
+        });
         $('#radio_event').click(function(){
             $('#section_event').removeClass('hidden');
             $('#section_language_category').addClass('hidden');
             $('#section_condition').addClass('hidden');
             $('#section_about_msg').addClass('hidden');
+            $('#section_advertisement').addClass('hidden');
         });
         $('#radio_lang_category').click(function(){
             $('#section_event').addClass('hidden');
             $('#section_language_category').removeClass('hidden');
             $('#section_condition').addClass('hidden');
             $('#section_about_msg').addClass('hidden');
+            $('#section_advertisement').addClass('hidden');
         });
         $('#radio_about_ctrl').click(function(){
             $('#section_event').addClass('hidden');
             $('#section_language_category').addClass('hidden');
             $('#section_condition').addClass('hidden');
             $('#section_about_msg').removeClass('hidden');
+            $('#section_advertisement').addClass('hidden');
         });
         $('#radio_condition').click(function(){
             $('#section_event').addClass('hidden');
             $('#section_language_category').addClass('hidden');
             $('#section_about_msg').addClass('hidden');
             $('#section_condition').removeClass('hidden');
+            $('#section_advertisement').addClass('hidden');
             $('#radio_add_condition').attr("checked","checked");
         });
         $('#radio_add_condition').click(function(){
@@ -946,7 +960,7 @@ MBJS.AdminControlPanel.prototype = {
                 },
                 success: function (data, textStatus, jqXHR) {
                     self.notify("Language inserted successfully",'inverse');
-                    language_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
+                    language_save_button.html('Save Language');
                 }
             });
         });
@@ -980,7 +994,7 @@ MBJS.AdminControlPanel.prototype = {
                 },
                 success: function (data, textStatus, jqXHR) {
                     self.notify("Book Category inserted successfully",'inverse');
-                    book_category_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
+                    book_category_save_button.html('Save Book Category');
                 }
             });
         });
@@ -1009,12 +1023,12 @@ MBJS.AdminControlPanel.prototype = {
                     }
                     else if (data.status == 500) {
                         self.notify("Something went wrong on server",'danger');
-                        composition_category_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
+                        composition_category_save_button.html('Save Composition Category');
                     }
                 },
                 success: function (data, textStatus, jqXHR) {
                     self.notify("Composition Category inserted successfully",'inverse');
-                    composition_category_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
+                    composition_category_save_button.html('Save Composition Category');
                 }
             });
         });
@@ -1115,7 +1129,7 @@ MBJS.AdminControlPanel.prototype = {
                 console.log(data);
             },
             success:function(data) {
-                console.log(data);
+                //console.log(data);
                 var results= data.result;
                 var row;
                 for(var i=0;i<results.length;i++){
@@ -1156,7 +1170,6 @@ MBJS.AdminControlPanel.prototype = {
             var edit_term_hindi=$('#edit_hindi_condition').val();
             var terms_update_button = $('#btn-update-condition');
             var remember_token = $('#remember_token').val();
-            //var id=17;
             $.ajax({
                 url: self.base_url + "terms_cond/"+terms_table_id,
                 type: "PUT",
@@ -1221,6 +1234,133 @@ MBJS.AdminControlPanel.prototype = {
                 }
             });
         });
-    }
+    },
 
+    addAdvertisement: function () {
+        var self = this;
+        $("#btn-save-adv").click(function(){
+            var title = $('#adv_book_title').val();
+            var category = $('#adv_book_category').val();
+            var author_name = $('#adv_author').val();
+            var advertisement_save_button = $('#btn-save-adv');
+            var book_image= 'book_image.jpg';
+            var author_id = $('#author_id').val();
+            var remember_token = $('#remember_token').val();
+            $.ajax({
+                url: self.base_url + "admin",
+                type: "POST",
+                dataType: "JSON",
+                data: {
+                    bk_title:title,bk_category:category, author_name:author_name, book_image:book_image
+                },
+                headers: {Authorization: remember_token},
+                beforeSend: function () {
+                    advertisement_save_button.html('Saving... &nbsp;<i class="zmdi zmdi-edit"></i>');
+                },
+                error: function (data) {
+                    console.log(data);
+                    var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
+                    if (data.status == 422) {
+                        self.notify(obj.error[0],'danger');
+                    }
+                    else if (data.status == 500) {
+                        self.notify("Something went wrong on server",'danger');
+                        advertisement_save_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
+                    }
+                },
+                success: function (data, textStatus, jqXHR) {
+                    self.notify("Advertisement inserted successfully",'inverse');
+                    advertisement_save_button.html('Save Advertisement');
+                }
+            });
+        });
+    },
+
+    updateAboutUs: function () {
+        var self = this;
+        var msg_english = $('#message_english').val();
+        var msg_hindi = $('#message_hindi').val();
+        var about_update_button = $('#btn-update-about-message');
+        var remember_token = $('#remember_token').val();
+        var about_id = 1;
+        $.ajax({
+            url: self.base_url + "admin/"+about_id,
+            type: 'GET',
+            dataType: 'JSON',
+            headers:{Authorization : remember_token},
+            error: function(data) {
+                console.log(data);
+            },
+            success:function(data) {
+                console.log(data);
+                $('#message_english').val(data.result.about_english);
+                $('#message_hindi').val(data.result.about_hindi);
+            }
+        });
+        $("#btn-update-about-message").click(function(){
+            alert("Hello");
+            $.ajax({
+                url: self.base_url + "admin/"+about_id,
+                type: "PUT",
+                dataType: "JSON",
+                data: {
+                    about_english:msg_english,about_hindi:msg_hindi
+                },
+                headers: {Authorization: remember_token},
+                beforeSend: function () {
+                    about_update_button.html('Saving... &nbsp;<i class="zmdi zmdi-edit"></i>');
+                },
+                error: function (data) {
+                    console.log(data);
+                    var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
+                    if (data.status == 422) {
+                        self.notify(obj.error[0],'danger');
+                    }
+                    else if (data.status == 500) {
+                        self.notify("Something went wrong on server",'danger');
+                        about_update_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
+                    }
+                },
+                success: function (data, textStatus, jqXHR) {
+                    self.notify("About updated successfully",'inverse');
+                    about_update_button.html('Save Advertisement');
+                }
+            });
+        });
+    },
+
+    getContactUs: function () {
+        var self=this;
+        var remember_token = $('#remember_token').val();
+        $.ajax({
+            url: self.base_url + "contact",
+            type: 'GET',
+            dataType: 'JSON',
+            headers:{Authorization : remember_token},
+            error: function(data) {
+                console.log(data);
+            },
+            success:function(data) {
+                console.log(data);
+                results=data.result;
+                var row;
+                for(var i=0;i<results.length;i++){
+                    var s_no=i+1;
+                    row = "<tr><td>" + s_no + "</td><td>"+results[i].name + "</td><td>" + results[i].email + "</td><td>" + results[i].message + "</td><td>" + results[i].status + "</td></tr>";
+                    $("#contact_us_list_info").append(row);
+                }
+                $("#data-table-contact-us").bootgrid({
+                    css: {
+                        icon: 'zmdi icon',
+                        iconColumns: 'zmdi-view-module',
+                        iconDown: 'zmdi-expand-more',
+                        iconRefresh: 'zmdi-refresh',
+                        iconUp: 'zmdi-expand-less'
+                    },
+                    formatters: {
+                    }
+                });
+            }
+        });
+    },
 }
