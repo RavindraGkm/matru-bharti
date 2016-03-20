@@ -128,6 +128,7 @@ class Ebook extends REST_Controller {
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: DELETE");
         $headers = $this->input->request_headers();
+
         if (!isset($headers['Authorization']) || empty($headers['Authorization'])) {
             $this->response(array('error' => 'No authorization header supplied'), REST_Controller::HTTP_UNAUTHORIZED);
         }
@@ -156,14 +157,7 @@ class Ebook extends REST_Controller {
     public function index_put ($id=0) {
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: PUT");
-        $status=$this->put('status');
         $data = array();
-        if($status===NULL) {
-            $data[] = "Name not provided";
-        }
-        if($status=="") {
-            $data[] = "Name can not be blank";
-        }
         if($id==0) {
             $response = array('error'=>'Invalid Method');
             $this->response($response,REST_Controller::HTTP_METHOD_NOT_ALLOWED);
@@ -181,8 +175,18 @@ class Ebook extends REST_Controller {
             else {
                 $params = $this->put();
                 $this->load->database();
-                $this->load->model('admin/Admin_model');
-                $response = $this->Admin_model->ebook_approvel($headers['Authorization'],$params,$id);
+                if((!($this->put('status')))&&(!($this->put('adv_req')))) {
+                    $this->load->model('admin/Admin_model');
+                    $response = $this->Admin_model->advertisement_req_approve($headers['Authorization'],$params,$id);
+                }
+                else if((!($this->put('status')))&&(!($this->put('adv_status')))) {
+                    $this->load->model('ebook/Ebook_model');
+                    $response = $this->Ebook_model->advertisement_req($headers['Authorization'],$params,$id);
+                }
+                else {
+                    $this->load->model('admin/Admin_model');
+                    $response = $this->Admin_model->ebook_approvel($headers['Authorization'],$params,$id);
+                }
                 if($response['status']=='success') {
                     $this->response($response,REST_Controller::HTTP_OK);
                 }

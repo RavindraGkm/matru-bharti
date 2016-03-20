@@ -30,6 +30,7 @@ class Profile extends REST_Controller {
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: PUT");
         $name = $this->put('name');
+        $hindi_name = $this->put('hindi_name');
         $email = $this->put('email');
         $mobile = $this->put('mobile');
         $address = $this->put('address');
@@ -39,6 +40,9 @@ class Profile extends REST_Controller {
         $data = array();
         if($name===NULL) {
             $data[] = "Name not provided";
+        }
+        if($hindi_name===NULL) {
+            $data[] = "Hindi name not provided";
         }
         if($email===NULL) {
             $data[] = "Email not provided";
@@ -60,6 +64,9 @@ class Profile extends REST_Controller {
         }
         if($name=="") {
             $data[] = "Name can not be blank";
+        }
+        if($hindi_name=="") {
+            $data[] = "Hindi name can not be blank";
         }
         if($email=="") {
             $data[] = "Email can not be blank";
@@ -96,8 +103,9 @@ class Profile extends REST_Controller {
                 $params = $this->put();
                 $this->load->database();
                 $this->load->model('profile/Profile_model');
-                $params= $this->put('profile');
-                $response = $this->Profile_model->update_author($name,$email,$mobile,$address,$city,$dob,$about_yourself,$id);
+                $response = $this->Profile_model->privacy_setting($headers['Authorization'],$params,$id);
+//                $params= $this->put('profile');
+//                $response = $this->Profile_model->update_author($name,$hindi_name,$email,$mobile,$address,$city,$dob,$about_yourself,$id);
                 if($response['status']=='success') {
                     $this->response($response,REST_Controller::HTTP_OK);
                 }

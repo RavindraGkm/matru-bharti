@@ -11,6 +11,7 @@ MBJS.UserProfile.prototype = {
         this.viewProfileInfo();
         this.profileUpdate();
         this.profileImageUpload();
+        this.privacySetting();
     },
 
     notify: function(message,type) {
@@ -48,7 +49,7 @@ MBJS.UserProfile.prototype = {
         var remember_token = $('#remember_token').val();
         var progressbox = $('#progressbox');
         var progressbar = $('.custom-progress');
-        var statustxt = $('.custom-progress span');
+        var statusauthor = $('.custom-progress span');
         var completed = '0%';
         var uploadingprogressdiv = $('.uploading-progress-div');
         var author_id=$('#author_id').val();
@@ -71,7 +72,7 @@ MBJS.UserProfile.prototype = {
         function OnProgress(event, position, total, percentComplete) {
             progressbar.removeClass(self.last_class).addClass("p"+percentComplete);
             self.last_class = "p"+percentComplete;
-            statustxt.html(percentComplete + '%');
+            statusauthor.html(percentComplete + '%');
         }
 
         function afterSuccess() {
@@ -122,16 +123,29 @@ MBJS.UserProfile.prototype = {
             dataType: 'JSON',
             headers:{Authorization : auth_token},
             success:function(data){
-                //console.log(data);
+                console.log(data);
                 $('#author_email').html(data.result.email);
                 $('#author_mobile').html(data.result.mobile);
                 $('.span-auth-name').html(data.result.name);
+                $('.span-auth-hindi-name').html(data.result.hindi_name);
                 $('#h2_name').html(data.result.name);
                 $('#span-auth-address').html(data.result.address);
                 $('#span-auth-city').html(data.result.city);
                 $('#span-auth-dob').html(data.result.dob.split('-').reverse().join('-'));
+                $('#span-auth-pan').html(data.result.pan);
                 $('#span-auth-about').html(data.result.about);
-                //console.log(data.result.dob);
+                if(data.result.img_status=='Hidden') {
+                    $('#hide_img_chk').selected(true);
+                }
+                if(data.result.phn_status=='Hidden') {
+                    $('#hide_phn_chk').selected(true);
+                }
+                if(data.result.email_status=='Hidden') {
+                    $('#hide_email_chk').selected(true);
+                }
+                if(data.result.add_status=='Hidden') {
+                    $('#hide_add_chk').selected(true);
+                }
                 var profile_view = $('#profile_view');
                 var profile_editable=$('#profile_editable');
                 if(data.result.name=="") {
@@ -150,11 +164,13 @@ MBJS.UserProfile.prototype = {
                 }
 
                 $('#edit-auth-profile').click(function(){
-                    $('#txt_name').val(data.result.name);
-                    $('#txt_address').val(data.result.address);
-                    $('#txt_city').val(data.result.city);
-                    $('#txt_dob').val(data.result.dob.split('-').reverse().join('-'));
-                    $('#txt_about_yourself').val(data.result.about);
+                    $('#author_name').val(data.result.name);
+                    $('#author_hindi_name').val(data.result.hindi_name);
+                    $('#author_address').val(data.result.address);
+                    $('#author_city').val(data.result.city);
+                    $('#author_dob').val(data.result.dob.split('-').reverse().join('-'));
+                    $('#author_pan_card').val(data.result.pan);
+                    $('#author_about_yourself').val(data.result.about);
                     $('.pmbb-body div.pmbb-header ul.actions ').hide();
                 });
                 $('#btn-cancel-edit-pro').click(function(){
@@ -163,52 +179,72 @@ MBJS.UserProfile.prototype = {
             }
         });
     },
+
     profileUpdate:function() {
-        $('#txt_name').keyup(function(){
-            $('#h2_name').html($('#txt_name').val());
+        $('#author_name').keyup(function(){
+            $('#h2_name').html($('#author_name').val());
         });
-        var self=this;
+
+
         $("#form_profile_update").validate({
             rules: {
-                txt_name: {
+                author_name: {
                     required: true
                 },
-                txt_address: {
+                author_hindi_name: {
                     required: true
                 },
-                txt_city: {
+                author_address: {
                     required: true
                 },
-                txt_dob: {
+                author_city: {
                     required: true
                 },
-                txt_about_yourself: {
+                author_dob: {
+                    required: true
+                },
+                author_pan_card: {
+                    required: true,
+                    minlength:10,
+                    maxlength:10
+                },
+                author_about_yourself: {
                     required: true
                 }
             },
             messages : {
-                txt_name: {
+                author_name: {
                     required : 'Enter your name'
                 },
-                txt_address: {
+                author_hindi_name: {
+                    required: 'Enter your name in hindi'
+                },
+                author_address: {
                     required : 'Enter your Address'
                 },
-                txt_city: {
+                author_city: {
                     required : 'Enter your city'
                 },
-                txt_dob: {
+                author_dob: {
                     required : 'Enter your Date of birth'
                 },
-                txt_about_yourself: {
+                author_pan_card: {
+                    required: "Enter your PAN Card number",
+                    minlength:"Enter Valid PAN number",
+                    maxlength:"Enter Valid PAN number"
+                },
+                author_about_yourself: {
                     required: 'Enter about your self'
                 }
             },
             submitHandler: function(form) {
-                var txt_name = $('#txt_name').val();
-                var txt_address = $('#txt_address').val();
-                var txt_city = $('#txt_city').val();
-                var txt_dob = $('#txt_dob').val().split('-').reverse().join('-');
-                var about = $('#txt_about_yourself').val();
+                var author_name = $('#author_name').val();
+                var author_hindi_name=$('#author_hindi_name').val();
+                var author_address = $('#author_address').val();
+                var author_city = $('#author_city').val();
+                var author_dob = $('#author_dob').val().split('-').reverse().join('-');
+                var author_pan = $('#author_pan_card').val();
+                var about = $('#author_about_yourself').val();
                 var remember_token = $('#remember_token').val();
                 var update_button = $('#btn-update-profile');
                 var author_id=$('#author_id').val();
@@ -219,9 +255,9 @@ MBJS.UserProfile.prototype = {
                     type: "PUT",
                     dataType: "JSON",
                     data:{
-                        name: txt_name,address: txt_address,
-                        city: txt_city,dob: txt_dob,
-                        about: about
+                        name: author_name,hindi_name:author_hindi_name,address: author_address,
+                        city: author_city,dob: author_dob,pan: author_pan,
+                        about: about,img_status:status_img
                     },
                     headers:{Authorization : remember_token},
                     beforeSend: function() {
@@ -242,10 +278,11 @@ MBJS.UserProfile.prototype = {
                         console.log(data);
                         self.notify("Profile Updated successfully",'inverse');
                         update_button.html('Save &nbsp;<i class="zmdi zmdi-edit"></i>');
-                        $('.span-auth-name').html(txt_name);
-                        $('#span-auth-address').html(txt_address);
-                        $('#span-auth-city').html(txt_city);
-                        $('#span-auth-dob').html(txt_dob);
+                        $('.span-auth-name').html(author_name);
+                        $('#span-auth-address').html(author_address);
+                        $('#span-auth-city').html(author_city);
+                        $('#span-auth-dob').html(author_dob);
+                        $('#span-auth-pan').html(author_pan);
                         $('#span-auth-about').html(about);
                         $('.pmbb-body div.pmbb-header ul.actions ').show();
                     },
@@ -267,6 +304,144 @@ MBJS.UserProfile.prototype = {
                 $(element).removeClass('error');
                 $(element).closest('.pos-relative').find('.error-span').css('opacity',0);
             }
+        });
+    },
+
+    privacySetting:function() {
+        var author_id=$('#author_id').val();
+        var auth_token = $('#remember_token').val();
+        var self=this;
+        var status_img;
+        var status_phn;
+        var status_email;
+        var status_add;
+        $('#hide_img_chk').change(function() {
+            var checkbox=$(this);
+            if(checkbox.is(':checked')) {
+                status_img = 'Hidden';
+            }
+            else {
+                status_img = 'View';
+            }
+            $.ajax({
+                url: self.base_url+"authors/"+author_id,
+                type: "PUT",
+                dataType: "JSON",
+                data:{
+                    img_status:status_img
+                },
+                headers:{Authorization : auth_token},
+                error:function(data) {
+                    console.log(data);
+                    var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
+                    if(data.status==422) {
+                        self.notify(obj.error[0],'danger');
+                    }
+                    else if(data.status==500) {
+                        self.notify("Something went wrong on server",'danger');
+                    }
+                },
+                success: function (data, textStatus, jqXHR) {
+                    console.log(data);
+                    self.notify("Profile Updated successfully",'inverse');
+                }
+            });
+        });
+        $('#hide_phn_chk').change(function() {
+            var checkbox=$(this);
+            if(checkbox.is(':checked')) {
+                status_phn = 'Hidden';
+            }
+            else {
+                status_phn = 'View';
+            }
+            $.ajax({
+                url: self.base_url+"authors/"+author_id,
+                type: "PUT",
+                dataType: "JSON",
+                data:{
+                    phn_status:status_phn
+                },
+                headers:{Authorization : auth_token},
+                error:function(data) {
+                    console.log(data);
+                    var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
+                    if(data.status==422) {
+                        self.notify(obj.error[0],'danger');
+                    }
+                    else if(data.status==500) {
+                        self.notify("Something went wrong on server",'danger');
+                    }
+                },
+                success: function (data, textStatus, jqXHR) {
+                    console.log(data);
+                    self.notify("Profile Updated successfully",'inverse');
+                }
+            });
+        });
+        $('#hide_email_chk').change(function() {
+            var checkbox=$(this);
+            if(checkbox.is(':checked')) {
+                status_email = 'Hidden';
+            }
+            else {
+                status_email = 'View';
+            }
+            $.ajax({
+                url: self.base_url+"authors/"+author_id,
+                type: "PUT",
+                dataType: "JSON",
+                data:{
+                    email_status:status_email
+                },
+                headers:{Authorization : auth_token},
+                error:function(data) {
+                    console.log(data);
+                    var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
+                    if(data.status==422) {
+                        self.notify(obj.error[0],'danger');
+                    }
+                    else if(data.status==500) {
+                        self.notify("Something went wrong on server",'danger');
+                    }
+                },
+                success: function (data, textStatus, jqXHR) {
+                    console.log(data);
+                    self.notify("Profile Updated successfully",'inverse');
+                }
+            });
+        });
+        $('#hide_add_chk').change(function() {
+            var checkbox=$(this);
+            if(checkbox.is(':checked')) {
+                status_add = 'Hidden';
+            }
+            else {
+                status_add = 'View';
+            }
+            $.ajax({
+                url: self.base_url+"authors/"+author_id,
+                type: "PUT",
+                dataType: "JSON",
+                data:{
+                    add_status:status_add
+                },
+                headers:{Authorization : auth_token},
+                error:function(data) {
+                    console.log(data);
+                    var obj = jQuery.parseJSON(data.responseText);//<<----<< this object convert responseText into JSON
+                    if(data.status==422) {
+                        self.notify(obj.error[0],'danger');
+                    }
+                    else if(data.status==500) {
+                        self.notify("Something went wrong on server",'danger');
+                    }
+                },
+                success: function (data, textStatus, jqXHR) {
+                    console.log(data);
+                    self.notify("Profile Updated successfully",'inverse');
+                }
+            });
         });
     }
 };

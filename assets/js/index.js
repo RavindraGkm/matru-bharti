@@ -7,9 +7,11 @@ MBJS.Index=function(base_url){
 MBJS.Index.prototype = {
     initialize:function() {
         this.basicSetup();
-        //this.userDuplicacy();
         this.registerUser();
         this.loginUser();
+        this.forgotPassword();
+        this.contactUs();
+
     },
     notify: function(message,type) {
         $.growl({
@@ -246,6 +248,127 @@ MBJS.Index.prototype = {
                     },
                     complete: function (jqXHR, textStatus) {
 
+                    }
+                });
+            },
+            errorPlacement: function(error, element) {
+                $( element ).closest( "form" ).find( "span[data-error-for='" + element.attr( "id" ) + "']").html(error[0].innerHTML).css('opacity',1);
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass('error');
+                $(element).closest('.pos-relative').find('.error-span').css('opacity',0);
+            }
+        });
+    },
+    forgotPassword:function() {
+        var self=this;
+        $("#form_forgot_password").validate({
+            rules: {
+                forgot_email: {
+                    required: true,
+                    email : true
+                }
+            },
+            messages : {
+                forgot_email: {
+                    required : 'Enter your email',
+                    email : 'Enter valid email'
+                }
+            },
+            submitHandler: function(form) {
+                var forgot_email = $('#forgot_email').val();
+                var forgot_password_button = $('#forgot_password_button');
+                $.ajax({
+                    url: self.base_url+"forgot",
+                    type: "POST",
+                    dataType: "JSON",
+                    data:{
+                        email: forgot_email
+                    },
+                    beforeSend: function() {
+                        forgot_password_button.html('Processing... &nbsp;<i class="zmdi zmdi-arrow-forward"></i>');
+                    },
+                    error: function(data) {
+                        console.log(data);
+                        var obj = jQuery.parseJSON(data.responseText);
+                        if(data.status==401) {
+                            self.notify(obj.msg,'inverse');
+                        }
+                    },
+                    success: function (data) {
+                        self.notify(data.result.password,'inverse');
+                    },
+                    complete: function (jqXHR, textStatus) {
+
+                    }
+                });
+            },
+            errorPlacement: function(error, element) {
+                $( element ).closest( "form" ).find( "span[data-error-for='" + element.attr( "id" ) + "']").html(error[0].innerHTML).css('opacity',1);
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass('error');
+                $(element).closest('.pos-relative').find('.error-span').css('opacity',0);
+            }
+        });
+    },
+    contactUs:function() {
+        var self=this;
+        $("#form_sendemail").validate({
+            rules: {
+                email: {
+                    required: true,
+                    email : true
+                },
+                name: {
+                    required : true
+                },
+                message: {
+                    required:true
+                }
+            },
+            messages : {
+                email: {
+                    required : 'Enter your email',
+                    email : 'Enter valid email'
+                },
+                name: {
+                    required: 'Enter your Name'
+                },
+                message: {
+                    required: "Enter message"
+                }
+            },
+            submitHandler: function(form) {
+                var ct_email = $('#email').val();
+                var ct_name = $('#name').val();
+                var ct_msg = $('#message').val();
+                var send_message_button = $('#send_message');
+                $.ajax({
+                    url: self.base_url+"contact",
+                    type: "POST",
+                    dataType: "JSON",
+                    data:{
+                        email: ct_email,
+                        name: ct_name,
+                        message: ct_msg
+                    },
+                    beforeSend: function() {
+                        send_message_button.html('Sending.... &nbsp;<i class="zmdi zmdi-arrow-forward"></i>');
+                    },
+                    error:function(data) {
+                        var obj = jQuery.parseJSON(data.responseText);
+                        if(data.status==422) {
+                            self.notify(obj.msg,'danger');
+                        }
+                        else if(data.status==500) {
+                            self.notify('Something went wrong on server !','danger');
+                            send_message_button.html('Send Message &nbsp;<i class="zmdi zmdi-arrow-forward"></i>');
+                        }
+                    },
+                    success: function (data) {
+                        self.notify('Send Message Successfully','danger');
+                        send_message_button.html('Send Message');
                     }
                 });
             },

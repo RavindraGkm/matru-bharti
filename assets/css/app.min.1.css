@@ -9,6 +9,88 @@
  */
 
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+.dropdown-menu-profile {
+  width:200px;
+}
+
+.home-nav-link {
+  padding:2px 5px;
+  margin:0px 5px;
+  font-size: 15px;
+}
+
+.li-pd-left {
+  padding-left:10px;
+
+}
+
+.card-msg-align {
+  padding:50px 50px 0px 50px;
+}
+
+.card-msg-align p {
+  font-size: 14px;
+}
+
+.card-msg-align span {
+  color:#009688;
+  font-weight: bolder;
+}
+
+.card-msg-align hr {
+  color:#009688;
+}
+.card-rules-align {
+   padding:10px 50px 0px 50px;
+}
+
+.div_show_case_img {
+  margin-bottom: 20px;
+}
+
+div.div-info-icon {
+  margin-top: 20px;
+}
+
+.col-hight {
+  height:50px;
+}
+
+.icon-fa-count {
+  position: relative;
+  color: #0A4640;
+  /*position:absolute;*/
+  margin-top:14px;
+}
+
+.span-tmn-count {
+  font-size: 11px;
+  color: #f5f5f5;
+  background-color: #F20000;
+  padding: 0px 5px;
+  border-radius: 50px;
+  margin-left: -6px;
+  /*position: relative;*/
+  position:absolute;
+}
+
+img.pro-img-tab-list {
+  border: 0;
+  border-radius: 50% !important;
+  height: 50px !important;
+  width: 50px !important;
+  max-height: 50px !important;
+  max-width: 50px !important;
+}
+
+.tab-prev-img-div {
+  max-height: 60px;
+  max-width: 60px;
+}
+
+.tab-prev-img-div>img {
+    border-radius: 2px;
+}
 
 .pos-relative {
   position: relative;
@@ -3020,7 +3102,8 @@ th {
 .table > tfoot > tr > td {
   padding: 10px;
   line-height: 1.42857143;
-  vertical-align: top;
+  vertical-align: middle;
+  /*vertical-align: top;*/
   border-top: 1px solid #f0f0f0;
 }
 

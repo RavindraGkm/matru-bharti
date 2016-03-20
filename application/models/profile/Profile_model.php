@@ -13,6 +13,18 @@ class Profile_model extends CI_Model {
         }
         return $response;
     }
+    public  function  privacy_setting($params,$author_id) {
+        $where = "id = ".$author_id;
+        $sql = $this->db->update_string('authors', $params, $where);
+        $response = array();
+        if($this->db->query($sql)) {
+            $response['updated'] = 'success';
+        }
+        else {
+            $response['updated'] = 'failed';
+        }
+        return $response;
+    }
 
     public function profile($remember_token) {
         $query = $this->db->get_where('users', array('token' => $remember_token));

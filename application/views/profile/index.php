@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Martu Bharti</title>
+    <title>Manthan</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <!--    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>-->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
@@ -44,7 +44,7 @@
         </li>
         <li class="logo hidden-xs">
             <a href="<?php echo base_url('profile'); ?>">
-                Matru Bharti
+                Manthan
             </a>
         </li>
         <li class="logo pull-right pull-right-margine">
@@ -69,7 +69,7 @@
                 </div>
             </a>
             <ul class="main-menu">
-                <li>
+                <li class="active">
                     <a href="<?php echo base_url('profile');?>"><i class="zmdi zmdi-account"></i> View Profile</a>
                 </li>
                 <li>
@@ -83,6 +83,9 @@
             <li><a href="<?php echo base_url('ebook-mng?tab=composition'); ?>"><i class="fa fa-file-word-o"></i> Composition</a></li>
             <li><a href="<?php echo base_url('ebook-mng?tab=ebook_list'); ?>"><i class="fa fa-list"></i> List of Uploaded Books</a></li>
             <li><a href="<?php echo base_url('ebook-mng?tab=composition_list'); ?>"><i class="fa fa-list"></i> List of Uploaded Composition</a></li>
+            <li id="a_top_authors"><a href="<?php echo base_url('ebook-mng?tab=top_authors'); ?>"> <i class="fa fa-users"></i> List of Top 10 Authors</a></li>
+            <li id="a_event"><a href="<?php echo base_url('ebook-mng?tab=event'); ?>"><i class="fa fa-bell"></i> Event Management</a></li>
+            <li id="a_show_case"><a href="<?php echo base_url('ebook-mng?tab=show_case'); ?>"><i class="fa fa-book"></i> Books Show Case </a></li>
         </ul>
     </aside>
     <section id="content">
@@ -94,9 +97,22 @@
             <div class="card" id="profile-main">
                 <div class="pm-overview c-overflow">
                     <div class="pmo-pic">
-                        <div class="p-relative">
-                            <a href="">
-                                <img id="profile_image" class="img-responsive" src="<?php echo base_url('image/upload/w_400/'.$author_id);?>" alt="" />
+                        <div class="p-relative ">
+                            <a href="" class="">
+                                <?php
+                                    $url = 'assets/uploads/authors-images/author-'.$author_id.'.jpg';
+                                    if(file_exists($url)) {
+                                ?>
+                                        <img id="profile_image" class="img-responsive" src="<?php echo base_url('image/upload/w_400/'.$author_id);?>" alt="" />
+                                <?php
+                                    }
+                                    else {
+                                ?>
+                                        <img id="profile_image" class="img-responsive" src="assets/img/profile-pics/no-image-1.jpg" alt="" />
+                                <?php
+                                    }
+                                ?>
+
                             </a>
                             <div class="dropdown pmop-message">
                                 <a data-toggle="dropdown" href="" class="btn bgm-white btn-float z-depth-1">
@@ -152,6 +168,57 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="dropdown">
+                                    <a href="" data-toggle="dropdown">
+                                        <i class="fa fa-cog"></i>
+                                    </a>
+
+                                    <ul class="dropdown-menu dropdown-menu-right dropdown-menu-profile">
+                                        <li>
+                                            <div class="checkbox m-b-15 pull-left">
+                                                <label><i class="fa fa-cog"></i>
+                                                    Privacy Settings
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="checkbox m-b-15 pull-left li-pd-left">
+                                                <label>
+                                                    <input type="checkbox" id="hide_img_chk" value="">
+                                                    <i class="input-helper"></i>
+                                                    Hide Image for viewer
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li class="">
+                                            <div class="checkbox m-b-15 pull-left li-pd-left">
+                                                <label>
+                                                    <input type="checkbox" id="hide_phn_chk" value="">
+                                                    <i class="input-helper"></i>
+                                                    Hide Contact for viewer
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li class="">
+                                            <div class="checkbox m-b-15 pull-left li-pd-left">
+                                                <label>
+                                                    <input type="checkbox" id="hide_email_chk" value="">
+                                                    <i class="input-helper"></i>
+                                                    Hide Email for viewer
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li class="">
+                                            <div class="checkbox m-b-15 pull-left li-pd-left">
+                                                <label>
+                                                    <input type="checkbox" id="hide_add_chk" value="">
+                                                    <i class="input-helper"></i>
+                                                    Hide Address for viewer
+                                                </label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                         <div class="pmbb-body p-l-30">
@@ -159,6 +226,10 @@
                                 <dl class="dl-horizontal dl-horizontals">
                                     <dt>Name*</dt>
                                     <dd><span class="span-auth-name"></span></dd>
+                                </dl>
+                                <dl class="dl-horizontal dl-horizontals">
+                                    <dt>Name (Hindi)</dt>
+                                    <dd><span class="span-auth-hindi-name"></span></dd>
                                 </dl>
                                 <dl class="dl-horizontal dl-horizontals">
                                     <dt>Address</dt>
@@ -171,6 +242,10 @@
                                 <dl class="dl-horizontal dl-horizontals">
                                     <dt>Date of Birth</dt>
                                     <dd><span id="span-auth-dob"></span></dd>
+                                </dl>
+                                <dl class="dl-horizontal dl-horizontals">
+                                    <dt>PAN Number*</dt>
+                                    <dd><span id="span-auth-pan"></span></dd>
                                 </dl>
                                 <dl class="dl-horizontal dl-horizontals">
                                     <dt>About yourself</dt>
@@ -187,8 +262,20 @@
                                                 <div class="pos-relative">
                                                     <input type="hidden" value="<?php echo $remember_token; ?>" name="remember_token" id="remember_token">
                                                     <input type="hidden" value="<?php echo $author_id; ?>" name="author_id" id="author_id">
-                                                    <input type="text" value="" autocomplete="off" class="form-control" name="txt_name" id="txt_name" placeholder="eg. Mallinda Hollaway">
-                                                    <span class="error-span" data-error-for="txt_name"></span>
+                                                    <input type="text" value="" autocomplete="off" class="form-control" name="author_name" id="author_name" placeholder="eg. Mallinda Hollaway">
+                                                    <span class="error-span" data-error-for="author_name"></span>
+                                                </div>
+                                            </div>
+
+                                        </dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt class="p-t-10">Name (Hindi)</dt>
+                                        <dd>
+                                            <div class="fg-line">
+                                                <div class="pos-relative">
+                                                    <input type="text" value="" autocomplete="off" class="form-control" name="author_hindi_name" id="author_hindi_name" placeholder="eg. Mallinda Hollaway">
+                                                    <span class="error-span" data-error-for="author_hindi_name"></span>
                                                 </div>
                                             </div>
 
@@ -199,8 +286,8 @@
                                         <dd>
                                             <div class="fg-line">
                                                 <div class="pos-relative">
-                                                    <textarea class="form-control" rows="2" name="txt_address" id="txt_address" placeholder="Address"></textarea>
-                                                    <span class="error-span" data-error-for="txt_address"></span>
+                                                    <textarea class="form-control" rows="2" name="author_address" id="author_address" placeholder="Address"></textarea>
+                                                    <span class="error-span" data-error-for="author_address"></span>
                                                 </div>
                                             </div>
                                         </dd>
@@ -210,8 +297,8 @@
                                         <dd>
                                             <div class="fg-line">
                                                 <div class="pos-relative">
-                                                    <input type="text" class="form-control" name="txt_city" id="txt_city" placeholder="eg. Udaipur">
-                                                    <span class="error-span" data-error-for="txt_city"></span>
+                                                    <input type="text" class="form-control" name="author_city" id="author_city" placeholder="eg. Udaipur">
+                                                    <span class="error-span" data-error-for="author_city"></span>
                                                 </div>
                                             </div>
                                         </dd>
@@ -221,9 +308,18 @@
                                         <dd>
                                             <div class="pos-relative">
                                                 <div class="dtp-container dropdown fg-line">
-                                                    <input type='text' class="form-control date-picker" name="txt_dob" id="txt_dob" data-toggle="dropdown" placeholder="Click here...">
+                                                    <input type='text' class="form-control date-picker" name="author_dob" id="author_dob" data-toggle="dropdown" placeholder="Click here...">
                                                 </div>
-                                                <span class="error-span" data-error-for="txt_dob"></span>
+                                                <span class="error-span" data-error-for="author_dob"></span>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt class="p-t-10">PAN Number*</dt>
+                                        <dd>
+                                            <div class="pos-relative">
+                                                <input type="text" class="form-control" name="author_pan_card" id="author_pan_card" placeholder="Pan Number">
+                                                <span class="error-span" data-error-for="author_pan_card"></span>
                                             </div>
                                         </dd>
                                     </dl>
@@ -232,8 +328,8 @@
                                         <dd>
                                             <div class="fg-line">
                                                 <div class="pos-relative">
-                                                    <textarea class="form-control" rows="10" name="txt_about_yourself" id="txt_about_yourself" placeholder="About your self"></textarea>
-                                                    <span class="error-span" data-error-for="txt_about_yourself"></span>
+                                                    <textarea class="form-control" rows="7" name="author_about_yourself" id="author_about_yourself" placeholder="About your self"></textarea>
+                                                    <span class="error-span" data-error-for="author_about_yourself"></span>
                                                 </div>
                                             </div>
                                         </dd>
@@ -259,7 +355,7 @@
 </section>
 
 <footer id="footer">
-    Copyright &copy; 2015 Matru Bharti
+    Copyright &copy; 2015 Manthan
 
     <ul class="f-menu">
         <li><a href="">Home</a></li>
