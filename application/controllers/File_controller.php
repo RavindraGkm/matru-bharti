@@ -12,17 +12,14 @@ class File_controller extends CI_Controller {
         $DestinationDirectory = 'assets/uploads/ebooks/ebook-files/';
         $config['upload_path']          = $DestinationDirectory;
         $config['allowed_types']        = 'pdf';
-<<<<<<< HEAD
 //        $config['allowed_types']        = 'docx|pdf';
-=======
->>>>>>> 41c2f9acf489fbe084b57ff8abfcd89c7fee0515
         $this->load->library('upload', $config);
-        if ( ! $this->upload->do_upload('ebook_file_00')) {
+        if ( ! $this->upload->do_upload('ebook_file')) {
             $error = array('error' => $this->upload->display_errors());
-          //  echo json_encode($error);
+            echo json_encode($error);
         }
         else {
-            //echo json_encode(array('status'=>'success'));
+            echo json_encode(array('status'=>'success'));
         }
     }
 
