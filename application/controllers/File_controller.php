@@ -11,7 +11,8 @@ class File_controller extends CI_Controller {
     public function ebook_file() {
         $DestinationDirectory = 'assets/uploads/ebooks/ebook-files/';
         $config['upload_path']          = $DestinationDirectory;
-        $config['allowed_types']        = 'docx|pdf';
+        $config['allowed_types']        = 'pdf';
+//        $config['allowed_types']        = 'docx|pdf';
         $this->load->library('upload', $config);
         if ( ! $this->upload->do_upload('ebook_file')) {
             $error = array('error' => $this->upload->display_errors());
@@ -23,6 +24,34 @@ class File_controller extends CI_Controller {
     }
 
     public function ebook_cover_page() {
+        $DestinationDirectory = 'assets/uploads/ebooks/ebook-cover-page/';
+        $config['upload_path']          = $DestinationDirectory;
+        $config['allowed_types']        = 'jpeg|png|jpg|gif';
+        $this->load->library('upload', $config);
+        if ( ! $this->upload->do_upload('ebook_cover')) {
+            $error = array('error' => $this->upload->display_errors());
+            echo json_encode($error);
+        }
+        else {
+            echo json_encode(array('status'=>'success'));
+        }
+    }
+
+    public function event_cover_page() {
+        $DestinationDirectory = 'assets/uploads/event-img/';
+        $config['upload_path']          = $DestinationDirectory;
+        $config['allowed_types']        = 'jpeg|png|jpg|gif';
+        $this->load->library('upload', $config);
+        if ( ! $this->upload->do_upload('event_cover')) {
+            $error = array('error' => $this->upload->display_errors());
+            echo json_encode($error);
+        }
+        else {
+            echo json_encode(array('status'=>'success'));
+        }
+    }
+
+//    public function ebook_cover_page() {
 //        $DestinationDirectory = 'assets/uploads/ebooks/ebook-cover-page';
 //        if (!isset($_FILES['ebook_cover']) || !is_uploaded_file($_FILES['ebook_cover']['tmp_name'])) {
 //            die('Something wrong with uploaded file, something missing!');
@@ -33,7 +62,7 @@ class File_controller extends CI_Controller {
 //        $author_id = $this->input->post('author_id');
 //        WideImage::load($TempSrc)->resize($originalWidth, $originalHeight)->saveToFile($DestinationDirectory.'author-'.$author_id.'.jpg');
 //        echo json_encode(array('author_id',$this->input->post('author_id')));
-    }
+//    }
 
 //    public function image($one,$two=-1) {
 //        if($two==-1) {

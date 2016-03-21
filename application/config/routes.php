@@ -68,6 +68,7 @@ $route['profile-image-2'] = "Image_controller";
 $route['image/upload/(:any)/(:num)'] = "Image_controller/image/$1/$2";
 $route['image/upload/(:num)'] = "Image_controller/image/$1";
 $route['ebook-cover-image-2'] = "File_controller/ebook_cover_page";
+$route['event-image-2'] = "File_controller/event_cover_page";
 $route['ebook-file-upload'] = "File_controller/ebook_file";
 $route['logout']="Logout_controller";
 $route['home'] = "Home_controller";

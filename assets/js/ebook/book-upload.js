@@ -10,7 +10,7 @@ MBJS.AuthorBook.prototype = {
         this.basicSetups();
         this.viewProfileInfo();
         this.ebookUpload();
-        this.getEbookCategory();
+        //this.getEbookCategory();
         //this.ebookFileUpload();
         this.compositionUpload();
         this.eventUpload();
@@ -21,6 +21,8 @@ MBJS.AuthorBook.prototype = {
         this.viewShowCaseList();
         this.viewTopAuthorsList();
         //this.viewEbookShowCase();
+        this.ebookcoverUpload();
+        this.eventimageUpload();
     },
 
     notify: function(message,type) {
@@ -84,14 +86,14 @@ MBJS.AuthorBook.prototype = {
             beforeSubmit:beforeSubmit,
             uploadProgress:OnProgress,
             success:afterSuccess,
-            resetForm: true,
+            resetForm: false,
             data: {author_id : author_id},
             headers:{Authorization : remember_token}
         };
 
 
         $("#ebook_file").change(function() {
-            $('#ebook_upload_form').submit();
+            $('#ebook_upload_form').ajaxSubmit(options);
             return false;
         });
 
@@ -100,20 +102,32 @@ MBJS.AuthorBook.prototype = {
             return false;
         });
 
+        $("#ebook_cover").change(function() {
+            $('#ebook_cover_upload_form').ajaxSubmit(options);
+            return false;
+        });
+
+        $('#ebook_cover_upload_form').submit(function() {
+            $(this).ajaxSubmit(options);
+            return false;
+        });
 
         function OnProgress(event, position, total, percentComplete) {
+            console.log("Helloo Progress");
             //progressbar.removeClass(self.last_class).addClass("p"+percentComplete);
             //self.last_class = "p"+percentComplete;
             //statustxt.html(percentComplete + '%');
+            console.log(percentComplete);
         }
 
         function afterSuccess() {
+            console.log("this is After submit");
             //uploadingprogressdiv.addClass('hidden');
         }
 
 //function to check file size before uploading.
         function beforeSubmit() {
-            uploadingprogressdiv.removeClass('hidden');
+            console.log("beforeSubmit");
             if (window.File && window.FileReader && window.FileList && window.Blob) {
                 if( !$('#ebook_file').val()) {
                     $("#output").html("Are you kidding me?");
@@ -122,6 +136,169 @@ MBJS.AuthorBook.prototype = {
                 var fsize = $('#ebook_file')[0].files[0].size; //get file size
                 var ftype = $('#ebook_file')[0].files[0].type; // get file type
 
+                //allow only valid image file types
+                switch(ftype) {
+                    case 'application/pdf':
+                        break;
+                    default:
+                        $("#output").html("<b>"+ftype+"</b> Unsupported file type!");
+                        return false
+                }
+
+                //Allowed file size is less than 1 MB (1048576)
+                if(fsize>1048576) {
+                    $("#output").html("<b>"+bytesToSize(fsize) +"</b> Too big Image file! <br />Please reduce the size of your photo using an image editor.");
+                    return false
+                }
+
+                //Progress bar
+                // progressbox.show(); //show progressbar
+                // statustxt.html(completed); //set status text
+                // statustxt.css('color','#000'); //initial color of status text
+
+                // $('#submit-btn').hide(); //hide submit button
+                // $('#loading-img').show(); //hide submit button
+                // $("#output").html("");
+            }
+            else
+            {
+                //Output error to older unsupported browsers that doesn't support HTML5 File API
+                $("#output").html("Please upgrade your browser, because your current browser lacks some new features we need!");
+                return false;
+            }
+        }
+
+
+    },
+    ebookcoverUpload : function () {
+        // Uploading setups
+        var author_id=$('#author_id').val();
+        var remember_token = $('#remember_token').val();
+
+        var options = {
+            target:'#output',
+            beforeSubmit:beforeSubmit,
+            uploadProgress:OnProgress,
+            success:afterSuccess,
+            resetForm: false,
+            data: {author_id : author_id},
+            headers:{Authorization : remember_token}
+        };
+        $("#ebook_cover").change(function() {
+            $('#ebook_cover_upload_form').ajaxSubmit(options);
+            return false;
+        });
+
+        $('#ebook_cover_upload_form').submit(function() {
+            $(this).ajaxSubmit(options);
+            return false;
+        });
+
+        function OnProgress(event, position, total, percentComplete) {
+            console.log("Helloo Progress");
+            //progressbar.removeClass(self.last_class).addClass("p"+percentComplete);
+            //self.last_class = "p"+percentComplete;
+            //statustxt.html(percentComplete + '%');
+            console.log(percentComplete);
+        }
+
+        function afterSuccess() {
+            console.log("this is After submit");
+            //uploadingprogressdiv.addClass('hidden');
+        }
+
+//function to check file size before uploading.
+        function beforeSubmit() {
+            console.log("beforeSubmit");
+            if (window.File && window.FileReader && window.FileList && window.Blob) {
+                if( !$('#ebook_cover').val()) {
+                    $("#output").html("Are you kidding me?");
+                    return false
+                }
+                var fsize = $('#ebook_cover')[0].files[0].size; //get file size
+                var ftype = $('#ebook_cover')[0].files[0].type; // get file type
+
+                //allow only valid image file types
+                switch(ftype) {
+                    case 'image/png': case 'image/gif': case 'image/jpeg': case 'image/pjpeg':
+                        break;
+                    default:
+                        $("#output").html("<b>"+ftype+"</b> Unsupported file type!");
+                        return false
+                }
+
+                //Allowed file size is less than 1 MB (1048576)
+                if(fsize>1048576) {
+                    $("#output").html("<b>"+bytesToSize(fsize) +"</b> Too big Image file! <br />Please reduce the size of your photo using an image editor.");
+                    return false
+                }
+
+                //Progress bar
+                // progressbox.show(); //show progressbar
+                // statustxt.html(completed); //set status text
+                // statustxt.css('color','#000'); //initial color of status text
+
+                // $('#submit-btn').hide(); //hide submit button
+                // $('#loading-img').show(); //hide submit button
+                // $("#output").html("");
+            }
+            else
+            {
+                //Output error to older unsupported browsers that doesn't support HTML5 File API
+                $("#output").html("Please upgrade your browser, because your current browser lacks some new features we need!");
+                return false;
+            }
+        }
+
+
+    },
+    eventimageUpload : function () {
+        // Uploading setups
+        var author_id=$('#author_id').val();
+        var remember_token = $('#remember_token').val();
+
+        var options = {
+            target:'#output',
+            beforeSubmit:beforeSubmit,
+            uploadProgress:OnProgress,
+            success:afterSuccess,
+            resetForm: false,
+            data: {author_id : author_id},
+            headers:{Authorization : remember_token}
+        };
+        $("#event_cover").change(function() {
+            $('#event_img_upload_form').ajaxSubmit(options);
+            return false;
+        });
+
+        $('#event_img_upload_form').submit(function() {
+            $(this).ajaxSubmit(options);
+            return false;
+        });
+
+        function OnProgress(event, position, total, percentComplete) {
+            console.log("Helloo Progress");
+            //progressbar.removeClass(self.last_class).addClass("p"+percentComplete);
+            //self.last_class = "p"+percentComplete;
+            //statustxt.html(percentComplete + '%');
+            console.log(percentComplete);
+        }
+
+        function afterSuccess() {
+            console.log("this is After submit");
+            //uploadingprogressdiv.addClass('hidden');
+        }
+
+//function to check file size before uploading.
+        function beforeSubmit() {
+            console.log("beforeSubmit");
+            if (window.File && window.FileReader && window.FileList && window.Blob) {
+                if( !$('#event_cover').val()) {
+                    $("#output").html("Are you kidding me?");
+                    return false
+                }
+                var fsize = $('#event_cover')[0].files[0].size; //get file size
+                var ftype = $('#event_cover')[0].files[0].type; // get file type
 
                 //allow only valid image file types
                 switch(ftype) {
@@ -139,13 +316,13 @@ MBJS.AuthorBook.prototype = {
                 }
 
                 //Progress bar
-                progressbox.show(); //show progressbar
-                statustxt.html(completed); //set status text
-                statustxt.css('color','#000'); //initial color of status text
+                // progressbox.show(); //show progressbar
+                // statustxt.html(completed); //set status text
+                // statustxt.css('color','#000'); //initial color of status text
 
-                $('#submit-btn').hide(); //hide submit button
-                $('#loading-img').show(); //hide submit button
-                $("#output").html("");
+                // $('#submit-btn').hide(); //hide submit button
+                // $('#loading-img').show(); //hide submit button
+                // $("#output").html("");
             }
             else
             {
@@ -154,6 +331,7 @@ MBJS.AuthorBook.prototype = {
                 return false;
             }
         }
+
 
     },
     //this function for retriving user data from any page just like "user name"
